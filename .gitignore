@@ -1,0 +1,7 @@
+/docker
+/logs
+target
+tmp
+.history
+/.idea
+/.idea_modules
