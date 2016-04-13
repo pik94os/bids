@@ -1,3 +1,13 @@
 @import "variables";
 @import "mixins";
 @import "header";
+.row-block{
+  width: 100%;
+  .content-block{
+    width: 100%;
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5px 10px;
+  }
+}

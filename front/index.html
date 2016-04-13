@@ -6,107 +6,110 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
 </head>
 <body>
-    <header>
+    <header class="row-block">
 	        	 
-        <div>
+        <div class="content-block">
             <div>Вход/Регистрация</div>
             <div class="inp-group">
                 <input type="text">
                 <button>Найти</button>
             </div>
         </div>
-		<div class="top-menu"><!-- верхнее меню -->
-			<div  class="logo-top"><a href=""  title="на главную"><img src=""></img></a></div>
-			<div><a href="">Главная</a></div>
-			<div><a href="">Аукционные дома</a></div>
-			<div><a href="">О нас</a></div>
-			<div><a href="">Календарь</a></div>
-			<div><a href="">Контакты</a></div>
-        </div>
-          
-		 
-		<div class="anons-field">
+		<div class="row-block">
+			<div class="top-menu content-block"><!-- верхнее меню -->
+				<div  class="logo-top"><a href=""  title="на главную"><img src=""/></a></div>
+				<div><a href="">Главная</a></div>
+				<div><a href="">Аукционные дома</a></div>
+				<div><a href="">О нас</a></div>
+				<div><a href="">Календарь</a></div>
+				<div><a href="">Контакты</a></div>
+			</div>
+		</div>
+		<div class="content-block anons-field">
 			<!-- здесь большой баннер анонса под меню -->
 			<div class="baner"></div>
 			<!-- информация об аукционе -->
 			<div class="baner-info"></div>
 		</div>
 	</header>
-	<content>
-        
-		<!-- блок фильтров -->
-		<div class="filters">
-			<!-- колонка АУКЦИОНЫ -->
-			<div class="filter-info-cl1">
-				<div class="block-h2">АУКЦИОНЫ</div>
-				<div class="block-text">6 аукционов</div>
-			</div>
-			<!-- колонка информация об аукционе с лист-боксами -->
-			<div class="filter-info-cl2">
-				<div class="block-h2">МЕСТО ПРОВЕДЕНИЯ</div>
-				<div class="block-text">(доступно 4)</div>
-				<div class="selector"></div>
-				
-				<div class="block-h2">ТЕМА АУКЦИОНА</div>
-				<div class="block-text">(доступно 40)</div>
-				<div class="selector"></div>
-			</div>
-			
-			<!-- блок выбора локализации аукциона с кнопкой "убрать из фильтров" -->
-			<div class="country-select">
-				<div> Москва<div class="remove-filter"></div>
+	<content  class="row-block">
+		<div  class="content-block">
+			<!-- блок фильтров -->
+			<div class="filters">
+				<!-- колонка АУКЦИОНЫ -->
+				<div class="filter-info-cl1">
+					<div class="block-h2">АУКЦИОНЫ</div>
+					<div class="block-text">6 аукционов</div>
 				</div>
-				<div> Женева<div class="remove-filter"></div>
+				<!-- колонка информация об аукционе с лист-боксами -->
+				<div class="filter-info-cl2">
+					<div class="block-h2">МЕСТО ПРОВЕДЕНИЯ</div>
+					<div class="block-text">(доступно 4)</div>
+					<div class="selector"></div>
+
+					<div class="block-h2">ТЕМА АУКЦИОНА</div>
+					<div class="block-text">(доступно 40)</div>
+					<div class="selector"></div>
 				</div>
-				<div> Гонконг<div class="remove-filter"></div>
-				</div>
-				<div> Лондон<div class="remove-filter"></div>
-				</div>
-				<div> Нью-Йорк<div class="remove-filter"></div>
-				</div>
-				
-				<div> Убрать все фильтры<div class="remove-filter"></div>
-				</div>
-			</div>
-		</div>
-	
-		<!-- в этот блок помещаем аукционы, найденые по фильтру -->
-		<div class="entry-finded">
-			
-			<!-- представляем только один блок для верстки -->
-			<div>
-					<div class="entry-logo"></div>
-					<div class="entry-info">
-							<div class="entry-TimePlace">19 февраля 2016 в 19:00 | Москва | Гостиница "Украина"</div>
-							<p class="entry-number">Аукцион 2</p>
-							<p class="entry-header">Антикварный книжный клуб</p>
-							<p class="entry-description">Редкие и ценные книги, плакаты, открытки</p>
-					</div>		
-							
-					<div class="entry-action">
-							<div>РЕГИСТРАЦИЯ</div>
-							<div>ПРОСМОТР КАТАЛОГА</div>
-							<div>ДОБАВИТЬ В КАЛЕНДАРЬ</div>
-							<div>РАСПЕЧАТАТЬ КАТАЛОГ</div>
+
+				<!-- блок выбора локализации аукциона с кнопкой "убрать из фильтров" -->
+				<div class="country-select">
+					<div> Москва<div class="remove-filter"></div>
+					</div>
+					<div> Женева<div class="remove-filter"></div>
+					</div>
+					<div> Гонконг<div class="remove-filter"></div>
+					</div>
+					<div> Лондон<div class="remove-filter"></div>
+					</div>
+					<div> Нью-Йорк<div class="remove-filter"></div>
+					</div>
+
+					<div> Убрать все фильтры<div class="remove-filter"></div>
 					</div>
 				</div>
-		</div>
-		<!-- блок "показать архивные" -->
-		<div class="look-archive">
-			<div class="selector"></div>
-		</div>
-		<!-- кнопка "наверх страницы" -->
-		<div class="go-top">
+			</div>
+
+			<!-- в этот блок помещаем аукционы, найденые по фильтру -->
+			<div class="entry-finded">
+
+				<!-- представляем только один блок для верстки -->
+				<div>
+					<div class="entry-logo"></div>
+					<div class="entry-info">
+						<div class="entry-TimePlace">19 февраля 2016 в 19:00 | Москва | Гостиница "Украина"</div>
+						<p class="entry-number">Аукцион 2</p>
+						<p class="entry-header">Антикварный книжный клуб</p>
+						<p class="entry-description">Редкие и ценные книги, плакаты, открытки</p>
+					</div>
+
+					<div class="entry-action">
+						<div>РЕГИСТРАЦИЯ</div>
+						<div>ПРОСМОТР КАТАЛОГА</div>
+						<div>ДОБАВИТЬ В КАЛЕНДАРЬ</div>
+						<div>РАСПЕЧАТАТЬ КАТАЛОГ</div>
+					</div>
+				</div>
+			</div>
+			<!-- блок "показать архивные" -->
+			<div class="look-archive">
+				<div class="selector"></div>
+			</div>
+			<!-- кнопка "наверх страницы" -->
+			<div class="go-top">
+			</div>
 		</div>
 	</content>
-	<footer>
-		<div class="logo-bottom"><a href="" title="на главную"><img src=""></img></a></div>
-		<div class="links-block">
-			<!-- ссылки на социальные сети -->
-			<div><a href="" title="мы в Facebook"><img  class="link-fb"/></a></div>
-			<div><a href="" title="мы в Tweeter"><img  class="link-tw"/></a></div>
-			<div><a href="" title="мы в Google+"><img  class="link-gp"/></a></div>
-			<div><a href="" title="мы в VK"><img class="link-vk"/></a></div>
+	<footer  class="row-block">
+		<div class="content-block">
+			<div class="logo-bottom"><a href="" title="на главную"><img src=""/></a></div>
+			<div class="links-block">
+				<!-- ссылки на социальные сети -->
+				<div><a href="" title="мы в Facebook"><img  class="link-fb"/></a></div>
+				<div><a href="" title="мы в Tweeter"><img  class="link-tw"/></a></div>
+				<div><a href="" title="мы в Google+"><img  class="link-gp"/></a></div>
+				<div><a href="" title="мы в VK"><img class="link-vk"/></a></div>
+			</div>
 		</div>
 	</footer>
 </body>
