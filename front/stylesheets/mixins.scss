@@ -1,0 +1,78 @@
+@mixin margin-vertical ($size){
+  margin:{
+    top:$size;
+    bottom:$size;
+  }
+}
+@mixin margin-horizontal ($size){
+  margin:{
+    left:$size;
+    right:$size;
+  }
+}
+@mixin padding-vertical ($size){
+  padding:{
+    top:$size;
+    bottom:$size;
+  }
+}
+@mixin padding-horizontal ($size){
+  padding:{
+    left:$size;
+    right:$size;
+  }
+}
+@mixin square-size ($size, $pref: none){
+  @if $pref == none{
+    width: $size !important;
+    height: $size !important;
+  } @else if $pref == max {
+    max-width: $size !important;
+    max-height: $size !important;
+  } @else if $pref == min {
+    min-width: $size !important;
+    min-height: $size !important;
+  }
+}
+@mixin placeholder-style{
+  &::-webkit-input-placeholder{
+    @content ;
+  }
+  &::-moz-placeholder{
+    opacity: 1;
+    @content ;
+  }
+  &:-moz-placeholder{
+    @content ;
+  }
+  &:-ms-input-placeholder{
+    @content ;
+  }
+}
+@mixin border-radius($rad,$bord ...){
+  border:$bord;
+  border-radius: $rad;
+}
+@mixin border-radius-left($rad,$bord ...){
+  border-left:$bord;
+  @include border-left-radius($rad);
+}
+@mixin border-radius-right($rad,$bord ...){
+  border-right:$bord;
+  @include border-right-radius($rad);
+}
+@mixin border-radius-top($rad,$bord ...){
+  border-top:$bord;
+  @include border-top-radius($rad);
+}
+@mixin border-radius-bottom($rad,$bord ...){
+  border-bottom:$bord;
+  @include border-bottom-radius($rad);
+}
+@mixin border-no-bottom($bord ...){
+  border:{
+    right: $bord;
+    left: $bord;
+    top: $bord;
+  };
+}
