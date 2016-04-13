@@ -53,12 +53,22 @@ gulp.task('webserver', () => {
     server.start();
 });
 
+gulp.task('html',() => {
+    gulp.src(path.src.html) //Выберем файлы по нужному пути
+        // .pipe(include())//Объединим с шаблонами
+        // .pipe(htmlmin({collapseWhitespace: true}))//минимизируем
+        .pipe(gulp.dest(path.build.html)); //Выплюнем их в папку build
+});
+
 gulp.task('watch', function(){
-    watch(['./*.scss'], () => {
+    watch([path.watch.html], () => {
+        gulp.start('html');
+    });
+    watch([path.watch.style], () => {
         gulp.start('sass');
     });
 });
 
 gulp.task('default',(cb) => {
-    runSequence(['sass','webserver','watch'], cb);
+    runSequence(['sass', 'html','webserver','watch'], cb);
 });
