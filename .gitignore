@@ -5,4 +5,4 @@ tmp
 .history
 /.idea
 /.idea_modules
-/public
+/node_modules

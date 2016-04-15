@@ -1,6 +1,10 @@
 @import "variables";
 @import "mixins";
 @import "header";
+@import "footer";
+@import "front-page";
+
+/*
 .row-block{
   width: 100%;
   .content-block{
@@ -10,4 +14,11 @@
     margin: 0 auto;
     padding: 5px 10px;
   }
+}
+*/
+
+.width-site{
+  width: 1000px;
+  margin: 0 auto;
+  background: green;
 }
