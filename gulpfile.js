@@ -88,5 +88,5 @@ gulp.task('watch', function(){
 });
 
 gulp.task('default',(cb) => {
-    runSequence(['sass', 'html','webserver','watch'], cb);
+    runSequence(['sass', 'html','image','webserver','watch'], cb);
 });
