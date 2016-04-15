@@ -15,7 +15,9 @@ var path = {
     build: { //Тут мы укажем куда складывать готовые после сборки файлы
         html: 'public/',
         js: 'public/javascripts/',
-        css: 'public/stylesheets/'
+        css: 'public/stylesheets/',
+        img: 'public/images/',
+        fonts: 'public/fonts/'
     },
     src: { //Пути откуда брать исходники
         html: ['front/**/*.html','!front/templates/**/_*.html','!front/bower_components/**/*.*'],
@@ -23,6 +25,7 @@ var path = {
         js_copy: ['front/bower_components/requirejs/require.js','front/javascripts/main.js'],
         style: 'front/stylesheets/main.scss',
         img: 'front/images/**/*.*',
+        fonts: 'front/fonts/**/*.*'
     },
     watch:{
         html: 'front/**/*.html',
@@ -53,6 +56,18 @@ gulp.task('webserver', () => {
     server.start();
 });
 
+
+
+gulp.task('image',() => {
+    return gulp.src(path.src.img)
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest(path.build.img));
+});
+
 gulp.task('html',() => {
     gulp.src(path.src.html) //Выберем файлы по нужному пути
         // .pipe(include())//Объединим с шаблонами
@@ -66,6 +81,9 @@ gulp.task('watch', function(){
     });
     watch([path.watch.style], () => {
         gulp.start('sass');
+    });
+    watch([path.watch.img], () => {
+        gulp.start('image');
     });
 });
 
