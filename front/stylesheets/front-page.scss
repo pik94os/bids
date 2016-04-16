@@ -1,7 +1,50 @@
 
 content {
-  float: left;
-  width: 100%;
-  background: pink;
+  display: block;
+  background: #E4E7EA;
   height: 400px;
+  .content-list{
+    $filter-info-height:100px;
+    $filter-height:$filter-info-height + 30px; // + filter-country
+    $filter-margin-top:-15px;
+    height: 100%;
+    padding-top: $filter-height;
+    .filter{
+      height: $filter-height;
+      position: absolute;
+      width: 100%;
+      margin-top: $filter-margin-top - $filter-height;
+      &-info{
+        height: $filter-info-height;
+        overflow: auto;
+        background: #122135;
+        > div {
+          float: left;
+          width: 50%;
+          &:last-child{
+          }
+        }
+      }
+      &-country-select{
+        li{
+          display: inline-block;
+          &:after{
+            content: "x";
+            display: inline-block;
+            cursor: pointer;
+            color: white;
+            border-radius: 10px;
+            background: lightgray;
+            &:hover{
+              background: dodgerblue;
+            }
+          }
+          &:last-child{
+            float: right;
+            color: gray;
+          }
+        }
+      }
+    }
+  }
 }

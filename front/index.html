@@ -5,29 +5,31 @@
     <title></title>
     <link rel="stylesheet" href="/stylesheets/main.css" />
 </head>
-<body>
-	<div class="width-site">
-	
-		<header>
-			<div class="header-top">
+<body class="row-block">
+	<header class="row-block">
+		<div class="header-top row-block">
+			<div class=" content-block">
 				<div>Вход/Регистрация</div>
 				<div class="inp-group">
 					<input type="text">
 					<button>Найти</button>
 				</div>
 			</div>
-			<div class="header-menu">
-					<ul>
-						<li class="li-logo"><a href="/"><img src="images/logo.png"></a></li>
-							<li><div class="header-menu-text-center">Главная</div></li>
-							<li><div class="header-menu-text-center">Аукционные дома</div></li>
-							<li><div class="header-menu-text-center">О нас</div></li>
-							<li><div class="header-menu-text-center">Календарь</div></li>
-							<li><div class="header-menu-text-center">Контакты</div></li>
-					</ul>				
-			</div>
-			<div class="header-bottom">
-				<div class="header-image">
+		</div>
+
+		<div class="header-menu content-block">
+				<ul>
+					<li class="li-logo"><a href="/"><img src="images/logo.png"></a></li>
+						<li><div class="header-menu-text-center">Главная</div></li>
+						<li><div class="header-menu-text-center">Аукционные дома</div></li>
+						<li><div class="header-menu-text-center">О нас</div></li>
+						<li><div class="header-menu-text-center">Календарь</div></li>
+						<li><div class="header-menu-text-center">Контакты</div></li>
+				</ul>
+		</div>
+		<div class="header-bottom row-block">
+			<div class="header-image row-block">
+				<div class="content-block">
 					<div class="header-image-top">
 						Admingo
 					</div>
@@ -35,28 +37,29 @@
 						Система электронной интеграции аукционов
 					</div>
 				</div>
-				<div class="header-image-info">
+			</div>
+			<div class="header-image-info row-block">
+				<div class="content-block">
 					<div class="header-image-info-top">
 						Инфомация об аукционе
-					</div>	
+					</div>
 					<div class="header-image-info-bottom">
 						26 марта 2016 12:31:06
 					</div>
 				</div>
 			</div>
-		</header>
-		
-		<content  class="row-block">
-			<!--
-			<div  class="content-block">
-				
-				<div class="filters">
-					
+		</div>
+	</header>
+
+	<content  class="row-block">
+		<div  class="content-list content-block">
+			<div class="filter">
+				<div class="filter-info">
 					<div class="filter-info-cl1">
 						<div class="block-h2">АУКЦИОНЫ</div>
 						<div class="block-text">6 аукционов</div>
 					</div>
-					
+
 					<div class="filter-info-cl2">
 						<div class="block-h2">МЕСТО ПРОВЕДЕНИЯ</div>
 						<div class="block-text">(доступно 4)</div>
@@ -66,71 +69,63 @@
 						<div class="block-text">(доступно 40)</div>
 						<div class="selector"></div>
 					</div>
+				</div>
 
-					
-					<div class="country-select">
-						<div> Москва<div class="remove-filter"></div>
-						</div>
-						<div> Женева<div class="remove-filter"></div>
-						</div>
-						<div> Гонконг<div class="remove-filter"></div>
-						</div>
-						<div> Лондон<div class="remove-filter"></div>
-						</div>
-						<div> Нью-Йорк<div class="remove-filter"></div>
-						</div>
+				<ul class="filter-country-select">
+					<li> Москва </li>
+					<li> Женева </li>
+					<li> Гонконг </li>
+					<li> Лондон </li>
+					<li> Нью-Йорк </li>
 
-						<div> Убрать все фильтры<div class="remove-filter"></div>
-						</div>
+					<li> Убрать все фильтры </li>
+				</ul>
+			</div>
+
+<!--
+			<div class="entry-finded">
+
+
+				<div>
+					<div class="entry-logo"></div>
+					<div class="entry-info">
+						<div class="entry-TimePlace">19 февраля 2016 в 19:00 | Москва | Гостиница "Украина"</div>
+						<p class="entry-number">Аукцион 2</p>
+						<p class="entry-header">Антикварный книжный клуб</p>
+						<p class="entry-description">Редкие и ценные книги, плакаты, открытки</p>
+					</div>
+
+					<div class="entry-action">
+						<div>РЕГИСТРАЦИЯ</div>
+						<div>ПРОСМОТР КАТАЛОГА</div>
+						<div>ДОБАВИТЬ В КАЛЕНДАРЬ</div>
+						<div>РАСПЕЧАТАТЬ КАТАЛОГ</div>
 					</div>
 				</div>
-
-			
-				<div class="entry-finded">
-
-				
-					<div>
-						<div class="entry-logo"></div>
-						<div class="entry-info">
-							<div class="entry-TimePlace">19 февраля 2016 в 19:00 | Москва | Гостиница "Украина"</div>
-							<p class="entry-number">Аукцион 2</p>
-							<p class="entry-header">Антикварный книжный клуб</p>
-							<p class="entry-description">Редкие и ценные книги, плакаты, открытки</p>
-						</div>
-
-						<div class="entry-action">
-							<div>РЕГИСТРАЦИЯ</div>
-							<div>ПРОСМОТР КАТАЛОГА</div>
-							<div>ДОБАВИТЬ В КАЛЕНДАРЬ</div>
-							<div>РАСПЕЧАТАТЬ КАТАЛОГ</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="look-archive">
-					<div class="selector"></div>
-				</div>
-				
-				<div class="go-top">
-				</div>
 			</div>
-			-->
-		</content>
-		
-		<footer  class="row-block">
-			<!--
-			<div class="content-block">
-				<div class="logo-bottom"><a href="" title="на главную"><img src=""/></a></div>
-				<div class="links-block">					
-					<div><a href="" title="мы в Facebook"><img  class="link-fb"/></a></div>
-					<div><a href="" title="мы в Tweeter"><img  class="link-tw"/></a></div>
-					<div><a href="" title="мы в Google+"><img  class="link-gp"/></a></div>
-					<div><a href="" title="мы в VK"><img class="link-vk"/></a></div>
-				</div>
+
+			<div class="look-archive">
+				<div class="selector"></div>
 			</div>
-			-->
-		</footer>
-		
-	</div>
+
+			<div class="go-top">
+			</div>
+		-->
+		</div>
+	</content>
+
+	<footer  class="row-block">
+		<!--
+		<div class="content-block">
+			<div class="logo-bottom"><a href="" title="на главную"><img src=""/></a></div>
+			<div class="links-block">
+				<div><a href="" title="мы в Facebook"><img  class="link-fb"/></a></div>
+				<div><a href="" title="мы в Tweeter"><img  class="link-tw"/></a></div>
+				<div><a href="" title="мы в Google+"><img  class="link-gp"/></a></div>
+				<div><a href="" title="мы в VK"><img class="link-vk"/></a></div>
+			</div>
+		</div>
+		-->
+	</footer>
 </body>
 </html>

@@ -4,21 +4,14 @@
 @import "footer";
 @import "front-page";
 
-/*
+
 .row-block{
   width: 100%;
   .content-block{
     width: 100%;
     position: relative;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 5px 10px;
+    max-width: 1000px;
+    min-width: 740px;
+    @include margin-horizontal(auto);
   }
-}
-*/
-
-.width-site{
-  width: 1000px;
-  margin: 0 auto;
-  background: green;
 }
