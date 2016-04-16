@@ -5,15 +5,50 @@
 
 header{
   height: 710px;
+  a {
+    text-decoration: none;
+  }
+  a:visited {
+    color: white;
+	text-decoration: none;
+   }
   .header-top {
-    background: #1a2e54;
+	background-image: url(/images/background-header.png);
+    background-color: black;
 	height: 40px;
 	color: white;
-	.div {
-	  background: linear-gradient(to top right, #0e161d, #1a2c53);
+	&-left {
+	  div {
+	    float: left;
+	    padding: 9px 5px 0 0;
+	  }
+	  img {
+	    float: left;
+	  }
+	  .image-left-left {
+	    padding: 6px 10px 0 0;
+	  }
+	}
+	&-right {
+	  img, div {
+	    padding: 6px;
+		float: left;	
+	  } 
+	  .input-radius {
+	    border-radius: 15px;
+		padding: 0 0 0 15px;
+		width: 155px;
+	  }
+	  .button-radius {
+	    background: #b9b9b9;
+	    border-radius: 15px;
+		color: #203371;
+		width: 77px;
+		margin: 0 0 0 -10px;
+	  }
 	}
     > div:first-child{
-      padding: 5px 0;
+      /*padding: 5px 0;*/
       text-align: right;
       > div{
           display: inline-block;
@@ -48,6 +83,8 @@ header{
   
   .header-bottom {
 	left: 0;
+	background-image: url(/images/background-body.png);
+    background-color: black;
     .header-image {
 	  background: url(/images/header-image.png) no-repeat;
 	  background-size: 100%;
