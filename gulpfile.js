@@ -9,6 +9,9 @@ var gulp = require('gulp'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
     runSequence = require('run-sequence'),
+    include = require("gulp-include"),
+    htmlmin = require('gulp-htmlmin'),
+    rjs = require('./r'),
     serverFactory = require('spa-server');
 
 var path = {
@@ -20,9 +23,9 @@ var path = {
         fonts: 'public/fonts/'
     },
     src: { //Пути откуда брать исходники
-        html: ['front/**/*.html','!front/templates/**/_*.html','!front/bower_components/**/*.*'],
+        html: ['front/**/*.html','!front/templates/**/_*.html','!front/components/**/*.*'],
         js: 'front/javascripts/bootstrap.js',
-        js_copy: ['front/bower_components/requirejs/require.js','front/javascripts/main.js'],
+        js_copy: ['front/components/requirejs/require.js','front/javascripts/main.js'],
         style: 'front/stylesheets/main.scss',
         img: 'front/images/**/*.*',
         fonts: 'front/fonts/**/*.*'
@@ -57,6 +60,10 @@ gulp.task('webserver', () => {
 });
 
 
+gulp.task('fonts',() => {
+    return gulp.src(path.src.fonts)
+        .pipe(gulp.dest(path.build.fonts));
+});
 
 gulp.task('image',() => {
     return gulp.src(path.src.img)
@@ -70,9 +77,42 @@ gulp.task('image',() => {
 
 gulp.task('html',() => {
     gulp.src(path.src.html) //Выберем файлы по нужному пути
-        // .pipe(include())//Объединим с шаблонами
-        // .pipe(htmlmin({collapseWhitespace: true}))//минимизируем
+        .pipe(include())//Объединим с шаблонами
+        .pipe(htmlmin({collapseWhitespace: true}))//минимизируем
         .pipe(gulp.dest(path.build.html)); //Выплюнем их в папку build
+});
+
+gulp.task("js", () => {
+    gulp.src(path.src.js)
+        .pipe(rjs({
+            baseUrl:'front/javascripts/',
+            outPath:'public/javascripts/',
+            paths: {
+                'domReady': '../components/domReady/domReady',
+                'angular': '../components/angular/angular.min',
+                'uiRouter': '../components/angular-ui-router/release/angular-ui-router.min',
+                'jquery': '../components/jquery/dist/jquery.min',
+                'bstrap': '../components/bootstrap-sass/assets/javascripts/bootstrap.min'
+            },
+            // angular не поддерживает AMD из коробки, поэтому экспортируем перменную angular в глобальную область
+            shim: {
+                'angular': {
+                    deps: [],
+                    exports: 'angular'
+                },
+                'uiRouter':{
+                    deps: ['angular']
+                },
+                "bstrap" : {
+                    "deps" :['jquery']
+                }
+            }
+        }))
+});
+
+gulp.task("js_copy", () => {
+    gulp.src(path.src.js_copy)
+        .pipe(gulp.dest(path.build.js))
 });
 
 gulp.task('watch', function(){
@@ -85,8 +125,15 @@ gulp.task('watch', function(){
     watch([path.watch.img], () => {
         gulp.start('image');
     });
+    watch([path.watch.fonts], () => {
+        gulp.start('fonts');
+    });
+});
+
+gulp.task('start',(cb) => {
+    runSequence(['fonts', 'js', 'js_copy', 'sass', 'image', 'html'], cb);
 });
 
 gulp.task('default',(cb) => {
-    runSequence(['sass', 'html','image','webserver','watch'], cb);
+    runSequence(['start','webserver','watch'], cb);
 });

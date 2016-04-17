@@ -1,0 +1,4 @@
+define([
+    './Main',
+    './FrontPage',
+], function () {});

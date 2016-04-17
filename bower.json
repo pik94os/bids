@@ -1,0 +1,30 @@
+{
+  "name": "admingo",
+  "authors": [
+    "EMMTEX"
+  ],
+  "description": "",
+  "main": "public/index.html",
+  "moduleType": [
+    "amd",
+    "es6",
+    "node"
+  ],
+  "license": "UNLICENSED",
+  "homepage": "https://bitbucket.org/admingo/admingo#readme",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.6",
+    "angular": "^1.5.4",
+    "angular-ui-router": "^0.2.18",
+    "requirejs": "^2.2.0",
+    "domReady": "^2.0.1"
+  }
+}

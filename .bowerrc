@@ -1,0 +1,7 @@
+{
+  "directory": "front/components/",
+  "analytics": false,
+  "scripts": {
+    "postinstall": "gulp start"
+  }
+}

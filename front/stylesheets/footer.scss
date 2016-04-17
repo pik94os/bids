@@ -1,8 +1,10 @@
 
 footer {  
-  background-image: url(/images/background-footer.png);
-  background-color: black;
-  background-size: 100% auto;  
+  background:{
+	  image: url(/images/background-footer.png);
+	  color: black;
+	  size: 100% auto;
+  }
   .footer-links {
 	div {
 	  height: 35px;

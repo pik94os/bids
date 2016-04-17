@@ -13,8 +13,10 @@ header{
 	text-decoration: none;
    }
   .header-top {
-	background-image: url(/images/background-header.png);
-    background-color: black;
+	background:{
+      image: url(/images/background-header.png);
+      color: black;
+    }
 	height: 40px;
 	color: white;
 	&-left {

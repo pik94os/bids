@@ -53,22 +53,6 @@
   border:$bord;
   border-radius: $rad;
 }
-@mixin border-radius-left($rad,$bord ...){
-  border-left:$bord;
-  @include border-left-radius($rad);
-}
-@mixin border-radius-right($rad,$bord ...){
-  border-right:$bord;
-  @include border-right-radius($rad);
-}
-@mixin border-radius-top($rad,$bord ...){
-  border-top:$bord;
-  @include border-top-radius($rad);
-}
-@mixin border-radius-bottom($rad,$bord ...){
-  border-bottom:$bord;
-  @include border-bottom-radius($rad);
-}
 @mixin border-no-bottom($bord ...){
   border:{
     right: $bord;

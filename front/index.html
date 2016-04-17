@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title></title>
     <link rel="stylesheet" href="/stylesheets/main.css" />
+	<script src="/javascripts/require.js" data-main="/javascripts/main.js"></script>
 </head>
 <body class="row-block">
 	<header class="row-block">
@@ -58,92 +59,7 @@
 			</div>
 		</div>
 	</header>
-	<content  class="row-block">
-		<div  class="content-list content-block">
-			<div class="filter">
-				<div class="filter-info">
-					<div class="filter-info-cl1">
-						<div class="block-h2">АУКЦИОНЫ</div>
-						<div class="block-text">6 аукционов</div>
-						<img src="images/body-line.png">
-					</div>
-
-					<div class="filter-info-cl2">
-						<div class="filter-info-cl2-div1">
-							<div class="block-h2">МЕСТО ПРОВЕДЕНИЯ</div>
-							<div class="block-text">(доступно 4)</div>
-							<div class="selector">11</div>
-						</div>
-						<div  class="filter-info-cl2-div2">
-							<div class="block-h2">ТЕМА АУКЦИОНА</div>
-							<div class="block-text">(доступно 40)</div>
-							<div class="selector">11</div>
-						</div>
-					</div>
-				</div>				
-				<div class="under-filter">
-					<ul class="filter-country-select">
-						<li> Москва </li>
-						<li> Женева </li>
-						<li> Гонконг </li>
-						<li> Лондон </li>
-						<li> Нью-Йорк </li>
-
-						<li> Убрать все фильтры </li>
-					</ul>
-				</div>
-			</div>		
-			<div class="front-body">
-				<div class="front-body-in">
-					<div class="front-body-in-left">
-						<img src="images/image-body-in.png">
-					</div>
-					<div class="front-body-in-center">
-						<p class="front-body-in-center-p1">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
-						<p class="front-body-in-center-p2">Аукцион 2</p>
-						<p class="front-body-in-center-p3">Антикварный книжный клуб</p>
-						<p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
-					</div>
-					<div class="front-body-in-right">
-						<p class="front-body-in-right-p"><a href="/">Регистрация</a></p>
-						<p class="front-body-in-right-p"><a href="/">Просмотр каталога</a></p>
-						<p class="front-body-in-right-p"><a href="/">Добавить в календарь</a></p>
-						<p class="front-body-in-right-p"><a href="/">Распечатать каталог</a></p>
-					</div>
-				</div>
-			</div>			
-			<!-- Дубль верхней нач -->
-			<div class="front-body">
-				<div class="front-body-in">
-					<div class="front-body-in-left">
-						<img src="images/image-body-in.png">
-					</div>
-					<div class="front-body-in-center">
-						<p class="front-body-in-center-p1">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
-						<p class="front-body-in-center-p2">Аукцион 2</p>
-						<p class="front-body-in-center-p3">Антикварный книжный клуб</p>
-						<p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
-					</div>
-					<div class="front-body-in-right">
-						<p class="front-body-in-right-p"><a href="/">Регистрация</a></p>
-						<p class="front-body-in-right-p"><a href="/">Просмотр каталога</a></p>
-						<p class="front-body-in-right-p"><a href="/">Добавить в календарь</a></p>
-						<p class="front-body-in-right-p"><a href="/">Распечатать каталог</a></p>
-					</div>
-				</div>
-			</div>
-			<!-- Дубль верхней кон -->
-			<div class="filter-bottom">
-				<hr>
-				<div class="filter-bottom-div">					
-					<div class="filter-bottom-div-left">Показать архивные</div>
-					<div class="filter-bottom-div-right">11</div>
-				</div>
-			</div>
-			<div class="bottom-on-top">
-				<a href="/"><img src="images/bottom-on-top.png"></a>
-			</div>
-		</div>		
+	<content  class="row-block"  ui-view="">
 	</content>
 	<footer  class="row-block">		
 		<div class="content-block">
