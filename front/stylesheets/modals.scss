@@ -1,0 +1,21 @@
+.modals{
+  .modal-content{
+    border-radius: 0;
+  }
+  .modal-header{
+    background: $modal-header-background-color;
+    color: white;
+    @include padding-horizontal(15px);
+    font-size: 14px;
+    text-transform: uppercase;
+    .close{
+      color: black;
+      border-radius: 50px;
+      background: white;
+      opacity: 1;
+      font-size: 14px;
+      padding: 0 3px;
+      margin: 3px;
+    }
+  }
+}

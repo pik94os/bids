@@ -7,8 +7,15 @@ define(['./app'], function (app) {
             //Стартовая страница
             .state('account', {
                 url: "/",
-                templateUrl: "/templates/front-page/list.html",
-                controller: 'FrontPage'
+                views:{
+                    '': {
+                        templateUrl: "/templates/front-page/list.html",
+                        controller: 'FrontPage'
+                    },
+                    'header':{
+                        templateUrl: "/templates/front-page/header.html",
+                    }
+                }
             })
             //Ошибка 404
             .state('err_404', {

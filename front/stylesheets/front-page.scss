@@ -165,7 +165,7 @@ content {
   }
   .filter-bottom {
     background: white;
-    margin-top: 100px;
+    bottom: -100px;
 	position: absolute;
 	height: 52px;
 	width: 100%;
@@ -188,9 +188,9 @@ content {
 	}
   }
   .bottom-on-top {
-    /*position: relative;
-	bottom: -65px;
-	left: 1010px;*/
+    position: absolute;
+	bottom: -70px;
+	right: -60px;
   }
 }
 

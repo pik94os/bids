@@ -1,17 +1,15 @@
-*{
-  margin:0;
-  padding: 0;
-}
-
 header{
   height: 710px;
   a {
     text-decoration: none;
+    &:visited {
+      color: white;
+      text-decoration: none;
+    }
   }
-  a:visited {
-    color: white;
-	text-decoration: none;
-   }
+  ul{
+    margin-bottom: 0;
+  }
   .header-top {
 	background:{
       image: url(/images/background-header.png);

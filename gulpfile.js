@@ -28,7 +28,7 @@ var path = {
         js_copy: ['front/components/requirejs/require.js','front/javascripts/main.js'],
         style: 'front/stylesheets/main.scss',
         img: 'front/images/**/*.*',
-        fonts: 'front/fonts/**/*.*'
+        fonts: ['front/fonts/**/*.*','front/components/bootstrap-sass/assets/fonts/**/*.*']
     },
     watch:{
         html: 'front/**/*.html',

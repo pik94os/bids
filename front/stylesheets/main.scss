@@ -1,8 +1,10 @@
 @import "variables";
+@import "../components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "mixins";
 @import "header";
 @import "footer";
 @import "front-page";
+@import "modals";
 
 
 .row-block{

@@ -13,7 +13,7 @@
 				<div class="header-top-left">
 					<a href="/"><img src="images/icon-arrow.png" class="image-left-left"></a>
 					<div>
-						<a href="/">Вход/Регистрация</a>
+						<a href="#" data-toggle="modal" data-target="#loginModal">Вход/Регистрация</a>
 					</div>
 					<img src="images/break.png">
 				</div>
@@ -27,40 +27,23 @@
 			</div>
 		</div>
 		<div class="header-menu content-block">
-				<ul>
-					<li class="li-logo"><a href="/"><img src="images/logo.png"></a></li>
-						<li><div class="header-menu-text-center">Главная</div></li>
-						<li><div class="header-menu-text-center">Аукционные дома</div></li>
-						<li><div class="header-menu-text-center">О нас</div></li>
-						<li><div class="header-menu-text-center">Календарь</div></li>
-						<li><div class="header-menu-text-center">Контакты</div></li>
-				</ul>
+            <ul>
+                <li class="li-logo"><a href="/"><img src="images/logo.png"></a></li>
+                    <li><div class="header-menu-text-center">Главная</div></li>
+                    <li><div class="header-menu-text-center">Аукционные дома</div></li>
+                    <li><div class="header-menu-text-center">О нас</div></li>
+                    <li><div class="header-menu-text-center">Календарь</div></li>
+                    <li><div class="header-menu-text-center">Контакты</div></li>
+            </ul>
 		</div>
-		<div class="header-bottom row-block">
-			<div class="header-image row-block">
-				<div class="content-block">
-					<div class="header-image-top">
-						Admingo
-					</div>
-					<div class="header-image-bottom">
-						Система электронной интеграции аукционов
-					</div>
-				</div>
-			</div>
-			<div class="header-image-info row-block">
-				<div class="content-block">
-					<div class="header-image-info-top">
-						Инфомация об аукционе
-					</div>
-					<div class="header-image-info-bottom">
-						26 марта 2016 12:31:06
-					</div>
-				</div>
-			</div>
+		<div class="header-bottom row-block"   ui-view="header">
 		</div>
 	</header>
 	<content  class="row-block"  ui-view="">
 	</content>
+    <div class="modals">
+        <!--=include templates/modals/*.html -->
+    </div>
 	<footer  class="row-block">		
 		<div class="content-block">
 			<div class="footer-links">
