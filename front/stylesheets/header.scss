@@ -18,6 +18,10 @@ header{
 	height: 40px;
 	color: white;
 	&-left {
+	  a {
+	    color: white;
+		text-decoration: none;
+	  }
 	  div {
 	    float: left;
 	    padding: 9px 5px 0 0;
@@ -38,6 +42,7 @@ header{
 	    border-radius: 15px;
 		padding: 0 0 0 15px;
 		width: 155px;
+		color: #acb1b8;
 	  }
 	  .button-radius {
 	    background: #b9b9b9;
@@ -57,6 +62,13 @@ header{
   }
   .header-menu {
 	height: 110px;
+	a {
+	  color: #1a2d55;
+      text-decoration: none;
+      &:hover {
+        color: #00329a;
+      }
+    }
 	&-text-center {
 	  padding: 40px 0 0 0;
 	}
@@ -99,11 +111,14 @@ header{
 		text-transform: uppercase;
 		font-size: 135px;
 		font-weight: bold;
+		font-family: "Century Gothic";
 	  }
 	  &-bottom {
 	    text-transform: uppercase;
 		font-size: 28px;
-		color: white;
+		color: white;		
+		background: url(/images/header-image-bottom.png) no-repeat;
+		height: 222px;
 	  }
       &-info {
         background: #0c111a;
