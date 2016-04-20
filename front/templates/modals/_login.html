@@ -2,52 +2,85 @@
     <div class="modal-body-in">
         <div class="modal-body-in-left">
             <div class="modal-body-in-left-vxod">
-
                 <form class="modal-body-in-left-vxod-form">
-                    <input id="userEmail" placeholder="Email" type="text">
-                    <input id="password" placeholder="Пароль" type="password">
-                    <input id="submit" value="Войти" type="submit">
+                    <input class="vxod-form-input userEmail" placeholder="E-mail" type="text">
+                    <input class="vxod-form-input password" placeholder="Пароль" type="password">
+                    <input class="vxod-form-input submit" value="Войти" type="submit">
                     <div class="modal-body-in-left-vxod-form-div">
                         <div class="modal-body-in-left-vxod-form-div-left">
                             <label>
                                 <input type="checkbox" name="remember_me" id="remember_me">
-                                <!--
-                                    <input id="check1" type="checkbox" name="check" value="check1">
-                                    <label for="check1">Checkbox No. 1</label>
-                                    <br>
-                                    <input id="check2" type="checkbox" name="check" value="check2">
-                                    <label for="check2">Checkbox No. 2</label>
-                                -->
                                 Запомнить меня
                             </label>
-
                         </div>
                         <div class="modal-body-in-left-vxod-form-div-right">
                             <a href="">Забыли пароль?</a>
                         </div>
                     </div>
                 </form>
-
             </div>
+			<!--<img src="images/reg-line.png" class="image-left-left">-->
         </div>
         <div class="modal-body-in-right">
             <div class="modal-body-in-right-top">
                 <div class="modal-body-in-right-top-top">
                     Добро пожаловать если вы
                 </div>
-                <div class="modal-body-in-right-bottom">
+                <div class="modal-body-in-right-top-bottom">
                     Новый покупатель
                 </div>
             </div>
-            <div>
-                форма
+            <div class="modal-body-in-right-form">                
+				
+				<form class="modal-body-in-right-form-reg">
+					<div id="form-reg-left">
+						<label><input class="reg-form-input" placeholder="Имя" type="text"></label>
+						<input class="reg-form-input" placeholder="Отчество" type="text">
+						<label><input class="reg-form-input" placeholder="E-mail" type="text"></label>
+						<label><input class="reg-form-input" placeholder="Телефон" type="password"></label>
+						<label><input class="reg-form-input" placeholder="Пароль" type="password"></label>
+					</div>
+					<div id="form-reg-right">
+						<label><input class="reg-form-input" placeholder="Фамилия" type="text"></label>     
+						<input class="reg-form-input reg-form-input-padding" placeholder="Код подтверждения" type="password">
+						<label><input class="reg-form-input" placeholder="Подтвердите пароль" type="password"></label>
+					</div>
+                    <div class="modal-body-in-right-form-reg-bottom">
+						<label>
+							<input type="checkbox" name="remember_me" id="remember_me">
+							Я принимаю условия
+						</label>
+						<label>
+							<input type="checkbox" name="remember_me" id="remember_me">
+							Я хочу получать сообщения от admingo
+						</label>
+                    </div>
+					
+                </form>				
+				
+				<div id="div-text">
+					Регистрируясь на ADMINGO, вы сможете:
+					<ul>
+					  <li>Иметь доступ к отчетаи о состоянии
+					  <li>Смотреть Live Аукционы
+					  <li>ПодпишиСАТЬСЯ на уведомлениЕ О ПРОДАЖИ ЛОТОВ
+					  <li>Создавать Списки Пожеланий
+					  <li>Отслеживать продажи
+					  <li>Получать Рекомендации
+					</ul>
+				</div>
+				
             </div>
-            <div>
-                тест под формой
-            </div>
-            <div>
-                Создать учетную запись
+            <div class="modal-body-in-right-bottom">
+				<input id="submit" value="Создать учетную запись" type="submit">
             </div>
         </div>
     </div>
 </modal>
+
+
+
+
+
+
+

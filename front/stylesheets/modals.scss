@@ -27,60 +27,56 @@
   
 #loginModal {
   .modal-content{
-	height: 800px;
+	height: 828px;
   }
   .modal-dialog {
     width: 940px;
   }
   .modal-body {
-    background: green;
 	height: 786px;
 	padding: 28px;
-	&-in {	  
+	&-in { 
 	  background: white;
 	  height: 730px;
 	  &-left {
 		float: left;
-		width: 300px;
+		width: 296px;
 		height: 100%;
+		border-right: 1px solid #4e586a;
 		&-vxod {
-		  width: 290px;
+		  width: 287px;
 		  height: 205px;		  
 		  &-form {
-		    #userEmail {
+		    .vxod-form-input {
 		      width: 100%;			
 			  background: #e6e7e8;
-			  height: 50px;
-			  padding: 18px;
+			  height: 50px;			  
 			  color: #0c111a;
 			  text-transform: uppercase;
-			  font-family: "Century Gothic";
-			  font-size: 18px;
+			  font: {
+			    family: "Century Gothic";
+				size: 18px;
+			  }	  
+		    }
+		    .userEmail {
+			  padding: 18px;
 			  border: 0;
 		    }
-		    #password {
+		    .password {
 			  margin: 10px 0 0 0;
-		      width: 100%;
-		  	  background: #e6e7e8;
-			  height: 50px;
-			  padding: 18px;
-			  color: #0c111a;
-              text-transform: uppercase;
-	   		  font-family: "Century Gothic";
-			  font-size: 18px;
-              border: 0;			
+              padding: 18px;
+			  border: 0;
 		    }
-		    #submit {
-			  margin: 10px 0 0 0;
-		      width: 100%;
+		    .submit {
+			  margin: 10px 0 0 0;		     
 			  background: #283879;
 			  height: 55px;
 			  text-align: center;
 			  color: white;
-              text-transform: uppercase;
-			  font-family: "Century Gothic";
-			  font-size: 24px;
-			  font-weight: bold;
+			  font: {
+			    size: 24px;
+			    weight: bold;
+			  }
 		    }
 		    &-div {
 			  margin: 7px 0 0 0;
@@ -108,17 +104,132 @@
 		}
 	  }
 	  &-right {
-	    background: pink;
 		float: left;
-		width: 582px;
+		width: 577px;
 		height: 100%;
+		margin-left: 9px;
 		&-top {
 		  background: #283879;
 		  height: 94px;
 		  color: white;
-		  font-family: "Century Gothic";
-		  text-transform: uppercase;
-		  font-weight: bold;
+		  text: {
+		    align: center;
+		    transform: uppercase;
+		  }
+		  font:{
+		    family: "Century Gothic";		    
+			weight: bold;
+		  }
+		  &-top {
+		    font-size: 20px;
+			padding: 16px 0 0;
+		  }
+		  &-bottom {
+		    font-size: 35px;
+			margin: -13px 0 0 0;
+		  }
+		}
+		&-form {
+		  height: 581px;
+		  label {
+		    margin-bottom: 0px;
+			display: inline;
+		  }
+		  label:after {
+		    content: "*";
+            color: red;
+            font-size: 16px;
+			margin: 28px 0 0 -16px;
+			position: absolute;
+		  }
+		  &-reg {
+		    #form-reg-left {
+			  width: 50%;
+			  float: left;
+			  padding: 0 10px 0 0;  
+			}
+			#form-reg-right {
+			  width: 50%;
+			  float: left;
+			}
+		    .reg-form-input {
+			  border: 0;
+			  margin: 10px 0 0 0;
+			  padding: 18px;
+		      width: 100%;			
+			  background: #e6e7e8;
+			  height: 50px;			  
+			  color: #0c111a;
+			  text-transform: uppercase;
+			  font: {
+			    family: "Century Gothic";
+				size: 18px;
+				weight: normal;
+			  }			
+		    }
+			.reg-form-input-padding {
+			  margin-top: 130px;			  
+			  background: #f3f3f3;
+			}
+			&-bottom {
+			  float: left;
+			  margin-top: 40px;
+			  width: 100%;
+			  label {
+			    width: 100%;
+				display: block;
+				color: #0c111a;
+				text-transform: uppercase;
+				font: {
+			    family: "Century Gothic";
+				size: 18px;
+				weight: normal;
+			    }
+			  }
+			  label:after {
+			    content: "";
+				display: none;
+			  }
+			}
+		  }
+		  #div-text {
+		    float: left;
+			margin: 25px 0 0 20px;			
+			width: 100%;
+			color: black;
+			text-transform: uppercase;
+			font: {
+		      family: "Century Gothic";
+			  size: 11px;
+		    }
+			li {
+			  list-style-type: none;
+			  margin: 0 0 0 -40px;
+			}
+			li:before {
+			  content: "- ";
+			}
+		  }
+		}
+		&-bottom {		
+		  background: #283879;
+		  height: 55px;
+		  color: white;
+		  #submit {
+		    width: 100%;
+		    background: #283879;
+			height: 55px;
+			color: white;
+			text: {
+		      align: center;
+		      transform: uppercase;
+			}
+			font: {
+		      family: "Century Gothic";
+			  weight: bold;
+			  size: 24px;
+		    }
+		  }
 		}
 	  }
 	}
