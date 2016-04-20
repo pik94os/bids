@@ -84,13 +84,16 @@ content {
       &-country-select{
         li{
           display: inline-block;
+          cursor: pointer;
           &:after{
             content: url(/images/image-x.png);
             cursor: pointer;
 			margin: 0 10px 0 0;
-            &:hover{
-			  content: url(/images/image-x-blue.png);
-            }		  
+          }
+          &:hover{
+            &:after {
+              content: url(/images/image-x-blue.png);
+            }
           }
           &:last-child{
             float: right;

@@ -8,13 +8,11 @@
 
 .row-block{
   width: 100%;
-  padding-right:0 !important;
   .content-block{
     width: 100%;
     position: relative;
     max-width: 1000px;
     min-width: 740px;
     @include margin-horizontal(auto);
-	/*padding-right: 0 !important;*/
   }
 }

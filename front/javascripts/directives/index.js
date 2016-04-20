@@ -1,3 +1,4 @@
 define([
-    './emitLastRepeaterElement'
+    './emitLastRepeaterElement',
+    './modal'
 ], function () {});

@@ -128,6 +128,9 @@ gulp.task('watch', function(){
     watch([path.watch.fonts], () => {
         gulp.start('fonts');
     });
+    watch([path.watch.js], () => {
+        gulp.start('js');
+    });
 });
 
 gulp.task('start',(cb) => {
