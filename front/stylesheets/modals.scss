@@ -1,6 +1,10 @@
 .modals{
   .modal-content{
     border-radius: 0;
+	height: 800px;
+  }
+  .modal-dialog {
+    width: 940px;	
   }
   .modal-header{
     background: $modal-header-background-color;
@@ -8,6 +12,7 @@
     @include padding-horizontal(15px);
     font-size: 14px;
     text-transform: uppercase;
+	border-bottom: 0;
     .close{
       color: black;
       border-radius: 50px;
@@ -18,4 +23,93 @@
       margin: 3px;
     }
   }
+  .modal-body {
+    background: green;
+	height: 786px;
+	padding: 28px;
+	&-in {	  
+	  background: white;
+	  height: 730px;
+	  &-left {
+		float: left;
+		width: 300px;
+		height: 100%;
+		&-vxod {
+		  width: 290px;
+		  height: 205px;		  
+		  &-form {
+		    #userEmail {
+		      width: 100%;			
+			  background: #e6e7e8;
+			  height: 50px;
+			  padding: 18px;
+			  color: #0c111a;
+			  text-transform: uppercase;
+			  font-family: "Century Gothic";
+			  font-size: 18px;
+			  border: 0;
+		    }
+		    #password {
+			  margin: 10px 0 0 0;
+		      width: 100%;
+		  	  background: #e6e7e8;
+			  height: 50px;
+			  padding: 18px;
+			  color: #0c111a;
+              text-transform: uppercase;
+	   		  font-family: "Century Gothic";
+			  font-size: 18px;
+              border: 0;			
+		    }
+		    #submit {
+			  margin: 10px 0 0 0;
+		      width: 100%;
+			  background: #283879;
+			  height: 55px;
+			  text-align: center;
+			  color: white;
+              text-transform: uppercase;
+			  font-family: "Century Gothic";
+			  font-size: 24px;
+			  font-weight: bold;
+		    }
+		    &-div {
+			  margin: 7px 0 0 0;
+			  text-transform: uppercase;
+			  font-family: "Century Gothic";
+			  font-size: 11px;
+			  color: #0c111a;
+		      &-left {
+			    float: left;
+			    width: 50%;
+				label {
+                  font-weight: normal;			  
+				  input {
+				    margin: 0;
+				  }
+				}
+			  }
+			  &-right {
+			    float: left;
+			    width: 50%;
+				text-align: right;
+			  }
+		    }
+		  }
+		}
+	  }
+	  &-right {
+	    background: pink;
+		float: left;
+		width: 582px;
+		height: 100%;
+	  }
+	}
+  }
 }
+
+
+
+
+
+
