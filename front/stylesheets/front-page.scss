@@ -16,7 +16,6 @@ content {
       margin-top: $filter-margin-top - $filter-height;
       &-info{
         height: $filter-info-height;
-        overflow: auto;
         background: #122135;
 		color: white;
 		.block-h2 {
@@ -48,10 +47,39 @@ content {
 			margin: 0 10px 0 0;
 		  }
 		  .block-text {
+            cursor: pointer;
 		    float: left;
+            position: relative;
             &:after{
               content: url("/images/down-arrow.png");
               margin-left: 20px;
+            }
+            > ul{
+              display: none;
+            }
+            &:hover{
+              > ul{
+                overflow: auto;
+                max-height: 300px;
+                display: block;
+                position: absolute;
+                right: 0;
+                top: 100%;
+                padding-right: 15px;
+                background: white;
+                min-width: 100%;
+                z-index: 9;
+                border: 1px solid lightgray;
+                >li{
+                  word-wrap: normal;
+                  white-space: nowrap;
+                  margin-left: -5px;
+                  color: black;
+                  &.count-0{
+                    color: gray;
+                  }
+                }
+              }
             }
 		  }
 		  > div{
