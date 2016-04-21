@@ -33,3 +33,52 @@ input,textarea,.btn,button,a{
     @include margin-horizontal(auto);
   }
 }
+
+.custom-title-block{
+  background: #283879;
+  height: 94px;
+  color: white;
+  padding: 16px;
+  text: {
+    align: center;
+    transform: uppercase;
+  }
+  font: {
+    family: "Century Gothic";
+    weight: bold;
+  }
+  &-h3 {
+    font-size: 20px;
+  }
+  &-h1 {
+    font-size: 35px;
+  }
+}
+
+.custom-btn{
+  &-lg{
+    background: #283879;
+    height: 55px;
+    color: white;
+    text: {
+      align: center;
+      transform: uppercase;
+    }
+    font: {
+      family: "Century Gothic";
+      weight: bold;
+      size: 24px;
+    }
+  }
+}
+
+.custom-input{
+  background: #e6e7e8;
+  height: 50px;
+  color: #0c111a;
+  text-transform: uppercase;
+  font: {
+    family: "Century Gothic";
+    size: 18px;
+  }
+}

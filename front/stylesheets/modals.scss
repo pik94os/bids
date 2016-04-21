@@ -48,15 +48,7 @@
 		  height: 205px;		  
 		  &-form {
 		    .vxod-form-input {
-		      width: 100%;			
-			  background: #e6e7e8;
-			  height: 50px;			  
-			  color: #0c111a;
-			  text-transform: uppercase;
-			  font: {
-			    family: "Century Gothic";
-				size: 18px;
-			  }	  
+		      width: 100%;
 		    }
 		    .userEmail {
 			  padding: 18px;
@@ -68,15 +60,7 @@
 			  border: 0;
 		    }
 		    .submit {
-			  margin: 10px 0 0 0;		     
-			  background: #283879;
-			  height: 55px;
-			  text-align: center;
-			  color: white;
-			  font: {
-			    size: 24px;
-			    weight: bold;
-			  }
+			  margin: 10px 0 0 0;
 		    }
 		    &-div {
 			  margin: 7px 0 0 0;
@@ -109,24 +93,8 @@
 		height: 100%;
 		margin-left: 9px;
 		&-top {
-		  background: #283879;
-		  height: 94px;
-		  color: white;
-		  text: {
-		    align: center;
-		    transform: uppercase;
-		  }
-		  font:{
-		    family: "Century Gothic";		    
-			weight: bold;
-		  }
-		  &-top {
-		    font-size: 20px;
-			padding: 16px 0 0;
-		  }
 		  &-bottom {
-		    font-size: 35px;
-			margin: -13px 0 0 0;
+		  	line-height: 34px;
 		  }
 		}
 		&-form {
@@ -209,26 +177,6 @@
 			li:before {
 			  content: "- ";
 			}
-		  }
-		}
-		&-bottom {		
-		  background: #283879;
-		  height: 55px;
-		  color: white;
-		  #submit {
-		    width: 100%;
-		    background: #283879;
-			height: 55px;
-			color: white;
-			text: {
-		      align: center;
-		      transform: uppercase;
-			}
-			font: {
-		      family: "Century Gothic";
-			  weight: bold;
-			  size: 24px;
-		    }
 		  }
 		}
 	  }
