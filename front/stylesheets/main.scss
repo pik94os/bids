@@ -9,7 +9,7 @@ modal{
 @import "header";
 @import "footer";
 @import "front-page";
-@import "modals";
+
 
 //уберём браузерную обводку
 input,textarea,.btn,button,a{
@@ -82,3 +82,6 @@ input,textarea,.btn,button,a{
     size: 18px;
   }
 }
+
+@import "modals";
+

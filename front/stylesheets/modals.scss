@@ -184,6 +184,104 @@
   }
 }
 
+#reg-auction-house {
+  .modal-dialog {
+    width: 940px;  
+    .modal-content {
+	  height: 685px;    
+      .modal-body {
+        padding: 24px;
+		.custom-btn-lg {
+		  font-size: 35px;
+		  height: 93px;
+		  padding: 20px 40px;
+		  text-align: left;
+		}
+        .form-reg {
+		  label {
+            .custom-input {
+	          border: 0;
+              margin: 10px 0 0 0;
+              padding: 18px;
+              width: 290px;			
+              background: #e6e7e8;
+              height: 50px;			  
+              color: #0c111a;
+              text-transform: uppercase;
+              font: {
+                family: "Century Gothic";
+                size: 18px;
+                weight: normal;
+              }			
+            }			
+	        .one-input-two {
+	          margin-right: 10px;
+	        }			
+		  }		  
+		  label:after {
+		    content: "*";
+            color: red;
+            font-size: 16px;
+			margin: 28px 0 0 -35px;
+			position: absolute;
+		  }
+		  .shirt-margin:after {
+			  margin: 28px 0 0 -25px;
+		  }
+		  .custom-input {
+	        border: 0;
+            margin: 10px 0 0 0;
+            padding: 18px;
+            width: 290px;			
+            background: #e6e7e8;
+            height: 50px;			  
+            color: #0c111a;
+            text-transform: uppercase;
+            font: {
+              family: "Century Gothic";
+              size: 18px;
+              weight: normal;
+            }			
+          }			
+	      .one-input-two {
+	        margin-right: 10px;
+	      }
+		  &-checkbox {
+		    margin-top: 50px;
+			label {
+			  width: 100%;
+			  display: block;
+			  color: #0c111a;
+			  text-transform: uppercase;
+			  font: {
+			    family: "Century Gothic";
+			    size: 18px;
+			    weight: normal;
+			  }
+			}
+			label:after {
+			  content: "";
+		      display: none;
+			}
+		  }
+		  .custom-title-block {
+		    margin-top: 128px;
+			font-size: 24px;
+			height: 54px;
+			padding: 9px 56px;
+		  }
+		  .kod {
+		    background: #f3f3f3;		    
+		  }
+        }
+	  }
+	}
+  } 
+}
+
+
+
+
 
 
 
