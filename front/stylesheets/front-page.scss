@@ -49,20 +49,14 @@ content {
 		  }
 		  .block-text {
 		    float: left;
-            margin: 0 20px 0 0;			
+            &:after{
+              content: url("/images/down-arrow.png");
+              margin-left: 20px;
+            }
 		  }
-		  .selector {
-		  }
-		  &-div1 {
+		  > div{
 		    height: 25px;
 			margin: 10px 0 0 26px;
-		  }
-		  &-div2 {
-		    height: 25px;
-			margin: 10px 0 0 26px;
-			.block-text {
-            margin: 0 46px 0 0;			
-		  }
 		  }
 		}
         > div {
@@ -85,10 +79,12 @@ content {
         li{
           display: inline-block;
           cursor: pointer;
+          margin-right: 30px;
           &:after{
             content: url(/images/image-x.png);
             cursor: pointer;
-			margin: 0 10px 0 0;
+            position: absolute;
+            margin-left: 5px;
           }
           &:hover{
             &:after {
@@ -147,6 +143,7 @@ content {
 		height: 191px;
 		text-align: center;
 		&-p {
+          cursor: pointer;
 		  height: 24px;
 		  width: 169px;
 		  background: #596273;

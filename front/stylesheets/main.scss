@@ -1,10 +1,27 @@
+modal{
+  display: none;
+}
+
 @import "variables";
+@import "../components/angular/angular-csp.css";
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "mixins";
 @import "header";
 @import "footer";
 @import "front-page";
 @import "modals";
+
+//уберём браузерную обводку
+input,textarea,.btn,button,a{
+  &:not(.outline){
+    &:active, &:focus {
+      outline: none;
+    }
+    &::-moz-focus-inner {
+      border: 0;
+    }
+  }
+}
 
 .row-block{
   width: 100%;
