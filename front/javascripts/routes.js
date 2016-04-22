@@ -13,7 +13,19 @@ define(['./app'], function (app) {
                         controller: 'FrontPage'
                     },
                     'header':{
-                        templateUrl: "/templates/front-page/header.html",
+                        templateUrl: "/templates/front-page/header.html"
+                    }
+                }
+            })
+            //Личный кабинет
+            .state('lk', {
+                url: "/lk",
+                views:{
+                    '': {
+                        templateUrl: "/templates/lk/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/lk/header.html"
                     }
                 }
             })
