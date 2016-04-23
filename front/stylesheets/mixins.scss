@@ -60,3 +60,28 @@
     top: $bord;
   };
 }
+@mixin sm-or-less-display{
+  @media (max-width: $screen-sm-max) {
+    @content ;
+  }
+}
+@mixin sm-or-more-display{
+  @media (min-width: $screen-sm-min) {
+    @content ;
+  }
+}
+@mixin sm-display{
+  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    @content ;
+  }
+}
+@mixin xs-or-more-display{
+  @media (min-width: $screen-xs-min) {
+    @content ;
+  }
+}
+@mixin xs-display{
+  @media (max-width: $screen-xs-max) {
+    @content ;
+  }
+}
