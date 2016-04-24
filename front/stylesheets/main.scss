@@ -2,6 +2,7 @@ modal{
   display: none;
 }
 
+
 @import "variables";
 @import "../components/angular/angular-csp.css";
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap";
@@ -76,12 +77,21 @@ input,textarea,.btn,button,a{
   background: #e6e7e8;
   height: 50px;
   color: #0c111a;
-  text-transform: uppercase;
+  text-transform: uppercase;  
+  border: 0 none;
+  margin: 10px 10px 0 0;
+  padding: 18px 32px 18px 18px;
+  width: 290px;
   font: {
     family: "Century Gothic";
     size: 18px;
-  }
+	weight: 400;
+  }  
 }
 
 @import "modals";
+@import "lk";
+
+
+
 

@@ -53,7 +53,8 @@ gulp.task('sass', () => {
 gulp.task('webserver', () => {
     var server = serverFactory.create({
         path: './public',
-        port: 8888
+        port: 8888,
+		fallback: '/index.html'
     });
 
     server.start();
