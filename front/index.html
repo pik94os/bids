@@ -29,14 +29,95 @@
 				</a>				
 			</div>
 		</div>
+		
+		
+		<!-- тест-menu -->
+	<div id="nav-vert">
+	  <ul>
+	    <li><a href="#">Главная</a></li>
+        <li><a href="#">Статьи</a> 
+		<ul>
+		    <li><a href="#">HTML</a></li>
+		    <li><a href="#">CSS</a></li>
+		    <li><a href="#">PHP</a></li>
+			<li><a href="#">MySQL</a></li>
+		</ul>
+		</li>
+	    <li><a href="#">Книги</a>
+		<ul>
+		    <li><a href="#">Раскрутка и продвижение</a> </li>
+		    <li><a href="#">Е-Бизнес</a></li>
+		    <li><a href="#">Web-Дизайн</a></li>
+			<li><a href="#">Платежные системы</a></li>
+		</ul>
+		</li>
+	    <li><a href="#">О нас</a> </li>
+    </ul>   
+	</div>
+	
+<div id="nav-horiz">
+	<ul class="menu">
+    <li><a href=#>Menu 1</a>
+        <ul class="submenu">
+            <li><a href=#>Sudmenu 1</a></li>
+            <li><a href=#>Sudmenu 1</a></li>
+            <li><a href=#>Sudmenu 1</a></li>
+        </ul>
+    </li>
+    <li><a href=#>Menu 2</a>
+        <ul class="submenu">
+            <li><a href=#>Sudmenu 2</a></li>
+            <li><a href=#>Sudmenu 2</a></li>
+            <li><a href=#>Sudmenu 2</a></li>
+        </ul>
+    </li>
+    <li><a href=#>Menu 3</a>
+        <ul class="submenu">
+            <li><a href=#>Sudmenu 3</a></li>
+            <li><a href=#>Sudmenu 3</a></li>
+            <li><a href=#>Sudmenu 3</a></li>
+        </ul>
+    </li>
+    <li><a href=#>Menu 4</a>
+        <ul class="submenu">
+            <li><a href=#>Sudmenu 4</a></li>
+            <li><a href=#>Sudmenu 4</a></li>
+            <li><a href=#>Sudmenu 4</a></li>
+        </ul>
+    </li>
+    <li><a href=#>Menu 5</a>
+        <ul class="submenu">
+            <li><a href=#>Sudmenu 5</a></li>
+            <li><a href=#>Sudmenu 5</a></li>
+            <li><a href=#>Sudmenu 5</a></li>
+        </ul>
+    </li>
+</ul>
+
+</div>
+	
+	<!-- cd-accordion-menu -->
+		
+		
+		
 		<div class="header-menu content-block">
-            <ul>
+            <ul class="top-menu">
                 <li class="li-logo"><a href="/"><img src="images/logo.png"></a></li>
-                    <li><div class="header-menu-text-center">Главная</div></li>
-                    <li><div class="header-menu-text-center">Аукционные дома</div></li>
-                    <li><div class="header-menu-text-center">О нас</div></li>
-                    <li><div class="header-menu-text-center">Календарь</div></li>
-                    <li><div class="header-menu-text-center">Контакты</div></li>
+                <li><a href="/"><div class="header-menu-text-center">Главная</div></a></li>
+                <li><a href="/"><div class="header-menu-text-center insided">Аукционные дома</div></a>
+					<ul class="sub-menu">
+						<li id=""><a href="/">Аукционный дом антикварной книги </a></li>
+						<li id=""><a href="/">Аукционный дом наручных часов </a></li>
+					</ul>		
+				</li>
+                <li><a href="/"><div class="header-menu-text-center">О нас</div></a></li>
+                <li><a href="/"><div class="header-menu-text-center insided">Календарь</div></a>
+					<ul class="sub-menu">
+						<li id=""><a href="/">презентация книги </a></li>
+						<li id=""><a href="/">презентация наручных часов </a></li>
+					</ul>
+				</li>
+                <li><a href="/"><div class="header-menu-text-center">Контакты</div></a></li>
             </ul>
 		</div>
 		<div class="header-bottom row-block"   ui-view="header">

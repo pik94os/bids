@@ -5,7 +5,7 @@ content {
   padding: 0 0 80px;
   .content-list{
     $filter-info-height:100px;
-    $filter-height:$filter-info-height + 30px; // + filter-country
+    $filter-height:$filter-info-height + 30px; /* + filter-country*/
     $filter-margin-top:-15px;
     height: 100%;
     padding-top: $filter-height;
