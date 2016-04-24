@@ -1,23 +1,23 @@
 @mixin margin-vertical ($size){
-  margin:{
+  margin: {
     top:$size;
     bottom:$size;
   }
 }
 @mixin margin-horizontal ($size){
-  margin:{
+  margin: {
     left:$size;
     right:$size;
   }
 }
 @mixin padding-vertical ($size){
-  padding:{
+  padding: {
     top:$size;
     bottom:$size;
   }
 }
 @mixin padding-horizontal ($size){
-  padding:{
+  padding: {
     left:$size;
     right:$size;
   }
