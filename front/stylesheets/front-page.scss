@@ -11,7 +11,7 @@ content {
     padding-top: $filter-height;
     .filter{
       height: $filter-height;
-      position: absolute;
+      position: relative;
       width: 100%;
       margin-top: $filter-margin-top - $filter-height;
       &-info{
@@ -131,6 +131,7 @@ content {
 	background: white;
 	height: 214px;
 	overflow: hidden;
+	width: 100%;
 	&-in {
 	  padding: 12px;
 	  &-left {
@@ -203,7 +204,7 @@ content {
   .filter-bottom {
     background: white;
     bottom: -100px;
-	position: absolute;
+	position: relative;
 	height: 52px;
 	width: 100%;
 	text-transform: uppercase;
