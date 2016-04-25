@@ -57,7 +57,7 @@
 		background: white;
 		border-top: 2px solid #132038;
 		padding: 25px;
-		&-in {		
+		&-in {	
 			height: 100%;
             margin: 0;
 			&-top {
@@ -71,6 +71,85 @@
 					size: 15px;
 					weight: normal;
 				}
+				&-divdescription {
+					float: left;
+					height: 30px;
+					width: 30px;			
+					a {						
+						display: block;
+						width: 30px;
+						height: 30px;
+				    }
+					a.t {
+						background: url(/images/icons-font/t.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}					
+					a.i {
+						background: url(/images/icons-font/i.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.b {
+						background: url(/images/icons-font/b.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.tt {
+						background: url(/images/icons-font/tt.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.font-l {
+						background: url(/images/icons-font/font-l.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.font-c {
+						background: url(/images/icons-font/font-c.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.font-r {
+						background: url(/images/icons-font/font-r.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.indent-reduce {
+						background: url(/images/icons-font/indent-reduce.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.indent-increase {
+						background: url(/images/icons-font/indent-increase.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+				}
+				.m-l {
+					margin-left: 15px;
+				}
+			}
+			.pad-icon {
+				padding: 5px 0 30px;
 			}
 			&-bottom {
 				background: white;
