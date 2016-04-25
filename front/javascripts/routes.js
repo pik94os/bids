@@ -19,10 +19,11 @@ define(['./app'], function (app) {
             })
             //Личный кабинет
             .state('lk', {
-                url: "/lk",
+                url: "/lk?tab",
                 views:{
                     '': {
-                        templateUrl: "/templates/lk/list.html"
+                        templateUrl: "/templates/lk/list.html",
+                        controller: 'Lk'
                     },
                     'header':{
                         templateUrl: "/templates/lk/header.html"

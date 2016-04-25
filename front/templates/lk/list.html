@@ -5,9 +5,9 @@
             <ul class="lk-body-div-top-ul nav nav-tabs" role="tablist">
 				<li>Аукционы</li>
 				<li>Календарь</li>
-				<li>Описание</li>
+				<li ng-class="{'active':tab==='description'}" ui-sref="{tab:'description'}">Описание</li>
 				<li>История торгов</li>
-				<li class="active">Личные данные</li>
+				<li ng-class="{'active':!tab}" ui-sref="{tab:''}">Личные данные</li>
             </ul>
 		</div>
 		<div class="tab-content">

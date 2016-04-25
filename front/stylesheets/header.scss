@@ -272,7 +272,7 @@ header{
 
 
 /* Note: Design for a width less than of 767px */
-@media only screen and (max-width: 767px) {
+@include xs-display{
 	#mobile-menu {
 		display: block;
 	}
@@ -280,12 +280,9 @@ header{
 		display: none;
 	}
 }
-
-
-
 /* Note: Design for a width of 768px 
 
-@media only screen and (min-width: 768px) and (max-width: 959px) {
+@media only screen and (min-width: 768px){
 	
 }
 */
