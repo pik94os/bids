@@ -8,13 +8,9 @@
 	height: 150px;
 }*/
 
-.header-image-info {
-	background: red;
-}
-
 .lk-header {
 	width: 100%;
-	height: 100px;
+	height: 90px;
 	color: white;
 	padding-top: 15px;
 	text-transform: uppercase;	
@@ -25,16 +21,16 @@
 	}
 }
 
-.content-list {
-	padding-top: 20px;
+.lk-list {
+	padding-top: 2px;
 }
 
 .lk-body {
-	width: 940px;
+	margin-top: -20px;
 	&-div-top {
 		height: 50px;
 		&-ul {
-			margin-left: -40px;
+			padding-left: 0;
 			li {
 				background: white;
 				cursor: pointer;
@@ -50,7 +46,7 @@
 					size: 15px;
 					weight: normal;
 				}
-				&:hover {
+				&:hover, &.active {
 					background: #132038;
 					color: white;
 				}
@@ -63,6 +59,7 @@
 		padding: 25px;
 		&-in {		
 			height: 100%;
+            margin: 0;
 			&-top {
 				height: 30px;
 				color: #132038;
