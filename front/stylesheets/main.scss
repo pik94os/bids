@@ -74,20 +74,29 @@ input,textarea,.btn,button,a{
   }
 }
 
-.custom-input{
+%custom-input{
+  width: 100%;
   background: #e6e7e8;
   height: 50px;
   color: #0c111a;
-  text-transform: uppercase;  
+  text-transform: uppercase;
   border: 0 none;
-  margin: 10px 10px 0 0;
   padding: 18px 32px 18px 18px;
-  width: 290px;
   font: {
     family: "Century Gothic";
     size: 18px;
-	weight: 400;
-  }  
+    weight: 400;
+  }
+}
+
+label.custom-input{
+  width: 100%;
+  > input{
+    @extend %custom-input;
+  }
+}
+input.custom-input{
+  @extend %custom-input;
 }
 
 @import "modals";

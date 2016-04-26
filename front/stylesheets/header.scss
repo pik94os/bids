@@ -82,8 +82,7 @@ header{
   
   
   .header-menu {
-	height: auto;
-	
+	height: 110px;
 	
 	a {
 	  color: #1a2d55;
@@ -95,8 +94,7 @@ header{
 	&-text-center {
 	  padding: 40px 0 0 0;
 	}
-	
-	
+
 	
 	ul {
 		div.insided { // это птичка, показывающая, что в меню есть вложенное

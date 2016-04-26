@@ -28,7 +28,6 @@
 .lk-body {
 	margin-top: -20px;
 	&-div-top {
-		height: 50px;
 		&-ul {
 			padding-left: 0;
 			li {
@@ -61,6 +60,7 @@
 			height: 100%;
             margin: 0;
 			&-top {
+                margin: 0;
 				height: 30px;
 				color: #132038;
 				text-transform: uppercase;
@@ -153,44 +153,47 @@
 			}
 			&-bottom {
 				background: white;
-				height: 410px;
-				padding: 10px 0 45px 0;
+				padding: 10px 0 20px 0;
 				&-left {
 					float: left;
 					width: 600px;
-					&-form {		
+					&-form {
+                        .row{
+                          margin:{
+                            left: -5px;
+                            right: -5px;
+                          }
+                        }
+                        .col-sm{
+                          &-12,&-6,&-4,&-2{
+                            padding: 0 5px;
+                            margin-bottom: 10px;
+                          }
+                        }
 						label {
-						
+                            margin-bottom: 0;
 							input {
 								
 							}
 							&:after {
-								color: red;
-								content: "*";
-								font-size: 16px;
-								margin: 28px 0 0 -25px;
-								position: absolute;
+                              color: red;
+                              content: "*";
+                              font-size: 16px;
+                              right: 20px;
+                              top: 18px;
+                              position: absolute;
 							}
 						}
 						input {
-							width: 290px;
 							border: 0 none;
 							color: #0c111a;
-							font-family: "Century Gothic";
-							font-size: 18px;
-							font-weight: 400;
-							height: 50px;
-							margin: 10px 10px 0 0;
 							padding: 18px 32px 18px 18px;					
 						}
 						.kod {
 							background: #f3f3f3;
 						}
-						.fullwidth {
-							width: 100%;
-						}
 						.form-reg-checkbox {
-							margin-top: 20px;
+							margin-top: 10px;
 							label {
 								color: #0c111a;
 								text-transform: uppercase;
@@ -208,23 +211,16 @@
 								}
 							}
 						}
-						.m-0 {
-							margin: 10px 0 0 0;
-						}
 						.month {
 							width: 140px;
 						}
 					}				
 				}
-				.fullwidth {
-					width: 100%;
-				}
 				&-right {
 					float: left;
 					width: 290px;
 					height: 290px;
-					border: 1pz solid #e0e0e0;
-					height: 290px;
+					border: 1px solid #e0e0e0;
 					text-align: center;
 					&-top {
 						padding: 70px 0 20px 0;
@@ -232,14 +228,8 @@
 				}
 			}
 		}
-		.height2 {
-			height: 200px;
-		}
-		.height3 {
-			height: 500px;
-		}
 		.fullwidth-text {
-			width: 890px;
+			width: 100%;
 			margin-top: 10px;
 			font: {
 				family: "Century Gothic";
@@ -259,8 +249,12 @@
 		padding: 0;
 		margin: 15px 0;
 	}
+    #description-tab{
+      .lk-body-div-center{
+        padding: 5px 25px;
+      }
+    }
 }
-
 
 
 
