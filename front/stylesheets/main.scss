@@ -89,6 +89,35 @@ input,textarea,.btn,button,a{
   }
 }
 
+.auction{
+  margin: 5px 0 0 0;
+  padding: 15px 0;
+  border: 1px solid lightgray;
+  &-img{
+    @include square(191px);
+    float: left;
+    margin-right: 5px;
+  }
+  &-body{
+    width: calc(100% - 198px);
+    float: left;
+    &-header{
+      background: #a5a5a5;
+      color: #132038;
+      padding: 3px 7px;
+      width: calc(100% - 70px);
+    }
+  }
+  &-button{
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    background: #132038;
+    padding: 3px 0;
+  }
+}
+
 label.custom-input{
   width: 100%;
   > input{
