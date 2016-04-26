@@ -10,24 +10,59 @@
 <a name="top"></a>
 	<header class="row-block">
 		<div class="header-top row-block">
-			<div class="content-block">					
-				<div class="header-top-right">
-					<img src="images/icon-search.png">
+			<div class="content-block header-top">					
+				<div class="header-top-left">
+					<!--img src="images/logo-footer.png" class="logo-mobile"-->
+							
+					<a href="#" data-toggle="modal" data-target="#loginModal">
+						<img src="images/icon-arrow.png" class="image-left-left">
+						<div>
+								Вход/Регистрация
+						</div>
+									
+					</a>
+					
 					<div>
-						<input type="text" class="input-radius">
-						<button class="button-radius">Найти</button>
+						<div><input type="text" class="input-radius"></div>
+						<img src="images/icon-search.png">
+						<div><button class="button-radius">Найти</button></div>
 					</div>
 				</div>
-				<a href="#" data-toggle="modal" data-target="#loginModal">
-					<div class="header-top-left">
-							<img src="images/icon-arrow.png" class="image-left-left">
-							<div>
-								Вход/Регистрация
-							</div>
-						<img src="images/break.png">
+				<div class="header-top-right">
+					
+				
+				<div  id="mobile-menu" class="mobile-menu">
+				<img src="images/butter.png">
+				<form>
+					<select style="display: none;" sb="68261966" onchange="if (this.value) window.location.href=this.value" class="main-color">
+						<option value="#">Menu</option>
+						<option value="/">Главная</option>
+						<option value="http://auctionart.me/shop/">Каталог</option>
+					</select>
+					<div class="sbHolder" id="sbHolder_68261966">
+						
+						<a class="sbSelector" href="#" id="sbSelector_68261966">текущая страница</a>
+						<ul style="top: 30px; max-height: 309.833px; display: none;" class="sbOptions" id="sbOptions_68261966">
+							<li><a rel="#" href="##">Menu</a></li>
+							<li><a class="" rel="/" href="#/">Главная</a></li><li><a class="" rel="http://auctionart.me/shop/" href="#http://auctionart.me/shop/">Катлог</a></li>
+							<li><a rel="http://auctionart.me/product-category/woman-watch/" href="#http://auctionart.me/product-category/woman-watch/">Темы</a></li>
+							<li><a rel="http://auctionart.me/product-category/fashion/" href="#http://auctionart.me/product-category/fashion/">Современные</a></li>
+							<li><a rel="http://auctionart.me/product-category/luxury/" href="#http://auctionart.me/product-category/luxury/">Старинные</a></li>
+							<li><a rel="" href="#">Категории</a></li>
+							<li><a rel="http://auctionart.me/product-category/man/" href="#http://auctionart.me/product-category/man/">Мужские</a></li>
+							<li><a rel="http://auctionart.me/product-category/man/breitling/" href="#http://auctionart.me/product-category/man/breitling/">Breitling</a></li>
+							<li><a rel="http://auctionart.me/product-category/man/fortis/" href="#http://auctionart.me/product-category/man/fortis/">Fortis</a></li>
+							<li><a rel="http://auctionart.me/product-category/man/ess/" href="#http://auctionart.me/product-category/man/ess/">ESS</a></li>
+							<li><a rel="http://auctionart.me/contact/" href="#http://auctionart.me/contact/">Контакты</a></li>
+						</ul>
 					</div>
-				</a>				
+				</form>
+				</div>
+			 			
+
 			</div>
+				
+		</div>
 		</div>
 		
 		
@@ -62,39 +97,7 @@
 			</div>   			
    			
 			
-			<div id="mobile-menu">
-				
-				<div class="mobile-menu" align="center">
-				<form>
-					<select style="display: none;" sb="68261966" onchange="if (this.value) window.location.href=this.value" class="main-color">
-					<option value="#">Menu</option>
-					<option value="/">Главная</option>
-					<option value="http://auctionart.me/shop/">Каталог</option>
-					<option value="http://auctionart.me/product-category/woman-watch/">Темы</option><option value="http://auctionart.me/product-category/fashion/">Современные</option>
-					
-					<option value="http://auctionart.me/contact/">Контакты</option>
-					</select>
-					<div class="sbHolder" id="sbHolder_68261966">
-						<a class="sbToggle" href="#" id="sbToggle_68261966"></a>
-						<a class="sbSelector" href="#" id="sbSelector_68261966">Menu</a>
-						<ul style="top: 30px; max-height: 309.833px; display: none;" class="sbOptions" id="sbOptions_68261966">
-							<li><a rel="#" href="##">Menu</a></li>
-							<li><a class="" rel="/" href="#/">Главная</a></li><li><a class="" rel="http://auctionart.me/shop/" href="#http://auctionart.me/shop/">Катлог</a></li>
-							<li><a rel="http://auctionart.me/product-category/woman-watch/" href="#http://auctionart.me/product-category/woman-watch/">Темы</a></li>
-							<li><a rel="http://auctionart.me/product-category/fashion/" href="#http://auctionart.me/product-category/fashion/">Современные</a></li>
-							<li><a rel="http://auctionart.me/product-category/luxury/" href="#http://auctionart.me/product-category/luxury/">Старинные</a></li>
-							<li><a rel="" href="#">Категории</a></li>
-							<li><a rel="http://auctionart.me/product-category/man/" href="#http://auctionart.me/product-category/man/">Мужские</a></li>
-							<li><a rel="http://auctionart.me/product-category/man/breitling/" href="#http://auctionart.me/product-category/man/breitling/">Breitling</a></li>
-							<li><a rel="http://auctionart.me/product-category/man/fortis/" href="#http://auctionart.me/product-category/man/fortis/">Fortis</a></li>
-							<li><a rel="http://auctionart.me/product-category/man/ess/" href="#http://auctionart.me/product-category/man/ess/">ESS</a></li>
-							<li><a rel="http://auctionart.me/contact/" href="#http://auctionart.me/contact/">Контакты</a></li>
-						</ul>
-					</div>
-				</form>
-				</div>
-			</div>   			
-
+		
 
 		
 		
