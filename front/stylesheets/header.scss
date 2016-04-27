@@ -18,17 +18,17 @@ header{
       color: black;
     }
 	.input-radius {
-	    border-radius: 15px;
-		padding: 0 0 0 15px;
+	    border-radius: 9px;
+		padding: 0 0 0 5px;
 		width: 155px;
 		color: #acb1b8;
 	}
 	.button-radius {
 	    background: #b9b9b9;
-	    border-radius: 15px;
+	    border-radius: 9px;
 		color: #203371;
-		width: 77px;
-		margin: 0 0 0 -10px;
+		width: 60px;
+		margin: 0 0 0 -3px;
 	}
 	
 	height: 40px;
@@ -64,7 +64,7 @@ header{
 	
 	    float: right;
 	    padding:0px 3px 0px 0px;;
-		margin: 4px 3px 2px 3px;
+		margin: 0px 3px 0px 3px;
 		
 		
 	} 
@@ -209,92 +209,8 @@ header{
   }
 }
 
+//	.sbToggleOpen:before{content: url(/images/up-arrow.png);}
 
-.logo-mobile{
-
-display: none;
-padding-left: 20px;
-max-width:100%;
-max-height: 100%;
-
-
-}
-
-#primary-menu{
-		display: block;
-	}
-	
-#mobile-menu {
-	display: none;
-	position: relative;
-	//z-index: 9997;
-	float: right;
-	width: 230px;
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	background:{
-		//	image: url(/images/logo.png);
-		//	repeat: no-repeat;
-			
-			color: #000000;
-	}
-	img, form{
-		float: right;
-		max-width:100%;
-		max-height: 100%;
-
-	} 
-		
-	.sbHolder{ 
-		float: right;
-		width: 100%; 
-		height:100%;
-		position: relative;
-		// z-index: 4000;
-		
-	}
-	
-	select {
-		width: 100%;
-		height:100%;
-		align:center;
-		margin: 10px 0;
-		padding: .55em .45em;
-		user-select: none;
-		cursor: pointer;
-		color: #fff;
-	}
-
-}
-
-	.sbSelector{width:120px;}
-	.sbToggle{
-		background-color: #000;
-		&:before{
-			content: url(/images/down-arrow.png);
-			font-family: 'entypo';
-			padding-left: 1em;
-			font-size: 1em;
-			line-height:30px;
-			float:right;
-			margin-right:5px;
-			width: 20px;
-			text-align: center;
-		&:hover{
-			font-weight: 700;
-		}
-		}
-	}
-	
-	.sbToggleOpen:before{
-		content: url(/images/up-arrow.png);
-	}
-
-.sbHolderDisabled{
-	background-color: rgba(0,0,0,0.3);
-	border: solid 1px rgba(0,0,0,0.3);
-}
 
 
 /* Note: Design for a width less than of 767px */
@@ -307,12 +223,188 @@ max-height: 100%;
 		display: none;
 	}
 }
-/* Note: Design for a width of 768px 
 
-@media only screen and (min-width: 768px){
+
+/* menu адаптивное */
+
+
+
+
+	
+.toggleMenu {
+  
+    background: none;
+    padding: 10px 15px;
+    color: #fff;
+	float: right;
+	
+	max-width: 100%;
+	max-height: 100%;
 	
 }
-*/
+
+.top-text{
+padding: 12px 8px 0px 8px;
+float: left;
+text-transform: uppercase;
+}
+
+
+.menu-adaptive {
+    width: 100%;
+ a {text-decoration: none; font-size: 24px;}
+//ul, li, a  {margin: 0; padding: 0;}
+ // max-width: 900px;
+  //  margin: 10px auto;
+
+.nav{ // плашка меню
+	&:before,
+	&:after {
+		content: " "; 
+
+
+
+
+
+
+
+
+		display: table; 
+	}
+	&:after {
+		clear: both;
+	}
+	list-style: none;
+    *zoom: 1;
+    background:none;
+	
+	
+		> li > .parent {
+			background-image: url("/images/down-arrow-b.png");
+			background-repeat: no-repeat;
+			background-position: right;
+		}	
+		li li .parent {
+			background-image: url("/images/down-arrow-b.png");
+			background-repeat: no-repeat;
+			background-position: 95% 50%;
+		}
+	
+	li li ul, 
+	li ul {//инициализируем субменю за пределами экранаиначе осел6 не поймет
+		position: absolute;
+		left: -9999px;
+	}
+	
+	ul {
+		list-style: none;
+		width: 18em;
+	}
+	a {
+		padding: 3px 15px;// отступы текста в выпадающих меню
+		//color:#222;
+			
+	}
+	> li{
+		> a {
+			display: block;
+			 color: #1a2d55;
+      text-decoration: none;
+      &:hover {
+        color: #00329a;
+      }
+		}
+		float: left;
+		//border-bottom: 1px solid #104336; // нижний отчерк главных меню
+	}
+
+	li {
+		position: relative;
+		li{
+			
+			a { // меню второго уровня установки
+			
+			display: block;
+			background: #555;
+			position: relative;
+			z-index:100;
+			border-top: 1px solid #175e4c;
+			&:hover{
+				background: #e6ecf4;
+				color: #00329a; // отмечаем бэкраунд перед тем как проследовать глубже, чтоб понимать потом откуда идем
+			}
+			}
+			li a {// меню третьнго уровня установки
+			background:#888;
+			z-index:200;
+			border-top: 1px solid #1d7a62;
+			&:hover{
+				background: #e6ecf4;
+				color: #00329a; // отмечаем бэкраунд перед тем как проследовать глубже, чтоб понимать потом откуда идем
+			}
+			}
+		}
+	}
+}
+
+
+@media screen and (min-width: 769px) and (max-width: 3000px){
+.li-logo{display:  block;}
+.toggleMenu {display:  none;}
+.nav{ 
+	> li:hover{ 
+		> ul {
+			left: 0; //переносим субменю в место, где ему положено быть
+			
+			li:hover {
+				ul {//переносим субменю третьего уровня правее и на высоте родителя
+					left: 100%;
+					top: 0;
+				}
+			}	
+		}
+	}
+	
+	
+	
+		
+}
+
+}
+
+@media screen and (max-width: 768px) {
+	.toggleMenu{display:  block;}
+	.li-logo{display:  none;}
+    .active {display: block;}
+
+	.nav{
+		ul {
+			display: block;
+			width: 100%;
+		}
+		> li.hover > ul,
+		li li.hover ul {
+			position: static;
+		}
+		> li {
+			float: none;
+			> .parent {
+				background-position: 95% 50%;
+			}
+		}	
+		> li.hover > ul {
+		left: 0; //переносим субменю в место, где ему положено быть
+		//display: block;
+		}
+		li li.hover ul {//переносим субменю третьего уровня правее
+		left: 100%;
+		top: 0;
+		}
+	}
+
+
+}
+}
 
 
 
