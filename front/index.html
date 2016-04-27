@@ -16,9 +16,11 @@
 		<div class="header-top row-block">
 			<div class="content-block header-top">					
 				<div class="header-top-left">
-					<!--img src="images/logo-footer.png" class="logo-mobile"-->
-							
-					<a href="#" data-toggle="modal" data-target="#loginModal">
+					
+				</div>
+				
+				<div class="header-top-right">
+				<a href="#" data-toggle="modal" data-target="#loginModal">
 						<img src="images/icon-arrow.png" class="image-left-left">
 						<div>Вход/Регистрация</div>
 									
@@ -29,11 +31,9 @@
 						<img src="images/icon-search.png">
 						<div><button class="button-radius">Найти</button></div>
 					</div>
-				</div>
-				<div class="top-text" align="center">текущая страница сайта</div>	
-				<div class="header-top-right">
+
+							
 				
-				<img class="toggleMenu" src="images/butter.png">
 				
 				
 						
@@ -44,74 +44,22 @@
 		</div>
 		
 			   			
-   			<div class="menu-adaptive content-block">
-				<ul class="nav">
-                <li class="li-logo"><a href="/"><img src="images/logo.png"></a></li>
-                <li><a href="/">Главная</a></li>
-                <li><a href="/">Аукционные дома</a>
-					<ul>
-						<li><a href="/">Аукционный дом антикварной книги </a></li>
-						<li><a href="/">Аукционный дом наручных часов </a>
-						<ul>
-							<li><a href="/">Женские </a></li>
-							<li><a href="/">Мужские </a></li>
-						</ul>
-					</li>
-					</ul>
-				</li>
-                <li><a href="/">О нас</a></li>
-                <li><a href="/">Календарь</a>
-					<ul>
-						<li><a href="/">презентация книги </a></li>
-						<li><a href="/">презентация наручных часов </a></li>
-					</ul>
-				</li>
-                <li><a href="/">Контакты</a></li>
-				</ul>
-
-
-			</div>   			
-   		
-		<!--div class="header-menu content-block">
-  			   			
-   			<div class="menu-adaptive">
-				<ul>
-                <li class="li-logo"><a href="/"><img src="images/logo.png"></a></li>
-                <li><a href="/"><div class="header-menu-text-center">Главная</div></a></li>
-                <li><a href="/"><div class="header-menu-text-center insided">Аукционные дома</div></a>
-					<ul>
-						<li><a href="/">Аукционный дом антикварной книги </a></li>
-						<li><a href="/">Аукционный дом наручных часов </a>
-						<ul>
-							<li><a href="/">Женские </a></li>
-							<li><a href="/">Мужские </a></li>
-						</ul>
-					</li>
-					</ul>
-				</li>
-                <li><a href="/"><div class="header-menu-text-center">О нас</div></a></li>
-                <li><a href="/"><div class="header-menu-text-center insided">Календарь</div></a>
-					<ul>
-						<li><a href="/">презентация книги </a></li>
-						<li><a href="/">презентация наручных часов </a></li>
-					</ul>
-				</li>
-                <li><a href="/"><div class="header-menu-text-center">Контакты</div></a></li>
-				</ul>
-
-
-			</div>   			
-   			
-		
+   	<div class="top-menu content-block">
+		<img align="left" width="30%" src="images/logo.png"/>
+			
+		<ul>
+			<li class="current"><a href="#">Главная</a></li>
+			<li><a href="#">Каталог</a></li>
+			<li><a href="#">Аукционные дома</a></li>
+			<li><a href="#">О нас</a></li>
+			<li><a href="#">Календарь</a></li>
+			<li><a href="/">Контакты</a></li>
+		</ul>
+	</div>
 
 		
-		
-		
-		</div-->
-		
-		
-		<div class="header-bottom row-block"   ui-view="header">
-		</div>
+	<div class="header-bottom row-block"   ui-view="header">
+	</div>
 	</header>
 
 
@@ -132,58 +80,7 @@
 			</div>
 		</div>
 	</footer>	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-<script type="text/javascript">
-
-var ww = document.body.clientWidth;
-
-$(document).ready(function() {
-	$(".nav li a").each(function() {
-		if ($(this).next().length > 0) {
-			$(this).addClass("parent");
-		};
-	})
 	
-	$(".toggleMenu").click(function(e) {
-		e.preventDefault();
-		$(this).toggleClass("active");
-		$(".nav").toggle();
-	});
-	adjustMenu();
-})
-
-$(window).bind('resize orientationchange', function() {
-	ww = document.body.clientWidth;
-	adjustMenu();
-});
-
-var adjustMenu = function() {
-	if (ww < 768) {
-		$(".toggleMenu").css("display", "inline-block");
-		if (!$(".toggleMenu").hasClass("active")) {
-			$(".nav").hide();
-		} else {
-			$(".nav").show();
-		}
-		$(".nav li").unbind('mouseenter mouseleave');
-		$(".nav li a.parent").unbind('click').bind('click', function(e) {
-			// Необходимоо привязать к элементу ссылки для предотвращения "всплывания"
-			e.preventDefault();
-			$(this).parent("li").toggleClass("hover");
-		});
-	} 
-	else if (ww >= 768) {
-		$(".toggleMenu").css("display", "none");
-		$(".nav").show();
-		$(".nav li").removeClass("hover");
-		$(".nav li a").unbind('click');
-		$(".nav li").unbind('mouseenter mouseleave').bind('mouseenter mouseleave', function() {
-		 	// Необходимо привязать к элементу li для предотвращения запуска события mouseleave при перемещении курсора мыши над подменю
-		 	$(this).toggleClass('hover');
-		});
-	}
-}
-</script>
 
 </body>
 </html>
