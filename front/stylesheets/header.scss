@@ -252,8 +252,8 @@ text-transform: uppercase;
 
 .menu-adaptive {
     width: 100%;
- a {text-decoration: none; font-size: 24px;}
-//ul, li, a  {margin: 0; padding: 0;}
+ a {text-decoration: none; font-size: 24px; padding: 0px 3px 0px 0px;}
+//ul, li, a  {margin: 0; padding: 0;} 
  // max-width: 900px;
   //  margin: 10px auto;
 
@@ -310,6 +310,7 @@ text-transform: uppercase;
 			display: block;
 			 color: #1a2d55;
       text-decoration: none;
+	  padding: 0px 20px 0px 20px; // чтоб галочка не прилипала близко
       &:hover {
         color: #00329a;
       }
@@ -321,6 +322,7 @@ text-transform: uppercase;
 	li {
 		position: relative;
 		li{
+			&:hover{background: #e6ecf4;} // отмечаем бэкраунд перед тем как проследовать глубже
 			
 			a { // меню второго уровня установки
 			
@@ -328,16 +330,16 @@ text-transform: uppercase;
 			background: #555;
 			position: relative;
 			z-index:100;
-			border-top: 1px solid #175e4c;
+			border-top: 1px solid #999;
 			&:hover{
-				background: #e6ecf4;
-				color: #00329a; // отмечаем бэкраунд перед тем как проследовать глубже, чтоб понимать потом откуда идем
+				background: #e6ecf4;// отмечаем бэкраунд перед тем как проследовать глубже
+				color: #00329a; 
 			}
 			}
 			li a {// меню третьнго уровня установки
 			background:#888;
 			z-index:200;
-			border-top: 1px solid #1d7a62;
+			border-top: 1px solid #999;
 			&:hover{
 				background: #e6ecf4;
 				color: #00329a; // отмечаем бэкраунд перед тем как проследовать глубже, чтоб понимать потом откуда идем
@@ -392,14 +394,28 @@ text-transform: uppercase;
 				background-position: 95% 50%;
 			}
 		}	
-		> li.hover > ul {
-		left: 0; //переносим субменю в место, где ему положено быть
-		//display: block;
+		> li.hover{
+			> ul {
+				left: 0; //переносим субменю в место, где ему положено быть
+				//display: block;
+				> li.hover{
+					> .parent {
+						background-image: url("/images/up-arrow-b.png");
+						background-repeat: no-repeat;
+						background-position: 95% 50%;
+					}
+			
+				}
+		
+			}
+			> .parent {
+				background-image: url("/images/up-arrow-b.png");
+				background-repeat: no-repeat;
+				background-position: 95% 50%;
+			}
 		}
-		li li.hover ul {//переносим субменю третьего уровня правее
-		left: 100%;
-		top: 0;
-		}
+		
+		
 	}
 
 
