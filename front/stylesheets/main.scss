@@ -90,6 +90,7 @@ input,textarea,.btn,button,a{
 }
 
 .auction{
+  background: white;
   margin: 5px 0 0 0;
   padding: 15px 0;
   border: 1px solid lightgray;
@@ -109,13 +110,21 @@ input,textarea,.btn,button,a{
     }
   }
   &-button{
+    margin-bottom: 10px;
     text-transform: uppercase;
     text-align: center;
     color: white;
     cursor: pointer;
-    background: #132038;
+    background: #596273;
+    &.active{
+      background: #132038;
+    }
+    &:hover {
+      background: #91aee2;
+    }
     padding: 3px 0;
   }
+
 }
 
 label.custom-input{

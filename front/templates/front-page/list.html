@@ -110,22 +110,28 @@
             </ul>
         </div>
     </div>
-    <div class="front-body" ng-repeat="i in [1,2,3,4,5,6,7,8]">
-        <div class="front-body-in">
-            <div class="front-body-in-left">
-                <img src="images/image-body-in.png">
+    <div class="auction row" ng-repeat="i in [1,2,3,4,5,6,7,8]">
+        <div class="">
+            <div class="col-md-9">
+                <div class="auction-img">
+                    <img src="images/image-body-in.png">
+                </div>
+                <div class="auction-body">
+                    <p class="auction-body-header">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
+                    <p class="front-body-in-center-p2">Аукцион 2</p>
+                    <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
+                    <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
+                </div>
             </div>
-            <div class="front-body-in-center">
-                <p class="front-body-in-center-p1">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
-                <p class="front-body-in-center-p2">Аукцион 2</p>
-                <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
-                <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
-            </div>
-            <div class="front-body-in-right">
-                <p class="front-body-in-right-p" data-toggle="modal" data-target="#reg-auction-house">Регистрация</p>
-                <p class="front-body-in-right-p">Просмотр каталога</p>
-                <p class="front-body-in-right-p">Добавить в календарь</p>
-                <p class="front-body-in-right-p">Распечатать каталог</p>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="col-xs-4 col-md-12">
+                        <div class="auction-button active" data-toggle="modal" data-target="#reg-auction-house">Регистрация</div>
+                    </div>
+                    <div class="col-xs-4 col-md-12"><div class="auction-button">Просмотр каталога</div></div>
+                    <div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div>
+                    <div class="col-xs-4 col-md-12"><div class="auction-button">Распечатать каталог</div></div>
+                </div>
             </div>
         </div>
     </div>
