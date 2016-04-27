@@ -279,7 +279,15 @@
   } 
 }
 
-
+#create-auction{
+  text-transform: uppercase;
+  .row-1{
+    @include margin-horizontal(-5px);
+    > div{
+      padding: 0 5px 5px 5px;
+    }
+  }
+}
 
 
 

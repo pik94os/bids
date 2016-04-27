@@ -1,11 +1,42 @@
-<modal title="Создание нового аукциона" id="create-auction">
-    <div class="row">
-        <div class="col-xs-12"><input class="custom-input" value="Название аукциона" type="text"></div>
-    </div>
-    <div class="row">
+<modal title="Создание нового аукциона" id="create-auction" width="lg">
+    <div class="row row-1">
+        <div class="col-sm-12">
+            <div class="custom-input-lg" contenteditable="true">Название аукциона</div>
+        </div>
         <div class="col-sm-4"><input class="custom-input" placeholder="Номер аукциона" type="text"></div>
     </div>
+    <br class="hidden-xs"/>
     <div class="row">
-        <div class="col-md-"></div>
+        <div class="col-md-7">
+            <div class="row row-1">
+                <div class="col-sm-12">Дата проведения</div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Число" type="text"></div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Месяц" type="text"></div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Год" type="text"></div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="row row-1">
+                <div class="col-sm-12">Время проведения</div>
+                <div class="col-sm-6"><input class="custom-input" placeholder="Час" type="text"></div>
+                <div class="col-sm-6"><input class="custom-input" placeholder="Минуты" type="text"></div>
+            </div>
+        </div>
+    </div>
+    <br class="hidden-xs"/>
+    <div class="row row-1">
+        <div class="col-sm-12">Место проведения</div>
+        <div class="col-sm-12"><input class="custom-input" placeholder="Место проведения" type="text"></div>
+    </div>
+    <div class="row">
+        <div class="checkbox">
+            <input type="checkbox" id="create-auction-checkbox">
+            <label for="create-auction-checkbox">Я принимаю условия и согласен к обработке данных</label>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-sm-9"><div class="custom-btn"  data-dismiss="modal" ui-sref="auction">Сохранить и перейти к наполнению лотов</div></div>
+        <div class="col-sm-3"><div class="custom-btn-default"  data-dismiss="modal">Отмена</div></div>
     </div>
 </modal>

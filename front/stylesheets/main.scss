@@ -1,150 +1,33 @@
+//скрываем собственные теги до обработки
 modal{
   display: none;
 }
-
-
+//Определяем свои пременные и переопределяем переменные bootstrap
 @import "variables";
+//стили для первоночального скрытия некоторых элементов Angular.js
 @import "../components/angular/angular-csp.css";
+//bootstrap 3
 @import "../components/bootstrap-sass/assets/stylesheets/bootstrap";
+//Набор полезных миксин
 @import "mixins";
+//Кастомные стили для этого проекта
+@import "custom";
+//Шапка
 @import "header";
+//Подвал
 @import "footer";
+//Главная
 @import "front-page";
-//@import "top-menu";
-
-
-//уберём браузерную обводку
-input,textarea,.btn,button,a{
-  &:not(.outline){
-    &:active, &:focus {
-      outline: none;
-    }
-    &::-moz-focus-inner {
-      border: 0;
-    }
-  }
-}
-
-.row-block{
-  width: 100%;
-  .content-block{
-    width: 100%;
-   // position: relative;
-    max-width: 1000px;
-    min-width: 320px;
-    @include margin-horizontal(auto);
-  }
-}
-
-.custom-title-block{
-  background: #283879;
-  height: 94px;
-  color: white;
-  padding: 16px;
-  text: {
-    align: center;
-    transform: uppercase;
-  }
-  font: {
-    family: "Century Gothic";
-    weight: bold;
-  }
-  &-h3 {
-    font-size: 20px;
-  }
-  &-h1 {
-    font-size: 35px;
-  }
-}
-
-.custom-btn{
-  &-lg{
-    background: #283879;
-    height: 55px;
-    color: white;
-    text: {
-      align: center;
-      transform: uppercase;
-    }
-    font: {
-      family: "Century Gothic";
-      weight: bold;
-      size: 24px;
-    }
-  }
-}
-
-%custom-input{
-  width: 100%;
-  background: #e6e7e8;
-  height: 50px;
-  color: #0c111a;
-  text-transform: uppercase;
-  border: 0 none;
-  padding: 18px 32px 18px 18px;
-  font: {
-    family: "Century Gothic";
-    size: 18px;
-    weight: 400;
-  }
-}
-
-.auction{
-  background: white;
-  margin: 5px 0 0 0;
-  padding: 15px 0;
-  border: 1px solid lightgray;
-  &-img{
-    @include square(191px);
-    float: left;
-    margin-right: 5px;
-  }
-  &-body{
-    width: calc(100% - 198px);
-    float: left;
-    &-header{
-      background: #a5a5a5;
-      color: #132038;
-      padding: 3px 7px;
-      width: calc(100% - 70px);
-    }
-  }
-  &-button{
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    text-align: center;
-    color: white;
-    cursor: pointer;
-    background: #596273;
-    &.active{
-      background: #132038;
-    }
-    &:hover {
-      background: #91aee2;
-    }
-    padding: 3px 0;
-  }
-
-}
-.new-auction{
-  @extend .auction;
-  .auction-img{
-    border: 1px solid gray;
-  }
-}
-
-label.custom-input{
-  width: 100%;
-  > input{
-    @extend %custom-input;
-  }
-}
-input.custom-input{
-  @extend %custom-input;
-}
-
-@import "modals";
+//Личный кабинет
 @import "lk";
+//Страница редактирования аукциона, главная аукциона, любимые лоты
+@import "auction";
+//Страница редактирования и просмотра любого лота
+@import "lot";
+//Комната торгов
+@import "room";
+//Модальные окна
+@import "modals";
 
 
 

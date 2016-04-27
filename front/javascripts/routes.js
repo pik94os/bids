@@ -30,6 +30,39 @@ define(['./app'], function (app) {
                     }
                 }
             })
+            .state('auction', {
+                url: '/auction',
+                views:{
+                    '': {
+                        templateUrl: "/templates/auction/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/auction/header.html"
+                    }
+                }
+            })
+            .state('lot', {
+                url: '/lot',
+                views:{
+                    '': {
+                        templateUrl: "/templates/lot/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/lot/header.html"
+                    }
+                }
+            })
+            .state('room', {
+                url: '/room',
+                views:{
+                    '': {
+                        templateUrl: "/templates/room/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/room/header.html"
+                    }
+                }
+            })
             //Ошибка 404
             .state('err_404', {
                 url: "/err404",
