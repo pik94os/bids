@@ -126,6 +126,12 @@ input,textarea,.btn,button,a{
   }
 
 }
+.new-auction{
+  @extend .auction;
+  .auction-img{
+    border: 1px solid gray;
+  }
+}
 
 label.custom-input{
   width: 100%;

@@ -1,4 +1,4 @@
-header{
+header {
   /*height: 710px;*/
   a {
     text-decoration: none;
@@ -7,202 +7,200 @@ header{
       text-decoration: none;
     }
   }
-  ul{margin:0; padding:0;}
-  
-  
-  
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
   .header-top {
-	
-	background:{
+
+    background: {
       image: url(/images/background-header.png);
       color: black;
     }
-	.input-radius {
-	    border-radius: 9px;
-		padding: 0 0 0 5px;
-		width: 155px;
-		color: #acb1b8;
-	}
-	.button-radius {
-	    background: #b9b9b9;
-	    border-radius: 9px;
-		color: #203371;
-		width: 60px;
-		margin: 0 0 0 -3px;
-	}
-	
-	height: 40px;
-	color: white;
-	a {
-		color: white;
-		text-decoration: none;
-	}
-	  
-	&-left {
-	  height: 100%;
-	  float: left;
-	  /*&-div {
-	    height: 100%;
-	  }*/
-	  img, div {
-	
-	    float: left;
-	    padding:0px 3px 0px 0px;;
-		margin: 4px 3px 2px 3px;
-		
-		
-	} 
-	
-	  
-	  
-	}
-	&-right {
-		height: 100%;
-		float: right;
-		
-		img, div {
-	
-	    float: right;
-	    padding:0px 3px 0px 0px;;
-		margin: 0px 3px 0px 3px;
-		
-		
-	} 
-	}
-    > div:first-child{
-		//float: left;
+    .input-radius {
+      border-radius: 9px;
+      padding: 0 0 0 5px;
+      width: 155px;
+      color: #acb1b8;
+    }
+    .button-radius {
+      background: #b9b9b9;
+      border-radius: 9px;
+      color: #203371;
+      width: 60px;
+      margin: 0 0 0 -3px;
+    }
+
+    height: 40px;
+    color: white;
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    &-left {
+      height: 100%;
+      float: left;
+      /*&-div {
+        height: 100%;
+      }*/
+      img, div {
+
+        float: left;
+        padding: 0px 3px 0px 0px;;
+        margin: 4px 3px 2px 3px;
+
+      }
+
+    }
+    &-right {
+      height: 100%;
+      float: right;
+
+      img, div {
+
+        float: right;
+        padding: 0px 3px 0px 0px;;
+        margin: 0px 3px 0px 3px;
+
+      }
+    }
+    > div:first-child {
+      //float: left;
       /*padding: 5px 0;*/
-     // text-align: right;
-      > div{
-          display: inline-block;
+      // text-align: right;
+      > div {
+        display: inline-block;
       }
     }
   }
-  
-  
-  
+
   .header-menu {
-	height: 110px;
-	
-	a {
-	  color: #1a2d55;
+    height: 110px;
+
+    a {
+      color: #1a2d55;
       text-decoration: none;
       &:hover {
         color: #00329a;
       }
     }
-	&-text-center {
-	  padding: 40px 0 0 0;
-	}
+    &-text-center {
+      padding: 40px 0 0 0;
+    }
 
-	
-	ul {
-		div.insided { // это птичка, показывающая, что в меню есть вложенное
-			&:after{content: url("/images/down-arrow-b.png"); margin-left: 4px;}
-		}
-	
-
-	    li {
-			cursor: pointer;
-			float: left;
-			height: 110px;
-			width: 12.5%;
-			list-style-type: none;
-			padding: 0;
-			color: #1a2d55;
-			text-transform: uppercase;
-			font-size: 13px;
-			text-align: center;
-			display: block;
-			background-color: white;
-			
-			ul{//инициализируем субменю за пределами экранаиначе осел6 не поймет
-				position: absolute;
-				left: -9999px;
-				display: none;
-				min-width: 120px;
-						
-			}
-			&:hover {
-				background: #e6ecf4;
-				color: #00329a;
-				ul {	//при наведении на родителя, переносим субменю на место отображения
-					position: relative; 
-					display: block;
-					left: -50%;
-					width: 180px;
-					min-width: 100%;
-					//max-width: 300%;
-					
-				
-					li{
-
-						position: relative;
-						width: 100%;
-						height: auto;
-						padding: 0px;
-						&:hover {
-							background: #e6ecf4;
-						}
-					
-						border-top: 1px solid #000; /* верхний  отчерк ячейки*/
-						background-color: #cccccc;
-						a{	display: block;
-							text-decoration: none;
-							//color: #777;
-							padding: 5px;
-						}
-				
-					}
-				
-				}
-          }
-          &.li-logo { width: 37.5%;}
+    ul {
+      div.insided { // это птичка, показывающая, что в меню есть вложенное
+        &:after {
+          content: url("/images/down-arrow-b.png");
+          margin-left: 4px;
         }
+      }
+
+      li {
+        cursor: pointer;
+        float: left;
+        height: 110px;
+        width: 12.5%;
+        list-style-type: none;
+        padding: 0;
+        color: #1a2d55;
+        text-transform: uppercase;
+        font-size: 13px;
+        text-align: center;
+        display: block;
+        background-color: white;
+
+        ul { //инициализируем субменю за пределами экранаиначе осел6 не поймет
+          position: absolute;
+          left: -9999px;
+          display: none;
+          min-width: 120px;
+
+        }
+        &:hover {
+          background: #e6ecf4;
+          color: #00329a;
+          ul { //при наведении на родителя, переносим субменю на место отображения
+            position: relative;
+            display: block;
+            left: -50%;
+            width: 180px;
+            min-width: 100%;
+            //max-width: 300%;
+
+            li {
+
+              position: relative;
+              width: 100%;
+              height: auto;
+              padding: 0px;
+              &:hover {
+                background: #e6ecf4;
+              }
+
+              border-top: 1px solid #000; /* верхний  отчерк ячейки*/
+              background-color: #cccccc;
+              a {
+                display: block;
+                text-decoration: none;
+                //color: #777;
+                padding: 5px;
+              }
+
+            }
+
+          }
+        }
+        &.li-logo {
+          width: 37.5%;
+        }
+      }
     }
   }
-  
+
   .header-bottom {
-	left: 0;
-	background-image: url(/images/background-body.png);
+    left: 0;
+    background-image: url(/images/background-body.png);
     background-color: black;
     .header-image {
-	  background: url(/images/header-image.png) no-repeat;
-	  background-size: 100%;
-	  height: 420px;
-	  text-align: center;
+      background: url(/images/header-image.png) no-repeat;
+      background-size: 100%;
+      height: 420px;
+      text-align: center;
       @media (max-width: 1190px) {
-          background-size: auto 100%;
+        background-size: auto 100%;
       }
-	  &-top {
-	    color: white;
-		padding: 95px 0 0;
-		text-transform: uppercase;
-		font-size: 135px;
-		font-weight: bold;
-		font-family: "Century Gothic";
-	  }
-	  &-bottom {
-	    text-transform: uppercase;
-		font-size: 28px;
-		color: white;		
-		background: url(/images/header-image-bottom.png) no-repeat;
-		height: 222px;
-	  }
+      &-top {
+        color: white;
+        padding: 95px 0 0;
+        text-transform: uppercase;
+        font-size: 135px;
+        font-weight: bold;
+        font-family: "Century Gothic";
+      }
+      &-bottom {
+        text-transform: uppercase;
+        font-size: 28px;
+        color: white;
+        background: url(/images/header-image-bottom.png) no-repeat;
+        height: 222px;
+      }
       &-info {
         background: #0c111a;
         height: 145px;
         text-align: center;
         &-top {
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 40px 0 0;
+          color: white;
+          font-size: 28px;
+          font-weight: bold;
+          text-transform: uppercase;
+          padding: 40px 0 0;
         }
         &-bottom {
-            color: #d8a46a;
-            font-size: 18px;
+          color: #d8a46a;
+          font-size: 18px;
         }
       }
     }
@@ -211,217 +209,213 @@ header{
 
 //	.sbToggleOpen:before{content: url(/images/up-arrow.png);}
 
-
-
 /* Note: Design for a width less than of 767px */
-@include xs-display{
-	#mobile-menu {
-		display: block;
-	}
-	.logo-mobile{display: block;}
-	#primary-menu{
-		display: none;
-	}
+@include xs-display {
+  #mobile-menu {
+    display: block;
+  }
+  .logo-mobile {
+    display: block;
+  }
+  #primary-menu {
+    display: none;
+  }
 }
-
 
 /* menu адаптивное */
 
-
-
-
-	
 .toggleMenu {
-  
-    background: none;
-    padding: 10px 15px;
-    color: #fff;
-	float: right;
-	
-	max-width: 100%;
-	max-height: 100%;
-	
+
+  background: none;
+  padding: 10px 15px;
+  color: #fff;
+  float: right;
+
+  max-width: 100%;
+  max-height: 100%;
+
 }
 
-.top-text{
-padding: 12px 8px 0px 8px;
-float: left;
-text-transform: uppercase;
+.top-text {
+  padding: 12px 8px 0px 8px;
+  float: left;
+  text-transform: uppercase;
 }
-
 
 .menu-adaptive {
-    width: 100%;
- a {text-decoration: none; font-size: 24px; padding: 0px 3px 0px 0px;}
-//ul, li, a  {margin: 0; padding: 0;} 
- // max-width: 900px;
+  width: 100%;
+  a {
+    text-decoration: none;
+    font-size: 24px;
+    padding: 0px 3px 0px 0px;
+  }
+  //ul, li, a  {margin: 0; padding: 0;}
+  // max-width: 900px;
   //  margin: 10px auto;
 
-.nav{ // плашка меню
-	&:before,
-	&:after {
-		content: " "; 
+  .nav { // плашка меню
+    &:before,
+    &:after {
+      content: " ";
 
-
-
-
-
-
-
-
-		display: table; 
-	}
-	&:after {
-		clear: both;
-	}
-	list-style: none;
+      display: table;
+    }
+    &:after {
+      clear: both;
+    }
+    list-style: none;
     *zoom: 1;
-    background:none;
-	
-	
-		> li > .parent {
-			background-image: url("/images/down-arrow-b.png");
-			background-repeat: no-repeat;
-			background-position: right;
-		}	
-		li li .parent {
-			background-image: url("/images/down-arrow-b.png");
-			background-repeat: no-repeat;
-			background-position: 95% 50%;
-		}
-	
-	li li ul, 
-	li ul {//инициализируем субменю за пределами экранаиначе осел6 не поймет
-		position: absolute;
-		left: -9999px;
-	}
-	
-	ul {
-		list-style: none;
-		width: 18em;
-	}
-	a {
-		padding: 3px 15px;// отступы текста в выпадающих меню
-		//color:#222;
-			
-	}
-	> li{
-		> a {
-			display: block;
-			 color: #1a2d55;
-      text-decoration: none;
-	  padding: 0px 20px 0px 20px; // чтоб галочка не прилипала близко
-      &:hover {
-        color: #00329a;
+    background: none;
+
+    > li > .parent {
+      background-image: url("/images/down-arrow-b.png");
+      background-repeat: no-repeat;
+      background-position: right;
+    }
+    li li .parent {
+      background-image: url("/images/down-arrow-b.png");
+      background-repeat: no-repeat;
+      background-position: 95% 50%;
+    }
+
+    li li ul,
+    li ul { //инициализируем субменю за пределами экранаиначе осел6 не поймет
+      position: absolute;
+      left: -9999px;
+    }
+
+    ul {
+      list-style: none;
+      width: 18em;
+    }
+    a {
+      padding: 3px 15px; // отступы текста в выпадающих меню
+      //color:#222;
+
+    }
+    > li {
+      > a {
+        display: block;
+        color: #1a2d55;
+        text-decoration: none;
+        padding: 0px 20px 0px 20px; // чтоб галочка не прилипала близко
+        &:hover {
+          color: #00329a;
+        }
       }
-		}
-		float: left;
-		//border-bottom: 1px solid #104336; // нижний отчерк главных меню
-	}
+      float: left;
+      //border-bottom: 1px solid #104336; // нижний отчерк главных меню
+    }
 
-	li {
-		position: relative;
-		li{
-			&:hover{background: #e6ecf4;} // отмечаем бэкраунд перед тем как проследовать глубже
-			
-			a { // меню второго уровня установки
-			
-			display: block;
-			background: #555;
-			position: relative;
-			z-index:100;
-			border-top: 1px solid #999;
-			&:hover{
-				background: #e6ecf4;// отмечаем бэкраунд перед тем как проследовать глубже
-				color: #00329a; 
-			}
-			}
-			li a {// меню третьнго уровня установки
-			background:#888;
-			z-index:200;
-			border-top: 1px solid #999;
-			&:hover{
-				background: #e6ecf4;
-				color: #00329a; // отмечаем бэкраунд перед тем как проследовать глубже, чтоб понимать потом откуда идем
-			}
-			}
-		}
-	}
+    li {
+      position: relative;
+      li {
+        &:hover {
+          background: #e6ecf4;
+        }
+        // отмечаем бэкраунд перед тем как проследовать глубже
+
+        a { // меню второго уровня установки
+
+          display: block;
+          background: #555;
+          position: relative;
+          z-index: 100;
+          border-top: 1px solid #999;
+          &:hover {
+            background: #e6ecf4; // отмечаем бэкраунд перед тем как проследовать глубже
+            color: #00329a;
+          }
+        }
+        li a { // меню третьнго уровня установки
+          background: #888;
+          z-index: 200;
+          border-top: 1px solid #999;
+          &:hover {
+            background: #e6ecf4;
+            color: #00329a; // отмечаем бэкраунд перед тем как проследовать глубже, чтоб понимать потом откуда идем
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 3000px) {
+    .li-logo {
+      display: block;
+    }
+    .toggleMenu {
+      display: none;
+    }
+    .nav {
+      > li:hover {
+        > ul {
+          left: 0; //переносим субменю в место, где ему положено быть
+
+          li:hover {
+            ul { //переносим субменю третьего уровня правее и на высоте родителя
+              left: 100%;
+              top: 0;
+            }
+          }
+        }
+      }
+
+    }
+
+  }
+
+  @media screen and (max-width: 768px) {
+    .toggleMenu {
+      display: block;
+    }
+    .li-logo {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+
+    .nav {
+      ul {
+        display: block;
+        width: 100%;
+      }
+      > li.hover > ul,
+      li li.hover ul {
+        position: static;
+      }
+      > li {
+        float: none;
+        > .parent {
+          background-position: 95% 50%;
+        }
+      }
+      > li.hover {
+        > ul {
+          left: 0; //переносим субменю в место, где ему положено быть
+          //display: block;
+          > li.hover {
+            > .parent {
+              background-image: url("/images/up-arrow-b.png");
+              background-repeat: no-repeat;
+              background-position: 95% 50%;
+            }
+
+          }
+
+        }
+        > .parent {
+          background-image: url("/images/up-arrow-b.png");
+          background-repeat: no-repeat;
+          background-position: 95% 50%;
+        }
+      }
+
+    }
+
+  }
 }
-
-
-@media screen and (min-width: 769px) and (max-width: 3000px){
-.li-logo{display:  block;}
-.toggleMenu {display:  none;}
-.nav{ 
-	> li:hover{ 
-		> ul {
-			left: 0; //переносим субменю в место, где ему положено быть
-			
-			li:hover {
-				ul {//переносим субменю третьего уровня правее и на высоте родителя
-					left: 100%;
-					top: 0;
-				}
-			}	
-		}
-	}
-	
-	
-	
-		
-}
-
-}
-
-@media screen and (max-width: 768px) {
-	.toggleMenu{display:  block;}
-	.li-logo{display:  none;}
-    .active {display: block;}
-
-	.nav{
-		ul {
-			display: block;
-			width: 100%;
-		}
-		> li.hover > ul,
-		li li.hover ul {
-			position: static;
-		}
-		> li {
-			float: none;
-			> .parent {
-				background-position: 95% 50%;
-			}
-		}	
-		> li.hover{
-			> ul {
-				left: 0; //переносим субменю в место, где ему положено быть
-				//display: block;
-				> li.hover{
-					> .parent {
-						background-image: url("/images/up-arrow-b.png");
-						background-repeat: no-repeat;
-						background-position: 95% 50%;
-					}
-			
-				}
-		
-			}
-			> .parent {
-				background-image: url("/images/up-arrow-b.png");
-				background-repeat: no-repeat;
-				background-position: 95% 50%;
-			}
-		}
-		
-		
-	}
-
-
-}
-}
-
 
 
 
