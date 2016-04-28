@@ -5,7 +5,7 @@ define(['./app'], function (app) {
         $urlRouterProvider.otherwise("/err404");
         $stateProvider
             //Стартовая страница
-            .state('account', {
+            .state('front-page', {
                 url: "/",
                 views:{
                     '': {

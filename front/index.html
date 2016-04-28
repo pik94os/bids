@@ -20,25 +20,16 @@
 				</div>
 				
 				<div class="header-top-right">
-				<a href="#" data-toggle="modal" data-target="#loginModal">
+					<a href="#" data-toggle="modal" data-target="#loginModal">
 						<img src="images/icon-arrow.png" class="image-left-left">
 						<div>Вход/Регистрация</div>
-									
 					</a>
-					
 					<div>
 						<img src="images/icon-search.png">
 						<div><input type="text" class="input-radius"></div>
-						
 						<div><button class="button-radius">Найти</button></div>
 					</div>
-
-							
-				
-				
-				
-						
-
+				</div>
 			</div>
 				
 		</div>
@@ -46,16 +37,20 @@
 		
 			   			
    	<div class="top-menu content-block">
-		<img align="left" width="30%" src="images/logo.png"/>
-			
-		<ul>
-			<li class="current"><a href="#">Главная</a></li>
-			<li><a href="#">Каталог</a></li>
-			<li><a href="#">Аукционные дома</a></li>
-			<li><a href="#">О нас</a></li>
-			<li><a href="#">Календарь</a></li>
-			<li><a href="/">Контакты</a></li>
-		</ul>
+		<div class="top-menu-img" ui-sref="front-page">
+			<img align="left" src="images/logo.png"/>
+		</div>
+        <a href="#" ng-click="topMenuShow = !topMenuShow" ng-blur="topMenuShow=false">
+            <ul ng-class="{'open':topMenuShow}">
+                <li class="current top-menu_col-2" ui-sref="front-page"><a>Главная</a></li>
+                <li class="top-menu_col-2" ui-sref="auction"><a>Каталог</a></li>
+                <li class="top-menu_col-3"><a>Аукционные дома</a></li>
+                <li class="top-menu_col-1"><a>О нас</a></li>
+                <li class="top-menu_col-2"><a>Календарь</a></li>
+                <li class="top-menu_col-2"><a>Контакты</a></li>
+            </ul>
+        </a>
+
 	</div>
 
 		
