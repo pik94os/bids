@@ -5,7 +5,7 @@
                 <form class="modal-body-in-left-vxod-form">
                     <input class="vxod-form-input userEmail" placeholder="E-mail" type="text">
                     <input class="vxod-form-input password" placeholder="Пароль" type="password">
-                    <input class="custom-btn-lg btn-block" value="Войти" type="submit" ui-sref="lk">
+                    <input class="custom-btn-lg btn-block" value="Войти" type="submit" ui-sref="lk" data-dismiss="modal">
                     <div class="modal-body-in-left-vxod-form-div">
                         <div class="modal-body-in-left-vxod-form-div-left">
                             <label>
@@ -46,14 +46,12 @@
 						<label><input class="reg-form-input" placeholder="Подтвердите пароль" type="password"></label>
 					</div>
                     <div class="modal-body-in-right-form-reg-bottom">
-						<label>
-							<input type="checkbox" name="remember_me" id="remember_me">
-							Я принимаю условия
-						</label>
-						<label>
-							<input type="checkbox" name="remember_me" id="remember_me">
-							Я хочу получать сообщения от admingo
-						</label>
+                        <div class="checkbox">
+                            <input type="checkbox" id="remember_me1"><label for="remember_me1">Я принимаю условия</label>
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="remember_me2"><label for="remember_me2">Я хочу получать сообщения от admingo</label>
+                        </div>
                     </div>
 					
                 </form>				
@@ -71,7 +69,7 @@
 				</div>
 				
             </div>
-            <div class="custom-btn-lg btn-block">
+            <div class="custom-btn-lg btn-block" ui-sref="lk" data-dismiss="modal">
                 Создать учетную запись
             </div>
         </div>

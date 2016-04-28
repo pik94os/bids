@@ -2,7 +2,6 @@
 content {
   display: block;
   background: #efefef;
-  padding: 0 0 80px;
   .content-list{
     $filter-info-height:100px;
     $filter-height:$filter-info-height + 30px; /* + filter-country*/
@@ -202,8 +201,9 @@ content {
 	}
   }
   .filter-bottom {
+    border-top: 3px solid #132038;
     background: white;
-    bottom: -100px;
+    bottom: -20px;
 	position: relative;
 	height: 52px;
 	width: 100%;

@@ -6,7 +6,8 @@ define(['./module'], function (directives) {
     directives.directive('modal', function() {
         return  {
             scope: {
-                title: '@'
+                title: '@',
+                width: '@'
             },
             restrict: 'E',
             templateUrl: '/templates/modal.html',

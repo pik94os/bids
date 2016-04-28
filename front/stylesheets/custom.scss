@@ -1,0 +1,171 @@
+//уберём браузерную обводку
+input,textarea,.btn,button,a,div{
+  &:not(.outline){
+    &:active, &:focus {
+      outline: none;
+    }
+    &::-moz-focus-inner {
+      border: 0;
+    }
+  }
+}
+
+.row-block{
+  width: 100%;
+  .content-block{
+    width: 100%;
+    // position: relative;
+    max-width: 1000px;
+    min-width: 320px;
+    @include margin-horizontal(auto);
+  }
+}
+
+.custom-title-block{
+  background: #283879;
+  height: 94px;
+  color: white;
+  padding: 16px;
+  text: {
+    align: center;
+    transform: uppercase;
+  }
+  font: {
+    family: "Century Gothic";
+    weight: bold;
+  }
+  &-h3 {
+    font-size: 20px;
+  }
+  &-h1 {
+    font-size: 35px;
+  }
+}
+%custom-btn{
+  cursor: pointer;
+  background: #283879;
+  color: white;
+  text: {
+    align: center;
+    transform: uppercase;
+  }
+  font: {
+    family: "Century Gothic";
+    weight: bold;
+    size: 24px;
+  }
+  line-height: 50px;
+}
+.custom-btn{
+  @extend %custom-btn;
+  &-lg{
+    @extend %custom-btn;
+    height: 55px;
+  }
+  &-default{
+    @extend %custom-btn;
+    background-color: #4e586a;
+  }
+}
+
+%custom-input{
+  width: 100%;
+  background: #e6e7e8;
+  height: 50px;
+  color: #0c111a;
+  text-transform: uppercase;
+  border: 0 none;
+  padding: 18px 32px 18px 18px;
+  font: {
+    family: "Century Gothic";
+    size: 18px;
+    weight: 400;
+  }
+}
+
+.auction{
+  background: white;
+  margin: 5px 0 0 0;
+  padding: 15px 0;
+  border: 1px solid lightgray;
+  &-img{
+    @include square(191px);
+    float: left;
+    margin-right: 5px;
+  }
+  &-body{
+    width: calc(100% - 198px);
+    float: left;
+    &-header{
+      background: #a5a5a5;
+      color: #132038;
+      padding: 3px 7px;
+      width: calc(100% - 70px);
+    }
+  }
+  &-button{
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    background: #596273;
+    &.active{
+      background: #132038;
+    }
+    &:hover {
+      background: #91aee2;
+    }
+    padding: 3px 0;
+  }
+
+}
+.new-auction{
+  @extend .auction;
+  .auction-img{
+    border: 1px solid gray;
+  }
+}
+.checkbox{
+  input[type=checkbox]{
+    display: none;
+  }
+  label{
+    margin-left: 15px;
+    &:before{
+      font-family: 'Glyphicons Halflings';
+      color: red;
+      content: " ";
+      position: absolute;
+      margin-left: -20px;
+      background: #e6e7e8;
+      width: 14px;
+      line-height: 10px;
+      height: 14px;
+    }
+  }
+  input[type=checkbox]:checked + label:before{
+    content: "\e013";
+  }
+}
+
+label.custom-input{
+  width: 100%;
+  > input{
+    @extend %custom-input;
+  }
+}
+input.custom-input{
+  @extend %custom-input;
+}
+div.custom-input{
+  @extend %custom-input;
+  height: auto;
+  &-lg{
+    @extend %custom-input;
+    height: auto;
+    font-weight: bold;
+    font-size: 20px;
+    @include padding-vertical(20px);
+  }
+}
