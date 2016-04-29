@@ -20,25 +20,92 @@
 		color: #d8a46a;
 		font-size: 28px;
 	}
+	.edit{
+		width: 56px;
+		height: 56px;
+		padding: 0px;
+		position: relative;
+		float: right;
+		top: 30px;
+		background: {
+			image: url(/images/icons-auction/i-edit.png); 
+			repeat: no-repeat; color: none;
+			position: 0px 0px;
+			//border-radius: 5px;
+			box-shadow: 0 1px 2px rgba(0,0,0,.3);
+		}
+		&:hover{background-position: -57px 0px;	}
+	}		
 }
 
-
 .auction-list {
+	@extend .content-block;
 	padding-top: 2px;
 	height: auto;
 	background: white;
 
 	.c-panel{
+		position: relative;
 		margin:0;
 		padding: 0px;
 		width: 100%;
-		height: 63px; 
+		height: 60px; 
 		border-bottom: 2px solid black; background: white; position: relative;
+		font-size: 24px;
+			
+		.mode{
+		//	position: relative;
+			width: 56px;
+			height: 56px;
+			float: right;
+			top: 0;
+			margin: 2px 5px 2px 5px;
+			padding: 0;
+			background: {
+				
+			//	image: url(/images/icon-plus.png); 
+				repeat: no-repeat; color: none;
+				position: -57px 0px;
+				//border-radius: 5px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+			}
+		}
+		.active{@extend .mode; background-position: 0px 0px;}
+		.mode-cat{
+			@extend .mode;
+			background: {	image: url(/images/icons-auction/i-cat.png); }
+		}
+		.mode-prop{
+			@extend .mode;
+			background: {	image: url(/images/icons-auction/i-prop.png); }
+		}
+		.mode-view-1{
+			@extend .mode;
+			background: {	image: url(/images/icons-auction/i-view-1.png); }
+		}
+		.mode-view-2{
+			@extend .mode;
+			background: {	image: url(/images/icons-auction/i-view-2.png); }
+		}
+		.mode-import{
+			@extend .mode;
+			float: left;
+			background: {	image: url(/images/icons-auction/i-import.png); }
+		}
+		.text{
+			float: left;
+			color: #444;
+			padding:15px 0px 15px 0px;
+			background: none;
+		}
+		
+		
+		
 		ul{
 			position: relative;
+			float: left;
 			height: 100%; 
 			left:0px; width: 180px; background: #262351; padding:15px; color: #fff;
-			font-size: 22px;
 			
 			li{
 				&:after{content: url("/images/down-arrow-b.png"); margin-left: 4px;}
