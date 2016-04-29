@@ -52,15 +52,20 @@
 		height: 60px; 
 		border-bottom: 2px solid black; background: white; position: relative;
 		font-size: 24px;
-			
+		
 		.mode{
-		//	position: relative;
-			width: 56px;
-			height: 56px;
+
+			position: relative;
+			min-width: 56px;
+			width: auto;
+			height: 100%; 
 			float: right;
 			top: 0;
-			margin: 2px 5px 2px 5px;
-			padding: 0;
+			text-align: center;
+			
+			padding: 20px 2px 5px 56px;
+			
+			margin: 2px 0px 2px 0px;
 			background: {
 				
 			//	image: url(/images/icon-plus.png); 
@@ -69,6 +74,7 @@
 				//border-radius: 5px;
 				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
+			&:hover {background-color: #ebeced;}
 		}
 		.active{@extend .mode; background-position: 0px 0px;}
 		.mode-cat{
@@ -78,6 +84,7 @@
 		.mode-prop{
 			@extend .mode;
 			background: {	image: url(/images/icons-auction/i-prop.png); }
+			
 		}
 		.mode-view-1{
 			@extend .mode;
@@ -93,17 +100,20 @@
 			background: {	image: url(/images/icons-auction/i-import.png); }
 		}
 		.text{
+			@extend .mode;
+			width: 34px;
 			float: left;
 			color: #444;
-			padding:15px 0px 15px 0px;
-			margin:0px 4px 0px 4px;
-			background: none;
+			text-align: center;
+			
+			padding: 22px 2px 1px 0px;
+			margin:0px;
+			
 		}
 		.page{
 			@extend .text;
 			float: right;
-			width: auto;
-			right: 0px;
+			//right: 0px;
 		}
 		
 		
@@ -116,16 +126,19 @@
 			width: 200px;
 			left:0px;  
 			background: #262351; 
-			padding:15px; 
+			padding:15px 4px; 
 			color: #fff;
 			
 			li{
-				&:after{content: url("/images/down-arrow-b.png"); margin-left: 4px;}
-				&:before{content: " ";}
+				text-align: center;
+				padding: 8px;
+				height: 100%; 
+				&:after{content: url("/images/down-arrow-b.png"); margin-left: 8px;}
+				//&:before{content: " ";}
 			}
 			
 		}
-		img{position: relative;}
+		
 		&-top{ @extend .c-panel; margin-top: -20px;
 			border-bottom: 2px solid black; background: white; position: relative;
 		}
@@ -148,11 +161,12 @@
 		
 			width: 250px;
 			height: 320px;
-			padding: 210px 0px 0px 0px;
+			padding: 220px 5px 20px 5px;
 			text-align: center;
 			margin: 0px;
 			position: relative;
 			border: 1px solid #e0e0e0;
+			&:hover {background-color: #ebeced;}
 		}
 		.tab-add{
 			@extend .tab;
