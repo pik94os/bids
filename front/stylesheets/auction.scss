@@ -16,6 +16,7 @@
 		
 	}
 	.info-bottom{
+		padding-bottom: 15px;
 		color: #d8a46a;
 		font-size: 28px;
 	}
@@ -26,28 +27,299 @@
 	padding-top: 2px;
 	height: auto;
 	background: white;
-	div{
-		margin-top: -20px;
-		margin-bottom: -20px;
+
+	.c-panel{
+		margin:0;
+		padding: 0px;
+		width: 100%;
+		height: 70px; border: 1px solid black; background: white; position: relative;
+		ul{
+			position: relative;
+			height: 100%; 
+			left:0px; width: 240px; background: #262351; padding:15px; color: #fff;
+			font-size: 24px;
+			li{
+				&:after{content: url("/images/down-arrow-b.png"); margin-left: 4px;}
+				
+			}
+		}
+		img{position: relative;}
+		&-top{ @extend .c-panel; margin-top: -20px;}
+		&-bottom{ @extend .c-panel; margin-bottom: -20px;}
+	}
+	.tabs{
+		min-height: 560px;
 		height: auto;
-		.c-panel{
-		margin:0;
-		padding: 5px;
-			width: 100%;
-			height: 30px;
-			background: white;
+		width: 100%;
+		.tab{
+			
+			left:0;
+			top:0;
+			width: 200px;
+			height: 320px;
+			
+			text-align: center;
+			margin: 20px 0px 20px 0px;
 		}
-		
-		.auction-tab{
-		margin:0;
-			&-body{
-			padding: 0;
+		.tab-add{
+			@extend .tab;
+			border: 1px solid #e0e0e0;
+			padding: 60px;
+			
+			
+		/*	background: {
+				image: url(/images/icon-plus.png); 
+				repeat: no-repeat; color: none;
+				position: 50% 50%;
+				//border-radius: 5px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+			}
+			*/
 		}
+			
+	}
+
 }
 	
-	}
-}
+	
+	
+
+
 
 	
 	
+.auction-body {
+	margin-top: -20px;
+	&-div-top {
+		&-ul {
+			padding-left: 0;
+			li {
+				background: white;
+				cursor: pointer;
+				float: left;
+				height: 50px;
+				list-style-type: none;
+				color: #132038;
+				text-transform: uppercase;	      
+				text-align: center;
+				padding: 15px 30px;
+				font: {
+					family: "Century Gothic";
+					size: 15px;
+					weight: normal;
+				}
+				&:hover, &.active {
+					background: #132038;
+					color: white;
+				}
+			}
+		}
+	}
+	&-div-center {
+		background: white;
+		border-top: 2px solid #132038;
+		padding: 25px;
+		&-in {	
+			height: 100%;
+            margin: 0;
+			&-top {
+                margin: 0;
+				height: 30px;
+				color: #132038;
+				text-transform: uppercase;
+				border-bottom: 1px solid #ececec;
+				padding: 5px 0;
+				font: {
+					family: "Century Gothic";
+					size: 15px;
+					weight: normal;
+				}
+				&-divdescription {
+					float: left;
+					height: 30px;
+					width: 30px;			
+					a {						
+						display: block;
+						width: 30px;
+						height: 30px;
+				    }
+					a.t {
+						background: url(/images/icons-font/t.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}					
+					a.i {
+						background: url(/images/icons-font/i.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.b {
+						background: url(/images/icons-font/b.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.tt {
+						background: url(/images/icons-font/tt.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.font-l {
+						background: url(/images/icons-font/font-l.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.font-c {
+						background: url(/images/icons-font/font-c.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.font-r {
+						background: url(/images/icons-font/font-r.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.indent-reduce {
+						background: url(/images/icons-font/indent-reduce.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+					a.indent-increase {
+						background: url(/images/icons-font/indent-increase.png);
+						&:hover {
+							background-position: 30px;
+							border-radius: 5px;
+						}
+					}
+				}
+				.m-l {
+					margin-left: 15px;
+				}
+			}
+			.pad-icon {
+				padding: 5px 0 30px;
+			}
+			&-bottom {
+				background: white;
+				padding: 10px 0 20px 0;
+				&-left {
+					float: left;
+					width: 600px;
+					&-form {
+                        .row{
+                          margin:{
+                            left: -5px;
+                            right: -5px;
+                          }
+                        }
+                        .col-sm{
+                          &-12,&-6,&-4,&-2{
+                            padding: 0 5px;
+                            margin-bottom: 10px;
+                          }
+                        }
+						label {
+                            margin-bottom: 0;
+							input {
+								
+							}
+							&:after {
+                              color: red;
+                              content: "*";
+                              font-size: 16px;
+                              right: 20px;
+                              top: 18px;
+                              position: absolute;
+							}
+						}
+						input {
+							border: 0 none;
+							color: #0c111a;
+							padding: 18px 32px 18px 18px;					
+						}
+						.kod {
+							background: #f3f3f3;
+						}
+						.form-reg-checkbox {
+							margin-top: 10px;
+							label {
+								color: #0c111a;
+								text-transform: uppercase;
+								font: {
+									family: "Century Gothic";
+									size: 18px;
+									weight: 400;
+								}								
+								&:after {
+									display: none;
+								}
+								input {
+									height: auto;
+									width: auto;
+								}
+							}
+						}
+						.month {
+							width: 140px;
+						}
+					}				
+				}
+				&-right {
+					float: left;
+					width: 290px;
+					height: 290px;
+					border: 1px solid #e0e0e0;
+					text-align: center;
+					&-top {
+						padding: 70px 0 20px 0;
+					}
+				}
+			}
+		}
+		.fullwidth-text {
+			width: 100%;
+			margin-top: 10px;
+			font: {
+				family: "Century Gothic";
+				size: 14px;
+				weight: bold;
+			}	
+			&-caps {
+				text-transform: uppercase;
+			}
+		}
+	}
+	.custom-title-block {
+		height: 55px;
+		width: 255px;
+		float: right;
+		font-size: 24px;
+		padding: 0;
+		margin: 15px 0;
+	}
+    #description-tab{
+      .lk-body-div-center{
+        padding: 5px 25px;
+      }
+    }
+    #description-tab, #info-tab{
+      overflow: auto;
+    }
+}
+
 	
