@@ -46,26 +46,30 @@
 
 	.c-panel{
 		position: relative;
-		margin:0;
-		padding: 0px;
+		margin: 2px 0px 2px 0px;
+		padding: 0px;// 2px; //для рамочки
 		width: 100%;
-		height: 60px; 
+		height: 62px; 
 		border-bottom: 2px solid black; background: white; position: relative;
 		font-size: 24px;
-		
+	//	div{
+		//position: relative;
+		//float: right;
+		//height: 100%; 
+		//width: auto;
 		.mode{
 
 			position: relative;
-			min-width: 56px;
-			width: auto;
-			height: 100%; 
+			//min-width: 56px;
+			width: 56px;
+			height: 58px; 
 			float: right;
 			top: 0;
 			text-align: center;
 			
 			padding: 20px 2px 5px 56px;
 			
-			margin: 2px 0px 2px 0px;
+			margin: 1px 4px 2px 1px;
 			background: {
 				
 			//	image: url(/images/icon-plus.png); 
@@ -74,7 +78,7 @@
 				//border-radius: 5px;
 				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
-			&:hover {background-color: #ebeced;}
+			&:hover {background-color: #c6c6ed;}
 		}
 		.active{@extend .mode; background-position: 0px 0px;}
 		.mode-cat{
@@ -97,29 +101,52 @@
 		.mode-import{
 			@extend .mode;
 			float: left;
+			width: 158px;
 			background: {	image: url(/images/icons-auction/i-import.png); }
 		}
 		.text{
 			@extend .mode;
 			width: 34px;
-			float: left;
+			float: right;
 			color: #444;
 			text-align: center;
-			
-			padding: 22px 2px 1px 0px;
-			margin:0px;
+			height: 58px;
+			padding: 21px 0 5px;
+			margin: 1px 2px 1px 2px;
 			
 		}
 		.page{
 			@extend .text;
-			float: right;
+			//width: 30px;
+			//float: left;
 			//right: 0px;
+		}
+		.next{
+			@extend .page;
+			background: {
+				image: url(/images/arrow-right-b.png);
+				repeat: no-repeat; color: none;
+				position: 12px 32px;
+				//border-radius: 5px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+			}
+		}
+		.prev{
+			@extend .page;
+			background: {
+				image: url(/images/arrow-left-b.png); 
+				repeat: no-repeat; color: none;
+				position: 12px 32px;
+				//border-radius: 5px;
+				box-shadow: 0 1px 2px rgba(0,0,0,.3);
+			}
 		}
 		
 		
 		
 		
-		ul{
+		//}// </div>
+		.nav{
 			position: relative;
 			float: left;
 			height: 100%; 
@@ -128,6 +155,7 @@
 			background: #262351; 
 			padding:15px 4px; 
 			color: #fff;
+			&:hover {background-color: #c6c6ed;}
 			
 			li{
 				text-align: center;
@@ -135,7 +163,10 @@
 				height: 100%; 
 				&:after{content: url("/images/down-arrow-b.png"); margin-left: 8px;}
 				//&:before{content: " ";}
+				
+			
 			}
+			
 			
 		}
 		
@@ -148,22 +179,24 @@
 		}
 	}
 	.tabs{
+		position: relative;
 		min-height: 560px;
 		height: auto;
 		width: 100%;
-		padding: 20px 0px 20px 0px;
+		padding: 8px 0px 8px 0px;
+		//margin: 0px -20px 0px -20px;
 			
 	}
 
-}
+
 	
 	.tab{
 		
-			width: 250px;
+			width: 100%;
 			height: 320px;
 			padding: 220px 5px 20px 5px;
 			text-align: center;
-			margin: 0px;
+			margin: 15px 0px 10px 0px;
 			position: relative;
 			border: 1px solid #e0e0e0;
 			&:hover {background-color: #ebeced;}
@@ -181,5 +214,5 @@
 			
 		}
 		
-	
+	}
 

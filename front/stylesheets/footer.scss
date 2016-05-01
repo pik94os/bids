@@ -1,16 +1,17 @@
 
-footer {  z-index:0;
-  background:{
+footer {  
+	z-index:0;
+	background:{
 	  image: url(/images/background-footer.png);
 	  color: black;
 	  size: 100% auto;
-  }
-  .footer-links {
-	div {
-	  height: 35px;
-	  width: 35px;
-	  margin: 80px 0 0 20px;
-	  float: right;
+	}
+	.footer-links {
+		div {
+		height: 35px;
+		width: 35px;
+		margin: 80px 0 0 20px;
+		float: right;
 	
 		a {
 		
