@@ -1,23 +1,19 @@
 
-footer {  
-	z-index:0;
-	background:{
-	  image: url(/images/background-footer.png);
-	  color: black;
-	  size: 100% auto;
-	}
-	.footer-links {
-		._main {
+
+%footer-links {
+		height:100px;
+		width:220px;
+		float: right;
+		%main {
+			
 			height: 35px;
 			width: 35px;
-			margin: 80px 20px 0px 0px;
+			margin: 20px 20px 0px 0px;
 			float: right;
 			background:{
 				image: url(""); 	
 				repeat: no-repeat; color: none;
 				position: 0px 0px;
-				//border-radius: 5px;
-				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
 			&:hover { background-position: -35px 0px;}
 		
@@ -31,20 +27,77 @@ footer {
 		
 		}
 		.vk{
-			@extend ._main;
+			@extend %main;
 			background:{ image: url(/images/i-vk.png); }	
 		}
 		.gp{
-			@extend ._main;
+			@extend %main;
 			background:{ image: url(/images/i-gp.png); }	
 		}
 		.fb{
-			@extend ._main;
+			@extend %main;
 			background:{ image: url(/images/i-fb.png); }	
 		}
 		.tw{
-			@extend ._main;
+			@extend %main;
 			background:{ image: url(/images/i-tw.png); }	
 		}
 	}
+	
+footer {  
+	height: 130px;
+	margin-top:-20px;
+	z-index:0;
+	background:{
+	  image: url(/images/background-footer.png);
+	  color: black;
+	  size: 100% auto;
+	}
+	.logo-footer{
+		position: relative;
+		margin: -10px 10px 0 0px;
+		float: left;
+		background-image: url(/images/logo-footer.png);
+		background-repeat: no-repeat;
+		background-color: none;
+		background-position: 0 0;
+		width: 316px;
+		height: 130px;
+	}
+	.footer-links{
+		@extend %footer-links;
+		position: relative;
+		margin: 40px -15px 0px 0px;
+	}
+	
+}
+@include xs-display {
+footer {  
+	height: 163px;
+	z-index:0;
+	background:{
+	  image: url(/images/background-footer.png);
+	  color: black;
+	  size: 100% auto;
+	}
+	.logo-footer{
+		position: relative;
+		margin: 3px 10px 0 15px;
+		float: left;
+		background-image: url(/images/logo-footer.png);
+		background-repeat: no-repeat;
+		background-color: none;
+		background-position: 0 0;
+		width: 316px;
+		height: 120px;
+	}
+	.footer-links{
+		@extend %footer-links;
+		position: relative;
+		margin: 20px 0px 0px 0px;
+		width: 120px;
+	}
+	
+}
+	
 }
