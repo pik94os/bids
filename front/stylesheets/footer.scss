@@ -1,52 +1,5 @@
-
-
-%footer-links {
-		height:100px;
-		width:220px;
-		float: right;
-		%main {
-			
-			height: 35px;
-			width: 35px;
-			margin: 20px 20px 0px 0px;
-			float: right;
-			background:{
-				image: url(""); 	
-				repeat: no-repeat; color: none;
-				position: 0px 0px;
-			}
-			&:hover { background-position: -35px 0px;}
-		
-			a {
-				width: 35px;
-				height: 35px;
-				display: block;
-				overflow: hidden;
-				margin: 0px;
-			}
-		
-		}
-		.vk{
-			@extend %main;
-			background:{ image: url(/images/i-vk.png); }	
-		}
-		.gp{
-			@extend %main;
-			background:{ image: url(/images/i-gp.png); }	
-		}
-		.fb{
-			@extend %main;
-			background:{ image: url(/images/i-fb.png); }	
-		}
-		.tw{
-			@extend %main;
-			background:{ image: url(/images/i-tw.png); }	
-		}
-	}
-	
-footer {  
+footer {
 	height: 130px;
-	margin-top:-20px;
 	z-index:0;
 	background:{
 	  image: url(/images/background-footer.png);
@@ -57,47 +10,68 @@ footer {
 		position: relative;
 		margin: -10px 10px 0 0px;
 		float: left;
-		background-image: url(/images/logo-footer.png);
-		background-repeat: no-repeat;
-		background-color: none;
-		background-position: 0 0;
+		background:{
+			image: url(/images/logo-footer.png);
+			repeat: no-repeat;
+			position: 0 0;
+		}
 		width: 316px;
 		height: 130px;
+		@include xs-display {
+			margin: 3px 10px 0 15px;
+			height: 120px;
+		}
 	}
 	.footer-links{
-		@extend %footer-links;
-		position: relative;
-		margin: 40px -15px 0px 0px;
+		height: 100px;
+		%main {
+
+			height: 35px;
+			width: 35px;
+			margin: 20px 20px 0px 0px;
+			float: right;
+			background:{
+				image: url("");
+				repeat: no-repeat; color: none;
+				position: 0px 0px;
+			}
+			&:hover { background-position: -35px 0px;}
+
+			a {
+				width: 35px;
+				height: 35px;
+				display: block;
+				overflow: hidden;
+				margin: 0px;
+			}
+
+		}
+		.vk{
+			@extend %main;
+			background:{ image: url(/images/i-vk.png); }
+		}
+		.gp{
+			@extend %main;
+			background:{ image: url(/images/i-gp.png); }
+		}
+		.fb{
+			@extend %main;
+			background:{ image: url(/images/i-fb.png); }
+		}
+		.tw{
+			@extend %main;
+			background:{ image: url(/images/i-tw.png); }
+		}
+		@include sm-or-more-display {
+			position: relative;
+			margin: 40px -15px 0px 0px;
+			width: 220px;
+			float: right;
+		}
+		@include xs-display {
+			margin-top: 20px;
+			position: absolute;
+			right: 0px;
+		}
 	}
-	
-}
-@include xs-display {
-footer {  
-	height: 163px;
-	z-index:0;
-	background:{
-	  image: url(/images/background-footer.png);
-	  color: black;
-	  size: 100% auto;
-	}
-	.logo-footer{
-		position: relative;
-		margin: 3px 10px 0 15px;
-		float: left;
-		background-image: url(/images/logo-footer.png);
-		background-repeat: no-repeat;
-		background-color: none;
-		background-position: 0 0;
-		width: 316px;
-		height: 120px;
-	}
-	.footer-links{
-		@extend %footer-links;
-		position: relative;
-		margin: 20px 0px 0px 0px;
-		width: 120px;
-	}
-	
-}
-	
 }
