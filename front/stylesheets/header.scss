@@ -137,7 +137,10 @@ header {
         font-size: 135px;
         font-weight: bold;
         font-family: "Century Gothic";
-      }
+		@include xs-display {
+			font-size: 90px;
+		}
+	  }
       &-bottom {
         text-transform: uppercase;
         font-size: 28px;
@@ -145,6 +148,8 @@ header {
         background: url(/images/header-image-bottom.png) no-repeat;
         height: 222px;
       }
+	  
+	  
       &-info {
         background: #0c111a;
         height: 145px;
