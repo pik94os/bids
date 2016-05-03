@@ -42,7 +42,6 @@
 	@extend .content-block;
 	padding-top: 2px;
 	height: auto;
-	background: white;
 
 	.c-panel{
 		position: relative;
@@ -50,7 +49,9 @@
 		padding: 0px;// 2px; //для рамочки
 		width: 100%;
 		height: 62px; 
-		border-bottom: 2px solid black; background: white; position: relative;
+		border-bottom: 2px solid black;
+		background: white;
+		position: relative;
 		font-size: 24px;
 	//	div{
 		//position: relative;
@@ -60,7 +61,6 @@
 		.mode{
 
 			position: relative;
-			//min-width: 56px;
 			width: 56px;
 			height: 58px; 
 			float: right;
@@ -71,11 +71,8 @@
 			
 			margin: 1px 4px 2px 1px;
 			background: {
-				
-			//	image: url(/images/icon-plus.png); 
-				repeat: no-repeat; color: none;
+				repeat: no-repeat;
 				position: -57px 0px;
-				//border-radius: 5px;
 				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
 			&:hover {background-color: #c6c6ed;}
@@ -117,17 +114,13 @@
 		}
 		.page{
 			@extend .text;
-			//width: 30px;
-			//float: left;
-			//right: 0px;
 		}
 		.next{
 			@extend .page;
 			background: {
 				image: url(/images/arrow-right-b.png);
-				repeat: no-repeat; color: none;
+				repeat: no-repeat;
 				position: 12px 32px;
-				//border-radius: 5px;
 				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
 		}
@@ -135,17 +128,12 @@
 			@extend .page;
 			background: {
 				image: url(/images/arrow-left-b.png); 
-				repeat: no-repeat; color: none;
+				repeat: no-repeat;
 				position: 12px 32px;
-				//border-radius: 5px;
 				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
 		}
-		
-		
-		
-		
-		//}// </div>
+
 		.nav{
 			position: relative;
 			float: left;
@@ -184,35 +172,32 @@
 		height: auto;
 		width: 100%;
 		padding: 8px 0px 8px 0px;
-		//margin: 0px -20px 0px -20px;
-			
 	}
 
 
 	
 	.tab{
-		
-			width: 100%;
-			height: 320px;
-			padding: 220px 5px 20px 5px;
-			text-align: center;
-			margin: 15px 0px 10px 0px;
-			position: relative;
-			border: 1px solid #e0e0e0;
-			&:hover {background-color: #ebeced;}
-		}
-		.tab-add{
-			@extend .tab;
-			
-			background: {
-				image: url(/images/icon-plus.png); 
-				repeat: no-repeat; color: none;
-				position: 50% 50%;
-				//border-radius: 5px;
-				box-shadow: 0 1px 2px rgba(0,0,0,.3);
-			}
-			
-		}
-		
+		cursor: pointer;
+		width: 100%;
+		height: 320px;
+		text-align: center;
+		margin: 15px 0px 10px 0px;
+		position: relative;
+		border: 1px solid #e0e0e0;
+		background-color: white;
+		&:hover {background-color: #ebeced;}
 	}
+	.tab-add{
+		@extend .tab;
+		padding: 185px 5px 20px 5px;
+		background: {
+			image: url(/images/icon-plus.png);
+			repeat: no-repeat;
+			color: inherit;
+			position: 50% 90px;
+		}
+		box-shadow: 0 1px 2px rgba(0,0,0,.3);
+	}
+		
+}
 

@@ -1,0 +1,39 @@
+.lot-header{
+  @extend .content-block;
+
+}
+.lot-list{
+  @extend .content-block;
+  .lot-title{
+    width: 100%;
+    min-height: 40px;
+    background: white;
+  }
+  .lot-estimate{
+    width: 100%;
+    min-height: 40px;
+    background: #151789;
+    color: white;
+  }
+  .lot-price{
+    width: 100%;
+    min-height: 40px;
+    background: cornflowerblue;
+    color: white;
+  }
+  .big-photo{
+    height: 300px;
+    width: 100%;
+    background: white;
+  }
+  .gallery{
+    .small-photo{
+      width: 40px;
+      height: 40px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      background: white;
+      float: left;
+    }
+  }
+}
