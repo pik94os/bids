@@ -40,7 +40,7 @@
 	@extend .content-block;
 	padding-top: 2px;
 	height: auto;
-
+	@include padding-horizontal(15px);
 	.c-panel{
 		position: relative;
 		margin: 2px 0px 2px 0px;

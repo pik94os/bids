@@ -9,6 +9,12 @@ input,textarea,.btn,button,a,div{
     }
   }
 }
+.row-lg{
+  @include margin-horizontal(-20px);
+  .col{
+    @include padding-horizontal(20px);
+  }
+}
 
 .row-md{
   @include margin-horizontal(-10px);
@@ -75,6 +81,14 @@ input,textarea,.btn,button,a,div{
   &-lg{
     @extend %custom-btn;
     height: 55px;
+  }
+  &-sm{
+    @extend %custom-btn;
+    font-size: 20px;
+    line-height: 40px;
+  }
+  &-red{
+    background: #79040a;
   }
   &-default{
     @extend %custom-btn;

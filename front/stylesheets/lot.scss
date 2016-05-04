@@ -4,6 +4,14 @@
 }
 .lot-list{
   @extend .content-block;
+  padding-left: 20px;
+  padding-right: 20px;
+  .top-block{
+    margin-top: -15px;
+    > div{
+      margin-bottom: 15px;
+    }
+  }
   .lot-title{
     width: 100%;
     min-height: 40px;
@@ -22,18 +30,28 @@
     color: white;
   }
   .big-photo{
-    height: 300px;
+    height: 400px;
     width: 100%;
     background: white;
   }
   .gallery{
+    @include margin-horizontal(-5px);
     .small-photo{
-      width: 40px;
-      height: 40px;
-      margin-right: 5px;
-      margin-bottom: 5px;
-      background: white;
+      width: 20%;
+      height: 80px;
+      @include padding-horizontal(5px);
+      padding-bottom: 10px;
       float: left;
+      > div{
+        background: white;
+        @include square(100%);
+      }
+    }
+  }
+  .lot-buttons{
+    margin-bottom: 5px;
+    > div{
+      margin-bottom: 10px;
     }
   }
 }
