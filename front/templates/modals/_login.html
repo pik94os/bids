@@ -1,28 +1,25 @@
-<modal title="Вход/Регистрация" id="loginModal">
-    <div class="modal-body-in">
-        <div class="modal-body-in-left">
-            <div class="modal-body-in-left-vxod">
-                <form class="modal-body-in-left-vxod-form">
-                    <input class="vxod-form-input userEmail" placeholder="E-mail" type="text">
-                    <input class="vxod-form-input password" placeholder="Пароль" type="password">
-                    <input class="custom-btn-lg btn-block" value="Войти" type="submit" ui-sref="lk" data-dismiss="modal">
-                    <div class="modal-body-in-left-vxod-form-div">
-                        <div class="modal-body-in-left-vxod-form-div-left">
-                            <label>
-                                <input type="checkbox" name="remember_me">
-                                Запомнить меня
-                            </label>
-                        </div>
-                        <div class="modal-body-in-left-vxod-form-div-right">
-                            <a href="">Забыли пароль?</a>
-                        </div>
+<modal title="Вход/Регистрация" id="loginModal" width="lg">
+    <div class="row row-md">
+        <div class="col-sm-5 col-md-4 col">
+            <form class="row row-sm">
+                <div class="col-sm-12 col"><input class="custom-input" placeholder="E-mail" type="text"></div>
+                <div class="col-sm-12 col"><input class="custom-input" placeholder="Пароль" type="password"></div>
+                <div class="col-sm-12 col"><input class="custom-btn-lg btn-block" value="Войти" type="submit" ui-sref="lk" data-dismiss="modal"></div>
+                <div class="col-sm-12 col">
+                    <div class="modal-body-in-left-vxod-form-div-left">
+                        <label>
+                            <input type="checkbox" name="remember_me">
+                            Запомнить меня
+                        </label>
                     </div>
-                </form>
-            </div>
-			<!--<img src="images/reg-line.png" class="image-left-left">-->
+                    <div class="modal-body-in-left-vxod-form-div-right">
+                        <a href="">Забыли пароль?</a>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="modal-body-in-right">
-            <div class="modal-body-in-right-top custom-title-block">
+        <div class="col-sm-7 col-md-8 col modal-body-in-right">
+            <div class="custom-title-block">
                 <div class="modal-body-in-right-top-top custom-title-block-h3">
                     Добро пожаловать если вы
                 </div>
@@ -30,21 +27,27 @@
                     Новый покупатель
                 </div>
             </div>
-            <div class="modal-body-in-right-form">                
+            <div class="modal-body-in-right-form">
 				
 				<form class="modal-body-in-right-form-reg">
-					<div id="form-reg-left">
-						<label><input class="reg-form-input" placeholder="Имя" type="text"></label>
-						<input class="reg-form-input" placeholder="Отчество" type="text">
-						<label><input class="reg-form-input" placeholder="E-mail" type="text"></label>
-						<label><input class="reg-form-input" placeholder="Телефон" type="password"></label>
-						<label><input class="reg-form-input" placeholder="Пароль" type="password"></label>
-					</div>
-					<div id="form-reg-right">
-						<label><input class="reg-form-input" placeholder="Фамилия" type="text"></label>     
-						<input class="reg-form-input reg-form-input-padding" placeholder="Код подтверждения" type="password">
-						<label><input class="reg-form-input" placeholder="Подтвердите пароль" type="password"></label>
-					</div>
+                    <div class="row row-sm">
+                        <div class="col col-md-6"><label class="custom-input"><input placeholder="Имя" type="text"></label></div>
+                        <div class="col col-md-6"><label class="custom-input"><input placeholder="Фамилия" type="text"></label></div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col col-md-6"><input class="custom-input" placeholder="Отчество" type="text"></div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col col-md-6"><label class="custom-input"><input placeholder="E-mail" type="text"></label></div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col col-md-6"><label class="custom-input"><input placeholder="Телефон" type="text"></label></div>
+                        <div class="col col-md-6"><input class="custom-input reg-form-input-padding" placeholder="Код подтверждения" type="password"></div>
+                    </div>
+                    <div class="row row-sm">
+                        <div class="col col-md-6"><label class="custom-input"><input placeholder="Пароль" type="password"></label></div>
+                        <div class="col col-md-6"><label class="custom-input"><input placeholder="Подтвердите пароль" type="password"></label></div>
+                    </div>
                     <div class="modal-body-in-right-form-reg-bottom">
                         <div class="checkbox">
                             <input type="checkbox" id="remember_me1"><label for="remember_me1">Я принимаю условия</label>

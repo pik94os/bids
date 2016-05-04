@@ -53,7 +53,7 @@ gulp.task('sass', () => {
 gulp.task('webserver', () => {
     var server = serverFactory.create({
         path: './public',
-        port: 8888,
+        port: normalizePort(process.env.PORT || '8888'),
 		fallback: '/index.html'
     });
 
@@ -141,3 +141,19 @@ gulp.task('start',(cb) => {
 gulp.task('default',(cb) => {
     runSequence(['start','webserver','watch'], cb);
 });
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+
+    return false;
+}

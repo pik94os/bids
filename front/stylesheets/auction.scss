@@ -13,7 +13,7 @@
 		font-size: 28px;
 		font-weight: 700;
 		text-transform: uppercase;
-		
+
 	}
 	.info-bottom{
 		padding-bottom: 15px;
@@ -28,14 +28,12 @@
 		float: right;
 		top: 32px;
 		background: {
-			image: url(/images/icons-auction/i-edit.png); 
-			repeat: no-repeat; color: none;
+			image: url(/images/icons-auction/i-edit.png);
+			repeat: no-repeat;
 			position: 0px 0px;
-			//border-radius: 5px;
-			box-shadow: 0 1px 2px rgba(0,0,0,.3);
 		}
 		&:hover{background-position: -57px 0px;	}
-	}		
+	}
 }
 
 .auction-list {
@@ -48,61 +46,51 @@
 		margin: 2px 0px 2px 0px;
 		padding: 0px;// 2px; //для рамочки
 		width: 100%;
-		height: 62px; 
+		height: 62px;
 		border-bottom: 2px solid black;
 		background: white;
-		position: relative;
 		font-size: 24px;
-	//	div{
-		//position: relative;
-		//float: right;
-		//height: 100%; 
-		//width: auto;
-		.mode{
+		%mode{
 
 			position: relative;
 			width: 56px;
-			height: 58px; 
+			height: 58px;
 			float: right;
 			top: 0;
 			text-align: center;
-			
 			padding: 20px 2px 5px 56px;
-			
-			margin: 1px 4px 2px 1px;
 			background: {
 				repeat: no-repeat;
 				position: -57px 0px;
-				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
 			&:hover {background-color: #c6c6ed;}
 		}
-		.active{@extend .mode; background-position: 0px 0px;}
+		.active{@extend %mode; background-position: 0px 0px;}
 		.mode-cat{
-			@extend .mode;
+			@extend %mode;
 			background: {	image: url(/images/icons-auction/i-cat.png); }
 		}
 		.mode-prop{
-			@extend .mode;
+			@extend %mode;
 			background: {	image: url(/images/icons-auction/i-prop.png); }
-			
+
 		}
 		.mode-view-1{
-			@extend .mode;
+			@extend %mode;
 			background: {	image: url(/images/icons-auction/i-view-1.png); }
 		}
 		.mode-view-2{
-			@extend .mode;
+			@extend %mode;
 			background: {	image: url(/images/icons-auction/i-view-2.png); }
 		}
 		.mode-import{
-			@extend .mode;
+			@extend %mode;
 			float: left;
 			width: 158px;
 			background: {	image: url(/images/icons-auction/i-import.png); }
 		}
-		.text{
-			@extend .mode;
+		%text{
+			@extend %mode;
 			width: 34px;
 			float: right;
 			color: #444;
@@ -110,60 +98,61 @@
 			height: 58px;
 			padding: 21px 0 5px;
 			margin: 1px 2px 1px 2px;
-			
-		}
-		.page{
-			@extend .text;
 		}
 		.next{
-			@extend .page;
+			@extend %text;
 			background: {
 				image: url(/images/arrow-right-b.png);
 				repeat: no-repeat;
 				position: 12px 32px;
-				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
 		}
 		.prev{
-			@extend .page;
+			@extend %text;
 			background: {
-				image: url(/images/arrow-left-b.png); 
+				image: url(/images/arrow-left-b.png);
 				repeat: no-repeat;
 				position: 12px 32px;
-				box-shadow: 0 1px 2px rgba(0,0,0,.3);
 			}
 		}
 
 		.nav{
 			position: relative;
 			float: left;
-			height: 100%; 
+			height: 100%;
 			width: 200px;
-			left:0px;  
-			background: #262351; 
-			padding:15px 4px; 
+			left: 0px;
+			background: #262351;
+			padding: 15px 4px;
 			color: #fff;
 			&:hover {background-color: #c6c6ed;}
-			
+
 			li{
 				text-align: center;
 				padding: 8px;
-				height: 100%; 
+				height: 100%;
 				&:after{content: url("/images/down-arrow-b.png"); margin-left: 8px;}
 				//&:before{content: " ";}
-				
-			
+
+
 			}
-			
-			
+
+
 		}
-		
-		&-top{ @extend .c-panel; margin-top: -20px;
-			border-bottom: 2px solid black; background: white; position: relative;
+
+		&-top{
+			@extend .c-panel;
+			margin-top: -20px;
+			border-bottom: 2px solid black;
+			background: white;
+			position: relative;
 		}
-		&-bottom{ 
-			@extend .c-panel; margin-bottom: -20px;
-			border-top: 2px solid black; background: white; position: relative;
+		&-bottom{
+			@extend .c-panel;
+			margin-bottom: -20px;
+			border-top: 2px solid black;
+			background: white;
+			position: relative;
 		}
 	}
 	.tabs{
@@ -175,7 +164,7 @@
 	}
 
 
-	
+
 	.tab{
 		cursor: pointer;
 		width: 100%;
@@ -198,6 +187,6 @@
 		}
 		box-shadow: 0 1px 2px rgba(0,0,0,.3);
 	}
-		
+
 }
 

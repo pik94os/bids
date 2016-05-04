@@ -1,18 +1,18 @@
 
 .modals {
-  .modal-content{
+  .modal-content {
     border-radius: 0;
   }
   .modal-dialog {
   }
-  .modal-header{
+  .modal-header {
     background: $modal-header-background-color;
     color: white;
     @include padding-horizontal(15px);
     font-size: 14px;
     text-transform: uppercase;
-	border-bottom: 0;
-    .close{
+    border-bottom: 0;
+    .close {
       color: black;
       border-radius: 50px;
       background: white;
@@ -23,267 +23,177 @@
     }
   }
 }
-  
-  
+
 #loginModal {
-  .modal-content{
-	height: 828px;
-  }
-  .modal-dialog {
-    width: 940px;
-  }
   .modal-body {
-	height: 786px;
-	padding: 28px;
-	&-in { 
-	  background: white;
-	  height: 730px;
-	  &-left {
-		float: left;
-		width: 296px;
-		height: 100%;
-		border-right: 1px solid #4e586a;
-		&-vxod {
-		  width: 287px;
-		  height: 205px;		  
-		  &-form {
-		    .vxod-form-input {
-		      width: 100%;
-		    }
-		    .userEmail {
-			  padding: 18px;
-			  border: 0;
-		    }
-		    .password {
-			  margin: 10px 0 0 0;
+    padding: 28px;
+    &-in {
+      &-left {
+        &-vxod {
+          width: 287px;
+          height: 205px;
+          &-form {
+            .vxod-form-input {
+              width: 100%;
+            }
+            .userEmail {
               padding: 18px;
-			  border: 0;
-		    }
-		    .submit {
-			  margin: 10px 0 0 0;
-		    }
-		    &-div {
-			  margin: 7px 0 0 0;
-			  text-transform: uppercase;
-			  font-family: "Century Gothic";
-			  font-size: 11px;
-			  color: #0c111a;
-			  &-left {
-			    float: left;
-			    width: 50%;
-				label {
-                  font-weight: normal;			  
-				  input {
-				    margin: 0;
-				  }
-				}
-			  }
-			  &-right {
-			    float: left;
-			    width: 50%;
-				text-align: right;				
-			  }
-		    }
-		  }
-		}
-	  }
-	  &-right {
-		float: left;
-		width: 577px;
-		height: 100%;
-		margin-left: 9px;
-		&-top {
-		  &-bottom {
-		  	line-height: 34px;
-		  }
-		}
-		&-form {
-		  height: 581px;
-		  label {
-		    margin-bottom: 0px;
-			display: inline;
-		  }
-		  label:after {
-		    content: "*";
+              border: 0;
+            }
+            .password {
+              margin: 10px 0 0 0;
+              padding: 18px;
+              border: 0;
+            }
+            .submit {
+              margin: 10px 0 0 0;
+            }
+            &-div {
+              margin: 7px 0 0 0;
+              text-transform: uppercase;
+              font-family: "Century Gothic";
+              font-size: 11px;
+              color: #0c111a;
+              &-left {
+                float: left;
+                width: 50%;
+                label {
+                  font-weight: normal;
+                  input {
+                    margin: 0;
+                  }
+                }
+              }
+              &-right {
+                float: left;
+                width: 50%;
+                text-align: right;
+              }
+            }
+          }
+        }
+      }
+      &-right {
+        @include sm-or-more-display{
+          border-left: 1px solid #4e586a;
+        }
+        &-top {
+          &-bottom {
+            line-height: 34px;
+          }
+        }
+        &-form {
+          margin-top: 10px;
+          label {
+            margin-bottom: 0px;
+            display: inline;
+          }
+          label:after {
+            content: "*";
             color: red;
             font-size: 16px;
-			margin: 28px 0 0 -16px;
-			position: absolute;
-		  }
-		  &-reg {
-		    #form-reg-left {
-			  width: 50%;
-			  float: left;
-			  padding: 0 10px 0 0;  
-			}
-			#form-reg-right {
-			  width: 50%;
-			  float: left;
-			}
-		    .reg-form-input {
-			  border: 0;
-			  margin: 10px 0 0 0;
-			  padding: 18px;
-		      width: 100%;			
-			  background: #e6e7e8;
-			  height: 50px;			  
-			  color: #0c111a;
-			  text-transform: uppercase;
-			  font: {
-			    family: "Century Gothic";
-				size: 18px;
-				weight: normal;
-			  }			
-		    }
-			.reg-form-input-padding {
-			  margin-top: 130px;			  
-			  background: #f3f3f3;
-			}
-			&-bottom {
-			  float: left;
-			  margin-top: 40px;
-			  width: 100%;
-			  label {
-			    width: 100%;
-				display: block;
-				color: #0c111a;
-				text-transform: uppercase;
-				font: {
-			    family: "Century Gothic";
-				size: 18px;
-				weight: normal;
-			    }
-			  }
-			  label:after {
-			    content: "";
-				display: none;
-			  }
-			}
-		  }
-		  #div-text {
-		    float: left;
-			margin: 25px 0 0 20px;			
-			width: 100%;
-			color: black;
-			text-transform: uppercase;
-			font: {
-		      family: "Century Gothic";
-			  size: 11px;
-		    }
-			li {
-			  list-style-type: none;
-			  margin: 0 0 0 -40px;
-			}
-			li:before {
-			  content: "- ";
-			}
-		  }
-		}
-	  }
-	}
+            margin: 19px 0 0 -19px;
+            position: absolute;
+          }
+          &-reg {
+            .reg-form-input-padding {
+              background: #f3f3f3;
+            }
+            &-bottom {
+              float: left;
+              margin-top: 40px;
+              width: 100%;
+              label {
+                width: 100%;
+                display: block;
+                color: #0c111a;
+                text-transform: uppercase;
+                font: {
+                  family: "Century Gothic";
+                  size: 18px;
+                  weight: normal;
+                }
+              }
+              label:after {
+                content: "";
+                display: none;
+              }
+            }
+          }
+          #div-text {
+            margin: 25px 0 0 20px;
+            width: 100%;
+            color: black;
+            text-transform: uppercase;
+            font: {
+              family: "Century Gothic";
+              size: 11px;
+            }
+            li {
+              list-style-type: none;
+              margin: 0 0 0 -40px;
+            }
+            li:before {
+              content: "- ";
+            }
+          }
+        }
+      }
+    }
   }
 }
 
 #reg-auction-house {
-  .modal-dialog {
-    width: 940px;  
-    .modal-content {
-	  height: 685px;    
-      .modal-body {
-        padding: 24px;
-		.custom-btn-lg {
-		  font-size: 35px;
-		  height: 93px;
-		  padding: 20px 40px;
-		  text-align: left;
-		}
-        .form-reg {
-		  label {
-            .custom-input {
-	          border: 0;
-              margin: 10px 0 0 0;
-              padding: 18px 32px 18px 18px;
-              width: 290px;			
-              background: #e6e7e8;
-              height: 50px;			  
-              color: #0c111a;
-              text-transform: uppercase;
-              font: {
-                family: "Century Gothic";
-                size: 18px;
-                weight: normal;
-              }			
-            }			
-	        .one-input-two {
-	          margin-right: 10px;
-	        }			
-		  }		  
-		  label:after {
-		    content: "*";
-            color: red;
-            font-size: 16px;
-			margin: 28px 0 0 -35px;
-			position: absolute;
-		  }
-		  .shirt-margin:after {
-			  margin: 28px 0 0 -25px;
-		  }
-		  .custom-input {
-	        border: 0;
-            margin: 10px 0 0 0;
-            padding: 18px;
-            width: 290px;			
-            background: #e6e7e8;
-            height: 50px;			  
-            color: #0c111a;
-            text-transform: uppercase;
-            font: {
-              family: "Century Gothic";
-              size: 18px;
-              weight: normal;
-            }			
-          }			
-	      .one-input-two {
-	        margin-right: 10px;
-	      }
-		  &-checkbox {
-		    margin-top: 50px;
-			label {
-			  width: 100%;
-			  display: block;
-			  color: #0c111a;
-			  text-transform: uppercase;
-			  font: {
-			    family: "Century Gothic";
-			    size: 18px;
-			    weight: normal;
-			  }
-			}
-			label:after {
-			  content: "";
-		      display: none;
-			}
-		  }
-		  .custom-title-block {
-		    margin-top: 128px;
-			font-size: 24px;
-			height: 54px;
-			padding: 9px 56px;
-		  }
-		  .kod {
-		    background: #f3f3f3;		    
-		  }
+  .modal-body {
+    padding: 24px;
+    .custom-title-block{
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+    .form-reg {
+      label{
+        margin: 0;
+      }
+      label:after {
+        content: "*";
+        color: red;
+        font-size: 16px;
+        margin: 19px 0 0 -19px;
+        position: absolute;
+      }
+      .shirt-margin:after {
+        margin: 28px 0 0 -25px;
+      }
+      &-checkbox {
+        margin-top: 50px;
+        label {
+          width: 100%;
+          display: block;
+          color: #0c111a;
+          text-transform: uppercase;
+          font: {
+            family: "Century Gothic";
+            size: 18px;
+            weight: normal;
+          }
         }
-	  }
-	}
-  } 
+        label:after {
+          content: "";
+          display: none;
+        }
+      }
+      .kod {
+        background: #f3f3f3;
+      }
+    }
+  }
 }
 
-#create-auction{
+#create-auction {
   text-transform: uppercase;
-  .row-1{
+  .row-1 {
     @include margin-horizontal(-5px);
-    > div{
+    > div {
       padding: 0 5px 5px 5px;
     }
   }

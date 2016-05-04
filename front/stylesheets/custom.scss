@@ -10,6 +10,21 @@ input,textarea,.btn,button,a,div{
   }
 }
 
+.row-md{
+  @include margin-horizontal(-10px);
+  .col{
+    @include padding-horizontal(10px);
+  }
+}
+
+.row-sm{
+  @include margin-horizontal(-5px);
+  .col{
+    @include padding-horizontal(5px);
+    padding-bottom: 10px;
+  }
+}
+
 .row-block{
   width: 100%;
   .content-block{
@@ -23,7 +38,6 @@ input,textarea,.btn,button,a,div{
 
 .custom-title-block{
   background: #283879;
-  height: 94px;
   color: white;
   padding: 16px;
   text: {

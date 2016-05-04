@@ -1,5 +1,4 @@
 header {
-  /*height: 710px;*/
   a {
     text-decoration: none;
     &:visited {
@@ -12,115 +11,109 @@ header {
     padding: 0;
   }
 
-  
   .header-top {
-	
-	background:{
+
+    background: {
       image: url(/images/background-header.png);
       color: black;
     }
-	.input-radius {
-	    border-radius: 15px;
-		padding: 0 0 0 5px;
-		width: 155px;
-		color: #acb1b8;
-	}
-	.button-radius {
-	    background: #b9b9b9;
-	    border-radius: 15px;
-		color: #203371;
-		width: 60px;
-		margin: 0 0 0 -3px;
-	}
-	
-	height: 40px;
-	color: white;
-	a {
-		color: white;
-		text-decoration: none;
-	}
-	  
-	&-right {
-	  height: 100%;
-	  float: right;
-	  /*&-div {
-	    height: 100%;
-	  }*/
-	  img, div {
-	
-	    float: left;
-	    padding:0px 3px 0px 0px;;
-		margin: 4px 3px 2px 3px;
-		
-		
-	} 
-	
-	  
-	  
-	}
-	&-left {
-		height: 100%;
-		float: right;
-		
-		img, div {
-	
-	    float: right;
-	    padding:0px 3px 0px 0px;;
-		margin: 0px 3px 0px 3px;
-		
-		
-	} 
-	}
-    > div:first-child{
-		//float: left;
-      /*padding: 5px 0;*/
-     // text-align: right;
-      > div{
-          display: inline-block;
+    .input-radius {
+      border-radius: 15px;
+      padding: 0 0 0 5px;
+      width: 155px;
+      color: #acb1b8;
+      @include xs-display{
+        width: 145px;
+      }
+    }
+    .button-radius {
+      background: #b9b9b9;
+      border-radius: 15px;
+      color: #203371;
+      width: 60px;
+      margin: 0 0 0 -3px;
+    }
+
+    height: 40px;
+    color: white;
+    a {
+      color: white;
+      text-decoration: none;
+    }
+
+    &-right {
+      height: 100%;
+      float: right;
+      img, div {
+
+        float: left;
+        padding: 0 3px 0 0;;
+        margin: 4px 3px 2px 3px;
+
+      }
+
+    }
+    &-left {
+      height: 100%;
+      float: right;
+
+      img, div {
+        float: right;
+        padding: 0 3px 0 0;;
+        margin: 0 3px 0 3px;
+      }
+    }
+    > div:first-child {
+      > div {
+        display: inline-block;
       }
     }
   }
-  
+
   .header-bottom {
     left: 0;
-    background-image: url(/images/background-body.png);
-    background-color: black;
-	.header-lk {
-		background-size: 100%;
-		height: 420px;
-		text-align: center;
-		&-top {
-	    color: white;
-		padding: 95px 0 0;
-		text-transform: uppercase;
-		font-size: 135px;
-		font-weight: bold;
-		font-family: "Century Gothic";
-		}
-		&-bottom {
-	    text-transform: uppercase;
-		font-size: 28px;
-		color: white;		
-		background: url(/images/header-image-bottom.png) no-repeat;
-		height: 222px;
-		}
-		&-info {
+    background: {
+      image: url(/images/background-body.png);
+      color: black;
+    }
+    .header-lk {
+      background-size: 100%;
+      height: 420px;
+      text-align: center;
+      &-top {
+        color: white;
+        padding: 95px 0 0;
+        text-transform: uppercase;
+        font: {
+          size: 135px;
+          weight: bold;
+          family: "Century Gothic";
+        }
+      }
+      &-bottom {
+        text-transform: uppercase;
+        font-size: 28px;
+        color: white;
+        background: url(/images/header-image-bottom.png) no-repeat;
+        height: 222px;
+      }
+      &-info {
         background: #0c111a;
         height: 145px;
         text-align: center;
-			&-top {
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 40px 0 0;
-			}
-			&-bottom {
-            color: #d8a46a;
-            font-size: 18px;
-			}
-		}
-		
+        &-top {
+          color: white;
+          font-size: 28px;
+          font-weight: bold;
+          text-transform: uppercase;
+          padding: 40px 0 0;
+        }
+        &-bottom {
+          color: #d8a46a;
+          font-size: 18px;
+        }
+      }
+
     }
     .header-image {
       background: url(/images/header-image.png) no-repeat;
@@ -137,10 +130,10 @@ header {
         font-size: 135px;
         font-weight: bold;
         font-family: "Century Gothic";
-		@include xs-display {
-			font-size: 90px;
-		}
-	  }
+        @include xs-display {
+          font-size: 80px;
+        }
+      }
       &-bottom {
         text-transform: uppercase;
         font-size: 28px;
@@ -148,8 +141,7 @@ header {
         background: url(/images/header-image-bottom.png) no-repeat;
         height: 222px;
       }
-	  
-	  
+
       &-info {
         background: #0c111a;
         height: 145px;
@@ -188,23 +180,17 @@ header {
       }
     }
   }
-/*  .current a {
-    background: #999;
-    color: #fff;
-    border-radius: 5px;
-  }*/
-  &-img{
+  &-img {
     width: 30%;
     text-align: center;
     cursor: pointer;
-    img{
+    img {
       max-width: 100%;
     }
   }
 }
 
 @include xs-display {
-
   .top-menu {
     position: relative;
     min-height: 40px;
@@ -278,10 +264,10 @@ header {
         height: 100%;
         display: inline-block;
         *display: inline; /* ie7 */
-        a{
+        a {
           color: #1a2d55;
         }
-        &:hover{
+        &:hover {
           background: #e6ecf4;
           color: #00329a;
           border-left: 1px solid #B7B7B7;
@@ -289,20 +275,20 @@ header {
         }
       }
     }
-    &-img{
+    &-img {
       height: 100%;
       float: left;
-      img{
+      img {
         margin-top: 20px;
       }
     }
-    &_col-1{
+    &_col-1 {
       width: #{(100%/12)};
     }
-    &_col-2{
-      width:16%;
+    &_col-2 {
+      width: 16%;
     }
-    &_col-3{
+    &_col-3 {
       width: 27%;
     }
   }
