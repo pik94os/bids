@@ -41,6 +41,9 @@
 	padding-top: 2px;
 	height: auto;
 	@include padding-horizontal(15px);
+	> div:first-child{
+		margin-top: -20px;
+	}
 	.c-panel{
 		position: relative;
 		margin: 2px 0px 2px 0px;
@@ -142,7 +145,6 @@
 
 		&-top{
 			@extend .c-panel;
-			margin-top: -20px;
 			border-bottom: 2px solid black;
 			background: white;
 			position: relative;
