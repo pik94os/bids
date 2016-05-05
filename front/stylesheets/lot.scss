@@ -2,6 +2,125 @@
   @extend .content-block;
 
 }
+
+	%edit{
+		width: 56px;
+		height: 56px;
+		padding: 0px;
+		position: relative;
+		float: right;
+		top: 0px;
+		right: 0px;
+		
+		background: {
+			image: url(/images/icons-lot/i-edit.png);
+			repeat: no-repeat;
+			position: 0px 0px;
+		}
+		&:hover{background-position: -57px 0px;	}
+	}
+	
+
+.button-title{
+	font-weight: 700;
+	font-size: 24px;
+	font-family: "Century Gothic";
+	text-align: left;
+}
+%close{
+	float: right;
+	width: 56px;
+	height: 56px;
+	background: {
+		image: url(/images/icons-lot/lot-close.png);
+		repeat: no-repeat;
+		position: 0 0;
+	}
+	&:hover{background-position: -57px 0px;	}
+}
+
+.txt-edit{
+	height:70px;
+	border-bottom: 3px solid black;
+	width:100%;
+	.title{
+		
+	}
+	.tool{
+		float:right;
+		width:70px;
+		height:70px;
+		background: {
+			image: url(/images/icons-lot/lot-ttools.png);
+			repeat: no-repeat;
+			position: 0 0;
+		}
+		&-1{
+			@extend .tool;
+			background-position: 0px 0px;
+			&:hover{background-position: -70px 0px;}
+		}
+		&-2{
+			@extend .tool;
+			background-position: 0px -70px;
+			&:hover{background-position: -70px -70px;}
+		}
+		&-3{
+			@extend .tool;
+			background-position: 0px -140px;
+			&:hover{background-position: -70px -140px;}
+		}
+		&-4{
+			@extend .tool;
+			background-position: 0px -210px;
+			margin-right: 20px;
+			&:hover{background-position: -70px -210px;}
+		}
+		&-5{
+			@extend .tool;
+			background-position: 0px -280px;
+			&:hover{background-position: -70px -280px;}
+		}
+		&-6{
+			@extend .tool;
+			background-position: 0px -350px;
+			&:hover{background-position: -70px -350px;}
+		}
+		&-7{
+			@extend .tool;
+			background-position: 0px -420px;
+			&:hover{background-position: -70px -420px;}
+		}
+		&-8{
+			@extend .tool;
+			background-position: 0px -490px;
+			&:hover{background-position: -70px -490px;}
+		}
+		&-9{
+			@extend .tool;
+			background-position: 0px -560px;
+			&:hover{background-position: -70px -560px;}
+		}
+	}
+}
+.edit-field{
+	min-height:70px;
+	background-color: #fff;
+	width:100%;
+	.edit{
+		@extend %edit;
+		float:right;
+		top:0;
+	}
+	.close{
+		@extend %close;
+		float:right;
+		top:0;
+	}
+
+}
+
+
 .lot-list{
   @extend .content-block;
   padding-left: 20px;
@@ -14,18 +133,18 @@
   }
   .lot-title{
     width: 100%;
-    min-height: 40px;
+    min-height: 80px;
     background: white;
   }
   .lot-estimate{
     width: 100%;
-    min-height: 40px;
+    min-height: 60px;
     background: #151789;
     color: white;
   }
   .lot-price{
     width: 100%;
-    min-height: 40px;
+    min-height: 60px;
     background: cornflowerblue;
     color: white;
   }
@@ -33,7 +152,12 @@
     height: 400px;
     width: 100%;
     background: white;
-  }
+	.edit{
+		@extend %edit;
+		float:right;
+		bottom:0;
+	}
+}
   .gallery{
     @include margin-horizontal(-5px);
     .small-photo{
@@ -46,6 +170,19 @@
         background: white;
         @include square(100%);
       }
+	  .close{
+		 @extend %close;
+		 display: none;
+		 top:0;
+		 margin: -20px -20px 0 0 0;
+		 
+	  }
+	  
+	  &:hover{
+		.close{
+		 display: block;
+		}
+	  }
     }
   }
   .lot-buttons{

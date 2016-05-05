@@ -74,7 +74,7 @@ input,textarea,.btn,button,a,div{
     weight: bold;
     size: 24px;
   }
-  line-height: 50px;
+  line-height: 60px;
 }
 .custom-btn{
   @extend %custom-btn;
@@ -85,7 +85,7 @@ input,textarea,.btn,button,a,div{
   &-sm{
     @extend %custom-btn;
     font-size: 20px;
-    line-height: 40px;
+    line-height: 60px;
   }
   &-red{
     background: #79040a;
