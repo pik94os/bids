@@ -31,13 +31,15 @@ define(['./app'], function (app) {
                 }
             })
             .state('auction', {
-                url: '/auction',
+                url: '/auction?open',
                 views:{
                     '': {
-                        templateUrl: "/templates/auction/list.html"
+                        templateUrl: "/templates/auction/list.html",
+                        controller: 'Auction'
                     },
                     'header':{
-                        templateUrl: "/templates/auction/header.html"
+                        templateUrl: "/templates/auction/header.html",
+                        controller: 'AuctionHeader'
                     }
                 }
             })
