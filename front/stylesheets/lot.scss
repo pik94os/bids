@@ -44,6 +44,12 @@
 	border-bottom: 3px solid black;
 	width:100%;
 	.title{
+		height:100%;
+		font-weight: 700;
+		font-size: 24px;
+		font-family: "Century Gothic";
+		text-align: left;
+	//	line-height: 70px;
 		
 	}
 	.tool{
@@ -135,34 +141,89 @@
     width: 100%;
     min-height: 80px;
     background: white;
+	.edit{
+		@extend %edit;
+		float:right;
+		top:0;
+	}
+
   }
   .lot-estimate{
     width: 100%;
     min-height: 60px;
     background: #151789;
     color: white;
+	.edit{
+		@extend %edit;
+		float:right;
+		top:0;
+	}
   }
   .lot-price{
     width: 100%;
     min-height: 60px;
     background: cornflowerblue;
     color: white;
+	.edit{
+		@extend %edit;
+		float:right;
+		top:0;
+	}
   }
   .big-photo{
     height: 400px;
     width: 100%;
     background: white;
+	.close{
+		@extend %close;
+		float:right;
+		top:0;
+	}
+
 	.edit{
 		@extend %edit;
 		float:right;
-		bottom:0;
+		bottom:100%;
 	}
 }
   .gallery{
     @include margin-horizontal(-5px);
+	.add{
+		width: 20%;
+		height: 100px;
+		@include padding-horizontal(5px);
+		padding-bottom: 10px;
+		float: left;
+		background-color: #fff; 
+		div{
+			width:70px;
+			height: 70px;
+			top:15px;
+			background: {
+				image: url(/images/icons-lot/lot-plus.png);
+				repeat: no-repeat;
+				position: 0 0;
+			}
+			&:hover{
+				background-position: -70px 0;
+			}
+		}
+		
+	}
     .small-photo{
+		.close{
+			@extend %close;
+			display: none;
+			float:right;
+			top:0;
+			margin: -10px -10px 0 0;
+		}
+		&:hover{
+			.close{	display: block;}
+		}
+
       width: 20%;
-      height: 80px;
+      height: 100px;
       @include padding-horizontal(5px);
       padding-bottom: 10px;
       float: left;
