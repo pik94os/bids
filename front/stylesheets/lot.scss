@@ -1,6 +1,6 @@
 %edit{
-		width: 56px;
-		height: 56px;
+		width: 30px;
+		height: 30px;
 		padding: 0px;
 		position: relative;
 		float: right;
@@ -12,7 +12,7 @@
 			repeat: no-repeat;
 			position: 0px 0px;
 		}
-		&:hover{background-position: -57px 0px;	}
+		&:hover{background-position: -30px 0px;	}
 }
 	
 	
@@ -27,7 +27,7 @@
 	}
 	.info-top{
 		padding-bottom: 15px;
-		color: #d8a46a;
+		color: #557fa8;
 		font-size: 28px;
 	}
 	.info-bottom{
@@ -43,37 +43,37 @@
 		top:0;
 	}
 	.garbage{
-		width: 70px;
-		height: 70px;
+		width: 40px;
+		height: 40px;
 		padding: 0px;
 		position: relative;
 		float: right;
 		top: 0px;
-		right: 0px;
+		margin:20px 5px 0 0;
 		
 		background: {
 			image: url(/images/icons-lot/lot-garbage.png);
 			repeat: no-repeat;
 			position: 0px 0px;
 		}
-		&:hover{background-position: -70px 0px;	}
+		&:hover{background-position: -40px 0px;	}
 		
 	}
 	.cat{
-		width: 70px;
-		height: 70px;
+		width: 40px;
+		height: 40px;
 		padding: 0px;
 		position: relative;
 		float: right;
 		top: 0px;
-		right: 0px;
+		margin:20px 5px 0 0;
 		
 		background: {
 			image: url(/images/icons-lot/lot-cat.png);
 			repeat: no-repeat;
 			position: 0px 0px;
 		}
-		&:hover{background-position: -70px 0px;	}
+		&:hover{background-position: -40px 0px;	}
 		
 	}
 }
@@ -88,20 +88,21 @@
 }
 %close{
 	float: right;
-	width: 56px;
-	height: 56px;
+	width: 30px;
+	height: 30px;
 	background: {
 		image: url(/images/icons-lot/lot-close.png);
 		repeat: no-repeat;
 		position: 0 0;
 	}
-	&:hover{background-position: -57px 0px;	}
+	&:hover{background-position: -30px 0px;	}
 }
 
 .txt-edit{
-	height:70px;
+	height:55px;
 	border-bottom: 3px solid black;
 	width:100%;
+	background-color: #fff;
 	.title{
 		height:100%;
 		font-weight: 700;
@@ -168,16 +169,25 @@
 		}
 	}
 }
+.f_right{
+	float:right;
+}
 .edit-field{
 	min-height:70px;
 	background-color: #fff;
+	margin: 0px 10px 10px 10px;
 	width:100%;
+	p{
+		margin: 0 0 10px;
+	}
 	.edit{
+		margin:10px;
 		@extend %edit;
 		float:right;
 		top:0;
 	}
 	.close{
+		margin:10px;
 		@extend %close;
 		float:right;
 		top:0;
@@ -204,6 +214,9 @@
 		@extend %edit;
 		float:right;
 		top:0;
+	}
+	p{
+		margin: 0px 10px 10px 10px;
 	}
 
   }
@@ -235,12 +248,14 @@
     background: white;
 	.close{
 		@extend %close;
+		margin:10px;
 		float:right;
 		top:0;
 	}
 
 	.edit{
 		@extend %edit;
+		margin:10px;
 		float:right;
 		bottom:100%;
 	}
@@ -275,7 +290,7 @@
 			display: none;
 			float:right;
 			top:0;
-			margin: -10px -10px 0 0;
+			margin: -8px -8px 0 0;
 		}
 		&:hover{
 			.close{	display: block;}
@@ -290,14 +305,6 @@
         background: white;
         @include square(100%);
       }
-	  .close{
-		 @extend %close;
-		 display: none;
-		 top:0;
-		 margin: -20px -20px 0 0 0;
-		 
-	  }
-	  
 	  &:hover{
 		.close{
 		 display: block;
