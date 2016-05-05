@@ -1,9 +1,4 @@
-.lot-header{
-  @extend .content-block;
-
-}
-
-	%edit{
+%edit{
 		width: 56px;
 		height: 56px;
 		padding: 0px;
@@ -18,7 +13,71 @@
 			position: 0px 0px;
 		}
 		&:hover{background-position: -57px 0px;	}
+}
+	
+	
+.lot-header{
+  @extend .content-block;
+	height: auto;
+	padding: 15px;
+	font: {
+		family: "Century Gothic";
+		size: 35px;
+		weight: normal;
 	}
+	.info-top{
+		padding-bottom: 15px;
+		color: #d8a46a;
+		font-size: 28px;
+	}
+	.info-bottom{
+		color: #fff;
+		font-size: 28px;
+		font-weight: 700;
+		text-transform: uppercase;
+
+	}
+	.edit{
+		@extend %edit;
+		float:right;
+		top:0;
+	}
+	.garbage{
+		width: 70px;
+		height: 70px;
+		padding: 0px;
+		position: relative;
+		float: right;
+		top: 0px;
+		right: 0px;
+		
+		background: {
+			image: url(/images/icons-lot/lot-garbage.png);
+			repeat: no-repeat;
+			position: 0px 0px;
+		}
+		&:hover{background-position: -70px 0px;	}
+		
+	}
+	.cat{
+		width: 70px;
+		height: 70px;
+		padding: 0px;
+		position: relative;
+		float: right;
+		top: 0px;
+		right: 0px;
+		
+		background: {
+			image: url(/images/icons-lot/lot-cat.png);
+			repeat: no-repeat;
+			position: 0px 0px;
+		}
+		&:hover{background-position: -70px 0px;	}
+		
+	}
+}
+
 	
 
 .button-title{
