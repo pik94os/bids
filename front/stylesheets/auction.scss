@@ -130,6 +130,7 @@
 			left: 0px;
 			background: #262351;
 			padding: 15px 4px;
+			margin-right: 10px;
 			color: #fff;
 			&:hover {background-color: #c6c6ed;}
 
@@ -202,7 +203,6 @@
 			}
 			.view{
 				@extend %overicon;
-				//top:20px;
 				background: {
 					image: url(/images/icons-auction/i-view.png);
 				}
@@ -210,44 +210,55 @@
 			}
 			.edit{
 				@extend %overicon;
-				//top:100px;
 				background: {
 					image: url(/images/icons-auction/i-edit2.png);
 				}
 			}
 			.delete{
 				@extend %overicon;
-				//top:180px;
 				background: {
 					image: url(/images/icons-auction/i-delete.png);
 				}
 				
 			}
-			.info{
+			.tofav{
+				@extend %overicon;
+				background: {
+					image: url(/images/icons-auction/i-tofav.png);
+				}
+			}
+			.unfav{
+				@extend %overicon;
+				background: {
+					image: url(/images/icons-auction/i-unfav.png);
+				}
+			}
+			
+		}
+		&:hover {
+		//	background-color: #ebeced;
+			.over{display: block;}
+		}
+		.info{
 				position: absolute;
 				width: 100%;
 				height: 70px;
 				bottom: 0;
 				margin: 0 auto;
 				background-color:#4b5e72;
-				.top{
+			.top{
 					color: #8eaccb;
 					font-size: 28px;
 					font-weight: 700;
 					text-transform: uppercase;
 					margin: 0px;
-				}
-				.bottom{
+			}
+			.bottom{
 					color: #8eaccb;
 					font-size: 18px;
 					font-weight: 700;
 					text-transform: uppercase;
-				}
 			}
-		}
-		&:hover {
-		//	background-color: #ebeced;
-			.over{display: block;}
 		}
 	}
 	.tab-add{
