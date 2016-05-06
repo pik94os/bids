@@ -136,7 +136,6 @@
 
 			li{
 				text-align: center;
-				padding: 8px;
 				height: 100%;
 				&:after{content: url("/images/down-arrow-b.png"); margin-left: 8px;}
 				//&:before{content: " ";}
@@ -232,6 +231,7 @@
 			.tofav{
 				top: 20%;
 				@extend %overicon;
+				display: none;
 				background: {
 					image: url(/images/icons-auction/i-tofav.png);
 				}
@@ -239,6 +239,7 @@
 			.unfav{
 				top: 20%;
 				@extend %overicon;
+				display: none;
 				background: {
 					image: url(/images/icons-auction/i-unfav.png);
 				}
@@ -284,6 +285,36 @@
 		}
 		box-shadow: 0 1px 2px rgba(0,0,0,.3);
 	}
-
+	.contacts{
+		margin: 10px 0;
+		padding: 20px;
+		height: 80px;
+		background: #262351;
+		color: white;
+	}
+	&.al-open{
+		.mode-import,.mode-prop{
+			display: none;
+		}
+		.tabs{
+			.tab{
+				.over{
+					.view{
+						top: 30%;
+					}
+					.edit,.delete{
+						display: none;
+					}
+					.tofav,.unfav{
+						top: 30%;
+						display: block;
+					}
+				}
+			}
+			.col-tab-add{
+				display: none;
+			}
+		}
+	}
 }
 
