@@ -31,6 +31,35 @@
     font-weight: normal;
     font-style: italic;
 }
+// ================================ с засечками =============================
+@font-face {
+    font-family: "Gambria";
+    src: 
+	local("Gambria"),  
+	url("/fonts/cambria.ttc") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Gambria";
+    src: 
+	local("Gambria"),  
+	url("/fonts/cambriab.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Gambria";
+    src: 
+	local("Gambria"),  
+	url("/fonts/cambriai.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+
+
 
 //уберём браузерную обводку
 input,textarea,.btn,button,a,div{
@@ -109,7 +138,7 @@ input,textarea,.btn,button,a,div{
     family: "Century Gothic";
     weight: bold;
     style: normal;
-size: 24px;
+	size: 24px;
   }
   line-height: 60px;
 }

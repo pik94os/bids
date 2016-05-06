@@ -24,6 +24,10 @@
 	padding: 15px;
 
 	.info-top{
+		
+		font-family:"Gambria";
+		font-weight: normal;
+		font-style: normal;
 		padding: 0 0 5px 5px;
 		color: #758899;
 		font-size: 28px;
@@ -84,20 +88,29 @@
 	font-weight: 500;
 	font-size: 24px;
 	text-align: left;
-	font-family: "Arial";
-	padding: 8px 0 0 20px;
+	font-family:"Century Gothic";
+	font-weight: normal;
+	font-style: normal;
+	padding: 10px 10px 0 20px;
+	height: 55px;
 	.edit{
+		top: 2px;
 		@extend %edit;
 	}
 }
 %close{
 	float: right;
+	margin: 6px;
+	top: 0;
 	width: 30px;
 	height: 30px;
+	color: none;
+	border-radius: 15px;
 	background: {
 		image: url(/images/icons-lot/lot-close.png);
 		repeat: no-repeat;
 		position: 0 0;
+		color: none;
 	}
 	&:hover{background-position: -30px 0px;	}
 }
@@ -179,7 +192,7 @@
 .edit-field{
 	min-height:70px;
 	background-color: #fff;
-	margin: 0px 10px 10px 10px;
+	margin: 0 0 10px 0;
 	width:100%;
 	p {
 		padding: 5px 10px 5px 10px;
@@ -188,12 +201,11 @@
 	}
 	.edit{
 		@extend %edit;
+		top:10px;
+		right:10px;
 	}
 	.close{
-		margin:10px;
 		@extend %close;
-		float:right;
-		top:0;
 	}
 
 }
@@ -214,6 +226,8 @@
     min-height: 80px;
     background: white;
 	.edit{
+		top:12px;
+		right: 14px;
 		@extend %edit;
 	}
 	p {
@@ -238,16 +252,15 @@
     height: 400px;
     width: 100%;
     background: white;
-	.close{
+	position:relative;
+	.cclose{
 		@extend %close;
-		margin:10px;
-		float:right;
-		top:0;
 	}
 
 	.edit{
 		@extend %edit;
-		bottom:100%;
+		position:absolute;
+		top: 90%;
 	}
 }
   .gallery{
@@ -258,11 +271,12 @@
 		@include padding-horizontal(5px);
 		padding-bottom: 10px;
 		float: left;
-		background-color: #fff; 
+		background-color: none; 
 		div{
 			width:70px;
 			height: 70px;
 			top:15px;
+			margin: 10% auto;
 			background: {
 				image: url(/images/icons-lot/lot-plus.png);
 				repeat: no-repeat;
@@ -275,15 +289,13 @@
 		
 	}
     .small-photo{
-		.close{
+		.cclose{
 			@extend %close;
 			display: none;
-			float:right;
-			top:0;
 			margin: -8px -8px 0 0;
 		}
 		&:hover{
-			.close{	display: block;}
+			.cclose{	display: block;}
 		}
 
       width: 20%;
@@ -296,7 +308,7 @@
         @include square(100%);
       }
 	  &:hover{
-		.close{
+		.cclose{
 		 display: block;
 		}
 	  }
