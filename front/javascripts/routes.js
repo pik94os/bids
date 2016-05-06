@@ -47,10 +47,12 @@ define(['./app'], function (app) {
                 url: '/lot',
                 views:{
                     '': {
-                        templateUrl: "/templates/lot/list.html"
+                        templateUrl: "/templates/lot/list.html",
+                        controller: 'Lot'
                     },
                     'header':{
-                        templateUrl: "/templates/lot/header.html"
+                        templateUrl: "/templates/lot/header.html",
+                        controller: 'LotHeader'
                     }
                 }
             })

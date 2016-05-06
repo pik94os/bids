@@ -58,9 +58,9 @@
 			<div class="col-xs-6 col-sm-4 col-md-3">
 				<div class="tab">
 					<div class="over">
-						<div class="view"></div>
+						<div class="view" ui-sref="lot({open:2})"></div>
                         <div class="unfav"></div>
-						<div class="edit"></div>
+						<div class="edit" ui-sref="lot"></div>
 						<div class="delete"></div>
 					</div>
 					<div class="info"><p class="top">Продано за</p> <p class="bottom">10 000 000 Р</p></div>
@@ -69,9 +69,9 @@
 			<div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="r in [1,2,3,4,5,6,7,8]">
 				<div class="tab">
 					<div class="over">
-						<div class="view"></div>
+						<div class="view" ui-sref="lot({open:1})"></div>
 						<div class="tofav"></div>
-                        <div class="edit"></div>
+                        <div class="edit" ui-sref="lot"></div>
                         <div class="delete"></div>
 					</div>
 				</div>
