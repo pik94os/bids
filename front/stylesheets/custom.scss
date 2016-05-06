@@ -1,3 +1,37 @@
+
+@font-face {
+    font-family: "Century Gothic";
+    src: 
+	local("Century Gothic"), // проверяем наличие шрифта в ОС пользователя 
+	url("/fonts/Century Gothic/GOTHIC.TTF") format("truetype"); // если нет - подгружаем
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Century Gothic";
+    src: 
+	local("Century Gothic"),
+	url("/fonts/Century Gothic/GOTHICB.TTF") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Century Gothic";
+    src: 
+	local("Century Gothic"),  
+	url("/fonts/Century Gothic/GOTHICBI.TTF") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: "Century Gothic";
+    src: 
+	local("Century Gothic"), 
+	url("/fonts/Century Gothic/GOTHICI.TTF") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
 //уберём браузерную обводку
 input,textarea,.btn,button,a,div{
   &:not(.outline){
@@ -53,6 +87,8 @@ input,textarea,.btn,button,a,div{
   font: {
     family: "Century Gothic";
     weight: bold;
+    style: normal;
+
   }
   &-h3 {
     font-size: 20px;
@@ -72,7 +108,8 @@ input,textarea,.btn,button,a,div{
   font: {
     family: "Century Gothic";
     weight: bold;
-    size: 24px;
+    style: normal;
+size: 24px;
   }
   line-height: 60px;
 }
@@ -106,6 +143,9 @@ input,textarea,.btn,button,a,div{
   padding: 18px 32px 18px 18px;
   font: {
     family: "Century Gothic";
+	weight: normal;
+    style: normal;
+
     size: 18px;
     weight: 400;
   }

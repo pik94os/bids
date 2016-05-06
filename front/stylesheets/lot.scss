@@ -1,11 +1,13 @@
+
+
 %edit{
 		width: 30px;
 		height: 30px;
 		padding: 0px;
 		position: relative;
 		float: right;
-		top: 0px;
-		right: 0px;
+		top: 6px;
+		right: 6px;
 		
 		background: {
 			image: url(/images/icons-lot/i-edit.png);
@@ -20,27 +22,25 @@
   @extend .content-block;
 	height: auto;
 	padding: 15px;
-	font: {
-		family: "Century Gothic";
-		size: 35px;
-		weight: normal;
-	}
+
 	.info-top{
-		padding-bottom: 15px;
-		color: #557fa8;
+		padding: 0 0 5px 5px;
+		color: #758899;
 		font-size: 28px;
 	}
 	.info-bottom{
+		font-family:"Century Gothic";
+		font-weight: normal;
+		font-style: normal;
 		color: #fff;
 		font-size: 28px;
-		font-weight: 700;
+		padding: 0 0 5px 5px;
+		font-weight: 500;
 		text-transform: uppercase;
 
 	}
 	.edit{
 		@extend %edit;
-		float:right;
-		top:0;
 	}
 	.garbage{
 		width: 40px;
@@ -81,10 +81,14 @@
 	
 
 .button-title{
-	font-weight: 700;
+	font-weight: 500;
 	font-size: 24px;
-	font-family: "Century Gothic";
 	text-align: left;
+	font-family: "Arial";
+	padding: 8px 0 0 20px;
+	.edit{
+		@extend %edit;
+	}
 }
 %close{
 	float: right;
@@ -105,11 +109,10 @@
 	background-color: #fff;
 	.title{
 		height:100%;
-		font-weight: 700;
-		font-size: 24px;
-		font-family: "Century Gothic";
-		text-align: left;
-	//	line-height: 70px;
+		font-weight: 500;
+		font-size: 18px;
+		text-align: center;
+		background-color: #142038;
 		
 	}
 	.tool{
@@ -171,20 +174,20 @@
 }
 .f_right{
 	float:right;
+	margin: 8px;
 }
 .edit-field{
 	min-height:70px;
 	background-color: #fff;
 	margin: 0px 10px 10px 10px;
 	width:100%;
-	p{
-		margin: 0 0 10px;
+	p {
+		padding: 5px 10px 5px 10px;
+		margin: 0;
+		line-height: 1.42857;
 	}
 	.edit{
-		margin:10px;
 		@extend %edit;
-		float:right;
-		top:0;
 	}
 	.close{
 		margin:10px;
@@ -212,35 +215,24 @@
     background: white;
 	.edit{
 		@extend %edit;
-		float:right;
-		top:0;
 	}
-	p{
-		margin: 0px 10px 10px 10px;
+	p {
+		padding: 5px 10px 5px 10px;
+		margin: 0;
 	}
 
   }
   .lot-estimate{
     width: 100%;
-    min-height: 60px;
     background: #151789;
     color: white;
-	.edit{
-		@extend %edit;
-		float:right;
-		top:0;
-	}
+	
   }
   .lot-price{
     width: 100%;
-    min-height: 60px;
-    background: cornflowerblue;
+    background: #929bbc;;
     color: white;
-	.edit{
-		@extend %edit;
-		float:right;
-		top:0;
-	}
+	
   }
   .big-photo{
     height: 400px;
@@ -255,8 +247,6 @@
 
 	.edit{
 		@extend %edit;
-		margin:10px;
-		float:right;
 		bottom:100%;
 	}
 }
