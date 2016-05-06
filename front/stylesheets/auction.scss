@@ -180,28 +180,34 @@
 		position: relative;
 		border: 1px solid #e0e0e0;
 		background-color: white;
+		z-index:0;
 		.over{ // это div поверх
+			position: absolute;
 			width: 100%;
 			height: 100%;
 			//background-color: #8eaccb;
 			background-color: rgba(0,0,255, .3);
+			z-index:2;
 			display: none;
 			%overicon{
+				position: relative;
 				@extend %overicon;
-				width:77px;
-				height: 77px;
-				right: 50% - 38;
+				width:60px;
+				height: 60px;
+				//right: 50% - 38;
 				horizontal-align: center;
 				margin: 0 auto;
 				background: {
 					image: url("");
 					repeat: no-repeat;
 					position:  0px 0px;
+					size: auto 100%;
 				}
-				&:hover{background-position: -77px 0px;}
+				&:hover{background-position: -60px 0px;}
 		
 			}
 			.view{
+				top: 20%;
 				@extend %overicon;
 				background: {
 					image: url(/images/icons-auction/i-view.png);
@@ -209,12 +215,14 @@
 		
 			}
 			.edit{
+				top: 20%;
 				@extend %overicon;
 				background: {
 					image: url(/images/icons-auction/i-edit2.png);
 				}
 			}
 			.delete{
+				top: 20%;
 				@extend %overicon;
 				background: {
 					image: url(/images/icons-auction/i-delete.png);
@@ -222,12 +230,14 @@
 				
 			}
 			.tofav{
+				top: 20%;
 				@extend %overicon;
 				background: {
 					image: url(/images/icons-auction/i-tofav.png);
 				}
 			}
 			.unfav{
+				top: 20%;
 				@extend %overicon;
 				background: {
 					image: url(/images/icons-auction/i-unfav.png);
@@ -246,15 +256,17 @@
 				bottom: 0;
 				margin: 0 auto;
 				background-color:#4b5e72;
+				color: #fff; //#8eaccb; #8eaccb;
+				font-color: #fff; //#8eaccb;
+				z-index:0;
+					
 			.top{
-					color: #8eaccb;
 					font-size: 28px;
 					font-weight: 700;
 					text-transform: uppercase;
 					margin: 0px;
 			}
 			.bottom{
-					color: #8eaccb;
 					font-size: 18px;
 					font-weight: 700;
 					text-transform: uppercase;
