@@ -116,12 +116,15 @@
 }
 
 .txt-edit{
+	position:relative;
 	height:55px;
 	border-bottom: 3px solid black;
 	width:100%;
-	background-color: #fff;
+	//background-color: #fff;
+	background: none;
 	.title{
 		height:100%;
+		width:150px;
 		font-weight: 500;
 		font-size: 18px;
 		text-align: center;
@@ -187,12 +190,11 @@
 }
 .f_right{
 	float:right;
-	margin: 8px;
 }
 .edit-field{
 	min-height:70px;
 	background-color: #fff;
-	margin: 0 0 10px 0;
+	margin: 8px 10px 10px 0;
 	width:100%;
 	p {
 		padding: 5px 10px 5px 10px;
@@ -273,17 +275,18 @@
 		float: left;
 		background-color: none; 
 		div{
-			width:70px;
-			height: 70px;
-			top:15px;
-			margin: 10% auto;
+			width:40px;
+			height: 40px;
+			//top:15px;
+			margin: 30% auto;
 			background: {
 				image: url(/images/icons-lot/lot-plus.png);
 				repeat: no-repeat;
-				position: 0 0;
+				position: -40px 0;
+				size: auto 100%;
 			}
 			&:hover{
-				background-position: -70px 0;
+				background-position: 0 0;
 			}
 		}
 		
@@ -293,21 +296,23 @@
 			@extend %close;
 			display: none;
 			margin: -8px -8px 0 0;
+			
 		}
 		&:hover{
 			.cclose{	display: block;}
 		}
 
-      width: 20%;
-      height: 100px;
-      @include padding-horizontal(5px);
-      padding-bottom: 10px;
-      float: left;
-      > div{
-        background: white;
-        @include square(100%);
-      }
-	  &:hover{
+		width: 20%;
+		height: 100px;
+		@include padding-horizontal(5px);
+		padding-bottom: 10px;
+	 
+		float: left;
+		> div{
+			background: white;
+			@include square(100%);
+		}
+		&:hover{
 		.cclose{
 		 display: block;
 		}
@@ -320,4 +325,222 @@
       margin-bottom: 10px;
     }
   }
+}
+
+
+.lot-body {
+	position: relative;
+	margin-top: -20px;
+	&-div-top {
+		&-ul {
+			padding-left: 0;
+			li {
+				background: white;
+				cursor: pointer;
+				float: left;
+				height: 50px;
+				list-style-type: none;
+				color: #132038;
+				text-transform: uppercase;	      
+				text-align: center;
+				padding: 15px 30px;
+				font: {
+					family: "Century Gothic";
+					size: 15px;
+					weight: normal;
+				}
+				&:hover, &.active {
+					background: #132038;
+					color: white;
+				}
+			}
+		}
+	}
+	&-div-center {
+		background: white;
+		border-top: 2px solid #132038;
+		padding: 25px;
+		&-in {	
+			height: 100%;
+            margin: 0;
+			&-top {
+                margin: 6px 12px;
+				height: 50px;
+				color: #132038;
+				text-transform: uppercase;
+				border-bottom: 1px solid #ececec;
+				padding: 5px 0;
+				font: {
+					family: "Century Gothic";
+					size: 15px;
+					weight: normal;
+				}
+				&-divdescription {
+					float: left;
+					height: 30px;
+					width: 30px;
+					%afont{
+						background: url(/images/icons-font/text-panel.png);
+						//background-size: 100% auto;
+						&:hover {
+							background-color:#bbbbbb;
+							border-radius: 5px;
+						//	border: 3px solid #fff;
+						}
+					}
+					a {						
+						display: block;
+						width: 40px;
+						height: 40px;
+				    }
+					a.t {
+						@extend %afont;
+						background-position: 0px 0px;
+					}					
+					a.i {
+						@extend %afont;
+						background-position: 0px -40px;
+					}
+					a.b {
+						@extend %afont;
+						background-position: 0px -80px;
+					}
+					a.tt {
+						@extend %afont;
+						background-position: 0px -120px;
+					}
+					a.font-l {
+						@extend %afont;
+						background-position: 0px -160px;
+					}
+					a.font-c {
+						@extend %afont;
+						background-position: 0px -200px;
+					}
+					a.font-r {
+						@extend %afont;
+						background-position: 0px -240px;
+					}
+					a.indent-reduce {
+						@extend %afont;
+						background-position: 0px -280px;
+					}
+					a.indent-increase {
+						@extend %afont;
+						background-position: 0px -320px;
+					}
+				}
+				.m-l {
+					margin-left: 15px;
+				}
+			}
+			.pad-icon {
+				padding: 5px 0 30px;
+			}
+			&-bottom {
+				background: white;
+				padding: 10px 0 20px 0;
+				&-left {
+					float: left;
+					width: 600px;
+					&-form {
+                        .row{
+                          margin:{
+                            left: -5px;
+                            right: -5px;
+                          }
+                        }
+                        .col-sm{
+                          &-12,&-6,&-4,&-2{
+                            padding: 0 5px;
+                            margin-bottom: 10px;
+                          }
+                        }
+						label {
+                            margin-bottom: 0;
+							input {
+								
+							}
+							&:after {
+                              color: red;
+                              content: "*";
+                              font-size: 16px;
+                              right: 20px;
+                              top: 18px;
+                              position: absolute;
+							}
+						}
+						input {
+							border: 0 none;
+							color: #0c111a;
+							padding: 18px 32px 18px 18px;					
+						}
+						.kod {
+							background: #f3f3f3;
+						}
+						.form-reg-checkbox {
+							margin-top: 10px;
+							label {
+								color: #0c111a;
+								text-transform: uppercase;
+								font: {
+									family: "Century Gothic";
+									size: 18px;
+									weight: 400;
+								}								
+								&:after {
+									display: none;
+								}
+								input {
+									height: auto;
+									width: auto;
+								}
+							}
+						}
+						.month {
+							width: 140px;
+						}
+					}				
+				}
+				&-right {
+					float: left;
+					width: 290px;
+					height: 290px;
+					border: 1px solid #e0e0e0;
+					text-align: center;
+					&-top {
+						padding: 70px 0 20px 0;
+					}
+				}
+			}
+		}
+		.fullwidth-text {
+			width: 100%;
+			margin-top: 10px;
+			font: {
+				family: "Century Gothic";
+				size: 14px;
+				weight: bold;
+			}	
+			&-caps {
+				text-transform: uppercase;
+			}
+		}
+	}
+	.custom-title-block {
+		height: 55px;
+		width: 255px;
+		float: right;
+		font-size: 24px;
+		padding: 0;
+		margin: 15px 0;
+	}
+    #description-tab{
+      .lk-body-div-center{
+        padding: 5px 25px;
+      }
+    }
+    #description-tab, #info-tab{
+      overflow: auto;
+    }
 }
