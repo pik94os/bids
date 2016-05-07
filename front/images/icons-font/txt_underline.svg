@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="30px" height="30px" viewBox="0 0 30 30" enable-background="new 0 0 30 30" xml:space="preserve">
+<g id="ПОДЧЕРКНУТЫЙ">
+	<g>
+		<g>
+			<g>
+				<defs>
+					<rect id="SVGID_1_" x="7.959" y="6.5" width="14.082" height="17.001"/>
+				</defs>
+				<clipPath id="SVGID_2_">
+					<use xlink:href="#SVGID_1_"  overflow="visible"/>
+				</clipPath>
+				<path clip-path="url(#SVGID_2_)" d="M21.982,6.931c-0.002-0.241-0.199-0.436-0.441-0.436H8.398c-0.242,0-0.439,0.197-0.439,0.44
+					V9.36c0,0.243,0.197,0.441,0.439,0.441h0.996c0.135,0,0.262-0.062,0.346-0.165L10.488,8.7h3.158v11.448
+					c0,0.242,0.197,0.44,0.439,0.44h1.765c0.243,0,0.44-0.198,0.44-0.44V8.7h3.151l0.754,0.938c0.084,0.104,0.212,0.164,0.345,0.164
+					h0.996c0.116,0,0.229-0.046,0.313-0.13c0.082-0.083,0.129-0.196,0.129-0.313L21.982,6.931z"/>
+			</g>
+		</g>
+		<path d="M19.707,21.578h-9.479c-0.529,0-0.959,0.43-0.959,0.959c0,0.531,0.43,0.959,0.959,0.959h9.479
+			c0.531,0,0.959-0.428,0.959-0.959C20.666,22.007,20.238,21.578,19.707,21.578L19.707,21.578z"/>
+	</g>
+</g>
+</svg>

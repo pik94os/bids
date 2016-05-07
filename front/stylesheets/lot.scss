@@ -1,19 +1,24 @@
 
 
 %edit{
-	@include square(30px);
+	@include square(40px);
 	padding: 0;
 	position: relative;
 	float: right;
-	top: 6px;
-	right: 6px;
+	top: 3px;
+	right: 3px;
 
 	background: {
-		image: url(/images/icons-lot/i-edit.png);
+	//	image: url(/images/icons-lot/i-edit.png);
+		image: url(/images/edit_grey.svg);
 		repeat: no-repeat;
 		position: 0 0;
 	}
-	&:hover{background-position: -30px 0;	}
+	&:hover{
+	//	background-position: -30px 0;	
+	background-image: url(/images/edit_preview.svg);
+		
+	}
 }
 	
 	
@@ -54,11 +59,15 @@
 		margin:20px 5px 0 0;
 		
 		background: {
-			image: url(/images/icons-lot/lot-garbage.png);
+		//	image: url(/images/icons-lot/lot-garbage.png);
+			image: url(/images/icons-lot/delete_lot.svg);
 			repeat: no-repeat;
 			position: 0px 0px;
 		}
-		&:hover{background-position: -40px 0px;	}
+		&:hover{
+		//	background-position: -40px 0px;	
+			background-image: url(/images/icons-lot/delete_lot_hover.svg);
+		}
 		
 	}
 	.cat{
@@ -67,15 +76,19 @@
 		padding: 0px;
 		position: relative;
 		float: right;
-		top: 0px;
+		top: 3px;
 		margin:20px 5px 0 0;
 		
 		background: {
-			image: url(/images/icons-lot/lot-cat.png);
+		//	image: url(/images/icons-lot/lot-garbage.png);
+			image: url(/images/icons-lot/view_catalog_w.svg);
 			repeat: no-repeat;
 			position: 0px 0px;
 		}
-		&:hover{background-position: -40px 0px;	}
+		&:hover{
+		//	background-position: -40px 0px;	
+			background-image: url(/images/icons-lot/view_catalog_w_hover.svg);
+		}
 		
 	}
 }
@@ -83,12 +96,12 @@
 	
 
 .button-title{
-	font-size: 24px;
+	font-size: 22px;
 	text-align: left;
 	font-family:"Century Gothic";
 	font-weight: normal;
 	font-style: normal;
-	padding: 10px 10px 0 20px;
+	padding: 10px 5px 0 10px;
 	height: 55px;
 	.edit{
 		top: 2px;
@@ -104,11 +117,16 @@
 	color: none;
 	border-radius: 15px;
 	background: {
-		image: url(/images/icons-lot/lot-close.png);
+//		image: url(/images/icons-lot/lot-close.png);
+		image: url(/images/del_elem.svg);
 		repeat: no-repeat;
 		position: 0 0;
 	}
-	&:hover{background-position: -30px 0;	}
+	&:hover{
+//		background-position: -30px 0;	
+		background-image: url(/images/del_elem_hover.svg);
+	
+	}
 }
 
 .txt-edit{
@@ -126,62 +144,6 @@
 		text-align: center;
 		background-color: #142038;
 		
-	}
-	.tool{
-		float:right;
-		width:70px;
-		height:70px;
-		background: {
-			image: url(/images/icons-lot/lot-ttools.png);
-			repeat: no-repeat;
-			position: 0 0;
-		}
-		&-1{
-			@extend .tool;
-			background-position: 0px 0px;
-			&:hover{background-position: -70px 0px;}
-		}
-		&-2{
-			@extend .tool;
-			background-position: 0px -70px;
-			&:hover{background-position: -70px -70px;}
-		}
-		&-3{
-			@extend .tool;
-			background-position: 0px -140px;
-			&:hover{background-position: -70px -140px;}
-		}
-		&-4{
-			@extend .tool;
-			background-position: 0px -210px;
-			margin-right: 20px;
-			&:hover{background-position: -70px -210px;}
-		}
-		&-5{
-			@extend .tool;
-			background-position: 0px -280px;
-			&:hover{background-position: -70px -280px;}
-		}
-		&-6{
-			@extend .tool;
-			background-position: 0px -350px;
-			&:hover{background-position: -70px -350px;}
-		}
-		&-7{
-			@extend .tool;
-			background-position: 0px -420px;
-			&:hover{background-position: -70px -420px;}
-		}
-		&-8{
-			@extend .tool;
-			background-position: 0px -490px;
-			&:hover{background-position: -70px -490px;}
-		}
-		&-9{
-			@extend .tool;
-			background-position: 0px -560px;
-			&:hover{background-position: -70px -560px;}
-		}
 	}
 }
 .edit-field{
@@ -222,7 +184,7 @@
     background: white;
 	.edit{
 		top:12px;
-		right: 14px;
+		right: 8px;
 		@extend %edit;
 	}
 	p {
@@ -274,13 +236,16 @@
 			//top:15px;
 			margin: 30% auto;
 			background: {
-				image: url(/images/icons-lot/lot-plus.png);
+//				image: url(/images/icons-lot/lot-plus.png);
 				repeat: no-repeat;
-				position: -40px 0;
+//				position: -40px 0;
+				position: 0 0;
 				size: auto 100%;
-			}
+				image: url(/images/icons-lot/add_img.svg);
+				}
 			&:hover{
-				background-position: 0 0;
+//				background-position: 0 0;
+				background-image: url(/images/icons-lot/add_img_hover.svg);
 			}
 		}
 		
@@ -372,9 +337,9 @@
 				.sm-dropdown{
 					float: left;
 					overflow: hidden;
-					height: 100%;
+					height: 30px;
 					@include xs-display{
-						width: 40px;
+						width: 30px;
 						background: white;
 						border: 1px solid gray;
 						border-radius: 5px;
@@ -389,7 +354,13 @@
 					height: 30px;
 					width: 30px;
 					%afont{
-						background: url(/images/icons-font/text-panel.png);
+					//	background: url(/images/icons-font/text-panel.png);
+						background: {
+						//	url(/images/icons-font/text-panel.png);
+							repeat: no-repeat;
+							position: 0 0;
+							size: auto 100%;
+						}
 						&:hover {
 							background-color:#bbbbbb;
 							border-radius: 5px;
@@ -397,44 +368,53 @@
 					}
 					a {						
 						display: block;
-						width: 40px;
-						height: 40px;
+						width: 30px;
+						height: 30px;
 				    }
 					a.t {
 						@extend %afont;
-						background-position: 0px 0px;
+//						background-position: 0px 0px;
+						background: url(/images/icons-font/txt_font.svg);
 					}					
 					a.i {
 						@extend %afont;
-						background-position: 0px -40px;
+			//			background-position: 0px -40px;
+						background: url(/images/icons-font/txt_italic.svg);
 					}
 					a.b {
 						@extend %afont;
-						background-position: 0px -80px;
+					//	background-position: 0px -80px;
+						background: url(/images/icons-font/txt_bold.svg);
 					}
 					a.tt {
 						@extend %afont;
-						background-position: 0px -120px;
+				//		background-position: 0px -120px;
+						background: url(/images/icons-font/txt_underline.svg);
 					}
 					a.font-l {
 						@extend %afont;
-						background-position: 0px -160px;
+					//	background-position: 0px -160px;
+						background: url(/images/icons-font/txt-align_lft.svg);
 					}
 					a.font-c {
 						@extend %afont;
-						background-position: 0px -200px;
+				//		background-position: 0px -200px;
+						background: url(/images/icons-font/txt-align_cnt.svg);
 					}
 					a.font-r {
 						@extend %afont;
-						background-position: 0px -240px;
+				//		background-position: 0px -240px;
+						background: url(/images/icons-font/txt-align_rgt.svg);
 					}
 					a.indent-reduce {
 						@extend %afont;
-						background-position: 0px -280px;
+				//		background-position: 0px -280px;
+						background: url(/images/icons-font/txt-tab_minus.svg);
 					}
 					a.indent-increase {
 						@extend %afont;
-						background-position: 0px -320px;
+				//		background-position: 0px -320px;
+						background: url(/images/icons-font/txt-tab_plus.svg);
 					}
 				}
 				.m-l {
