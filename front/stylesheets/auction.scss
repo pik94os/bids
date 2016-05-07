@@ -1,5 +1,6 @@
 ﻿.auction-header {
 	@extend .content-block;
+	position: relative;
 	text-align: center;
 	height: auto;
 	padding: 15px;
@@ -21,18 +22,9 @@
 		font-size: 40px;
 	}
 	.edit{
-		width: 30px;
-		height: 30px;
-		padding: 0px;
-		position: relative;
-		float: right;
-		top: 60px;
-		background: {
-			image: url(/images/icons-auction/i-edit.png);
-			repeat: no-repeat;
-			position: 0px 0px;
-		}
-		&:hover{background-position: -30px 0px;	}
+		@extend %edit;
+		top: 75px;
+		right:0px;
 	}
 }
 
@@ -49,51 +41,56 @@
 		margin: 2px 0px 2px 0px;
 		padding: 0px;// 2px; //для рамочки
 		width: 100%;
-		height: 62px;
+		height: 50px;
 		border-bottom: 2px solid black;
 		background: white;
 		font-size: 24px;
 		%mode{
-
 			position: relative;
-			width: 40px;
-			height: 40px;
+			width: 30px;
+			height: 30px;
 			float: right;
 			top: 0px;
 			margin: 10px auto;
 			text-align: center;
 			margin: 12px 10px 0 0;
-			padding: 12px 0px 0px 24px;
+			padding: 2px 0px 0px 24px;
 			border-radius: 5px;
 			background: {
 				repeat: no-repeat;
-				position: -40px 0px;
+				position: 0px 0px;
 			}
 			&:hover {background-color: #E0E0E0}
 		}
-		.active{@extend %mode; background-position: 0px 0px;}
 		.mode-cat{
 			@extend %mode;
-			background: {	image: url(/images/icons-auction/i-cat.png); }
+			background: {	image: url(/images/icons-auction/view_catalog_hover.svg); }
+			&-active{@extend %mode; background-image: url(/images/icons-auction/view_catalog.svg);}
 		}
+		
 		.mode-prop{
 			@extend %mode;
-			background: {	image: url(/images/icons-auction/i-prop.png); }
-
-		}
-		.mode-view-1{
-			@extend %mode;
-			background: {	image: url(/images/icons-auction/i-view-1.png); }
+			background: {	image: url(/images/icons-auction/settings_hover.svg); }
+			&-active{@extend %mode; background-image: url(/images/icons-auction/settings.svg);}
 		}
 		.mode-view-2{
 			@extend %mode;
-			background: {	image: url(/images/icons-auction/i-view-2.png); }
+			background: {	image: url(/images/icons-auction/view_lots_box_hover.svg); }
+			&-active{@extend %mode; background-image: url(/images/icons-auction/view_lots_box.svg);}
 		}
+		.mode-view-1{
+			@extend %mode;
+			background: {	image: url(/images/icons-auction/view_lots_list_hover.svg); }
+			&-active{@extend %mode; background-image: url(/images/icons-auction/view_lots_list.svg);}
+		}
+		
 		.mode-import{
 			@extend %mode;
 			float: left;
 			width: 150px;
-			background: {	image: url(/images/icons-auction/i-import.png); }
+			color:#bbb;
+			background: {	image: url(/images/icons-auction/import_lots_hover.svg); }
+			&:hover{background-image: url(/images/icons-auction/import_lots.svg); color:#000;}
 		}
 		%text{
 			@extend %mode;
@@ -129,7 +126,7 @@
 			width: 200px;
 			left: 0px;
 			background: #262351;
-			padding: 15px 4px;
+			padding: 13px 4px;
 			margin-right: 10px;
 			color: #fff;
 			&:hover {background-color: #c6c6ed;}
@@ -191,58 +188,49 @@
 			%overicon{
 				position: relative;
 				@extend %overicon;
-				width:60px;
-				height: 60px;
-				//right: 50% - 38;
+				width:50px;
+				height: 50px;
 				horizontal-align: center;
-				margin: 0 auto;
+				margin: 5px auto;
 				background: {
-					image: url("");
 					repeat: no-repeat;
 					position:  0px 0px;
 					size: auto 100%;
 				}
-				&:hover{background-position: -60px 0px;}
 		
 			}
 			.view{
 				top: 20%;
 				@extend %overicon;
-				background: {
-					image: url(/images/icons-auction/i-view.png);
-				}
+				background-image: url(/images/icons-auction/circle_but_view.svg);
+				&:hover{background-image: url(/images/icons-auction/circle_but_view_hover.svg);}
 		
 			}
 			.edit{
 				top: 20%;
 				@extend %overicon;
-				background: {
-					image: url(/images/icons-auction/i-edit2.png);
-				}
+				background-image: url(/images/icons-auction/circle_but_edit.svg);
+				&:hover{background-image: url(/images/icons-auction/circle_but_edit_hover.svg);}
 			}
 			.delete{
 				top: 20%;
 				@extend %overicon;
-				background: {
-					image: url(/images/icons-auction/i-delete.png);
-				}
-				
+				background-image: url(/images/icons-auction/circle_but_del.svg);
+				&:hover{background-image: url(/images/icons-auction/circle_but_del_hover.svg);}
 			}
 			.tofav{
 				top: 20%;
 				@extend %overicon;
 				display: none;
-				background: {
-					image: url(/images/icons-auction/i-tofav.png);
-				}
+				background-image: url(/images/icons-auction/circle_but_fav_add.svg);
+				&:hover{background-image: url(/images/icons-auction/circle_but_fav_add_hover.svg);}
 			}
 			.unfav{
 				top: 20%;
 				@extend %overicon;
 				display: none;
-				background: {
-					image: url(/images/icons-auction/i-unfav.png);
-				}
+				background-image: url(/images/icons-auction/circle_but_fav_del.svg);
+				&:hover{background-image: url(/images/icons-auction/circle_but_fav_del_hover.svg);}
 			}
 			
 		}
@@ -278,11 +266,12 @@
 		@extend .tab;
 		padding: 185px 5px 20px 5px;
 		background: {
-			image: url(/images/icon-plus.png);
+			image: url(/images/icons-auction/add_auction.svg);
 			repeat: no-repeat;
 			color: inherit;
 			position: 50% 90px;
 		}
+		&:hover{background-image: url(/images/icons-auction/add_auction_hover.svg);}
 		box-shadow: 0 1px 2px rgba(0,0,0,.3);
 	}
 	.contacts{

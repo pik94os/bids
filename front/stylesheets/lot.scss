@@ -18,61 +18,6 @@
 	}
 }
 
-
-%edit{
-	cursor: pointer;
-	@include square(40px);
-	position: absolute;
-	padding: 0;
-
-	background: {
-		image: url(/images/edit_grey.svg);
-		repeat: no-repeat;
-		position: 0 0;
-	}
-	&:hover{
-		background-image: url(/images/edit_preview.svg);
-	}
-}
-
-%arrow_left{
-	position: absolute;
-	height:30px;
-	width:15px;
-	padding: 0;
-	position: relative;
-
-	background: {
-		image: url(/images/arrow_w_left.svg);
-		repeat: no-repeat;
-		position: -8px 0;
-		color: none;
-		size: auto 100%;
-	}
-	&:hover{
-	background-color: #555;
-		
-	}
-}
-%arrow_right{
-	position: absolute;
-	height:30px;
-	width:15px;
-	padding: 0;
-	position: relative;
-
-	background: {
-		image: url(/images/arrow_w_right.svg);
-		repeat: no-repeat;
-		position: -8px 0;
-		color: none;
-		size: auto 100%;
-	}
-	&:hover{
-	background-color: #555;
-		
-	}
-}
 	
 .lot-header{
 	@extend .content-block;
