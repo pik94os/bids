@@ -20,6 +20,7 @@
 
 
 %edit{
+	cursor: pointer;
 	@include square(40px);
 	position: absolute;
 	padding: 0;
@@ -30,8 +31,7 @@
 		position: 0 0;
 	}
 	&:hover{
-	background-image: url(/images/edit_preview.svg);
-		
+		background-image: url(/images/edit_preview.svg);
 	}
 }
 
@@ -176,7 +176,6 @@
 		@extend %edit;
 	}
 }
-
 .txt-edit{
 	position:relative;
 	height:45px;
@@ -333,8 +332,8 @@
 		position:relative;
 		.cclose{
 			@extend %close;
-			margin: -14px 0 0 0;
-			right:5px;
+			margin: -10px -4px 0 0;
+			right:0px;
 			display: none;
 		}
 		&:hover{.cclose{	display: block;}}
@@ -345,7 +344,7 @@
 		padding-bottom: 10px;
 	 
 		float: left;
-		> div{
+		> div:not(.cclose){
 			background: white;
 			@include square(100%);
 		}
