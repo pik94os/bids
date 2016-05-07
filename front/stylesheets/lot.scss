@@ -1,29 +1,82 @@
+%close{
+	position: absolute;
+	margin: 6px;
+	width: 30px;
+	height: 30px;
+	color: none;
+	border-radius: 15px;
+	background: {
+//		image: url(/images/icons-lot/lot-close.png);
+		image: url(/images/del_elem.svg);
+		repeat: no-repeat;
+		position: 0 0;
+	}
+	&:hover{
+//		background-position: -30px 0;	
+		background-image: url(/images/del_elem_hover.svg);
+	
+	}
+}
 
 
 %edit{
 	@include square(40px);
+	position: absolute;
 	padding: 0;
-	position: relative;
-	float: right;
-	top: 3px;
-	right: 3px;
 
 	background: {
-	//	image: url(/images/icons-lot/i-edit.png);
 		image: url(/images/edit_grey.svg);
 		repeat: no-repeat;
 		position: 0 0;
 	}
 	&:hover{
-	//	background-position: -30px 0;	
 	background-image: url(/images/edit_preview.svg);
 		
 	}
 }
-	
+
+%arrow_left{
+	position: absolute;
+	height:30px;
+	width:15px;
+	padding: 0;
+	position: relative;
+
+	background: {
+		image: url(/images/arrow_w_left.svg);
+		repeat: no-repeat;
+		position: -8px 0;
+		color: none;
+		size: auto 100%;
+	}
+	&:hover{
+	background-color: #555;
+		
+	}
+}
+%arrow_right{
+	position: absolute;
+	height:30px;
+	width:15px;
+	padding: 0;
+	position: relative;
+
+	background: {
+		image: url(/images/arrow_w_right.svg);
+		repeat: no-repeat;
+		position: -8px 0;
+		color: none;
+		size: auto 100%;
+	}
+	&:hover{
+	background-color: #555;
+		
+	}
+}
 	
 .lot-header{
-  @extend .content-block;
+	@extend .content-block;
+	position: relative;
 	height: auto;
 	padding: 15px;
 
@@ -37,6 +90,7 @@
 		font-size: 28px;
 	}
 	.info-bottom{
+		position: relative;
 		font-family:"Century Gothic";
 		font-style: normal;
 		color: #fff;
@@ -44,8 +98,21 @@
 		padding: 0 0 5px 5px;
 		font-weight: 500;
 		text-transform: uppercase;
+		.arrow_left{
+			@extend %arrow_left;
+			position: absolute;
+			top:6px;
+			left:-12px;
+			
+		}
+		.arrow_right{
+			@extend %arrow_right;
+			position: absolute;
+			top:6px;
+			right:-12px;
+			
+		}
 
-	}
 	.edit{
 		@extend %edit;
 	}
@@ -55,7 +122,7 @@
 		padding: 0px;
 		position: relative;
 		float: right;
-		top: 0px;
+		top: -18px;
 		margin:20px 5px 0 0;
 		
 		background: {
@@ -76,7 +143,7 @@
 		padding: 0px;
 		position: relative;
 		float: right;
-		top: 3px;
+		top: -15px;
 		margin:20px 5px 0 0;
 		
 		background: {
@@ -91,47 +158,28 @@
 		}
 		
 	}
+	}
 }
 
 	
 
 .button-title{
-	font-size: 22px;
+	font-size: 20px;
 	text-align: left;
 	font-family:"Century Gothic";
 	font-weight: normal;
 	font-style: normal;
-	padding: 10px 5px 0 10px;
+	padding: 10px 0px 0 10px;
 	height: 55px;
 	.edit{
 		top: 2px;
 		@extend %edit;
 	}
 }
-%close{
-	float: right;
-	margin: 6px;
-	top: 0;
-	width: 30px;
-	height: 30px;
-	color: none;
-	border-radius: 15px;
-	background: {
-//		image: url(/images/icons-lot/lot-close.png);
-		image: url(/images/del_elem.svg);
-		repeat: no-repeat;
-		position: 0 0;
-	}
-	&:hover{
-//		background-position: -30px 0;	
-		background-image: url(/images/del_elem_hover.svg);
-	
-	}
-}
 
 .txt-edit{
 	position:relative;
-	height:55px;
+	height:45px;
 	border-bottom: 3px solid black;
 	width:100%;
 	background: none;
@@ -147,9 +195,10 @@
 	}
 }
 .edit-field{
+	position: relative;
 	min-height:70px;
 	background-color: #fff;
-	margin: 8px 10px 10px 0;
+	margin: 0px 10px 10px 0;
 	width:100%;
 	p {
 		padding: 5px 10px 5px 10px;
@@ -158,11 +207,16 @@
 	}
 	.edit{
 		@extend %edit;
-		top:10px;
-		right:10px;
+		top:6px;
+		right:7px;
+		display: none;
 	}
-	.close{
+	&:hover{.cclose{	display: block;}.edit{	display: block;}}
+	.cclose{
 		@extend %close;
+		top:0px;
+		right:40px;
+		display: none;
 	}
 
 }
@@ -179,14 +233,17 @@
     }
   }
   .lot-title{
+	position:relative;
     width: 100%;
     min-height: 80px;
     background: white;
 	.edit{
-		top:12px;
-		right: 8px;
 		@extend %edit;
+		top:12px;
+		right: 1px;
+		display: none;
 	}
+	&:hover{.edit{	display: block;}}
 	p {
 		padding: 5px 10px 5px 10px;
 		margin: 0;
@@ -194,30 +251,52 @@
 
   }
   .lot-estimate{
+	position:relative;
     width: 100%;
     background: #151789;
     color: white;
+	.edit{
+		@extend %edit;
+		top:12px;
+		right: 1px;
+		display: none;
+	}
+	&:hover{.edit{	display: block;}}
 	
   }
   .lot-price{
+	position:relative;
     width: 100%;
     background: #929bbc;;
     color: white;
+	.edit{
+		@extend %edit;
+		top:12px;
+		right: 1px;
+		display: none;
+	}
+	&:hover{.edit{	display: block;}}
 	
   }
   .big-photo{
     height: 400px;
+	position:relative;
     width: 100%;
     background: white;
-	position:relative;
+	top:-15px;
 	.cclose{
 		@extend %close;
+		right: 6px;
+		top:6px;
+		display: none;
 	}
+	&:hover{.cclose{	display: block;} .edit{	display: block;} }
 
 	.edit{
 		@extend %edit;
-		position:absolute;
-		top: 90%;
+		bottom: 6px;
+		right: 6px;
+		display: none;
 	}
 }
   .gallery{
@@ -251,15 +330,14 @@
 		
 	}
     .small-photo{
+		position:relative;
 		.cclose{
 			@extend %close;
+			margin: -14px 0 0 0;
+			right:5px;
 			display: none;
-			margin: -8px -8px 0 0;
-			
 		}
-		&:hover{
-			.cclose{	display: block;}
-		}
+		&:hover{.cclose{	display: block;}}
 
 		width: 20%;
 		height: 100px;
@@ -271,11 +349,6 @@
 			background: white;
 			@include square(100%);
 		}
-		&:hover{
-		.cclose{
-		 display: block;
-		}
-	  }
     }
   }
   .lot-buttons{
