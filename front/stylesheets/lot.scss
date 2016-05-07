@@ -1,20 +1,19 @@
 
 
 %edit{
-		width: 30px;
-		height: 30px;
-		padding: 0px;
-		position: relative;
-		float: right;
-		top: 6px;
-		right: 6px;
-		
-		background: {
-			image: url(/images/icons-lot/i-edit.png);
-			repeat: no-repeat;
-			position: 0px 0px;
-		}
-		&:hover{background-position: -30px 0px;	}
+	@include square(30px);
+	padding: 0;
+	position: relative;
+	float: right;
+	top: 6px;
+	right: 6px;
+
+	background: {
+		image: url(/images/icons-lot/i-edit.png);
+		repeat: no-repeat;
+		position: 0 0;
+	}
+	&:hover{background-position: -30px 0;	}
 }
 	
 	
@@ -34,7 +33,6 @@
 	}
 	.info-bottom{
 		font-family:"Century Gothic";
-		font-weight: normal;
 		font-style: normal;
 		color: #fff;
 		font-size: 28px;
@@ -85,7 +83,6 @@
 	
 
 .button-title{
-	font-weight: 500;
 	font-size: 24px;
 	text-align: left;
 	font-family:"Century Gothic";
@@ -110,9 +107,8 @@
 		image: url(/images/icons-lot/lot-close.png);
 		repeat: no-repeat;
 		position: 0 0;
-		color: none;
 	}
-	&:hover{background-position: -30px 0px;	}
+	&:hover{background-position: -30px 0;	}
 }
 
 .txt-edit{
@@ -120,8 +116,8 @@
 	height:55px;
 	border-bottom: 3px solid black;
 	width:100%;
-	//background-color: #fff;
 	background: none;
+	@include clearfix;
 	.title{
 		height:100%;
 		width:150px;
@@ -187,9 +183,6 @@
 			&:hover{background-position: -70px -560px;}
 		}
 	}
-}
-.f_right{
-	float:right;
 }
 .edit-field{
 	min-height:70px;
@@ -267,6 +260,7 @@
 }
   .gallery{
     @include margin-horizontal(-5px);
+	  @include clearfix;
 	.add{
 		width: 20%;
 		height: 100px;
@@ -375,17 +369,30 @@
 					size: 15px;
 					weight: normal;
 				}
+				.sm-dropdown{
+					float: left;
+					overflow: hidden;
+					height: 100%;
+					@include xs-display{
+						width: 40px;
+						background: white;
+						border: 1px solid gray;
+						border-radius: 5px;
+						&:hover{
+							height: auto;
+							padding-bottom: 10px;
+						}
+					}
+				}
 				&-divdescription {
 					float: left;
 					height: 30px;
 					width: 30px;
 					%afont{
 						background: url(/images/icons-font/text-panel.png);
-						//background-size: 100% auto;
 						&:hover {
 							background-color:#bbbbbb;
 							border-radius: 5px;
-						//	border: 3px solid #fff;
 						}
 					}
 					a {						
@@ -432,6 +439,9 @@
 				}
 				.m-l {
 					margin-left: 15px;
+					@include xs-display{
+						margin-left: 0;
+					}
 				}
 			}
 			.pad-icon {

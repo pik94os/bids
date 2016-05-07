@@ -44,7 +44,7 @@ define(['./app'], function (app) {
                 }
             })
             .state('lot', {
-                url: '/lot',
+                url: '/lot?open',
                 views:{
                     '': {
                         templateUrl: "/templates/lot/list.html",
