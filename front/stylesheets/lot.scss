@@ -1,4 +1,5 @@
 %close{
+	cursor: pointer;
 	position: absolute;
 	margin: 6px;
 	width: 30px;
@@ -58,51 +59,51 @@
 			
 		}
 
-	.edit{
-		@extend %edit;
-	}
-	.garbage{
-		width: 40px;
-		height: 40px;
-		padding: 0px;
-		position: relative;
-		float: right;
-		top: -18px;
-		margin:20px 5px 0 0;
-		
-		background: {
-		//	image: url(/images/icons-lot/lot-garbage.png);
-			image: url(/images/icons-lot/delete_lot.svg);
-			repeat: no-repeat;
-			position: 0px 0px;
+		.garbage{
+		//	display: none;
+			cursor: pointer;
+			position: absolute;
+			@include square(40px);
+			padding: 0px;
+			top: 3px;
+			right: 45px;
+			margin: 0;
+			background: {
+			//	image: url(/images/icons-lot/lot-garbage.png);
+				image: url(/images/icons-lot/delete_lot.svg);
+				repeat: no-repeat;
+				position: 0px 0px;
+			}
+			&:hover{
+			//	background-position: -40px 0px;	
+				background-image: url(/images/icons-lot/delete_lot_hover.svg);
+			}
+			
+		}
+		.cat{
+			cursor: pointer;
+		//	display: none;
+			position: absolute;
+			@include square(40px);
+			padding: 0px;
+			top: 6px;
+			right: 0px;
+			margin:0;
+			
+			background: {
+			//	image: url(/images/icons-lot/lot-garbage.png);
+				image: url(/images/icons-lot/view_catalog_w.svg);
+				repeat: no-repeat;
+				position: 0px 0px;
+			}
+			&:hover{
+			//	background-position: -40px 0px;	
+				background-image: url(/images/icons-lot/view_catalog_w_hover.svg);
+			}
 		}
 		&:hover{
-		//	background-position: -40px 0px;	
-			background-image: url(/images/icons-lot/delete_lot_hover.svg);
+		//	.cat{display: block;} .garbage{display: block;} 
 		}
-		
-	}
-	.cat{
-		width: 40px;
-		height: 40px;
-		padding: 0px;
-		position: relative;
-		float: right;
-		top: -15px;
-		margin:20px 5px 0 0;
-		
-		background: {
-		//	image: url(/images/icons-lot/lot-garbage.png);
-			image: url(/images/icons-lot/view_catalog_w.svg);
-			repeat: no-repeat;
-			position: 0px 0px;
-		}
-		&:hover{
-		//	background-position: -40px 0px;	
-			background-image: url(/images/icons-lot/view_catalog_w_hover.svg);
-		}
-		
-	}
 	}
 }
 
@@ -123,19 +124,20 @@
 }
 .txt-edit{
 	position:relative;
-	height:45px;
+	height:55px;
 	border-bottom: 3px solid black;
 	width:100%;
 	background: none;
 	@include clearfix;
 	.title{
+		vertical-align: medium;
+		padding: 0px 0px 0px 0px;
 		height:100%;
 		width:150px;
 		font-weight: 500;
 		font-size: 18px;
 		text-align: center;
 		background-color: #142038;
-		
 	}
 }
 .edit-field{
@@ -144,6 +146,7 @@
 	background-color: #fff;
 	margin: 0px 10px 10px 0;
 	width:100%;
+	border-bottom: 4px solid #bbb;
 	p {
 		padding: 5px 10px 5px 10px;
 		margin: 0;
@@ -227,7 +230,6 @@
 	position:relative;
     width: 100%;
     background: white;
-	top:-15px;
 	.cclose{
 		@extend %close;
 		right: 6px;

@@ -64,6 +64,7 @@
 	@include square(40px);
 	position: absolute;
 	padding: 0;
+	cursor: pointer;
 
 	background: {
 		image: url(/images/edit_grey.svg);
@@ -81,6 +82,8 @@
 	width:15px;
 	padding: 0;
 	position: relative;
+	border-radius: 3px;
+	cursor: pointer;
 
 	background: {
 		image: url(/images/arrow_w_left.svg);
@@ -100,6 +103,8 @@
 	width:15px;
 	padding: 0;
 	position: relative;
+	border-radius: 3px;
+	cursor: pointer;
 
 	background: {
 		image: url(/images/arrow_w_right.svg);
