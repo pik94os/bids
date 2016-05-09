@@ -47,19 +47,21 @@
 		padding: 0px;// 2px; //для рамочки
 		width: 100%;
 		height: 55px;
-		border-bottom: 2px solid black;
+@media (max-width: 520px) {
+	height: 110px;
+}		border-bottom: 2px solid black;
 		background: white;
 		font-size: 24px;
 		%mode{
 			cursor: pointer;
-			position: relative;
+			position: relative; float: right;
+		//	position: absolute; right:0px;
 			width: 30px;
 			height: 30px;
-			float: right;
+			
 			top: 0px;
-			margin: 10px auto;
 			text-align: center;
-			margin: 12px 10px 0 0;
+			margin: 12px 9px 0 0;
 			padding: 0px 0px 0px 24px;
 			vertical-align: middle;
 			border-radius: 5px;
@@ -70,32 +72,37 @@
 			}
 			&:hover {background-color: #E0E0E0}
 		}
-		.mode-cat{
-			@extend %mode;
-			background: {	image: url(/images/icons-auction/view_catalog_hover.svg); }
-			&-active{@extend %mode; background-image: url(/images/icons-auction/view_catalog.svg);}
-		}
-		
 		.mode-prop{
 			@extend %mode;
+		//	right:0px;
 			background: {	image: url(/images/icons-auction/settings_hover.svg); }
-			&-active{@extend %mode; background-image: url(/images/icons-auction/settings.svg);}
+			&-active{@extend .mode-prop; background-image: url(/images/icons-auction/settings.svg);}
 		}
+		.mode-cat{
+			@extend %mode;
+		//	right:120px;
+			background: {	image: url(/images/icons-auction/view_catalog_hover.svg); }
+			&-active{@extend .mode-cat; background-image: url(/images/icons-auction/view_catalog.svg);}
+		}
+		
 		.mode-view-2{
 			@extend %mode;
+		//	right:40px;
 			background: {	image: url(/images/icons-auction/view_lots_box_hover.svg); }
-			&-active{@extend %mode; background-image: url(/images/icons-auction/view_lots_box.svg);}
+			&-active{@extend .mode-view-2; background-image: url(/images/icons-auction/view_lots_box.svg);}
 		}
 		.mode-view-1{
 			@extend %mode;
+		//	right:80px;
 			background: {	image: url(/images/icons-auction/view_lots_list_hover.svg); }
-			&-active{@extend %mode; background-image: url(/images/icons-auction/view_lots_list.svg);}
+			&-active{@extend .mode-view-1; background-image: url(/images/icons-auction/view_lots_list.svg);}
 		}
 		
 		.mode-import{
 			@extend %mode;
+			position: relative;
 			float: left;
-			width: 150px;
+			width: 140px;
 			color:#bbb;
 			background: {	image: url(/images/icons-auction/import_lots_hover.svg); }
 			&:hover{background-image: url(/images/icons-auction/import_lots.svg); color:#000;}
@@ -134,7 +141,7 @@
 		.nav{
 			position: relative;
 			float: left;
-			height: 100%;
+			height: 55px;
 			width: 200px;
 			left: 0px;
 			background: #262351;
