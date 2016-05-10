@@ -1,3 +1,7 @@
+/*
+ 1. обычный текст - надо убрать из макета, так как это - отмена италика и болда 
+ 2. поехал адаптив вкладки с перекрытием выпадающих меню z-index не помогает, а релятив у поля редактирования отменять ой, как не хочется
+*/
 %font_strong{
 	font-family:"Century Gothic";
 	font-style: normal;
@@ -143,7 +147,7 @@
 		@extend %font_strong; 
 		padding: 12px 0 0 0px;// левый отступ - 20px
 		height:100%;
-		width:150px;
+		width:140px;
 		font-weight: 500;
 		font-size: 18px;
 		text-align: center;
@@ -152,12 +156,14 @@
 }
 .edit-field{
 	position: relative;
+	z-index:7;
 	min-height:70px;
 	background-color: #fff;
 	margin: 0px 10px 10px 0;
 	padding: 10px 5px;
 	width:100%;
 	border-bottom: 4px solid #bbb;
+	
 	p {
 		padding: 5px 5px;
 		margin: 0;
@@ -185,6 +191,8 @@
   padding-right: 20px;
   .top-block{
     margin-top: -15px;
+	@media (max-width: 520px) {	 margin-top: 0px;} // это адаптивка
+
     > div{
       margin-bottom: 4px;
     }
@@ -248,7 +256,8 @@
 	position:relative;
     width: 100%;
     background: white;
-	border: 1px solid #ccc;
+	//border: 1px solid #ccc;
+	box-shadow: 0 1px 2px;
 	.cclose{
 		@extend %close;
 		right: 6px;
@@ -383,6 +392,7 @@
 					weight: normal;
 				}
 				.sm-dropdown{
+				//	z-index:8;
 					float: left;
 					overflow: hidden;
 					height: 30px;
@@ -401,6 +411,7 @@
 					float: left;
 					height: 30px;
 					width: 30px;
+					z-index:9;
 					%afont{
 					//	background: url(/images/icons-font/text-panel.png);
 						background: {
