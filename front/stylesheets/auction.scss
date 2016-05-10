@@ -38,7 +38,7 @@
 
 .auction-list {
 	@extend .content-block;
-//	padding-top: 2px;
+	padding-top: 2px;
 	height: auto;
 	@include padding-horizontal(15px);
 	> div:first-child{
@@ -53,6 +53,7 @@
 		height: 53px;
 		@media (max-width: 520px) {	height: 110px;} // это адаптивка
 		background: white;
+        font-family: "Century Gothic";
 		font-size: 24px;
 		.nav{
 			position: relative;
@@ -70,6 +71,7 @@
 			li{
 				text-align: center;
 				height: 100%;
+		        font-family: "Century Gothic";
 				font-size:18px;
 				cursor: pointer;
 				&:after{content: url("/images/down-arrow-b.png"); margin-left: 8px;}
@@ -85,6 +87,7 @@
 			height: 30px;
 			
 			top: 0px;
+			font-family: "Century Gothic";
 			text-align: center;
 			margin: 12px 12px 9px 0;
 			padding: 3px 0px 0px 24px;
@@ -127,6 +130,7 @@
 			@extend %mode;
 			position: relative;
 			float: left;
+	        font-family: "Century Gothic";
 			font-size:18px;
 @media (max-width: 520px) {
 	position: absolute;
@@ -198,6 +202,7 @@
 		cursor: pointer;
 		width: 100%;
 		height: 320px;
+        font-family: "Century Gothic";
 		text-align: center;
 		margin: 15px 0px 10px 0px;
 		position: relative;
@@ -274,19 +279,22 @@
 				margin: 0 auto;
 				background-color:#4b5e72;
 				color: #fff; //#8eaccb; #8eaccb;
+		        font-family: "Century Gothic";
 				font-color: #fff; //#8eaccb;
 				z-index:0;
 					
 			.top{
-					font-size: 28px;
-					font-weight: 700;
-					text-transform: uppercase;
-					margin: 0px;
+		        font-family: "Century Gothic";
+				font-size: 28px;
+				font-weight: 700;
+				text-transform: uppercase;
+				margin: 0px;
 			}
 			.bottom{
-					font-size: 18px;
-					font-weight: 700;
-					text-transform: uppercase;
+		        font-family: "Century Gothic";
+				font-size: 18px;
+				font-weight: 700;
+				text-transform: uppercase;
 			}
 		}
 	}

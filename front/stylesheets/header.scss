@@ -71,6 +71,7 @@ header {
   }
 
   .header-bottom {
+//	position: relative;
     left: 0;
     background: {
       image: url(/images/background-body.png);
@@ -85,13 +86,14 @@ header {
         padding: 95px 0 0;
         text-transform: uppercase;
         font: {
+          family: "Century Gothic";
           size: 135px;
           weight: bold;
-          family: "Century Gothic";
         }
       }
       &-bottom {
-        text-transform: uppercase;
+        family: "Century Gothic";
+		text-transform: uppercase;
         font-size: 28px;
         color: white;
         background: url(/images/header-image-bottom.png) no-repeat;
@@ -103,6 +105,7 @@ header {
         text-align: center;
         &-top {
           color: white;
+          family: "Century Gothic";
           font-size: 28px;
           font-weight: bold;
           text-transform: uppercase;
@@ -110,6 +113,7 @@ header {
         }
         &-bottom {
           color: #d8a46a;
+          family: "Century Gothic";
           font-size: 18px;
         }
       }
@@ -127,16 +131,17 @@ header {
         color: white;
         padding: 95px 0 0;
         text-transform: uppercase;
+        font-family: "Century Gothic";
         font-size: 135px;
         font-weight: bold;
-        font-family: "Century Gothic";
         @include xs-display {
           font-size: 80px;
         }
       }
       &-bottom {
         text-transform: uppercase;
-        font-size: 28px;
+        font-family: "Century Gothic";
+		font-size: 28px;
         color: white;
         background: url(/images/header-image-bottom.png) no-repeat;
         height: 222px;
@@ -147,15 +152,17 @@ header {
         height: 145px;
         text-align: center;
         &-top {
-          color: white;
-          font-size: 28px;
-          font-weight: bold;
-          text-transform: uppercase;
-          padding: 40px 0 0;
+			color: white;
+			font-family: "Century Gothic";
+			font-size: 28px;
+			font-weight: bold;
+			text-transform: uppercase;
+			padding: 40px 0 0;
         }
         &-bottom {
-          color: #d8a46a;
-          font-size: 18px;
+			color: #d8a46a;
+			font-family: "Century Gothic";
+			font-size: 18px;
         }
       }
     }
@@ -254,7 +261,8 @@ header {
 @include sm-or-more-display {
   .top-menu {
     text-transform: uppercase;
-    font-size: 13px;
+    font-family: "Century Gothic";
+	font-size: 13px;
     text-align: center;
     height: 110px;
     ul {
