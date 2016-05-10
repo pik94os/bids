@@ -1,6 +1,6 @@
 ﻿<div class="auction-list" ng-class="{'al-open':open}">
 
-    <div class="preview-auction auction row" ng-if="open">
+    <div class="preview-auction auction row" ng-if="open == 1">
         <div class="">
             <div class="col-md-9">
                 <div class="auction-img">
@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <div class="contacts" ng-if="open">
+    <div class="contacts" ng-if="open == 1">
         <div class="contacts-title">Контакты</div>
         <div class="contacts-count">6 человек</div>
         <div class="contacts-arrow"></div>
