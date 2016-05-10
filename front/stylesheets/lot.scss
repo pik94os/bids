@@ -2,594 +2,647 @@
  1. обычный текст - надо убрать из макета, так как это - отмена италика и болда 
  2. поехал адаптив вкладки с перекрытием выпадающих меню z-index не помогает, а релятив у поля редактирования отменять ой, как не хочется
 */
-%font_strong{
-	font-family:"Century Gothic";
-	font-style: normal;
-	color: #fff;
-	font-size: 19px;
-	font-weight: 500;
-}
-%close{
-	cursor: pointer;
-	position: absolute;
-	margin: 6px;
-	width: 30px;
-	height: 30px;
-	color: none;
-	border-radius: 15px;
-	background: {
-//		image: url(/images/icons-lot/lot-close.png);
-		image: url(/images/del_elem.svg);
-		repeat: no-repeat;
-		position: 0 0;
-	}
-	&:hover{
-//		background-position: -30px 0;	
-		background-image: url(/images/del_elem_hover.svg);
-	
-	}
+%font_strong {
+  font-family: "Century Gothic";
+  font-style: normal;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 500;
 }
 
-	
-.lot-header{
+%close {
+  cursor: pointer;
+  position: absolute;
+  margin: 6px;
+  width: 30px;
+  height: 30px;
+  color: none;
+  border-radius: 15px;
+  background: {
+    //		image: url(/images/icons-lot/lot-close.png);
+    image: url(/images/del_elem.svg);
+    repeat: no-repeat;
+    position: 0 0;
+  }
+  &:hover {
+    //		background-position: -30px 0;
+    background-image: url(/images/del_elem_hover.svg);
 
-	@extend .content-block;
-	position: relative;
-	height: 100px;
-	padding: 0 15px;
-
-	.info-top{
-		// от верха хэдера до верха шрифта-26, до низа шрифта 44
-		font-family:"Gambria";
-		font-weight: normal;
-		font-style: normal;
-		padding: 17px 5px 0px 5px;
-		color: #758899;
-		font-size: 24px;
-	}
-	.info-bottom{
-		// от верха хэдера до верха шрифта-48, до низа шрифта 67
-		position: relative;
-		font-family:"Century Gothic";
-		font-style: normal;
-		color: #fff;
-		font-size: 26px;
-		font-weight: 500;
-		text-transform: uppercase;
-		padding: 0 0 5px 5px;
-		margin-top: -12px;
-		.arrow_left{ // от края букв до горизонтального края стрелки - 22 от верха хедера -38
-			@extend %arrow_left;
-			position: absolute;
-			top:-8px;
-			left:-28px;
-			
-		}
-		.arrow_right{
-			@extend %arrow_right;
-			position: absolute;
-			top:-8px;
-			right:-28px;
-			
-		}
-
-		.garbage{
-		//	display: none;
-			cursor: pointer;
-			position: absolute;
-			@include square(40px);
-			padding: 0px;
-			top: -12px;
-			right: 57px;
-			margin: 0;
-			background: {
-			//	image: url(/images/icons-lot/lot-garbage.png);
-				image: url(/images/icons-lot/delete_lot.svg);
-				repeat: no-repeat;
-				position: 0px 0px;
-			}
-			&:hover{
-			//	background-position: -40px 0px;	
-				background-image: url(/images/icons-lot/delete_lot_hover.svg);
-			}
-			
-		}
-		.cat{// от верха хедера до верха книжек - 32px и до нижнего -57
-			cursor: pointer;
-		//	display: none;
-			position: absolute;
-			@include square(40px);
-			padding: 0px;
-			top: -9px;
-			right: 13px; //от края рабочего блока до края иконки - 21px
-			margin:0;
-			
-			background: {
-			//	image: url(/images/icons-lot/lot-garbage.png);
-				image: url(/images/icons-lot/view_catalog_w.svg);
-				repeat: no-repeat;
-				position: 0px 0px;
-			}
-			&:hover{
-			//	background-position: -40px 0px;	
-				background-image: url(/images/icons-lot/view_catalog_w_hover.svg);
-			}
-		}
-		&:hover{
-		//	.cat{display: block;} .garbage{display: block;} 
-		}
-	}
+  }
 }
 
-	
+.lot-header {
 
-.button-title{
-	font-size: 20px;
-	text-align: left;
-	font-family:"Century Gothic";
-	font-weight: normal;
-	font-style: normal;
-	padding: 10px 0px 0 10px;
-	height: 55px;
-	.edit{
-		top: 2px;
-		@extend %edit;
-	}
+  @extend .content-block;
+  position: relative;
+  height: 100px;
+  padding: 0 15px;
+
+  .info-top {
+    // от верха хэдера до верха шрифта-26, до низа шрифта 44
+    font-family: "Gambria";
+    font-weight: normal;
+    font-style: normal;
+    padding: 17px 5px 0px 5px;
+    color: #758899;
+    font-size: 24px;
+  }
+  .info-bottom {
+    // от верха хэдера до верха шрифта-48, до низа шрифта 67
+    position: relative;
+    font-family: "Century Gothic";
+    font-style: normal;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 0 0 5px 5px;
+    margin-top: -12px;
+    .arrow_left { // от края букв до горизонтального края стрелки - 22 от верха хедера -38
+      @extend %arrow_left;
+      position: absolute;
+      top: -8px;
+      left: -28px;
+
+    }
+    .arrow_right {
+      @extend %arrow_right;
+      position: absolute;
+      top: -8px;
+      right: -28px;
+
+    }
+
+    .favorite {
+      cursor: pointer;
+      position: absolute;
+      @include square(40px);
+      padding: 0px;
+      top: -8px;
+      right: 13px;
+      margin: 0;
+      background: {
+        image: url(/images/ICONS_svg/fav_add_w.svg);
+        repeat: no-repeat;
+        position: 0px 0px;
+      }
+      &:hover {
+        background-image: url(/images/ICONS_svg/fav_add_w_hover.svg);
+      }
+
+    }
+    .garbage {
+      cursor: pointer;
+      position: absolute;
+      @include square(40px);
+      padding: 0px;
+      top: -12px;
+      right: 57px;
+      margin: 0;
+      background: {
+        image: url(/images/icons-lot/delete_lot.svg);
+        repeat: no-repeat;
+        position: 0px 0px;
+      }
+      &:hover {
+        background-image: url(/images/icons-lot/delete_lot_hover.svg);
+      }
+
+    }
+    .cat { // от верха хедера до верха книжек - 32px и до нижнего -57
+      cursor: pointer;
+      position: absolute;
+      @include square(40px);
+      padding: 0px;
+      top: -9px;
+      right: 13px; //от края рабочего блока до края иконки - 21px
+      margin: 0;
+
+      &.lot-open {
+        right: 57px;
+      }
+      background: {
+        image: url(/images/icons-lot/view_catalog_w.svg);
+        repeat: no-repeat;
+        position: 0px 0px;
+      }
+      &:hover {
+        background-image: url(/images/icons-lot/view_catalog_w_hover.svg);
+      }
+    }
+  }
 }
-.txt-edit{
-	position:relative;
-	height:50px; // высота на макете - 50px
-	border-bottom: 3px solid black;
-	width:100%;
-	background: none;
-	@include clearfix;
-	.title{
-		@extend %font_strong; 
-		padding: 12px 0 0 0px;// левый отступ - 20px
-		height:100%;
-		width:140px;
-		font-weight: 500;
-		font-size: 18px;
-		text-align: center;
-		background-color: #142038;
-	}
-}
-.edit-field{
-	position: relative;
-	z-index:7;
-	min-height:70px;
-	background-color: #fff;
-	margin: 0px 10px 10px 0;
-	padding: 10px 5px;
-	width:100%;
-	border-bottom: 4px solid #bbb;
-	
-	p {
-		padding: 5px 5px;
-		margin: 0;
-	}
-	.edit{
-		@extend %edit;
-		top:6px;
-		right:7px;
-		display: none;
-	}
-	&:hover{.cclose{	display: block;}.edit{	display: block;}}
-	.cclose{
-		@extend %close;
-		top:0px;
-		right:40px;
-		display: none;
-	}
 
+.button-title {
+  font-size: 20px;
+  text-align: left;
+  font-family: "Century Gothic";
+  font-weight: normal;
+  font-style: normal;
+  padding: 10px 0px 0 10px;
+  height: 55px;
+  .edit {
+    top: 2px;
+    @extend %edit;
+  }
 }
 
+.txt-edit {
+  position: relative;
+  height: 50px; // высота на макете - 50px
+  border-bottom: 3px solid black;
+  width: 100%;
+  background: none;
+  @include clearfix;
+  .title {
+    @extend %font_strong;
+    padding: 12px 0 0 0px; // левый отступ - 20px
+    height: 100%;
+    width: 140px;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    background-color: #142038;
+  }
+}
 
-.lot-list{
+.edit-field {
+  position: relative;
+  z-index: 7;
+  min-height: 70px;
+  background-color: #fff;
+  margin: 0px 10px 10px 0;
+  padding: 10px 5px;
+  width: 100%;
+  border-bottom: 4px solid #bbb;
+
+  p {
+    padding: 5px 5px;
+    margin: 0;
+  }
+  .edit {
+    @extend %edit;
+    top: 6px;
+    right: 7px;
+    display: none;
+  }
+  &:hover {
+    .cclose {
+      display: block;
+    }
+    .edit {
+      display: block;
+    }
+  }
+  .cclose {
+    @extend %close;
+    top: 0px;
+    right: 40px;
+    display: none;
+  }
+
+}
+
+.lot-list {
   @extend .content-block;
   padding-left: 20px;
   padding-right: 20px;
-  .top-block{
+  .top-block {
     margin-top: -15px;
-	@media (max-width: 520px) {	 margin-top: 0px;} // это адаптивка
+    @media (max-width: 520px) {
+      margin-top: 0px;
+    }
+    // это адаптивка
 
-    > div{
+    > div {
       margin-bottom: 4px;
     }
   }
-  .lot-title{
-	position:relative;
+  .lot-title {
+    position: relative;
     width: 100%;
     min-height: 80px;
-	padding: 10px 5px;
+    padding: 10px 5px;
     background: white;
-	.edit{
-		@extend %edit;
-		top:12px;
-		right: 1px;
-		display: none;
-	}
-	&:hover{.edit{	display: block;}}
-	p {
-		padding: 5px 5px;
-		margin: 0;
-	}
+    .edit {
+      @extend %edit;
+      top: 12px;
+      right: 1px;
+      display: none;
+    }
+    &:hover {
+      .edit {
+        display: block;
+      }
+    }
+    p {
+      padding: 5px 5px;
+      margin: 0;
+    }
 
   }
-  .lot-estimate{
-	position:relative;
+  .lot-estimate {
+    position: relative;
     width: 100%;
-	height:56px; // высота по макету 56px 
+    height: 56px; // высота по макету 56px
     background: #151789;
-	@extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
-	padding: 15px 0 0 20px;// левый отступ - 20px
-	
+    @extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
+    padding: 15px 0 0 20px; // левый отступ - 20px
+
     color: white;
-	.edit{
-		@extend %edit;
-		top:12px;
-		right: 1px;
-		display: none;
-	}
-	&:hover{.edit{	display: block;}}
-	
+    .edit {
+      @extend %edit;
+      top: 12px;
+      right: 1px;
+      display: none;
+    }
+    &:hover {
+      .edit {
+        display: block;
+      }
+    }
+
   }
-  .lot-price{
-	position:relative;
+  .lot-price {
+    position: relative;
     width: 100%;
-	height:56px; // высота по макету 56px 
-	@extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
+    height: 56px; // высота по макету 56px
+    @extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
     background: #929bbc;;
     color: white;
-	padding: 15px 0 0 20px;// левый отступ - 20px
-	.edit{
-		@extend %edit;
-		top:12px;
-		right: 1px;
-		display: none;
-	}
-	&:hover{.edit{	display: block;}}
-	
+    padding: 15px 0 0 20px; // левый отступ - 20px
+    .edit {
+      @extend %edit;
+      top: 12px;
+      right: 1px;
+      display: none;
+    }
+    &:hover {
+      .edit {
+        display: block;
+      }
+    }
+
   }
-  .big-photo{
+  .big-photo {
     height: 400px;
-	position:relative;
+    position: relative;
     width: 100%;
     background: white;
-	//border: 1px solid #ccc;
-	box-shadow: 0 1px 2px;
-	.cclose{
-		@extend %close;
-		right: 6px;
-		top:6px;
-		display: none;
-	}
-	&:hover{.cclose{	display: block;} .edit{	display: block;} }
-
-	.edit{
-		@extend %edit;
-		bottom: 6px;
-		right: 6px;
-		display: none;
-	}
-}
-  .gallery{
-    @include margin-horizontal(-5px);
-	@include clearfix;
-	.small-photo{
-		position:relative;
-		cursor: pointer;
-		.cclose{
-			@extend %close;
-			margin: -10px -4px 0 0;
-			right:0px;
-			display: none;
-		}
-		&:hover{.cclose{	display: block;}}
-
-		width: 20%;
-		height: 100px;
-		@include padding-horizontal(5px);
-		padding-bottom: 10px;
-	 
-		float: left;
-		> div:not(.cclose){
-			background: white;
-			@include square(100%);
-			border: 1px solid #ccc;
-		}
+    //border: 1px solid #ccc;
+    box-shadow: 0 1px 2px;
+    .cclose {
+      @extend %close;
+      right: 6px;
+      top: 6px;
+      display: none;
     }
-	.add{
-		width: 20%;
-		height: 100px;
-		@include padding-horizontal(5px);
-		padding-bottom: 10px;
-		float: left;
-		div{
-			cursor: pointer;
-			position: relative;
-			background: white;
-			@include square(100%);
-			border: 1px solid #ccc;
-		div{
-			@include square(40px);
-			//top:15px;
-			position:absolute;
-			top:50%; left:50%;
-			margin: -20px -20px;
-			border: none;
-			background: {
-//				image: url(/images/icons-lot/lot-plus.png);
-				repeat: no-repeat;
-//				position: -40px 0;
-				position: 0 0;
-				size: auto 100%;
-				image: url(/images/icons-lot/add_img.svg);
-				}
-			&:hover{
-//				background-position: 0 0;
-				background-image: url(/images/icons-lot/add_img_hover.svg);
-			}
-		}}
-    	
-		
-	}
-}
-  .lot-buttons{
+    &:hover {
+      .cclose {
+        display: block;
+      }
+      .edit {
+        display: block;
+      }
+    }
+
+    .edit {
+      @extend %edit;
+      bottom: 6px;
+      right: 6px;
+      display: none;
+    }
+  }
+  .gallery {
+    @include margin-horizontal(-5px);
+    @include clearfix;
+    .small-photo {
+      position: relative;
+      cursor: pointer;
+      .cclose {
+        @extend %close;
+        margin: -10px -4px 0 0;
+        right: 0px;
+        display: none;
+      }
+      &:hover {
+        .cclose {
+          display: block;
+        }
+      }
+
+      width: 20%;
+      height: 100px;
+      @include padding-horizontal(5px);
+      padding-bottom: 10px;
+
+      float: left;
+      > div:not(.cclose) {
+        background: white;
+        @include square(100%);
+        border: 1px solid #ccc;
+      }
+    }
+    .add {
+      width: 20%;
+      height: 100px;
+      @include padding-horizontal(5px);
+      padding-bottom: 10px;
+      float: left;
+      div {
+        cursor: pointer;
+        position: relative;
+        background: white;
+        @include square(100%);
+        border: 1px solid #ccc;
+        div {
+          @include square(40px);
+          //top:15px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -20px -20px;
+          border: none;
+          background: {
+            //				image: url(/images/icons-lot/lot-plus.png);
+            repeat: no-repeat;
+            //				position: -40px 0;
+            position: 0 0;
+            size: auto 100%;
+            image: url(/images/icons-lot/add_img.svg);
+          }
+          &:hover {
+            //				background-position: 0 0;
+            background-image: url(/images/icons-lot/add_img_hover.svg);
+          }
+        }
+      }
+
+    }
+  }
+  .lot-buttons {
     margin-bottom: 5px;
-    > div{
+    > div {
       margin-bottom: 10px;
     }
   }
+  &.ll-open {
+    .edit,.cclose,.lot-body-div-center-in-top.pad-icon{
+      display: none !important;
+    }
+    .gallery{
+      height: 90px;
+      overflow: hidden;
+    }
+  }
 }
 
-
 .lot-body {
-	position: relative;
-	margin-top: -20px;
-	&-div-top {
-		&-ul {
-			padding-left: 0;
-			li {
-				background: white;
-				cursor: pointer;
-				float: left;
-				height: 50px;
-				list-style-type: none;
-				color: #132038;
-				text-transform: uppercase;	      
-				text-align: center;
-				padding: 15px 30px;
-				font: {
-					family: "Century Gothic";
-					size: 15px;
-					weight: normal;
-				}
-				&:hover, &.active {
-					background: #132038;
-					color: white;
-				}
-			}
-		}
-	}
-	&-div-center {
-		background: white;
-		border-top: 2px solid #132038;
-		padding: 25px;
-		&-in {	
-			height: 100%;
-            margin: 0;
-			&-top {
-                margin: 6px 12px;
-				height: 50px;
-				color: #132038;
-				text-transform: uppercase;
-				border-bottom: 1px solid #ececec;
-				padding: 5px 0;
-				font: {
-					family: "Century Gothic";
-					size: 15px;
-					weight: normal;
-				}
-				.sm-dropdown{
-				//	z-index:8;
-					float: left;
-					overflow: hidden;
-					height: 30px;
-					@include xs-display{
-						width: 30px;
-						background: white;
-						border: 1px solid gray;
-						border-radius: 5px;
-						&:hover{
-							height: auto;
-							padding-bottom: 10px;
-						}
-					}
-				}
-				&-divdescription {
-					float: left;
-					height: 30px;
-					width: 30px;
-					z-index:9;
-					%afont{
-					//	background: url(/images/icons-font/text-panel.png);
-						background: {
-						//	url(/images/icons-font/text-panel.png);
-							repeat: no-repeat;
-							position: 0 0;
-							size: auto 100%;
-						}
-						&:hover {
-							background-color:#bbbbbb;
-							border-radius: 5px;
-						}
-					}
-					a {						
-						display: block;
-						width: 30px;
-						height: 30px;
-				    }
-					a.t {
-						@extend %afont;
-//						background-position: 0px 0px;
-						background: url(/images/icons-font/txt_font.svg);
-					}					
-					a.i {
-						@extend %afont;
-			//			background-position: 0px -40px;
-						background: url(/images/icons-font/txt_italic.svg);
-					}
-					a.b {
-						@extend %afont;
-					//	background-position: 0px -80px;
-						background: url(/images/icons-font/txt_bold.svg);
-					}
-					a.tt {
-						@extend %afont;
-				//		background-position: 0px -120px;
-						background: url(/images/icons-font/txt_underline.svg);
-					}
-					a.font-l {
-						@extend %afont;
-					//	background-position: 0px -160px;
-						background: url(/images/icons-font/txt-align_lft.svg);
-					}
-					a.font-c {
-						@extend %afont;
-				//		background-position: 0px -200px;
-						background: url(/images/icons-font/txt-align_cnt.svg);
-					}
-					a.font-r {
-						@extend %afont;
-				//		background-position: 0px -240px;
-						background: url(/images/icons-font/txt-align_rgt.svg);
-					}
-					a.indent-reduce {
-						@extend %afont;
-				//		background-position: 0px -280px;
-						background: url(/images/icons-font/txt-tab_minus.svg);
-					}
-					a.indent-increase {
-						@extend %afont;
-				//		background-position: 0px -320px;
-						background: url(/images/icons-font/txt-tab_plus.svg);
-					}
-				}
-				.m-l {
-					margin-left: 15px;
-					@include xs-display{
-						margin-left: 0;
-					}
-				}
-			}
-			.pad-icon {
-				padding: 5px 0 30px;
-			}
-			&-bottom {
-				background: white;
-				padding: 10px 0 20px 0;
-				&-left {
-					float: left;
-					width: 600px;
-					&-form {
-                        .row{
-                          margin:{
-                            left: -5px;
-                            right: -5px;
-                          }
-                        }
-                        .col-sm{
-                          &-12,&-6,&-4,&-2{
-                            padding: 0 5px;
-                            margin-bottom: 10px;
-                          }
-                        }
-						label {
-                            margin-bottom: 0;
-							input {
-								
-							}
-							&:after {
-                              color: red;
-                              content: "*";
-                              font-size: 16px;
-                              right: 20px;
-                              top: 18px;
-                              position: absolute;
-							}
-						}
-						input {
-							border: 0 none;
-							color: #0c111a;
-							padding: 18px 32px 18px 18px;					
-						}
-						.kod {
-							background: #f3f3f3;
-						}
-						.form-reg-checkbox {
-							margin-top: 10px;
-							label {
-								color: #0c111a;
-								text-transform: uppercase;
-								font: {
-									family: "Century Gothic";
-									size: 18px;
-									weight: 400;
-								}								
-								&:after {
-									display: none;
-								}
-								input {
-									height: auto;
-									width: auto;
-								}
-							}
-						}
-						.month {
-							width: 140px;
-						}
-					}				
-				}
-				&-right {
-					float: left;
-					width: 290px;
-					height: 290px;
-					border: 1px solid #e0e0e0;
-					text-align: center;
-					&-top {
-						padding: 70px 0 20px 0;
-					}
-				}
-			}
-		}
-		.fullwidth-text {
-			width: 100%;
-			margin-top: 10px;
-			font: {
-				family: "Century Gothic";
-				size: 14px;
-				weight: bold;
-			}	
-			&-caps {
-				text-transform: uppercase;
-			}
-		}
-	}
-	.custom-title-block {
-		height: 55px;
-		width: 255px;
-		float: right;
-		font-size: 24px;
-		padding: 0;
-		margin: 15px 0;
-	}
-    #description-tab{
-      .lk-body-div-center{
-        padding: 5px 25px;
+  position: relative;
+  margin-top: -20px;
+  &-div-top {
+    &-ul {
+      padding-left: 0;
+      li {
+        background: white;
+        cursor: pointer;
+        float: left;
+        height: 50px;
+        list-style-type: none;
+        color: #132038;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 15px 30px;
+        font: {
+          family: "Century Gothic";
+          size: 15px;
+          weight: normal;
+        }
+        &:hover, &.active {
+          background: #132038;
+          color: white;
+        }
       }
     }
-    #description-tab, #info-tab{
-      overflow: auto;
+  }
+  &-div-center {
+    background: white;
+    border-top: 2px solid #132038;
+    padding: 25px;
+    &-in {
+      height: 100%;
+      margin: 0;
+      &-top {
+        margin: 6px 12px;
+        height: 50px;
+        color: #132038;
+        text-transform: uppercase;
+        border-bottom: 1px solid #ececec;
+        padding: 5px 0;
+        font: {
+          family: "Century Gothic";
+          size: 15px;
+          weight: normal;
+        }
+        .sm-dropdown {
+          //	z-index:8;
+          float: left;
+          overflow: hidden;
+          height: 30px;
+          @include xs-display {
+            width: 30px;
+            background: white;
+            border: 1px solid gray;
+            border-radius: 5px;
+            &:hover {
+              height: auto;
+              padding-bottom: 10px;
+            }
+          }
+        }
+        &-divdescription {
+          float: left;
+          height: 30px;
+          width: 30px;
+          z-index: 9;
+          %afont {
+            //	background: url(/images/icons-font/text-panel.png);
+            background: {
+              //	url(/images/icons-font/text-panel.png);
+              repeat: no-repeat;
+              position: 0 0;
+              size: auto 100%;
+            }
+            &:hover {
+              background-color: #bbbbbb;
+              border-radius: 5px;
+            }
+          }
+          a {
+            display: block;
+            width: 30px;
+            height: 30px;
+          }
+          a.t {
+            @extend %afont;
+            //						background-position: 0px 0px;
+            background: url(/images/icons-font/txt_font.svg);
+          }
+          a.i {
+            @extend %afont;
+            //			background-position: 0px -40px;
+            background: url(/images/icons-font/txt_italic.svg);
+          }
+          a.b {
+            @extend %afont;
+            //	background-position: 0px -80px;
+            background: url(/images/icons-font/txt_bold.svg);
+          }
+          a.tt {
+            @extend %afont;
+            //		background-position: 0px -120px;
+            background: url(/images/icons-font/txt_underline.svg);
+          }
+          a.font-l {
+            @extend %afont;
+            //	background-position: 0px -160px;
+            background: url(/images/icons-font/txt-align_lft.svg);
+          }
+          a.font-c {
+            @extend %afont;
+            //		background-position: 0px -200px;
+            background: url(/images/icons-font/txt-align_cnt.svg);
+          }
+          a.font-r {
+            @extend %afont;
+            //		background-position: 0px -240px;
+            background: url(/images/icons-font/txt-align_rgt.svg);
+          }
+          a.indent-reduce {
+            @extend %afont;
+            //		background-position: 0px -280px;
+            background: url(/images/icons-font/txt-tab_minus.svg);
+          }
+          a.indent-increase {
+            @extend %afont;
+            //		background-position: 0px -320px;
+            background: url(/images/icons-font/txt-tab_plus.svg);
+          }
+        }
+        .m-l {
+          margin-left: 15px;
+          @include xs-display {
+            margin-left: 0;
+          }
+        }
+      }
+      .pad-icon {
+        padding: 5px 0 30px;
+      }
+      &-bottom {
+        background: white;
+        padding: 10px 0 20px 0;
+        &-left {
+          float: left;
+          width: 600px;
+          &-form {
+            .row {
+              margin: {
+                left: -5px;
+                right: -5px;
+              }
+            }
+            .col-sm {
+              &-12, &-6, &-4, &-2 {
+                padding: 0 5px;
+                margin-bottom: 10px;
+              }
+            }
+            label {
+              margin-bottom: 0;
+              input {
+
+              }
+              &:after {
+                color: red;
+                content: "*";
+                font-size: 16px;
+                right: 20px;
+                top: 18px;
+                position: absolute;
+              }
+            }
+            input {
+              border: 0 none;
+              color: #0c111a;
+              padding: 18px 32px 18px 18px;
+            }
+            .kod {
+              background: #f3f3f3;
+            }
+            .form-reg-checkbox {
+              margin-top: 10px;
+              label {
+                color: #0c111a;
+                text-transform: uppercase;
+                font: {
+                  family: "Century Gothic";
+                  size: 18px;
+                  weight: 400;
+                }
+                &:after {
+                  display: none;
+                }
+                input {
+                  height: auto;
+                  width: auto;
+                }
+              }
+            }
+            .month {
+              width: 140px;
+            }
+          }
+        }
+        &-right {
+          float: left;
+          width: 290px;
+          height: 290px;
+          border: 1px solid #e0e0e0;
+          text-align: center;
+          &-top {
+            padding: 70px 0 20px 0;
+          }
+        }
+      }
     }
+    .fullwidth-text {
+      width: 100%;
+      margin-top: 10px;
+      font: {
+        family: "Century Gothic";
+        size: 14px;
+        weight: bold;
+      }
+      &-caps {
+        text-transform: uppercase;
+      }
+    }
+  }
+  .custom-title-block {
+    height: 55px;
+    width: 255px;
+    float: right;
+    font-size: 24px;
+    padding: 0;
+    margin: 15px 0;
+  }
+  #description-tab {
+    .lk-body-div-center {
+      padding: 5px 25px;
+    }
+  }
+  #description-tab, #info-tab {
+    overflow: auto;
+  }
 }
