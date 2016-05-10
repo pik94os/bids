@@ -15,7 +15,8 @@ header {
   }
 
   .header-top { // высота на макете - 100px
-
+    height: 40px;
+    color: white;
     background: {
       image: url(/images/background-header.png);
       color: black;
@@ -37,8 +38,6 @@ header {
       margin: 0 0 0 -3px;
     }
 
-    height: 40px;
-    color: white;
     a {
 		font-family: "Gambria";
 		font-style: normal;
@@ -142,16 +141,16 @@ header {
         padding: 95px 0 0;
         text-transform: uppercase;
         font-family: "Century Gothic";
-        font-size: 135px;
+        font-size: 110px;
         font-weight: bold;
         @include xs-display {
           font-size: 80px;
         }
       }
       &-bottom {
+		font-family: "Gambria";
         text-transform: uppercase;
-        font-family: "Century Gothic";
-		font-size: 28px;
+		font-size: 24px;
         color: white;
         background: url(/images/header-image-bottom.png) no-repeat;
         height: 222px;
