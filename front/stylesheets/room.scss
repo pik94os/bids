@@ -1,0 +1,295 @@
+.room-header {
+
+  @extend .content-block;
+  position: relative;
+  height: 100px;
+  padding: 0 15px;
+
+  .info-top {
+    // от верха хэдера до верха шрифта-26, до низа шрифта 44
+    font-family: "Gambria";
+    font-weight: normal;
+    font-style: normal;
+    padding: 17px 5px 0px 5px;
+    color: #758899;
+    font-size: 24px;
+  }
+  .info-bottom {
+    // от верха хэдера до верха шрифта-48, до низа шрифта 67
+    position: relative;
+    font-family: "Century Gothic";
+    font-style: normal;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 0 0 5px 5px;
+    margin-top: -12px;
+    .arrow_left { // от края букв до горизонтального края стрелки - 22 от верха хедера -38
+      @extend %arrow_left;
+      position: absolute;
+      top: -8px;
+      left: -28px;
+
+    }
+    .arrow_right {
+      @extend %arrow_right;
+      position: absolute;
+      top: -8px;
+      right: -28px;
+
+    }
+
+    .favorite {
+      cursor: pointer;
+      position: absolute;
+      @include square(40px);
+      padding: 0px;
+      top: -8px;
+      right: 13px;
+      margin: 0;
+      background: {
+        image: url(/images/ICONS_svg/fav_add_w.svg);
+        repeat: no-repeat;
+        position: 0px 0px;
+      }
+      &:hover {
+        background-image: url(/images/ICONS_svg/fav_add_w_hover.svg);
+      }
+
+    }
+    .garbage {
+      cursor: pointer;
+      position: absolute;
+      @include square(40px);
+      padding: 0px;
+      top: -12px;
+      right: 57px;
+      margin: 0;
+      background: {
+        image: url(/images/icons-lot/delete_lot.svg);
+        repeat: no-repeat;
+        position: 0px 0px;
+      }
+      &:hover {
+        background-image: url(/images/icons-lot/delete_lot_hover.svg);
+      }
+
+    }
+    .cat { // от верха хедера до верха книжек - 32px и до нижнего -57
+      cursor: pointer;
+      position: absolute;
+      @include square(40px);
+      padding: 0px;
+      top: -9px;
+      right: 13px; //от края рабочего блока до края иконки - 21px
+      margin: 0;
+
+      &.lot-open {
+        right: 57px;
+      }
+      background: {
+        image: url(/images/icons-lot/view_catalog_w.svg);
+        repeat: no-repeat;
+        position: 0px 0px;
+      }
+      &:hover {
+        background-image: url(/images/icons-lot/view_catalog_w_hover.svg);
+      }
+    }
+  }
+}
+
+.room-list {
+  @extend .content-block;
+  padding-left: 20px;
+  padding-right: 20px;
+  .top-block {
+    margin-top: -15px;
+    @media (max-width: 520px) {
+      margin-top: 0px;
+    }
+    // это адаптивка
+
+    > div {
+      margin-bottom: 4px;
+    }
+  }
+  .room-title {
+    position: relative;
+    width: 100%;
+    min-height: 80px;
+    padding: 10px 5px;
+    background: #eeeeee;
+    .edit {
+      @extend %edit;
+      top: 12px;
+      right: 1px;
+      display: none;
+    }
+    &:hover {
+      .edit {
+        display: block;
+      }
+    }
+    p {
+      padding: 5px 5px;
+      margin: 0;
+    }
+
+  }
+  .room-estimate {
+    position: relative;
+    width: 100%;
+    height: 56px; // высота по макету 56px
+    background: #151789;
+    @extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
+    padding: 15px 0 0 20px; // левый отступ - 20px
+
+    color: white;
+    .edit {
+      @extend %edit;
+      top: 12px;
+      right: 1px;
+      display: none;
+    }
+    &:hover {
+      .edit {
+        display: block;
+      }
+    }
+
+  }
+  .room-price {
+    position: relative;
+    width: 100%;
+    height: 56px; // высота по макету 56px
+    @extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
+    background: #929bbc;;
+    color: white;
+    padding: 15px 0 0 20px; // левый отступ - 20px
+    .edit {
+      @extend %edit;
+      top: 12px;
+      right: 1px;
+      display: none;
+    }
+    &:hover {
+      .edit {
+        display: block;
+      }
+    }
+
+  }
+  .big-photo {
+    height: 400px;
+    position: relative;
+    width: 100%;
+    background: white;
+    //border: 1px solid #ccc;
+    box-shadow: 0 1px 2px;
+    .cclose {
+      @extend %close;
+      right: 6px;
+      top: 6px;
+      display: none;
+    }
+    &:hover {
+      .cclose {
+        display: block;
+      }
+      .edit {
+        display: block;
+      }
+    }
+
+    .edit {
+      @extend %edit;
+      bottom: 6px;
+      right: 6px;
+      display: none;
+    }
+  }
+  .gallery {
+    @include margin-horizontal(-5px);
+    @include clearfix;
+    .small-photo {
+      position: relative;
+      cursor: pointer;
+      .cclose {
+        @extend %close;
+        margin: -10px -4px 0 0;
+        right: 0px;
+        display: none;
+      }
+      &:hover {
+        .cclose {
+          display: block;
+        }
+      }
+
+      width: 20%;
+      height: 100px;
+      @include padding-horizontal(5px);
+      padding-bottom: 10px;
+
+      float: left;
+      > div:not(.cclose) {
+        background: white;
+        @include square(100%);
+        border: 1px solid #ccc;
+      }
+    }
+    .add {
+      width: 20%;
+      height: 100px;
+      @include padding-horizontal(5px);
+      padding-bottom: 10px;
+      float: left;
+      div {
+        cursor: pointer;
+        position: relative;
+        background: white;
+        @include square(100%);
+        border: 1px solid #ccc;
+        div {
+          @include square(40px);
+          //top:15px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -20px -20px;
+          border: none;
+          background: {
+            				//image: url(/images/icons-lot/lot-plus.png);
+            repeat: no-repeat;
+            //				position: -40px 0;
+            position: 0 0;
+            size: auto 100%;
+            image: url(/images/icons-lot/add_img.svg);
+          }
+          &:hover {
+            //				background-position: 0 0;
+            background-image: url(/images/icons-lot/add_img_hover.svg);
+          }
+        }
+      }
+
+    }
+  }
+  .room-buttons {
+    margin-bottom: 5px;
+    > div {
+      margin-bottom: 10px;
+    }
+  }
+  &.ll-open {
+    .edit,.cclose,.lot-body-div-center-in-top.pad-icon{
+      display: none !important;
+    }
+    .gallery{
+      height: 90px;
+      overflow: hidden;
+    }
+  }
+}
