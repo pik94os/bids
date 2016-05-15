@@ -4,6 +4,7 @@
 define([
     'angular',
     'uiRouter',
+    'angular-svg-round-progressbar',
     './controllers/index',
     './filters/index',
     './directives/index'
@@ -12,6 +13,7 @@ define([
 
     return ng.module('app', [
         'ui.router',
+        'angular-svg-round-progressbar',
         'app.controllers',
         'app.filters',
         'app.directives'

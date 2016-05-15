@@ -93,7 +93,8 @@ gulp.task("js", () => {
                 'angular': '../components/angular/angular.min',
                 'uiRouter': '../components/angular-ui-router/release/angular-ui-router.min',
                 'jquery': '../components/jquery/dist/jquery.min',
-                'bstrap': '../components/bootstrap-sass/assets/javascripts/bootstrap.min'
+                'bstrap': '../components/bootstrap-sass/assets/javascripts/bootstrap.min',
+                'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min'
             },
             // angular не поддерживает AMD из коробки, поэтому экспортируем перменную angular в глобальную область
             shim: {
@@ -101,11 +102,14 @@ gulp.task("js", () => {
                     deps: [],
                     exports: 'angular'
                 },
-                'uiRouter':{
+                'uiRouter': {
                     deps: ['angular']
                 },
                 "bstrap" : {
-                    "deps" :['jquery']
+                    deps: ['jquery']
+                },
+                'angular-svg-round-progressbar' : {
+                    deps: ['angular']
                 }
             }
         }))

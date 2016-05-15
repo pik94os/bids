@@ -30,6 +30,7 @@ define(['./app'], function (app) {
                     }
                 }
             })
+            //Страница редактирования аукциона, главная аукциона, любимые лоты
             .state('auction', {
                 url: '/auction?open',
                 views:{
@@ -43,6 +44,7 @@ define(['./app'], function (app) {
                     }
                 }
             })
+            //Страница редактирования и просмотра любого лота
             .state('lot', {
                 url: '/lot?open',
                 views:{
@@ -56,6 +58,7 @@ define(['./app'], function (app) {
                     }
                 }
             })
+            //Комната торгов
             .state('room', {
                 url: '/room',
                 views:{
@@ -64,6 +67,18 @@ define(['./app'], function (app) {
                     },
                     'header':{
                         templateUrl: "/templates/room/header.html"
+                    }
+                }
+            })
+            //Календарь
+            .state('calendar', {
+                url: '/calendar',
+                views:{
+                    '': {
+                        templateUrl: "/templates/calendar/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/calendar/header.html"
                     }
                 }
             })
