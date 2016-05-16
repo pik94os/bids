@@ -1,0 +1,91 @@
+.calendar-header{
+  @extend .row-block;
+  background: black;
+  height: 140px;
+  padding-top: 5px;
+  >div{
+    @extend .row-block;
+    background: #d1d1d1;
+    height: 100%;
+  }
+  &-menu{
+    @extend .content-block;
+    height: 100%;
+    > ul{
+      height:100%;
+      display: block;
+      @include margin-horizontal(-10px);
+      >li{
+        padding-top: 10px;
+        @include padding-horizontal(10px);
+        height: 100%;
+        border-right: 1px solid gray;
+        position: relative;
+        display: block;
+        div{
+          width: 100%;
+          text-align: center;
+        }
+        > div{
+          height: 100%;
+          cursor: pointer;
+          &.active{
+            background: white;
+          }
+        }
+        &:last-child{
+          border-right: none;
+        }
+      }
+    }
+    &-bottom{
+      position: absolute;
+      bottom: 0;
+      text-align: left !important;
+    }
+  }
+}
+.calendar-list{
+  background: white;
+  @extend .row-block;
+  &-content{
+    @extend .content-block;
+  }
+  &-years{
+    @include padding-vertical(5px);
+    text-align: right;
+    ul,li{
+      display: inline-block;
+      margin: 0;
+    }
+    li{
+      margin-left: 10px;
+    }
+  }
+  &-days{
+    margin-bottom: 20px;
+    table{
+      $border: 1px solid gray;
+      width: 100%;
+      border:{
+        top:$border;
+        left: $border;
+      };
+      td{
+        position: relative;
+        text-align: center;
+        border: {
+          bottom: $border;
+          right: $border;
+        }
+        height: 130px;
+        &.current:before{
+          content: "СЕГОДНЯ";
+          position: absolute;
+          top:3px;
+          left:3px;
+        }
+      }
+    }
+  }
+}
