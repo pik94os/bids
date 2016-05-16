@@ -1,0 +1,30 @@
+<div class="calendar-list">
+    <div class="calendar-list-content">
+        <div class="calendar-list-years">
+            <ul>
+                <li class="active">2016</li>
+                <li>2015</li>
+                <li>2014</li>
+                <li>2013</li>
+            </ul>
+        </div>
+        <div class="calendar-list-days">
+            <table>
+                <tr ng-repeat = "week in calendar">
+                    <td ng-repeat = "day in week" class="{{day.tasks.cl}}" ng-class="{'last':!day.tasks.cl && currentDay>day.day,'current':currentDay===day.day}">
+                        <div>
+                            <div class="day" ng-bind="day.day"></div>
+                            <div class="weekday visible-lg-block" ng-bind="day.string.lg"></div>
+                            <div class="weekday hidden-lg" ng-bind="day.string.sm"></div>
+                            <div class="info" ng-if="day.tasks">
+                                <div class="date" ng-bind="day.tasks.date"></div>
+                                <div class="auct" ng-bind="day.tasks.title"></div>
+                                <div class="city" ng-bind="day.tasks.city"></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

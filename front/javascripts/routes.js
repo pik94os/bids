@@ -75,10 +75,12 @@ define(['./app'], function (app) {
                 url: '/calendar',
                 views:{
                     '': {
-                        templateUrl: "/templates/calendar/list.html"
+                        templateUrl: "/templates/calendar/list.html",
+                        controller: 'Calendar'
                     },
                     'header':{
-                        templateUrl: "/templates/calendar/header.html"
+                        templateUrl: "/templates/calendar/header.html",
+                        controller: 'CalendarHeader'
                     }
                 }
             })
