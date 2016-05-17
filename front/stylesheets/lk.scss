@@ -265,6 +265,58 @@
   }
 }
 
+.new-auction {
+	.auction-img1  {
+		background:{
+			image: url(/images/icons-auction/add_auction.svg);
+			position: center center;
+			size: 50%;
+            repeat: no-repeat;
+		}
+		padding-top: 55px;
+		float: left;
+		height: 191px;
+		margin-right: 5px;
+		width: 191px;
+		border: 1px solid gray;
+		text-align: center;
+	}
+	&:hover{
+		.auction-img1 {
+			background-image: url(/images/icons-auction/add_auction_hover.svg);
+		}
+	}
+
+	.auction-right  {
+		padding-top: 80px;
+		text-transform: uppercase;
+		text-align: center;
+		color: #aaaaaa;
+		font-size: 20px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

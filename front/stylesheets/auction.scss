@@ -36,6 +36,33 @@
 	}
 }
 
+.auction-header-image {
+	background: rgba(0, 0, 0, 0) url("/images/header-image.png") no-repeat scroll 0 0 / 100% auto;
+	height: 420px;
+	text-align: center;
+	&-top {
+		color: #fff;
+		font-family: "Century Gothic";
+		font-size: 110px;
+		font-weight: 700;
+		padding: 95px 0 0;
+		text-transform: uppercase;
+	}
+	&-center {
+		margin-top: -30px;
+		color: #fff;
+		font-family: Gambria;
+		font-size: 24px;
+		text-transform: uppercase;
+	}
+	&-bottom {
+		color: #fff;
+		font-family: Gambria;
+		font-size: 30px;
+		text-transform: uppercase;
+	}
+}
+
 .auction-list {
 	@extend .content-block;
 	padding-top: 2px;
@@ -210,6 +237,7 @@
 		background-color: white;
 		z-index:0;
 		box-shadow: 0 1px 2px;
+		padding: 10px;
 		.over{ // это div поверх
 			position: absolute;
 			width: 100%;
@@ -218,6 +246,7 @@
 			background-color: rgba(0,0,255, .3);
 			z-index:2;
 			display: none;
+			margin: -10px 0 0 -10px;
 			%overicon{
 				position: relative;
 				cursor: pointer;
@@ -277,6 +306,7 @@
 				height: 70px;
 				bottom: 0;
 				margin: 0 auto;
+				margin: 0 0 0 -10px;
 				background-color:#4b5e72;
 				color: #fff; //#8eaccb; #8eaccb;
 		        font-family: "Century Gothic";
@@ -296,6 +326,59 @@
 				font-weight: 700;
 				text-transform: uppercase;
 			}
+		}
+
+		.img222 {
+			background:{
+				position: top right;
+				repeat: no-repeat;
+			}
+			height: 158px;
+			text-align: left;
+			img {
+				height: 100%;
+				width: 100%;
+			}
+			&:after {
+				content: url('/images/ICONS_svg/molotok.svg');
+				margin: 0 0 0 -50px;
+				position: absolute;
+			}
+		}
+
+		.img222-under1 {
+			text-align: left;
+			text-transform: uppercase;
+		}
+
+		.img222-under2 {
+			text-align: left;
+			color: #132038;
+			padding: 10px 0;
+		}
+
+		.img222-under3 {
+			text-align: left;
+			color: #aaaaaa;
+			font-weight: bold;
+		}
+
+		.img222-under41 {
+			text-align: left;
+			background: #132038;
+			color: white;
+			float: left;
+			padding: 3px;
+			font-size: 12px;
+		}
+
+		.img222-under42 {
+			background: url(/images/edit_preview.svg) no-repeat;
+			text-align: right;
+			float: left;
+			margin: -5px 0 0 30px;
+			height: 28px;
+			width: 28px;
 		}
 	}
 	.tab-add{
@@ -318,6 +401,22 @@
 		height: 80px;
 		background: #262351;
 		color: white;
+		cursor: pointer;
+		&-title {
+			text-transform: uppercase;
+			font-size: 20px;
+		}
+		&-count {
+			text-transform: uppercase;
+			&:after {
+				content: url("/images/down-arrow.png");
+				float: right;
+				margin-top: -15px;
+			}
+		}
+		&-arrow {
+
+		}
 	}
 	&.al-open{
 		.mode-import,.mode-prop{
@@ -336,6 +435,14 @@
 						top: 30%;
 						display: block;
 					}
+				}
+				.img222-under42 {
+					background: url(/images/ICONS_svg/preview_card.svg) no-repeat;
+					text-align: right;
+					float: left;
+					margin: -5px 0 0 30px;
+					height: 28px;
+					width: 28px;
 				}
 			}
 			.col-tab-add{
