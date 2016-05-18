@@ -10,77 +10,19 @@
         </div>
         <div class="calendar-list-days">
             <table>
-                <tr>
-                    <td><div></div></td>
-                    <td class="last"><div><div class="day">01</div><div class="weekday">вторник</div></div></td>
-                    <td class="active-blue">
+                <tr ng-repeat = "week in calendar">
+                    <td ng-repeat = "day in week" class="{{day.tasks.cl}}" ng-class="{'last':!day.tasks.cl && currentDay>day.day,'current':currentDay===day.day}">
                         <div>
-                            <div class="day">02</div><div class="weekday">среда</div>
-                            <div class="info">
-                                <div class="date">2 МАРТА</div>
-                                <div class="auct">Редкие книги 20</div>
-                                <div class="city">В Никитском</div>
+                            <div class="day" ng-bind="day.day"></div>
+                            <div class="weekday visible-lg-block" ng-bind="day.string.lg"></div>
+                            <div class="weekday hidden-lg" ng-bind="day.string.sm"></div>
+                            <div class="info" ng-if="day.tasks">
+                                <div class="date" ng-bind="day.tasks.date"></div>
+                                <div class="auct" ng-bind="day.tasks.title"></div>
+                                <div class="city" ng-bind="day.tasks.city"></div>
                             </div>
                         </div>
                     </td>
-                    <td class="last"><div><div class="day">03</div><div class="weekday">четверг</div></div></td>
-                    <td class="last"><div><div class="day">04</div><div class="weekday">пятница</div></div></td>
-                    <td class="current"><div><div class="day">05</div><div class="weekday">суббота</div></div></td>
-                    <td><div><div class="day">06</div><div class="weekday">воскресенье</div></div></td>
-                </tr>
-                <tr>
-                    <td><div><div class="day">07</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">08</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">09</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">10</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">11</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">12</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">13</div><div class="weekday">вторник</div></div></td>
-                </tr>
-                <tr>
-                    <td><div><div class="day">14</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">15</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">16</div><div class="weekday">вторник</div></div></td>
-                    <td class="active-yellow">
-                        <div>
-                            <div class="day">17</div><div class="weekday">вторник</div>
-                            <div class="info">
-                                <div class="date">17 МАРТА</div>
-                                <div class="auct">Редкие книги 4</div>
-                                <div class="city">В Никитском</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td><div><div class="day">18</div><div class="weekday">вторник</div></div></td>
-                    <td class="active-purple">
-                        <div>
-                            <div class="day">19</div><div class="weekday">вторник</div>
-                            <div class="info">
-                                <div class="date">19 МАРТА</div>
-                                <div class="auct">Редкие книги 66</div>
-                                <div class="city">В Никитском</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td><div><div class="day">20</div><div class="weekday">вторник</div></div></td>
-                </tr>
-                <tr>
-                    <td><div><div class="day">21</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">22</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">23</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">24</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">25</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">26</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">27</div><div class="weekday">вторник</div></div></td>
-                </tr>
-                <tr>
-                    <td><div><div class="day">28</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">29</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">30</div><div class="weekday">вторник</div></div></td>
-                    <td><div><div class="day">31</div><div class="weekday">вторник</div></div></td>
-                    <td><div></div></td>
-                    <td><div></div></td>
-                    <td><div></div></td>
                 </tr>
             </table>
         </div>
