@@ -326,3 +326,17 @@ div.custom-input{
     @include padding-vertical(20px);
   }
 }
+
+%icon{
+  display: inline-block;
+}
+
+.icon-molotok{
+  @extend %icon;
+  height: 12px;
+  width: 12px;
+  background: {
+    image: url("/images/ICONS_svg/icons_calendar_hummer.svg");
+    size: 100%;
+  }
+}
