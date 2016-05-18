@@ -36,6 +36,12 @@
           height: 100%;
           padding-top: 30px;
           padding-left: 5px;
+          @include sm-or-less-display{
+            word-break: break-all;
+          };
+          @include xs-display{
+            padding-top: 5px;
+          }
           &.active{
             color: darkblue;
             background: white;
@@ -88,6 +94,11 @@
     }
     li{
       margin-left: 10px;
+      cursor: pointer;
+      &:hover,&.active{
+        text-decoration: underline;
+        color: blue;
+      }
     }
   }
   &-days{
@@ -113,8 +124,14 @@
         height: 130px;
         > div{
           height: 100%;
+          @include sm-or-less-display{
+            padding-top: 5px;
+          };
           .day{
             font-size: 65px;
+            @include sm-or-less-display{
+              font-size: 40px;
+            };
           }
           .weekday{
             font-size: 16px;
@@ -159,7 +176,7 @@
           }
           &:hover{
             .day,.weekday{
-              display: none;
+              display: none !important;
             }
             .info{
               display: block;
