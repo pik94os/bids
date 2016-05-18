@@ -60,13 +60,15 @@ define(['./app'], function (app) {
             })
             //Комната торгов
             .state('room', {
-                url: '/room',
+                url: '/room?countdown',
                 views:{
                     '': {
-                        templateUrl: "/templates/room/list.html"
+                        templateUrl: "/templates/room/list.html",
+                        controller: 'Room'
                     },
                     'header':{
-                        templateUrl: "/templates/room/header.html"
+                        templateUrl: "/templates/room/header.html",
+                        controller: 'RoomHeader'
                     }
                 }
             })
