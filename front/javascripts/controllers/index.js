@@ -4,5 +4,5 @@ define([
     './Lk',
     './Lot',
     './Auction',
-    './Calendar',
+    './Room',
 ], function () {});
