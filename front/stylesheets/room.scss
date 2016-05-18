@@ -103,12 +103,11 @@
   @include square(200px);
   position: relative;
 }
+
 .room-list {
   @extend .content-block;
   padding-left: 20px;
   padding-right: 20px;
-  #container {
-  }
   .top-block {
     margin-top: -15px;
     @media (max-width: 520px) {
@@ -120,6 +119,29 @@
       margin-bottom: 4px;
     }
   }
+  //стиль для кружков
+  &-for-circles{
+    @include clearfix;
+    @include margin-horizontal(-14px);
+    .circle-num{
+      @include square(50px);
+      border-radius: 25px;
+      background: #d7d7d7;
+      align-content: center;
+      font-size: large;
+      line-height: 50px;
+      text-align: center;
+      font-weight: bold;
+      margin:{
+        left:8px;
+        right: 8px;
+        bottom: 8px;
+        top: 8px;
+      }
+      float: left;
+    }
+  }
+
   .room-title {
     position: relative;
     width: 100%;
@@ -165,27 +187,7 @@
     }
 
   }
-  .room-price {
-    position: relative;
-    width: 100%;
-    height: 56px; // высота по макету 56px
-    @extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
-    background: #929bbc;;
-    color: white;
-    padding: 15px 0 0 20px; // левый отступ - 20px
-    .edit {
-      @extend %edit;
-      top: 12px;
-      right: 1px;
-      display: none;
-    }
-    &:hover {
-      .edit {
-        display: block;
-      }
-    }
 
-  }
   .big-photo {
     height: 400px;
     position: relative;
@@ -282,8 +284,12 @@
 
     }
   }
+
   .room-buttons {
-    margin-bottom: 5px;
+    border-radius: 0px;
+    background: #a6b5bc;
+    color: #121a3e;
+    height: 43px;
     > div {
       margin-bottom: 10px;
     }
@@ -296,5 +302,207 @@
       height: 90px;
       overflow: hidden;
     }
+  }
+
+  .room-message-form{
+  border-radius: 0px;
+  border: 0pt;
+  background: #ccdde5;
+  color: #a6b4bd;
+  height: 43px;
+}
+  .room-chat{
+    //border: 13px solid black;
+    margin-top: 10px;
+    background: #ccdde5;
+    height: 90px;
+    .text-room-chat{
+      font-family: "Century Gothic";
+      font-size: 12pt;
+      margin: 10px;
+    }
+  }
+
+  .insert-your{
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Century Gothic";
+    font-size: 12pt;
+    height: 43px;
+    color: black;
+    background: #ccdde5;
+  }
+  
+  .room-small-photo{
+    width: 67pt;
+    height: 67pt;
+    background: white;
+    align: center;
+    margin: 2pt;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+  .page-numbers-single{
+    width: 67pt;
+    text-align: center;
+    align: center;
+    margin: 2pt;
+    font-family: "Century Gothic";
+    font-weight: bold;
+    font-size: 8pt;
+  }
+
+  .room-container-with-circles{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 400pt;
+    .auditory{
+      margin-top: 30px;
+      margin-bottom: 30px;
+      font-size: 12pt;
+      font-weight: bold;
+      font-family: "Century Gothic";
+      color: #5d5d5d;
+    }
+  }
+
+
+  .room-internet-text{
+    font-size: 12pt;
+    font-weight: bold;
+    font-family: "Century Gothic";
+    color: #5d5d5d;
+  }
+
+  .description{
+    background: white;
+    height: 400px;
+    margin-top: 8px;
+    &-border-left{
+      border-width: 0 0 0 4px;
+      border-style: solid;
+      border-color: #e2f3fb;
+    }
+  }
+  .description-the-book{
+    padding-top: 10px;
+    background: white;
+    height: 80px;
+  }
+  .room-price {
+    //position: relative;
+    height: 56px; // высота по макету 56px
+    //@extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
+    background: #118b01;
+    color: white;
+    //padding: 5px 0px 0px 20px; // левый отступ - 20px\
+    margin-top: 10px;
+    align-content: center;
+
+  }
+  .do-rate{
+    padding: 12px 0px 0px 30px;
+    font-family: "Century Gothic";
+    //font-weight: bold;
+    font-size: 16pt;
+    //border: 1px solid black;
+
+  }
+  .number-of-rate{
+    border-width: 0 0 0 1px;
+    border-style: solid;
+    padding: 4px 0px 0px 50px;
+    font-size: 25pt;
+    //border: 1px solid black;
+    vertical-align: middle;
+  }
+  .max-rate{
+    opacity: 0.5;
+    font-family: "Century Gothic";
+    font-weight: bold;
+    text-align: center;
+    font-size: 8pt;
+    color: #212947;
+  }
+  .recommended-price{
+    opacity: 0.5;
+    font-family: "Century Gothic";
+    font-weight: bold;
+    font-size: 8pt;
+    &-number{
+      font-family: "Century Gothic";
+      font-weight: bold;
+      font-size: 20pt;
+      color: #118a02;
+    }
+  }
+  .rate-from-inet{
+    text-align: center;
+    opacity: 0.5;
+    font-family: "Century Gothic";
+    font-weight: bold;
+    font-size: 16pt;
+    &-fom-inet{
+      text-align: center;
+      opacity: 0.5;
+      font-family: "Century Gothic";
+      font-weight: bold;
+      font-size: 12pt;
+    }
+    &-above{
+      color: #118919;
+      text-align: center;
+      font-family: "Century Gothic";
+      font-weight: bold;
+      font-size: 12pt;
+    }
+
+
+    .image-center{
+      display:block;
+      margin:0 auto;
+    }
+    .page-numbers{
+      text-align: center;
+    }
+
+  }
+  .dollar-arrows{
+    width: 100%;
+    height: 74px;
+    background-image: url("../images/dollar_arrows.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    align: center;
+  }
+  .room-arrow_left{
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+  .room-arrow-right{
+    position: absolute;
+    top: 10px;
+    right: 0;
+  }
+  .room-video{
+    padding-top: 70px;
+  }
+  .room-progress-bar-top{
+    width: 100%;
+    height: 20px;
+    background: white;
+    margin-top: -15px;
+    padding-top: 2px;
+  }
+  .room-text-in-bar{
+    opacity: 0.5;
+    color: #212947;
+    text-align: center;
+    font-family: "Century Gothic";
+    font-weight: bold;
+    font-size: 9pt;
+    border-width: 0 0 0 1px;
+    border-style: solid;
+    padding-top: 2px;
   }
 }
