@@ -34,8 +34,12 @@ header {
       background: #b9b9b9;
       border-radius: 15px;
       color: #203371;
-      width: 60px;
-      margin: 0 0 0 -3px;
+      cursor: pointer;
+      height: 28px;
+      margin: 3px 0 0 -3px;
+      padding: 6px 0 0;
+      text-align: center;
+      width: 80px;
     }
 
     a {
@@ -51,16 +55,22 @@ header {
       height: 100%;
       float: right;
       img, div {
-	font-family: "Gambria";
-	font-style: normal;
-	font-weight: normal;
-	font-size: 12px;
+	    font-family: "Gambria";
+	    font-style: normal;
+	    font-weight: normal;
+	    font-size: 12px;
         float: left;
         padding: 0 3px 0 0;;
         margin: 4px 3px 2px 3px;
 
       }
-
+      .div075 {
+        padding: 7px 0 0 0;
+      }
+      input {
+        height: 28px;
+        margin-top: -2px;
+      }
     }
     &-left {
       height: 100%;

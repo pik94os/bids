@@ -158,11 +158,21 @@
     @extend %font_strong;
     padding: 12px 0 0 0px; // левый отступ - 20px
     height: 100%;
-    width: 140px;
+    width: 450px;
     font-weight: 500;
     font-size: 18px;
     text-align: center;
     background-color: #142038;
+    li {
+      text-align: center;
+      height: 100%;
+      font-family: "Century Gothic";
+      font-size:18px;
+      cursor: pointer;
+      display: inline;
+      width: 200px;
+      margin-right: 20px;
+    }
   }
 }
 
@@ -284,6 +294,12 @@
     }
 
   }
+  .lot-price1 {
+    display: none;
+  }
+  .lot-price2 {
+    display: none;
+  }
   .big-photo {
     height: 400px;
     position: relative;
@@ -389,10 +405,64 @@
   &.ll-open {
     .edit,.cclose,.lot-body-div-center-in-top.pad-icon{
       display: none !important;
+
+    }
+    .lot-price {
+      display: none;
     }
     .gallery{
       height: 90px;
       overflow: hidden;
+    }
+    &-1 {
+      .lot-price1 {
+        display: block;
+        background: green;
+        color: white;
+        text-transform: uppercase;
+        width: 100%;
+        padding: 20px;
+      }
+      .lot-pricediv1 {
+        padding: 20px 15px;
+        background: pink;
+        &-11 {
+
+        }
+        &-2 {
+          font-weight: bold;
+          background: #efefef;
+          text-transform: uppercase;
+        }
+        &-3 {
+
+        }
+        &-4 {
+
+        }
+        &-5 {
+
+        }
+        &-6 {
+          &-1 {
+
+          }
+          &-2 {
+
+          }
+        }
+      }
+    }
+    &-2 {
+      .lot-price2 {
+        display: block;
+        background: red;
+        color: white;
+        text-transform: uppercase;
+        padding: 8px 0 8px 20px;
+        width: 100%;
+        font-weight: bold;
+      }
     }
   }
 }
