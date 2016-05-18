@@ -147,42 +147,6 @@
   }
 }
 
-.txt-edit {
-  position: relative;
-  height: 50px; // высота на макете - 50px
-  border-bottom: 3px solid black;
-  width: 100%;
-  background: none;
-  @include clearfix;
-  .title {
-    @extend %font_strong;
-    height: 100%;
-    font-weight: 500;
-    font-size: 18px;
-    text-align: center;
-    /*background-color: #142038;*/
-    .title0485 {
-      height: 100%;
-    }
-    li {
-      text-align: center;
-      height: 100%;
-      font-family: "Century Gothic";
-      font-size:18px;
-      cursor: pointer;
-      display: inline;
-      padding-top: 10px;
-      width: 200px;;
-      float: left;
-    }
-    .li40699 {
-      background-color: #142038;
-    }
-    .li406 {
-      display: none;
-    }
-  }
-}
 
 .edit-field {
   position: relative;
@@ -234,6 +198,45 @@
 
     > div {
       margin-bottom: 4px;
+    }
+
+    .txt-edit-parent {
+      margin-top: 30px;
+
+      .txt-edit {
+        position: relative;
+        height: 50px; // высота на макете - 50px
+        border-bottom: 3px solid black;
+        width: 100%;
+        background: none;
+        @include clearfix;
+        .title {
+          @extend %font_strong;
+          height: 100%;
+          font-weight: 500;
+          font-size: 18px;
+          text-align: center;
+          ul{
+            height: 100%;
+            li {
+              text-align: center;
+              height: 100%;
+              font-family: "Century Gothic";
+              font-size:18px;
+              cursor: pointer;
+              display: inline;
+              padding: 12px;
+              float: left;
+            }
+            .li40699 {
+              background-color: #142038;
+            }
+            .li406 {
+              display: none;
+            }
+          }
+        }
+      }
     }
   }
   .lot-title {
@@ -438,6 +441,19 @@
       height: 90px;
       overflow: hidden;
     }
+    .txt-edit{
+      .title{
+        li{
+          display: inline;
+        }
+        .li406 {
+          display: inline !important;
+          background: white;
+          color: #142038;
+          border: 1px solid #efefef;
+        }
+      }
+    }
     &-1 {
       .lot-price1 {
         display: block;
@@ -481,15 +497,18 @@
           padding-bottom: 10px;
         }
         &-5 {
-          padding: 20px 0;
-          text-decoration: underline;
+          cursor: pointer;
+          padding: 10px 0;
           height: 65px;
+          font-size: 15px;
           .img032 {
             float: left;
           }
           .img033 {
-            margin-left: 20px;
+            margin-left: 10px;
+            padding-top: 3px;
             float: left;
+            text-decoration: underline;
           }
         }
         &-6 {
@@ -521,14 +540,6 @@
       }
       .lot-prisesale {
         display: none;
-      }
-      .li40699 {
-        background-color: #142038;
-      }
-      .li406 {
-        display: inline;
-        background: white;
-        color: blue;
       }
       .li4077 {
         display: inline;
@@ -572,14 +583,6 @@
         padding: 8px 0 8px 20px;
         width: 100%;
         font-weight: bold;
-      }
-      .li40699 {
-        background-color: #142038;
-      }
-      .li406 {
-        display: inline;
-        background: white;
-        color: blue;
       }
       .li4077 {
         display: inline;
@@ -838,8 +841,4 @@
   #description-tab, #info-tab {
     overflow: auto;
   }
-}
-
-.txt-edit777 {
-  margin-top: 30px;
 }
