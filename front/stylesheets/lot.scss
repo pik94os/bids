@@ -422,33 +422,49 @@
         text-transform: uppercase;
         width: 100%;
         padding: 20px;
+        font-size: 18px;
       }
       .lot-pricediv1 {
         padding: 20px 15px;
         background: pink;
         &-11 {
-
+          font-weight: bold;
         }
         &-2 {
-          font-weight: bold;
           background: #efefef;
           text-transform: uppercase;
+          padding: 19px 15px;
+          color: #aaaaaa;
+          font-size: 18px;
+          img {
+            margin-top: -4px;
+            float: right;
+          }
         }
         &-3 {
-
+          text-transform: uppercase;
+          color: white;
+          font-size: 18px;
+          text-align: center;
+          background: #151789;
+          padding: 17px 0;
         }
         &-4 {
-
+          text-decoration: underline;
+          padding-top: 10px;
         }
         &-5 {
-
+          padding: 20px 0;
+          text-decoration: underline;
         }
         &-6 {
+          background: green;
           &-1 {
-
+            float: left;
           }
           &-2 {
-
+            float: right;
+            text-decoration: underline;
           }
         }
       }
