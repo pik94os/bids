@@ -1,5 +1,5 @@
 <div class="tab-pane fade" ng-class="{'in active':tab==='auctions'}">
-    <div class="lk-body-div-center lk-tab-body">
+    <div class="auctions-list collapse in lk-body-div-center lk-tab-body">
         <div class="new-auction row"  data-toggle="modal" data-target="#create-auction">
             <div class="col-xs-12">
                 <div class="auction-img1">
@@ -35,10 +35,36 @@
         </div>
     </div>
 
-    <div class="filter-bottom">
+    <div class="filter-bottom" onclick="$('.auctions-list').collapse('toggle')">
         <div class="filter-bottom-div">
             <div class="filter-bottom-div-left">Показать архивные</div>
             <div class="filter-bottom-div-right"><img src="images/down-arrow2.png"></div>
+        </div>
+    </div>
+
+    <div class="auctions-list auctions-list-archive collapse">
+        <div class="auction row" ng-repeat="i in [1,2,3,4,5,6,7,8]">
+            <div class="">
+                <div class="col-md-9">
+                    <div class="auction-img">
+                        <img src="images/image-body-in.png">
+                    </div>
+                    <div class="auction-body">
+                        <p class="auction-body-header">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
+                        <p class="front-body-in-center-p2">Аукцион 2</p>
+                        <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
+                        <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-12">
+                            <div class="auction-button active"  ui-sref="auction({open:1})">Просмотреть каталог</div>
+                            <div class="auction-button">Редактировать аукцион</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

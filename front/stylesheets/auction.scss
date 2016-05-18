@@ -85,11 +85,10 @@
 		.nav{
 			position: relative;
 			float: left;
-			height: 53px;
+			height: 51px;
 			left: 0px;
 			background: #262351;
 			padding: 10px 20px;
-			margin-right: 10px;
 			color: #fff;
 			
 			&:hover {background-color: #c6c6ed;}
@@ -162,25 +161,19 @@
 			float: left;
 	        font-family: "Century Gothic";
 			font-size:18px;
-@media (max-width: 520px) {
-	position: absolute;
-	top:53px; left:0;// 41 - так как верхний отступ еще 12
-}			width: 140px;
+			margin-left: 10px;
+			@media (max-width: 520px) {
+				position: absolute;
+				top:53px;
+				left:0;// 41 - так как верхний отступ еще 12
+			}
+			width: 140px;
 			color:#bbb;
 			background: {	image: url(/images/icons-auction/import_lots_hover.svg); }
 			&:hover{background-image: url(/images/icons-auction/import_lots.svg); color:#000;}
 		}
 		.mode-toplot{
-			@extend %mode;
-			position: relative;
-			float: left;
-			font-family: "Century Gothic";
-			font-size:18px;
-			@media (max-width: 520px) {
-				position: absolute;
-				top:53px; left:0;// 41 - так как верхний отступ еще 12
-			}			width: 140px;
-			color:#bbb;
+			display: none;
 		}
 		%text{
 			@extend %mode;
@@ -388,10 +381,13 @@
 		}
 
 		.img222-under42 {
-			background: url(/images/edit_preview.svg) no-repeat;
+			background: {
+				image: url(/images/edit_preview.svg);
+				repeat: no-repeat;
+				position: 0 -3px;
+			}
 			text-align: right;
-			float: left;
-			margin: -5px 0 0 30px;
+			float: right;
 			height: 28px;
 			width: 28px;
 		}
@@ -436,7 +432,7 @@
 		background: #ffffff;
 		height: 670px;
 		padding: 30px;
-		margin-bottom: 10px;
+		@include margin-vertical(10px);
 		&-title {
 			text-transform: uppercase;
 			font-size: 20px;
@@ -551,15 +547,36 @@
 				}
 				.img222-under42 {
 					background: url(/images/ICONS_svg/preview_card.svg) no-repeat;
-					text-align: right;
-					float: left;
-					margin: -5px 0 0 30px;
-					height: 28px;
-					width: 28px;
 				}
 			}
 			.col-tab-add{
 				display: none;
+			}
+		}
+		.mode-toplot{
+			display: block;
+			position: relative;
+			cursor: pointer;
+			height: 51px;
+			text-align: center;
+			padding: 14px 24px;
+			float: left;
+			color:#bbb;
+			font: {
+				family: "Century Gothic";
+				size:18px;
+			}
+			border: {
+				left: 1px solid #E0E0E0;
+				right: 1px solid #E0E0E0;
+			};
+			&:hover {
+				background-color: #E0E0E0
+			}
+			@media (max-width: 520px) {
+				position: absolute;
+				top:53px;
+				left:0;// 41 - так как верхний отступ еще 12
 			}
 		}
 	}

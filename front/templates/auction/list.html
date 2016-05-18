@@ -25,13 +25,13 @@
         </div>
     </div>
 
-    <div class="contacts" ng-if="open == 1">
+    <div class="contacts" ng-if="open == 1" ng-hide="contactsShow" ng-click="showContacts()">
         <div class="contacts-title">Контакты</div>
         <div class="contacts-count">6 человек</div>
         <div class="contacts-arrow"></div>
     </div>
 
-    <div class="under-contacts" ng-if="open == 1">
+    <div class="under-contacts" ng-if="open == 1" ng-show="contactsShow" ng-click="hideContacts()">
         <div class="under-contacts-title">Контакты</div>
         <div class="under-contacts-count">6 человек</div>
         <div class="under-contacts-1">
@@ -120,7 +120,7 @@
                     <div class="img222-under41">1 600 000 - 1 700 000 р</div><div class="img222-under42"></div>
 
 				</div>
-			</div
+			</div>
 		</div>
 	</div>
 

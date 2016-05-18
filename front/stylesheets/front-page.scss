@@ -200,11 +200,18 @@ content {
 	  }
 	}
   }
+  .auctions-list-archive{
+    padding-top: 20px;
+  }
   .filter-bottom {
+    cursor: pointer;
     border-top: 3px solid #132038;
     background: white;
-    bottom: -20px;
 	position: relative;
+    margin: {
+      top:20px;
+      bottom: -20px;
+    };
 	height: 52px;
 	width: 100%;
 	text-transform: uppercase;
