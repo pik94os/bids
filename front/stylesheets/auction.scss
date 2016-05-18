@@ -418,6 +418,50 @@
 
 		}
 	}
+	.under-contacts {
+		background: #ffffff;
+		width: 770px;
+		height: 670px;
+		padding: 30px;
+		&-title {
+			text-transform: uppercase;
+			font-size: 20px;
+			cursor: pointer;
+		}
+		&-count {
+			text-transform: uppercase;
+			cursor: pointer;
+			&:after {
+				content: url("/images/up-arrow-b.png");
+				float: right;
+				margin: 0 30px 0 0;
+			}
+		}
+		&-1 {
+			height: 145px;
+			margin-bottom: 40px;
+			margin-top: 30px;
+			background: green;
+			&-11 {
+				float: left;
+				padding-right: 20px;
+				width: 100px;
+			}
+			&-12 {
+				float: left;
+			}
+		}
+		&-2 {
+			height: 145px;
+			margin-bottom: 40px;
+			background: yellow;
+		}
+		&-3 {
+			height: 145px;
+			margin-bottom: 40px;
+			background: red;
+		}
+	}
 	&.al-open{
 		.mode-import,.mode-prop{
 			display: none;
