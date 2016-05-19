@@ -1,9 +1,13 @@
 .room-header {
-
   @extend .content-block;
   position: relative;
   height: 100px;
   padding: 0 15px;
+
+  .room-container-header {
+    background-image: url("/images/background-header.png");
+  }
+
   .info-top {
     // от верха хэдера до верха шрифта-26, до низа шрифта 44
     font-family: "Gambria";
@@ -15,6 +19,7 @@
   }
   .info-bottom {
     // от верха хэдера до верха шрифта-48, до низа шрифта 67
+
     position: relative;
     font-family: "Century Gothic";
     font-style: normal;
@@ -24,20 +29,6 @@
     text-transform: uppercase;
     padding: 0 0 5px 5px;
     margin-top: -12px;
-    .arrow_left { // от края букв до горизонтального края стрелки - 22 от верха хедера -38
-      @extend %arrow_left;
-      position: absolute;
-      top: -8px;
-      left: -28px;
-
-    }
-    .arrow_right {
-      @extend %arrow_right;
-      position: absolute;
-      top: -8px;
-      right: -28px;
-
-    }
 
     .favorite {
       cursor: pointer;
@@ -45,7 +36,7 @@
       @include square(40px);
       padding: 0px;
       top: -8px;
-      right: 13px;
+      right: 0px;
       margin: 0;
       background: {
         image: url(/images/ICONS_svg/fav_add_w.svg);
@@ -57,31 +48,13 @@
       }
 
     }
-    .garbage {
-      cursor: pointer;
-      position: absolute;
-      @include square(40px);
-      padding: 0px;
-      top: -12px;
-      right: 57px;
-      margin: 0;
-      background: {
-        image: url(/images/icons-lot/delete_lot.svg);
-        repeat: no-repeat;
-        position: 0px 0px;
-      }
-      &:hover {
-        background-image: url(/images/icons-lot/delete_lot_hover.svg);
-      }
-
-    }
     .cat { // от верха хедера до верха книжек - 32px и до нижнего -57
       cursor: pointer;
       position: absolute;
       @include square(40px);
       padding: 0px;
       top: -9px;
-      right: 13px; //от края рабочего блока до края иконки - 21px
+      right: 40px; //от края рабочего блока до края иконки - 21px
       margin: 0;
 
       &.lot-open {
@@ -99,411 +72,430 @@
   }
 }
 
-.pb-container{
+.pb-container {
   @include square(200px);
   position: relative;
 }
 
-.room-list {
-  @extend .content-block;
-  padding-left: 20px;
-  padding-right: 20px;
-  .top-block {
-    margin-top: -15px;
-    @media (max-width: 520px) {
-      margin-top: 0px;
-    }
-    // это адаптивка
+.rom-container {
+  background: #e3f4fc;
 
-    > div {
-      margin-bottom: 4px;
-    }
-  }
-  //стиль для кружков
-  &-for-circles{
-    @include clearfix;
-    @include margin-horizontal(-14px);
-    .circle-num{
-      @include square(50px);
-      border-radius: 25px;
-      background: #d7d7d7;
-      align-content: center;
-      font-size: large;
-      line-height: 50px;
-      text-align: center;
-      font-weight: bold;
-      margin:{
-        left:8px;
-        right: 8px;
-        bottom: 8px;
-        top: 8px;
-      }
-      float: left;
-    }
-  }
+  .room-progress-bar {
 
-  .room-title {
-    position: relative;
-    width: 100%;
-    min-height: 80px;
-    padding: 10px 5px;
-    background: #eeeeee;
-    .edit {
-      @extend %edit;
-      top: 12px;
-      right: 1px;
-      display: none;
-    }
-    &:hover {
-      .edit {
-        display: block;
-      }
-    }
-    p {
-      padding: 5px 5px;
-      margin: 0;
-    }
-
-  }
-  .room-estimate {
-    position: relative;
-    width: 100%;
-    height: 56px; // высота по макету 56px
-    background: #151789;
-    @extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
-    padding: 15px 0 0 20px; // левый отступ - 20px
-
-    color: white;
-    .edit {
-      @extend %edit;
-      top: 12px;
-      right: 1px;
-      display: none;
-    }
-    &:hover {
-      .edit {
-        display: block;
-      }
-    }
-
-  }
-
-  .big-photo {
-    height: 400px;
-    position: relative;
-    width: 100%;
+    height: 20px;
     background: white;
-    //border: 1px solid #ccc;
-    box-shadow: 0 1px 2px;
-    .cclose {
-      @extend %close;
-      right: 6px;
-      top: 6px;
-      display: none;
-    }
-    &:hover {
-      .cclose {
-        display: block;
+  }
+
+  .left-column {
+    padding-right: 15px;
+  }
+
+  .right-column {
+    padding-left: 15px;
+  }
+
+  .room-large-book {
+    text-align: center;
+    align: center;
+  }
+
+  .room-container-books {
+    padding-top: 300px;
+  }
+
+  .logo-user {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .room-list {
+    @extend .content-block;
+    padding-left: 20px;
+    padding-right: 20px;
+    .top-block {
+      margin-top: -15px;
+      @media (max-width: 520px) {
+        margin-top: 0px;
       }
-      .edit {
-        display: block;
+      // это адаптивка
+
+      > div {
+        margin-bottom: 4px;
+      }
+    }
+    //стиль для кружков
+    &-for-circles {
+      @include clearfix;
+      @include margin-horizontal(-14px);
+      .circle-num {
+        @include square(50px);
+        border-radius: 25px;
+        background: #d7d7d7;
+        align-content: center;
+        font-size: large;
+        line-height: 50px;
+        text-align: center;
+        font-weight: bold;
+        margin: {
+          left: 8px;
+          right: 8px;
+          bottom: 8px;
+          top: 8px;
+        }
+        float: left;
       }
     }
 
-    .edit {
-      @extend %edit;
-      bottom: 6px;
-      right: 6px;
-      display: none;
-    }
-  }
-  .gallery {
-    @include margin-horizontal(-5px);
-    @include clearfix;
-    .small-photo {
+    .room-title {
       position: relative;
-      cursor: pointer;
+      width: 100%;
+      min-height: 80px;
+      padding: 10px 5px;
+      background: #eeeeee;
+      .edit {
+        @extend %edit;
+        top: 12px;
+        right: 1px;
+        display: none;
+      }
+      &:hover {
+        .edit {
+          display: block;
+        }
+      }
+      p {
+        padding: 5px 5px;
+        margin: 0;
+      }
+
+    }
+    .room-estimate {
+      position: relative;
+      width: 100%;
+      height: 56px; // высота по макету 56px
+      background: #151789;
+      @extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
+      padding: 15px 0 0 20px; // левый отступ - 20px
+
+      color: white;
+      .edit {
+        @extend %edit;
+        top: 12px;
+        right: 1px;
+        display: none;
+      }
+      &:hover {
+        .edit {
+          display: block;
+        }
+      }
+
+    }
+
+    .big-photo {
+      height: 400px;
+      position: relative;
+      width: 100%;
+      background: white;
+      //border: 1px solid #ccc;
+      box-shadow: 0 1px 2px;
       .cclose {
         @extend %close;
-        margin: -10px -4px 0 0;
-        right: 0px;
+        right: 6px;
+        top: 6px;
         display: none;
       }
       &:hover {
         .cclose {
           display: block;
         }
-      }
-
-      width: 20%;
-      height: 100px;
-      @include padding-horizontal(5px);
-      padding-bottom: 10px;
-
-      float: left;
-      > div:not(.cclose) {
-        background: white;
-        @include square(100%);
-        border: 1px solid #ccc;
-      }
-    }
-    .add {
-      width: 20%;
-      height: 100px;
-      @include padding-horizontal(5px);
-      padding-bottom: 10px;
-      float: left;
-      div {
-        cursor: pointer;
-        position: relative;
-        background: white;
-        @include square(100%);
-        border: 1px solid #ccc;
-        div {
-          @include square(40px);
-          //top:15px;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          margin: -20px -20px;
-          border: none;
-          background: {
-            				//image: url(/images/icons-lot/lot-plus.png);
-            repeat: no-repeat;
-            //				position: -40px 0;
-            position: 0 0;
-            size: auto 100%;
-            image: url(/images/icons-lot/add_img.svg);
-          }
-          &:hover {
-            //				background-position: 0 0;
-            background-image: url(/images/icons-lot/add_img_hover.svg);
-          }
+        .edit {
+          display: block;
         }
       }
 
+      .edit {
+        @extend %edit;
+        bottom: 6px;
+        right: 6px;
+        display: none;
+      }
     }
-  }
+    .gallery {
+      @include margin-horizontal(-5px);
+      @include clearfix;
+      .small-photo {
+        position: relative;
+        cursor: pointer;
+        .cclose {
+          @extend %close;
+          margin: -10px -4px 0 0;
+          right: 0px;
+          display: none;
+        }
+        &:hover {
+          .cclose {
+            display: block;
+          }
+        }
 
-  .room-buttons {
-    border-radius: 0px;
-    background: #a6b5bc;
-    color: #121a3e;
-    height: 43px;
-    > div {
-      margin-bottom: 10px;
+        width: 20%;
+        height: 100px;
+        @include padding-horizontal(5px);
+        padding-bottom: 10px;
+
+        float: left;
+        > div:not(.cclose) {
+          background: white;
+          @include square(100%);
+          border: 1px solid #ccc;
+        }
+      }
+      .add {
+        width: 20%;
+        height: 100px;
+        @include padding-horizontal(5px);
+        padding-bottom: 10px;
+        float: left;
+        div {
+          cursor: pointer;
+          position: relative;
+          background: white;
+          @include square(100%);
+          border: 1px solid #ccc;
+          div {
+            @include square(40px);
+            //top:15px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -20px -20px;
+            border: none;
+            background: {
+              //image: url(/images/icons-lot/lot-plus.png);
+              repeat: no-repeat;
+              //				position: -40px 0;
+              position: 0 0;
+              size: auto 100%;
+              image: url(/images/icons-lot/add_img.svg);
+            }
+            &:hover {
+              //				background-position: 0 0;
+              background-image: url(/images/icons-lot/add_img_hover.svg);
+            }
+          }
+        }
+
+      }
     }
-  }
-  &.ll-open {
-    .edit,.cclose,.lot-body-div-center-in-top.pad-icon{
-      display: none !important;
+
+    .room-buttons {
+      border-radius: 0px;
+      background: #a6b5bc;
+      color: #121a3e;
+      height: 43px;
+      > div {
+        margin-bottom: 10px;
+      }
     }
-    .gallery{
-      height: 90px;
-      overflow: hidden;
+    &.ll-open {
+      .edit, .cclose, .lot-body-div-center-in-top.pad-icon {
+        display: none !important;
+      }
+      .gallery {
+        height: 90px;
+        overflow: hidden;
+      }
     }
-  }
 
-  .room-message-form{
-  border-radius: 0px;
-  border: 0pt;
-  background: #ccdde5;
-  color: #a6b4bd;
-  height: 43px;
-}
-  .room-chat{
-    //border: 13px solid black;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    background: #ccdde5;
-    height: 90px;
-    .text-room-chat{
-      font-family: "Century Gothic";
-      font-size: 12pt;
-      margin: 10px;
+    .room-message-form {
+      border-radius: 0px;
+      border: 0pt;
+      background: #ccdde5;
+      color: #a6b4bd;
+      height: 43px;
     }
-  }
-
-  .insert-your{
-    text-align: center;
-    vertical-align: middle;
-    font-family: "Century Gothic";
-    font-size: 12pt;
-    height: 43px;
-    color: black;
-    background: #ccdde5;
-  }
-  
-  .room-small-photo{
-    width: 67pt;
-    height: 67pt;
-    background: white;
-    align: center;
-    margin: 2pt;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  }
-  .page-numbers-single{
-    width: 67pt;
-    text-align: center;
-    align: center;
-    margin: 2pt;
-    font-family: "Century Gothic";
-    font-weight: bold;
-    font-size: 8pt;
-  }
-
-  .room-container-with-circles{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: 400pt;
-    .auditory{
-      margin-top: 30px;
-      margin-bottom: 30px;
-      font-size: 12pt;
-      font-weight: bold;
-      font-family: "Century Gothic";
-      color: #5d5d5d;
+    .room-chat {
+      background: #ccdde5;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      .text-room-chat {
+        font-family: "Century Gothic";
+        font-size: 12pt;
+        margin: 10px;
+      }
     }
-  }
 
-
-  .room-internet-text{
-    font-size: 12pt;
-    font-weight: bold;
-    font-family: "Century Gothic";
-    color: #5d5d5d;
-  }
-
-  .description{
-    background: white;
-    height: 400px;
-    margin-top: 8px;
-    &-border-left{
-      border-width: 0 0 0 4px;
-      border-style: solid;
-      border-color: #e2f3fb;
-    }
-  }
-  .description-the-book{
-    padding-top: 10px;
-    background: white;
-    height: 80px;
-  }
-  .room-price {
-    //position: relative;
-    height: 56px; // высота по макету 56px
-    //@extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
-    background: #118b01;
-    color: white;
-    //padding: 5px 0px 0px 20px; // левый отступ - 20px\
-    margin-top: 10px;
-    align-content: center;
-
-  }
-  .do-rate{
-    padding: 12px 0px 0px 30px;
-    font-family: "Century Gothic";
-    //font-weight: bold;
-    font-size: 16pt;
-    //border: 1px solid black;
-
-  }
-  .number-of-rate{
-    border-width: 0 0 0 1px;
-    border-style: solid;
-    padding: 4px 0px 0px 50px;
-    font-size: 25pt;
-    //border: 1px solid black;
-    vertical-align: middle;
-  }
-  .max-rate{
-    opacity: 0.5;
-    font-family: "Century Gothic";
-    font-weight: bold;
-    text-align: center;
-    font-size: 8pt;
-    color: #212947;
-  }
-  .recommended-price{
-    opacity: 0.5;
-    font-family: "Century Gothic";
-    font-weight: bold;
-    font-size: 8pt;
-    &-number{
-      font-family: "Century Gothic";
-      font-weight: bold;
-      font-size: 20pt;
-      color: #118a02;
-    }
-  }
-  .rate-from-inet{
-    text-align: center;
-    opacity: 0.5;
-    font-family: "Century Gothic";
-    font-weight: bold;
-    font-size: 16pt;
-    &-fom-inet{
+    .insert-your {
+      padding-top: 12px;
       text-align: center;
+      vertical-align: middle;
+      font-family: "Century Gothic";
+      font-weight: bold;
+      font-size: 12pt;
+      height: 43px;
+      color: black;
+      background: #ccdde5;
+    }
+
+    .width100 {
+      width: 20%;
+    }
+
+    .room-small-photo {
+      text-align: center;
+      width: 100%;
+      > div {
+        display: inline-block;
+        text-align: center;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        img {
+          width: 67px;
+          height: 67px;
+        }
+      }
+    }
+    .page-numbers-single {
+      width: 67pt;
+      text-align: center;
+      align: center;
+      padding-bottom: 10px;
+      margin: 2pt;
+      font-family: "Century Gothic";
+      font-weight: bold;
+      font-size: 8pt;
+      color: #000066;
+    }
+
+    .room-container-with-circles {
+      margin-bottom: 15px;
+      border-bottom-style: solid;
+      border-width: 1px;
+      border-color: #a5b4bb;
+    }
+
+    .description {
+      padding-top: 10px;
+      background: white;
+      height: 400px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      }
+    .blue-border-right {
+      //border-width: 0 4px 0 0;
+      //border-style: solid;
+      //border-color: #e2f3fb;
+    }
+    .description-the-book {
+      background: white;
+      height: 80px;
+
+    }
+    .room-price {
+      //position: relative;
+      height: 56px; // высота по макету 56px
+      //@extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
+      background: #118b01;
+      color: white;
+      //padding: 5px 0px 0px 20px; // левый отступ - 20px\
+      margin-top: 10px;
+      align-content: center;
+
+    }
+    .do-rate {
+      padding: 12px 0px 0px 30px;
+      font-family: "Century Gothic";
+      //font-weight: bold;
+      font-size: 16pt;
+      //border: 1px solid black;
+
+    }
+    .number-of-rate {
+      border-width: 0 0 0 1px;
+      border-style: solid;
+      padding: 4px 0px 0px 50px;
+      font-size: 25pt;
+      //border: 1px solid black;
+      vertical-align: middle;
+    }
+    .max-rate {
       opacity: 0.5;
       font-family: "Century Gothic";
       font-weight: bold;
-      font-size: 12pt;
+      text-align: center;
+      font-size: 8pt;
+      color: #212947;
     }
-    &-above{
-      color: #118919;
+    .recommended-price {
+      opacity: 0.5;
+      font-family: "Century Gothic";
+      font-weight: bold;
+      font-size: 8pt;
+      text-align: center;
+      &-number {
+        text-align: center;
+        font-family: "Century Gothic";
+        font-weight: bold;
+        font-size: 20pt;
+        color: #118a02;
+      }
+    }
+    .rate-from-inet {
+      text-align: center;
+      color: #989898;
+      font-family: "Century Gothic";
+      font-weight: bold;
+      font-size: 16pt;
+      &-sec-row{
+        font-size: 12pt;
+      }
+      &-third-row{
+        opacity: 1.0;
+        font-size: 12pt;
+        color: #508820;
+      }
+    }
+
+    .image-center {
+      display: block;
+      margin: 0 auto;
+    }
+    .page-numbers {
+      text-align: center;
+    }
+
+    .dollar-arrows {
+      width: 100%;
+      height: 74px;
+      background-image: url("../images/dollar_arrows.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      align: center;
+    }
+    .room-arrow_left {
+      position: absolute;
+      left: 0;
+    }
+    .room-arrow-right {
+      position: absolute;
+      right: 0;
+    }
+    .room-video {
+      text-align: center;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    .room-text-in-bar {
+      opacity: 0.5;
+      color: #212947;
       text-align: center;
       font-family: "Century Gothic";
       font-weight: bold;
-      font-size: 12pt;
+      font-size: 9pt;
+      border-width: 0 0 0 1px;
+      border-style: solid;
     }
-
-
-    .image-center{
-      display:block;
-      margin:0 auto;
-    }
-    .page-numbers{
-      text-align: center;
-    }
-
-  }
-  .dollar-arrows{
-    width: 100%;
-    height: 74px;
-    background-image: url("../images/dollar_arrows.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    align: center;
-  }
-  .room-arrow_left{
-    position: absolute;
-    top: 10px;
-    left: 0;
-  }
-  .room-arrow-right{
-    position: absolute;
-    top: 10px;
-    right: 0;
-  }
-  .room-video{
-    padding-top: 70px;
-  }
-  .room-progress-bar-top{
-    width: 100%;
-    height: 20px;
-    background: white;
-    margin-top: -15px;
-    padding-top: 2px;
-  }
-  .room-text-in-bar{
-    opacity: 0.5;
-    color: #212947;
-    text-align: center;
-    font-family: "Century Gothic";
-    font-weight: bold;
-    font-size: 9pt;
-    border-width: 0 0 0 1px;
-    border-style: solid;
-    padding-top: 2px;
   }
 }

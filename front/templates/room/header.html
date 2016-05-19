@@ -1,11 +1,33 @@
-<div class="room-header">
-    <div class="info-top">s</div>
-    <div class="info-bottom">
-        <div class="arrow_left"></div>
-        Лот №1
-        <div class="favorite" ng-show="open"></div>
-        <div class="cat" ng-class="{'lot-open':open}"></div>
-        <div class="garbage" ng-hide="open"></div>
-        <div class="arrow_right"></div>
+<div class="room-container-header">
+    <div class="room-header" ng-show="countdown==1">
+        <div class="info-top">s</div>
+        <div class="info-bottom">
+            <div class="arrow_left"></div>
+            Лот №1
+            <div class="favorite" ng-show="open"></div>
+            <div class="cat" ng-class="{'lot-open':open}"></div>
+            <div class="garbage" ng-hide="open"></div>
+            <div class="arrow_right"></div>
+        </div>
+    </div>
+
+    <div class="room-header" ng-show="countdown==2">
+        <div class="info-top"><br></div>
+        <div class="info-bottom">
+            Лот №1
+            <div class="favorite"></div>
+            <div class="cat"></div>
+        </div>
+
+        <!--<div class="row">-->
+            <!--&lt;!&ndash;верх&ndash;&gt;-->
+            <!--<div>верх</div>-->
+
+            <!--&lt;!&ndash;середина&ndash;&gt;-->
+            <!--<div>середина</div>-->
+
+            <!--&lt;!&ndash;низ&ndash;&gt;-->
+            <!--<div>низ</div>-->
+        <!--</div>-->
     </div>
 </div>
