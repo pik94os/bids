@@ -227,13 +227,62 @@
               display: inline;
               padding: 12px;
               float: left;
+              &.li406 {
+                display: none;
+                &.active,&:hover {
+                  background-color: #142038;
+                  border: 0;
+                  color: white;
+                  .table-historyofauctions {
+                    background: pink;
+                    color: red;
+                  }
+                }
+              }
             }
-            .li40699 {
-              background-color: #142038;
+          }
+        }
+      }
+
+      .div-table-historyofauctions {
+        padding: 20px;
+        .table-historyofauctions {
+          background: pink;
+          .tr-top {
+            background: #b9b8b9;
+            width: 100%;
+          }
+          .tr-center {
+            background: #f2f2f2;
+            color: #132038;
+            font: {
+              family: "Century Gothic";
+              size: 14px;
             }
-            .li406 {
-              display: none;
+          }
+          .tr-bottom {
+            background: #e6e6e5;
+            color: #132038;
+            font: {
+              family: "Century Gothic";
+              size: 14px;
             }
+          }
+          td {
+            height: 37px;
+          }
+          .td01 {
+            width: 312px;
+            padding-left: 12px;
+          }
+          .td02 {
+            width: 230px;
+          }
+          .td03 {
+            width: 245px;
+          }
+          .td04 {
+            width: 123px;
           }
         }
       }
@@ -453,6 +502,7 @@
           border: 1px solid #efefef;
         }
       }
+
     }
     &-1 {
       .lot-price1 {
@@ -478,9 +528,27 @@
           padding: 15px;
           color: #aaaaaa;
           font-size: 16px;
-          img {
+          &-1 {
+            background: url(/images/ICONS_svg/bit_down.svg) no-repeat;
             margin-top: -4px;
             float: right;
+            height: 28px;
+            width: 28px;
+            &:hover {
+              background: url(/images/ICONS_svg/bit_down_hover.svg) no-repeat;
+              cursor: pointer;
+            }
+          }
+          &-2 {
+            background: url(/images/ICONS_svg/bit_up.svg) no-repeat;
+            margin-top: -4px;
+            float: right;
+            height: 28px;
+            width: 28px;
+            &:hover {
+              background: url(/images/ICONS_svg/bit_up_hover.svg) no-repeat;
+              cursor: pointer;
+            }
           }
         }
         &-3 {
@@ -490,21 +558,37 @@
           text-align: center;
           background: #151789;
           padding: 15px 0;
+          cursor: pointer;
         }
         &-4 {
           text-decoration: underline;
           padding-top: 3px;
           padding-bottom: 10px;
+          cursor: pointer;
+          &:hover {
+            text-decoration: none;
+          }
         }
         &-5 {
           cursor: pointer;
           padding: 10px 0;
           height: 65px;
           font-size: 15px;
-          .img032 {
-            float: left;
+          &:hover {
+            .div032 {
+              background: url(/images/ICONS_svg/alarm.svg) no-repeat;
+            }
+            .div033 {
+              text-decoration: none;
+             }
           }
-          .img033 {
+          .div032 {
+            float: left;
+            background: url(/images/ICONS_svg/alarm_hover.svg) no-repeat;
+            height: 28px;
+            width: 28px;
+          }
+          .div033 {
             margin-left: 10px;
             padding-top: 3px;
             float: left;
@@ -517,24 +601,39 @@
           height: 70px;
           padding: 20px;
           margin: 0 -15px;
+          cursor: pointer;
           &-1 {
             float: left;
-            .img034 {
+            .div034 {
+              background: url(/images/ICONS_svg/fav_add_bl.svg) no-repeat;
               float:left;
               display: block;
               margin-right: 20px;
+              height: 28px;
+              width: 28px;
+              &:hover {
+                background: url(/images/ICONS_svg/fav_add_bl_hover.svg) no-repeat;
+              }
             }
-            .img035 {
+            .div035 {
               float:left;
               filter: invert(1);
               background: url(/images/icons-lot/view_catalog_w.svg) no-repeat;
-              height: 50px;
-              width: 50px;
-              display: inline-block;            }
+              height: 28px;
+              width: 28px;
+              display: block;
+              &:hover {
+                background: url(/images/icons-lot/view_catalog_w.svg) no-repeat;
+                filter: invert(0.5);
+              }
+            }
           }
           &-2 {
             float: right;
             text-decoration: underline;
+            &:hover {
+              text-decoration: none;
+            }
           }
         }
       }
@@ -543,6 +642,10 @@
       }
       .li4077 {
         display: inline;
+        &:hover {
+          cursor: pointer;
+          background: white;
+        }
       }
     }
     &-2 {

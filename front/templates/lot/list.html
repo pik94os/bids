@@ -15,12 +15,12 @@
 				<div class="lot-price1">Разыигрывается сейчас<br>7 000 000 руб</div>
 				<div class="lot-pricediv1">
 					<div class="lot-pricediv1-11">Разместить максимальный бид</div>
-					<div class="lot-pricediv1-2">Сделайте шаг / впишите свой<img src="images/ICONS_svg/bit_down.svg"><img src="images/ICONS_svg/bit_up.svg"></div>
+					<div class="lot-pricediv1-2">Сделайте шаг / впишите свой<div class="lot-pricediv1-2-1"></div><div class="lot-pricediv1-2-2"></div></div>
 					<div class="lot-pricediv1-3">Подтвердить</div>
 					<div class="lot-pricediv1-4">Таблица шагов</div>
-					<div class="lot-pricediv1-5"><img  class="img032" src="images/ICONS_svg/alarm_hover.svg"><div class="img033">Включить напоминание</div></div>
+					<div class="lot-pricediv1-5"><div class="div032"></div><div class="div033">Включить напоминание</div></div>
 					<div class="lot-pricediv1-6">
-						<div class="lot-pricediv1-6-1"><img class="img034" src="images/ICONS_svg/fav_add_bl.svg"><div class="img035"></div></div>
+						<div class="lot-pricediv1-6-1"><div class="div034"></div><div class="div035"></div></div>
 						<div class="lot-pricediv1-6-2">Условия продажи</div>
 					</div>
 				</div>
@@ -66,18 +66,16 @@
 						</div>
 					</div>
 					<div class="title">
-						<ul class="nav title0485">
-							<li class="li40699">ОПИСАНИЕ</li>
-							<li class="li406">ИСТРОРИЯ ТОРГОВ</li>
-							<li class="li406">ОТЗЫВЫ</li>
+						<ul class="nav">
+							<li class="li406" ng-class="{'active':!tab}" ui-sref="{tab:''}">ОПИСАНИЕ</li>
+							<li class="li406" ng-class="{'active':tab==='historyofauctions'}" ui-sref="{tab:'historyofauctions'}">ИСТРОРИЯ ТОРГОВ</li>
+							<li class="li406" ng-class="{'active':tab==='reviews'}" ui-sref="{tab:'reviews'}">ОТЗЫВЫ</li>
 						</ul>
 					</div>
 				</div>
-				<div class="edit-field">
+				<div class="edit-field tab-content">
 					<div class="edit"></div><div class="cclose"></div>
-					<p>"Древности Россейскага государства", изданные по высочайшему повелению.</p> 
-					<p>Рисованы академиком Ф.Солнцевым. 6 выпусков + Атлас. В типографии Александра Семена.</p> 
-					<p>Хромолитография Ф.Дрегера 1849-1853</p>
+					<!--=include tabs/*.html -->
 				</div>
 			</div>
         </div>

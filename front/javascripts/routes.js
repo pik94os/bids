@@ -46,7 +46,7 @@ define(['./app'], function (app) {
             })
             //Страница редактирования и просмотра любого лота
             .state('lot', {
-                url: '/lot?open',
+                url: '/lot?open&tab',
                 views:{
                     '': {
                         templateUrl: "/templates/lot/list.html",
