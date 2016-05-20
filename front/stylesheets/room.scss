@@ -1,11 +1,12 @@
 .room-header {
+  font-family: "Century Gothic";
   @extend .content-block;
   position: relative;
   height: 100px;
-  padding: 0 15px;
+  padding: 0 -15px;
 
   .room-container-header {
-    background-image: url("/images/background-header.png");
+    background-image: url("/images/background-header.png") !important;
   }
 
   .info-top {
@@ -20,24 +21,22 @@
   .info-bottom {
     // от верха хэдера до верха шрифта-48, до низа шрифта 67
 
-    position: relative;
-    font-family: "Century Gothic";
-    font-style: normal;
+    //position: relative;
+    margin-right: 40px;
+    margin-left: 40px;
+    margin-top: 25px;
     color: #fff;
     font-size: 26px;
     font-weight: 500;
-    text-transform: uppercase;
-    padding: 0 0 5px 5px;
-    margin-top: -12px;
 
     .favorite {
       cursor: pointer;
-      position: absolute;
+      //position: absolute;
       @include square(40px);
-      padding: 0px;
-      top: -8px;
-      right: 0px;
-      margin: 0;
+      //padding: 0px;
+      //top: -8px;
+      //right: 0px;
+      //margin: 0;
       background: {
         image: url(/images/ICONS_svg/fav_add_w.svg);
         repeat: no-repeat;
@@ -50,12 +49,12 @@
     }
     .cat { // от верха хедера до верха книжек - 32px и до нижнего -57
       cursor: pointer;
-      position: absolute;
+      //position: absolute;
       @include square(40px);
-      padding: 0px;
-      top: -9px;
-      right: 40px; //от края рабочего блока до края иконки - 21px
-      margin: 0;
+      //padding: 0px;
+      //top: -9px;
+      //right: 40px; //от края рабочего блока до края иконки - 21px
+      //margin: 0;
 
       &.lot-open {
         right: 57px;
@@ -79,19 +78,104 @@
 
 .rom-container {
   background: #e3f4fc;
+  font-family: "Century Gothic";
 
-  .room-progress-bar {
+  .room-circle-bar-text{
 
+    color: #172447;
+    position: absolute;
+    top: 0px;
+    left: 32px;
+    &-digit{
+
+      font-weight: bold;
+      font-size: 45pt;
+
+    }
+    &-text{
+      color: #172447;
+      font-size: 14pt;
+    }
+  }
+
+  .room_container-for-circles{
+    margin: 15px;
+    display: inline-block;
+    position: relative;
+  }
+  .room-input-group-p1{
+    margin-top: 60px;
+  }
+
+  %auction-title{
+    color: #172447;
+  }
+  .room-auction-title{
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 69px;
+    &-auction{
+      @extend %auction-title;
+      font-weight: bold;
+      font-size: 45pt;
+    }
+    &-starts-in{
+      @extend %auction-title;
+      font-size: 15pt;
+    }
+  }
+
+  .progress-bar-circle-container{
+    text-align: center;
+    .round-progress-wrapper{
+      display: inline-block;
+    }
+  }
+  .room-progress-bar-container {
     height: 20px;
     background: white;
+    margin-top: -10px;
+    padding: 3px;
+    .progress-bar-line{
+      border-width: 0 1px 0 1px;
+      border-style: solid;
+      margin-top: 3px;
+      height: 40%;
+      width: 75%;
+      background-color: #0d395f;
+    }
+
+    %rtib{
+      white-space: nowrap;
+      padding-left: 5px;
+      padding-right: 5px;
+      opacity: 0.5;
+      color: #212947;
+      align-content: center;
+      text-align: center;
+      font-weight: bold;
+      font-size: 9pt;
+    }
+    .room-text-in-bar {
+      &-procents{
+        @extend %rtib;
+        width: 25%;
+      }
+      &-time{
+        @extend %rtib;
+        width: 10%;
+      }
+    }
   }
 
   .left-column {
     padding-right: 15px;
+    padding-top: 40px;
   }
 
   .right-column {
     padding-left: 15px;
+    padding-top: 20px;
   }
 
   .room-large-book {
@@ -317,20 +401,16 @@
     }
     .room-chat {
       background: #ccdde5;
-      margin-top: 15px;
-      margin-bottom: 15px;
-      .text-room-chat {
-        font-family: "Century Gothic";
-        font-size: 12pt;
-        margin: 10px;
-      }
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-size: 12pt;
+      padding: 10px;
     }
 
     .insert-your {
       padding-top: 12px;
       text-align: center;
       vertical-align: middle;
-      font-family: "Century Gothic";
       font-weight: bold;
       font-size: 12pt;
       height: 43px;
@@ -344,35 +424,41 @@
 
     .room-small-photo {
       text-align: center;
-      width: 100%;
+      width: 90%;
       > div {
-        display: inline-block;
+        //display: inline-block;
         text-align: center;
         background: white;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
           width: 67px;
           height: 67px;
         }
       }
     }
+    .room-small-books-container{
+      height: 67px;
+    }
     .page-numbers-single {
       width: 67pt;
       text-align: center;
-      align: center;
       padding-bottom: 10px;
       margin: 2pt;
-      font-family: "Century Gothic";
       font-weight: bold;
       font-size: 8pt;
       color: #000066;
     }
 
     .room-container-with-circles {
-      margin-bottom: 15px;
+      margin-bottom: 40px;
       border-bottom-style: solid;
       border-width: 1px;
       border-color: #a5b4bb;
+    }
+
+    .legend{
+      white-space: nowrap;
+      margin-bottom: 40px;
     }
 
     .description {
@@ -381,7 +467,7 @@
       height: 400px;
       margin-top: 10px;
       margin-bottom: 10px;
-      }
+    }
     .blue-border-right {
       //border-width: 0 4px 0 0;
       //border-style: solid;
@@ -400,28 +486,28 @@
       color: white;
       //padding: 5px 0px 0px 20px; // левый отступ - 20px\
       margin-top: 10px;
-      align-content: center;
 
     }
+    .display-table {
+      display: table;
+    }
     .do-rate {
-      padding: 12px 0px 0px 30px;
-      font-family: "Century Gothic";
-      //font-weight: bold;
-      font-size: 16pt;
-      //border: 1px solid black;
-
+      text-align: center;
+      font-size: 15pt;
+      padding-top: 12px;
+      white-space: nowrap;
+      font-weight: bold;
     }
     .number-of-rate {
       border-width: 0 0 0 1px;
       border-style: solid;
-      padding: 4px 0px 0px 50px;
       font-size: 25pt;
-      //border: 1px solid black;
-      vertical-align: middle;
+      text-align: center;
+      padding-top: 3px;
+      font-weight: bold;
     }
     .max-rate {
       opacity: 0.5;
-      font-family: "Century Gothic";
       font-weight: bold;
       text-align: center;
       font-size: 8pt;
@@ -429,28 +515,26 @@
     }
     .recommended-price {
       opacity: 0.5;
-      font-family: "Century Gothic";
       font-weight: bold;
       font-size: 8pt;
       text-align: center;
       &-number {
         text-align: center;
-        font-family: "Century Gothic";
         font-weight: bold;
-        font-size: 20pt;
+        font-size: 18pt;
         color: #118a02;
+        white-space: nowrap;
       }
     }
     .rate-from-inet {
       text-align: center;
       color: #989898;
-      font-family: "Century Gothic";
       font-weight: bold;
       font-size: 16pt;
-      &-sec-row{
+      &-sec-row {
         font-size: 12pt;
       }
-      &-third-row{
+      &-third-row {
         opacity: 1.0;
         font-size: 12pt;
         color: #508820;
@@ -486,16 +570,6 @@
       position: absolute;
       bottom: 0;
       width: 100%;
-    }
-    .room-text-in-bar {
-      opacity: 0.5;
-      color: #212947;
-      text-align: center;
-      font-family: "Century Gothic";
-      font-weight: bold;
-      font-size: 9pt;
-      border-width: 0 0 0 1px;
-      border-style: solid;
     }
   }
 }
