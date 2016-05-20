@@ -1,11 +1,24 @@
-<div class="room-header">
-    <div class="info-top">s</div>
-    <div class="info-bottom">
-        <div class="arrow_left"></div>
-        Лот №1
-        <div class="favorite" ng-show="open"></div>
-        <div class="cat" ng-class="{'lot-open':open}"></div>
-        <div class="garbage" ng-hide="open"></div>
-        <div class="arrow_right"></div>
+<div class="room-container-header">
+    <div class="room-header" ng-show="countdown==1">
+        <!--<div class="info-top"><br></div>-->
+        <div class="row">
+            <div class="info-bottom">
+                <div class="pull-left">АУКЦИОН 3</div>
+                <div class="favorite pull-right"></div>
+                <div class="cat pull-right"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="room-header" ng-show="countdown==2">
+        <!--<div class="info-top"><br></div>-->
+        <div class="row">
+            <div class="info-bottom">
+                <div class="pull-left">ЛОТ №1</div>
+                <div class="favorite pull-right"></div>
+                <div class="cat pull-right"></div>
+            </div>
+
+        </div>
     </div>
 </div>
