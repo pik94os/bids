@@ -402,7 +402,6 @@
     .room-chat {
       background: #ccdde5;
       margin-top: 10px;
-      margin-bottom: 10px;
       font-size: 12pt;
       padding: 10px;
     }
@@ -454,6 +453,20 @@
       border-bottom-style: solid;
       border-width: 1px;
       border-color: #a5b4bb;
+      .room-even-chup{
+        position: absolute;
+        height: 70px;
+        width: 70px;
+        background-image: url("../images/FOR_DEV/chup_even.png");
+      }
+      .room-odd-chup{
+        left: 20px;
+        bottom: 285px;
+        position: absolute;
+        height: 70px;
+        width: 70px;
+        background-image: url("../images/FOR_DEV/chup_odd.png");
+      }
     }
 
     .legend{
