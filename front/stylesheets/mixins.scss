@@ -73,6 +73,11 @@ Bootstrap 3 const(_variables.scss):
   $screen-md-max: $screen-lg-min - 1;
 */
 
+@mixin md-or-less-display{
+  @media (max-width: $screen-md-max) {
+    @content ;
+  }
+}
 @mixin sm-or-less-display{
   @media (max-width: $screen-sm-max) {
     @content ;

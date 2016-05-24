@@ -70,7 +70,7 @@ define(['./module','jquery'],function(controllers,$){
                 month.push(week);
             }
 
-            return month;
+            return calendar;
         }
 
         function getWeekDay(d) {
