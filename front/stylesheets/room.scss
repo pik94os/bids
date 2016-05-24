@@ -80,54 +80,54 @@
   background: #e3f4fc;
   font-family: "Century Gothic";
 
-  .room-circle-bar-text{
+  .room-circle-bar-text {
 
     color: #172447;
     position: absolute;
     top: 0px;
     left: 32px;
-    &-digit{
+    &-digit {
 
       font-weight: bold;
       font-size: 45pt;
 
     }
-    &-text{
+    &-text {
       color: #172447;
       font-size: 14pt;
     }
   }
 
-  .room_container-for-circles{
+  .room_container-for-circles {
     margin: 15px;
     display: inline-block;
     position: relative;
   }
-  .room-input-group-p1{
+  .room-input-group-p1 {
     margin-top: 60px;
   }
 
-  %auction-title{
+  %auction-title {
     color: #172447;
   }
-  .room-auction-title{
+  .room-auction-title {
     text-align: center;
     margin-bottom: 30px;
     margin-top: 69px;
-    &-auction{
+    &-auction {
       @extend %auction-title;
       font-weight: bold;
       font-size: 45pt;
     }
-    &-starts-in{
+    &-starts-in {
       @extend %auction-title;
       font-size: 15pt;
     }
   }
 
-  .progress-bar-circle-container{
+  .progress-bar-circle-container {
     text-align: center;
-    .round-progress-wrapper{
+    .round-progress-wrapper {
       display: inline-block;
     }
   }
@@ -136,7 +136,7 @@
     background: white;
     margin-top: -10px;
     padding: 3px;
-    .progress-bar-line{
+    .progress-bar-line {
       border-width: 0 1px 0 1px;
       border-style: solid;
       margin-top: 3px;
@@ -145,7 +145,7 @@
       background-color: #0d395f;
     }
 
-    %rtib{
+    %rtib {
       white-space: nowrap;
       padding-left: 5px;
       padding-right: 5px;
@@ -157,11 +157,11 @@
       font-size: 9pt;
     }
     .room-text-in-bar {
-      &-procents{
+      &-procents {
         @extend %rtib;
         width: 25%;
       }
-      &-time{
+      &-time {
         @extend %rtib;
         width: 10%;
       }
@@ -435,7 +435,7 @@
         }
       }
     }
-    .room-small-books-container{
+    .room-small-books-container {
       height: 67px;
     }
     .page-numbers-single {
@@ -452,7 +452,7 @@
       margin-bottom: 40px;
       margin-left: 25px;
       padding-top: 30px;
-      .lot-table{
+      .lot-table {
         float: left;
         position: relative;
         cursor: pointer;
@@ -462,56 +462,105 @@
         margin-top: -30px;
         background-image: url("/images/lot-tables/lot_tabl_quite.png");
       }
-      .lot-table-user{
+      .lot-table-user {
         @extend .lot-table;
         background-image: url("/images/lot-tables/lot_tabl_user.png");
       }
-      .lot-table-stavka{
+      .lot-table-stavka {
         @extend .lot-table;
         background-image: url("/images/lot-tables/lot_tabl_stavka.png");
       }
-      .lot-table-leave{
+      .lot-table-leave {
         @extend .lot-table;
         background-image: url("/images/lot-tables/lot_tabl_leave.png");
       }
-      .lot-table-press{
-        &-inet{
+      .lot-table-press {
+        &-inet {
           @extend .lot-table;
           background-image: url("/images/lot-tables/lot_tabl_press_inet.png");
         }
-        &-zal{
+        &-zal {
           @extend .lot-table;
           background-image: url("/images/lot-tables/lot_tabl_press_zal.png");
         }
-        &-inet,&-zal{
-          .num-on-table{
+        &-inet, &-zal {
+          .num-on-table {
             display: none;
           }
         }
       }
 
-      .lot-tabl-hover-inet:hover{
+      .lot-tabl-hover-inet:hover {
         @extend .lot-table;
         background-image: url("/images/lot-tables/lot_tabl_hover_inet.png");
       }
-      .lot-tabl-hover-zal:hover{
+      .lot-tabl-hover-zal:hover {
         @extend .lot-table;
         background-image: url("/images/lot-tables/lot_tabl_hover_zal.png");
       }
 
-      .num-on-table{
+      .num-on-table {
         text-align: center;
         width: 60px;
         font-weight: bold;
         position: absolute;
         top: 20px;
       }
+      .popup-window {
+        z-index: 9;
+        position: relative;
+        margin-left: 40px;
+        margin-top: -75px;
+        width: 122px;
+        height: 166px;
+        background-image: url("/images/popup_backgroung.png");
+        .popup-close-btn {
+          width: 23px;
+          height: 23px;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+        .popup-avatar {
+          position: absolute;
+          width: 75px;
+          margin-top: 23px;
+          margin-left: 25px;
+          height: 60px;
+          background: grey;
+          background-image: url("");
+        }
+        .popup-text {
+          position: absolute;
+          z-index: 10;
+          color: white;
+          font-size: 8pt;
+          margin-top: 90px;
+          margin-left: 25px;
+          &-name {
+            font-weight: bold;
+            width: 100%;
+            overflow: hidden;
+          }
+          &-btn {
+            padding-left: 9px;
+            position: absolute;
+            width: 75px;
+            margin-left: 25px;
+            margin-top: 130px;
+            margin-left: 25px;
+            border-radius: 0;
+            font-size: 7pt;
+            font-weight: bold;
+          }
+        }
+      }
     }
-    .room-input-group{
+    .room-input-group {
       margin-top: 20px;
     }
 
-    .legend{
+    .legend {
       white-space: nowrap;
       margin-bottom: 40px;
     }
