@@ -208,27 +208,27 @@
       }
     }
     //стиль для кружков
-    &-for-circles {
-      @include clearfix;
-      @include margin-horizontal(-14px);
-      .circle-num {
-        @include square(50px);
-        border-radius: 25px;
-        background: #d7d7d7;
-        align-content: center;
-        font-size: large;
-        line-height: 50px;
-        text-align: center;
-        font-weight: bold;
-        margin: {
-          left: 8px;
-          right: 8px;
-          bottom: 8px;
-          top: 8px;
-        }
-        float: left;
-      }
-    }
+    //&-for-circles {
+    //  @include clearfix;
+    //  @include margin-horizontal(-14px);
+    //  .circle-num {
+    //    @include square(50px);
+    //    border-radius: 25px;
+    //    background: #d7d7d7;
+    //    align-content: center;
+    //    font-size: large;
+    //    line-height: 50px;
+    //    text-align: center;
+    //    font-weight: bold;
+    //    margin: {
+    //      left: 8px;
+    //      right: 8px;
+    //      bottom: 8px;
+    //      top: 8px;
+    //    }
+    //    float: left;
+    //  }
+    //}
 
     .room-title {
       position: relative;
@@ -450,23 +450,65 @@
 
     .room-container-with-circles {
       margin-bottom: 40px;
-      border-bottom-style: solid;
-      border-width: 1px;
-      border-color: #a5b4bb;
-      .room-even-chup{
-        position: absolute;
-        height: 70px;
-        width: 70px;
-        background-image: url("../images/FOR_DEV/chup_even.png");
+      margin-left: 25px;
+      padding-top: 30px;
+      .lot-table{
+        float: left;
+        position: relative;
+        cursor: pointer;
+        height: 75px;
+        width: 80px;
+        margin-left: -25px;
+        margin-top: -30px;
+        background-image: url("/images/lot-tables/lot_tabl_quite.png");
       }
-      .room-odd-chup{
-        left: 20px;
-        bottom: 285px;
-        position: absolute;
-        height: 70px;
-        width: 70px;
-        background-image: url("../images/FOR_DEV/chup_odd.png");
+      .lot-table-user{
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_user.png");
       }
+      .lot-table-stavka{
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_stavka.png");
+      }
+      .lot-table-leave{
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_leave.png");
+      }
+      .lot-table-press{
+        &-inet{
+          @extend .lot-table;
+          background-image: url("/images/lot-tables/lot_tabl_press_inet.png");
+        }
+        &-zal{
+          @extend .lot-table;
+          background-image: url("/images/lot-tables/lot_tabl_press_zal.png");
+        }
+        &-inet,&-zal{
+          .num-on-table{
+            display: none;
+          }
+        }
+      }
+
+      .lot-tabl-hover-inet:hover{
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_hover_inet.png");
+      }
+      .lot-tabl-hover-zal:hover{
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_hover_zal.png");
+      }
+
+      .num-on-table{
+        text-align: center;
+        width: 60px;
+        font-weight: bold;
+        position: absolute;
+        top: 20px;
+      }
+    }
+    .room-input-group{
+      margin-top: 20px;
     }
 
     .legend{
@@ -482,9 +524,9 @@
       margin-bottom: 10px;
     }
     .blue-border-right {
-      //border-width: 0 4px 0 0;
-      //border-style: solid;
-      //border-color: #e2f3fb;
+      border-width: 0 4px 0 0;
+      border-style: solid;
+      border-color: #e2f3fb;
     }
     .description-the-book {
       background: white;

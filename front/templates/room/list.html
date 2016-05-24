@@ -3,11 +3,11 @@
     <div ng-show="countdown==1">
         <div class="room-list" ng-class="{'ll-open':open}">
             <!--прогресс-бар наверху-->
-                <div class="room-progress-bar-container">
-                    <div class="progress-bar-line pull-left"></div>
-                    <div class="room-text-in-bar-procents pull-right">48% ИЗ 379 ЛОТОВ | 00 : 57</div>
-                    <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
-                </div>
+            <div class="room-progress-bar-container">
+                <div class="progress-bar-line pull-left"></div>
+                <div class="room-text-in-bar-procents pull-right">48% ИЗ 379 ЛОТОВ | 00 : 57</div>
+                <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
+            </div>
             <div class="room-auction-title">
                 <div class="room-auction-title-auction">АУКЦИОН</div>
                 <div class="room-auction-title-starts-in">НАЧНЕТСЯ ЧЕРЕЗ</div>
@@ -114,62 +114,43 @@
                         <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
                     </div>
                 </div>
-
                 <!--левая колонка-->
                 <div class="col-sm-6 left-column">
-                    <div class="row">
-                        <div class="legend">
-                            <div class="col-sm-6 pull-left">Всего участников: <b>26</b></div>
-                            <div class="col-sm-3 pull-right">В зале: <b>15</b></div>
-                            <div class="col-sm-3 pull-right">Интернет: <b>9</b></div>
-                        </div>
 
+                    <div class="legend">
+                        <div class="col-sm-6 pull-left">Всего участников: <b>26</b></div>
+                        <div class="col-sm-3 pull-right">В зале: <b>15</b></div>
+                        <div class="col-sm-3 pull-right">Интернет: <b>9</b></div>
                     </div>
-                    <div class="room-container-with-circles">
-                        <!--<div class="row">-->
-                            <!--<div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>-->
-
-                            <!--<div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>                            <div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>                            <div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>                            <div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>                            <div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>                            <div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>                            <div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>                            <div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>                            <div class="room-even-chup pull-left"></div>-->
-                            <!--<div class="room-odd-chup pull-left"></div>-->
-                        <!--</div>-->
-                        <!--чупики-->
-
-
-                        <div class="room-list-for-circles">
-                            <div class="circle-num"
-                                 ng-repeat="r in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,'...']">
-                                {{r}}
+                    <!--карточки-->
+                    <div class="row">
+                        <div class="room-container-with-circles">
+                            <div class="lot-table"
+                                 ng-repeat="r in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,'...']"
+                                 ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,
+            'lot-table-press-inet':r===5, 'lot-table-press-zal':r===6,
+            'lot-table-stavka':r===7, 'lot-table-user':r===8}">
+                                <div class="num-on-table">{{r}}</div>
                             </div>
                         </div>
                     </div>
-
-                        <div class="input-group room-input-group">
-                            <input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">
+                    <div class="input-group room-input-group">
+                        <input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">
                             <span class="input-group-btn">
                                 <button class="btn room-buttons" type="submit">ОТПРАВИТЬ</button>
                             </span>
-                        </div>
-                        <div class="room-chat">
-                            <div>#39: Как мало сегодня книг</div>
-                            <div>#41(ВЫ): Можно поставить вернуть ставку?</div>
-                            <div>#Администратор: Ставку вернули.</div>
-                            <div>#39: Как мало сегодня книг</div>
-                            <div>#41(ВЫ): Можно поставить вернуть ставку?</div>
-                            <div>#Администратор: Ставку вернули.</div>
-                            <div>#39: Как мало сегодня книг</div>
-                            <div>#41(ВЫ): Можно поставить вернуть ставку?</div>
-                            <div>#Администратор: Ставку вернули.</div>
-                        </div>
-
+                    </div>
+                    <div class="room-chat">
+                        <div>#39: Как мало сегодня книг</div>
+                        <div>#41(ВЫ): Можно поставить вернуть ставку?</div>
+                        <div>#Администратор: Ставку вернули.</div>
+                        <div>#39: Как мало сегодня книг</div>
+                        <div>#41(ВЫ): Можно поставить вернуть ставку?</div>
+                        <div>#Администратор: Ставку вернули.</div>
+                        <div>#39: Как мало сегодня книг</div>
+                        <div>#41(ВЫ): Можно поставить вернуть ставку?</div>
+                        <div>#Администратор: Ставку вернули.</div>
+                    </div>
                 </div>
 
                 <!--правая колонка-->
@@ -209,12 +190,12 @@
                             </div>
                             <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"></div>
                         </div>
-
                     </div>
 
 
                     <div class="row">
                         <div class="description">
+
                             <div class="col-xs-8 blue-border-right">
                                 <div class="description-the-book">
                                     Древности Российского государства, изданные по высочайшему повелению. Рисованы
