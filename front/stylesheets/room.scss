@@ -80,54 +80,54 @@
   background: #e3f4fc;
   font-family: "Century Gothic";
 
-  .room-circle-bar-text{
+  .room-circle-bar-text {
 
     color: #172447;
     position: absolute;
     top: 0px;
     left: 32px;
-    &-digit{
+    &-digit {
 
       font-weight: bold;
       font-size: 45pt;
 
     }
-    &-text{
+    &-text {
       color: #172447;
       font-size: 14pt;
     }
   }
 
-  .room_container-for-circles{
+  .room_container-for-circles {
     margin: 15px;
     display: inline-block;
     position: relative;
   }
-  .room-input-group-p1{
+  .room-input-group-p1 {
     margin-top: 60px;
   }
 
-  %auction-title{
+  %auction-title {
     color: #172447;
   }
-  .room-auction-title{
+  .room-auction-title {
     text-align: center;
     margin-bottom: 30px;
     margin-top: 69px;
-    &-auction{
+    &-auction {
       @extend %auction-title;
       font-weight: bold;
       font-size: 45pt;
     }
-    &-starts-in{
+    &-starts-in {
       @extend %auction-title;
       font-size: 15pt;
     }
   }
 
-  .progress-bar-circle-container{
+  .progress-bar-circle-container {
     text-align: center;
-    .round-progress-wrapper{
+    .round-progress-wrapper {
       display: inline-block;
     }
   }
@@ -136,16 +136,16 @@
     background: white;
     margin-top: -10px;
     padding: 3px;
-    .progress-bar-line{
+    .progress-bar-line {
       border-width: 0 1px 0 1px;
       border-style: solid;
       margin-top: 3px;
       height: 40%;
-      width: 75%;
+      width: calc(100% - 210px);
       background-color: #0d395f;
     }
 
-    %rtib{
+    %rtib {
       white-space: nowrap;
       padding-left: 5px;
       padding-right: 5px;
@@ -157,13 +157,14 @@
       font-size: 9pt;
     }
     .room-text-in-bar {
-      &-procents{
+      &-procents {
         @extend %rtib;
-        width: 25%;
+        width: 135px;
+        margin-right: 50px;
       }
-      &-time{
+      &-time {
         @extend %rtib;
-        width: 10%;
+        width: 75px;
       }
     }
   }
@@ -208,27 +209,27 @@
       }
     }
     //стиль для кружков
-    &-for-circles {
-      @include clearfix;
-      @include margin-horizontal(-14px);
-      .circle-num {
-        @include square(50px);
-        border-radius: 25px;
-        background: #d7d7d7;
-        align-content: center;
-        font-size: large;
-        line-height: 50px;
-        text-align: center;
-        font-weight: bold;
-        margin: {
-          left: 8px;
-          right: 8px;
-          bottom: 8px;
-          top: 8px;
-        }
-        float: left;
-      }
-    }
+    //&-for-circles {
+    //  @include clearfix;
+    //  @include margin-horizontal(-14px);
+    //  .circle-num {
+    //    @include square(50px);
+    //    border-radius: 25px;
+    //    background: #d7d7d7;
+    //    align-content: center;
+    //    font-size: large;
+    //    line-height: 50px;
+    //    text-align: center;
+    //    font-weight: bold;
+    //    margin: {
+    //      left: 8px;
+    //      right: 8px;
+    //      bottom: 8px;
+    //      top: 8px;
+    //    }
+    //    float: left;
+    //  }
+    //}
 
     .room-title {
       position: relative;
@@ -423,20 +424,24 @@
 
     .room-small-photo {
       text-align: center;
-      width: 90%;
+
       > div {
-        //display: inline-block;
+        width: 80px;
+        height: 80px;
+        display: inline-block;
         text-align: center;
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
+
           width: 67px;
           height: 67px;
         }
       }
     }
-    .room-small-books-container{
-      height: 67px;
+    .room-small-books-container {
+      margin-left: -10px;
+      margin-right: -10px;
     }
     .page-numbers-single {
       width: 67pt;
@@ -450,26 +455,121 @@
 
     .room-container-with-circles {
       margin-bottom: 40px;
-      border-bottom-style: solid;
-      border-width: 1px;
-      border-color: #a5b4bb;
-      .room-even-chup{
-        position: absolute;
-        height: 70px;
-        width: 70px;
-        background-image: url("../images/FOR_DEV/chup_even.png");
+      margin-left: 25px;
+      padding-top: 30px;
+      .lot-table {
+        float: left;
+        position: relative;
+        cursor: pointer;
+        height: 75px;
+        width: 80px;
+        margin-left: -25px;
+        margin-top: -30px;
+        background-image: url("/images/lot-tables/lot_tabl_quite.png");
+        &.moveToTheRight {
+          margin-left: 0;
+        }
       }
-      .room-odd-chup{
-        left: 20px;
-        bottom: 285px;
+      .lot-table-user {
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_user.png");
+      }
+      .lot-table-stavka {
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_stavka.png");
+      }
+      .lot-table-leave {
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_leave.png");
+      }
+      .lot-table-press {
+        &-inet {
+          @extend .lot-table;
+          background-image: url("/images/lot-tables/lot_tabl_press_inet.png");
+        }
+        &-zal {
+          @extend .lot-table;
+          background-image: url("/images/lot-tables/lot_tabl_press_zal.png");
+        }
+        &-inet, &-zal {
+          .num-on-table {
+            display: none;
+          }
+        }
+      }
+
+      .lot-tabl-hover-inet:hover {
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_hover_inet.png");
+      }
+      .lot-tabl-hover-zal:hover {
+        @extend .lot-table;
+        background-image: url("/images/lot-tables/lot_tabl_hover_zal.png");
+      }
+
+      .num-on-table {
+        text-align: center;
+        width: 60px;
+        font-weight: bold;
         position: absolute;
-        height: 70px;
-        width: 70px;
-        background-image: url("../images/FOR_DEV/chup_odd.png");
+        top: 20px;
+      }
+      .popup-window {
+        z-index: 9;
+        position: relative;
+        margin-left: 40px;
+        margin-top: -75px;
+        width: 122px;
+        height: 166px;
+        background-image: url("/images/popup_backgroung.png");
+        .popup-close-btn {
+          width: 23px;
+          height: 23px;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+        .popup-avatar {
+          position: absolute;
+          width: 75px;
+          margin-top: 23px;
+          margin-left: 25px;
+          height: 60px;
+          background: grey;
+          background-image: url("");
+        }
+        .popup-text {
+          position: absolute;
+          z-index: 10;
+          color: white;
+          font-size: 8pt;
+          margin-top: 90px;
+          margin-left: 25px;
+          &-name {
+            font-weight: bold;
+            width: 100%;
+            overflow: hidden;
+          }
+          &-btn {
+
+            padding-left: 9px;
+            position: absolute;
+            width: 75px;
+            margin-left: 25px;
+            margin-top: 130px;
+            margin-left: 25px;
+            border-radius: 0;
+            font-size: 7pt;
+            font-weight: bold;
+          }
+        }
       }
     }
+    .room-input-group {
+      margin-top: 20px;
+    }
 
-    .legend{
+    .legend {
       white-space: nowrap;
       margin-bottom: 40px;
     }
@@ -482,9 +582,9 @@
       margin-bottom: 10px;
     }
     .blue-border-right {
-      //border-width: 0 4px 0 0;
-      //border-style: solid;
-      //border-color: #e2f3fb;
+      border-width: 0 4px 0 0;
+      border-style: solid;
+      border-color: #e2f3fb;
     }
     .description-the-book {
       background: white;
