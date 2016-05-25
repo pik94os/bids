@@ -461,6 +461,9 @@
         margin-left: -25px;
         margin-top: -30px;
         background-image: url("/images/lot-tables/lot_tabl_quite.png");
+        &.moveToTheRight {
+          margin-left: 0;
+        }
       }
       .lot-table-user {
         @extend .lot-table;
