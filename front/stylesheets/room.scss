@@ -141,7 +141,7 @@
       border-style: solid;
       margin-top: 3px;
       height: 40%;
-      width: 75%;
+      width: calc(100% - 210px);
       background-color: #0d395f;
     }
 
@@ -159,11 +159,12 @@
     .room-text-in-bar {
       &-procents {
         @extend %rtib;
-        width: 25%;
+        width: 135px;
+        margin-right: 50px;
       }
       &-time {
         @extend %rtib;
-        width: 10%;
+        width: 75px;
       }
     }
   }
@@ -423,20 +424,24 @@
 
     .room-small-photo {
       text-align: center;
-      width: 90%;
+
       > div {
-        //display: inline-block;
+        width: 80px;
+        height: 80px;
+        display: inline-block;
         text-align: center;
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
+
           width: 67px;
           height: 67px;
         }
       }
     }
     .room-small-books-container {
-      height: 67px;
+      margin-left: -10px;
+      margin-right: -10px;
     }
     .page-numbers-single {
       width: 67pt;
@@ -546,6 +551,7 @@
             overflow: hidden;
           }
           &-btn {
+
             padding-left: 9px;
             position: absolute;
             width: 75px;
