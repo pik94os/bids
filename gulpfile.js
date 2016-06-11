@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp'),
+const gulp = require('gulp'),
     watch = require('gulp-watch'),
     prefixer = require('gulp-autoprefixer'),
     sass = require('gulp-sass'),
@@ -12,12 +12,14 @@ var gulp = require('gulp'),
     include = require("gulp-include"),
     htmlmin = require('gulp-htmlmin'),
     rjs = require('./r'),
-    serverFactory = require('spa-server');
+    server = require('gulp-express');
+    // serverFactory = require('spa-server');
 
-var path = {
+const path = {
     build: { //Тут мы укажем куда складывать готовые после сборки файлы
         html: 'public/',
         js: 'public/javascripts/',
+        components_dev: 'public/components/',
         css: 'public/stylesheets/',
         img: 'public/images/',
         fonts: 'public/fonts/'
@@ -25,7 +27,9 @@ var path = {
     src: { //Пути откуда брать исходники
         html: ['front/**/*.html','!front/templates/**/_*.html','!front/components/**/*.*'],
         js: 'front/javascripts/bootstrap.js',
-        js_copy: ['front/components/requirejs/require.js','front/javascripts/main.js'],
+        js_copy: ['front/components/requirejs/require.js','front/javascripts/production/main.js'],
+        js_dev: ['front/components/requirejs/require.js', 'front/javascripts/**/*.js', '!front/javascripts/production/main.js'],
+        components_dev: 'front/components/**/*.*',
         style: 'front/stylesheets/main.scss',
         img: 'front/images/**/*.*',
         fonts: ['front/fonts/**/*.*','front/components/bootstrap-sass/assets/fonts/**/*.*']
@@ -35,9 +39,21 @@ var path = {
         js: 'front/javascripts/**/*.js',
         style: 'front/stylesheets/**/*.scss',
         img: 'front/images/**/*.*',
-        fonts: 'front/fonts/**/*.*'
+        fonts: 'front/fonts/**/*.*',
+        server: 'app/**/*.js'
     }
 };
+
+let options = {
+    cwd: undefined
+};
+options.env = process.env;
+options.env.NODE_ENV = 'development';
+
+gulp.task('server', function () {
+    server.stop();
+    server.run(['app/bin/www'],options,false);
+});
 
 gulp.task('sass', () => {
     gulp.src(path.src.style) //Выберем наш main.scss
@@ -45,20 +61,20 @@ gulp.task('sass', () => {
         .pipe(sass()) //Скомпилируем
         .pipe(prefixer()) //Добавим вендорные префиксы
         .pipe(cssmin()) //Сожмем
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write({includeContent: false}))
         .pipe(gulp.dest(path.build.css))
 });
 
 
-gulp.task('webserver', () => {
-    var server = serverFactory.create({
-        path: './public',
-        port: normalizePort(process.env.PORT || '8888'),
-		fallback: '/index.html'
-    });
-
-    server.start();
-});
+// gulp.task('webserver', () => {
+//     var server = serverFactory.create({
+//         path: './public',
+//         port: normalizePort(process.env.PORT || '8888'),
+// 		fallback: '/index.html'
+//     });
+//
+//     server.start();
+// });
 
 
 gulp.task('fonts',() => {
@@ -92,25 +108,34 @@ gulp.task("js", () => {
                 'domReady': '../components/domReady/domReady',
                 'angular': '../components/angular/angular.min',
                 'uiRouter': '../components/angular-ui-router/release/angular-ui-router.min',
+                'uiSocket': '../components/angular-socket-io/socket.min',
+                'uiStorage': '../components/ngstorage/ngStorage.min',
                 'jquery': '../components/jquery/dist/jquery.min',
                 'bstrap': '../components/bootstrap-sass/assets/javascripts/bootstrap.min',
-                'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min'
+                'localForage': '../components/localforage/dist/localforage.min',
+                'angular-localForage': '../components/angular-localforage/dist/angular-localForage.min',
+                'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min',
+                'io': './libs/socket.io-1.4.5'
             },
             // angular не поддерживает AMD из коробки, поэтому экспортируем перменную angular в глобальную область
             shim: {
+                'io': {
+                    exports: 'io'
+                },
                 'angular': {
                     deps: [],
                     exports: 'angular'
                 },
-                'uiRouter': {
-                    deps: ['angular']
+                'jquery': {
+                    deps: [],
+                    exports: 'jquery'
                 },
-                "bstrap" : {
-                    deps: ['jquery']
-                },
-                'angular-svg-round-progressbar' : {
-                    deps: ['angular']
-                }
+                'uiRouter' : ['angular'],
+                'angular-localForage' : ['angular','localForage'],
+                'uiSocket':['angular'],
+                'uiStorage':['angular'],
+                "bstrap" : ['jquery'],
+                'angular-svg-round-progressbar' : ['angular']
             }
         }))
 });
@@ -120,7 +145,14 @@ gulp.task("js_copy", () => {
         .pipe(gulp.dest(path.build.js))
 });
 
-gulp.task('watch', function(){
+gulp.task("js_dev", () => {
+    gulp.src(path.src.components_dev)
+        .pipe(gulp.dest(path.build.components_dev))
+    gulp.src(path.src.js_dev)
+        .pipe(gulp.dest(path.build.js));
+});
+
+gulp.task('watch', () => {
     watch([path.watch.html], () => {
         gulp.start('html');
     });
@@ -134,30 +166,21 @@ gulp.task('watch', function(){
         gulp.start('fonts');
     });
     watch([path.watch.js], () => {
-        gulp.start('js');
+        gulp.start('js_dev');
+    });
+    watch([path.watch.server], () => {
+        gulp.start('server');
     });
 });
 
-gulp.task('start',(cb) => {
-    runSequence(['fonts', 'js', 'js_copy', 'sass', 'image', 'html'], cb);
+gulp.task('start',(cb) => {    
+    runSequence(['js', 'js_copy', 'universal'], cb);
+});
+
+gulp.task('universal',(cb) => {
+    runSequence(['fonts', 'sass', 'image', 'html'], cb);
 });
 
 gulp.task('default',(cb) => {
-    runSequence(['start','webserver','watch'], cb);
+    runSequence(['js_dev','universal','server','watch'], cb);
 });
-
-function normalizePort(val) {
-    var port = parseInt(val, 10);
-
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
-
-    if (port >= 0) {
-        // port number
-        return port;
-    }
-
-    return false;
-}
