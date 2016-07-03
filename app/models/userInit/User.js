@@ -2,18 +2,12 @@ var Sequelize = require('sequelize');
 
 var attributes = {
     username: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            is: /^[a-z0-9\_\-]+$/i,
-        }
-    },
-    email: {
-        type: Sequelize.STRING,
-        validate: {
-            isEmail: true
-        }
+        type: Sequelize.STRING
+        // allowNull: false,
+        // unique: true,
+        // validate: {
+        //     is: /^[a-z0-9@\.\_\-]+$/i,
+        // }
     },
     firstName: {
         type: Sequelize.STRING
@@ -24,23 +18,29 @@ var attributes = {
     patronymic: {
         type: Sequelize.STRING
     },
+    email: {
+        type: Sequelize.STRING,
+        validate: {
+            isEmail: true
+        }
+    },
+    phone: {
+        type: Sequelize.INTEGER
+    },
+    confirmationCode: {
+        type: Sequelize.INTEGER
+    },
     password: {
         type: Sequelize.STRING
     },
-    introduce: {//КТО ВНЕДРЯЕТ
-        type: Sequelize.STRING
-    },
-    phone: {
-        type: Sequelize.STRING
-    },
-    implementing: {//КУДА ВНЕДРЯЕТ
-        type: Sequelize.STRING
-    },
-    numberOfClasses: {
-        type: Sequelize.INTEGER
-    },
     salt: {
         type: Sequelize.STRING
+    },
+    acceptTerms: {
+        type: Sequelize.BOOLEAN
+    },
+    receiveMessages: {
+        type: Sequelize.BOOLEAN
     },
     isArchive: {
         type: Sequelize.BOOLEAN
@@ -54,12 +54,12 @@ var options = {
             this.setDataValue('password', value);
             this.setDataValue('salt', Math.round((new Date().valueOf() * Math.random())) + '');
         },
-        
-        setRole: function(value) {
-            this.setDataValue('UserID', value);    
+
+        setRole: function (value) {
+            this.setDataValue('UserID', value);
         }
     }
 };
 
-module.exports.attributes = attributes
-module.exports.options = options
+module.exports.attributes = attributes;
+module.exports.options = options;

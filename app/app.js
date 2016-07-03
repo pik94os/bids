@@ -76,9 +76,11 @@ passport.deserializeUser(function(id, done) {
           'id': id
          }
         }).then(function (user){
-          user == null
-          ? done(err)
-          : done(null, user);
+       // ЧТО ЭТО? ЗОЧЕМ ЭТО?
+          // user == null
+          // ? done(err)
+          // :
+              done(null, user);
     });
   });
 // uncomment after placing your favicon in /public
