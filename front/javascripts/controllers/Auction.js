@@ -11,5 +11,7 @@ define(['./module','jquery'],function(controllers,$){
         $scope.hideContacts = function () {
             $scope.contactsShow= false;
         }
+        
+        
     }])
 });

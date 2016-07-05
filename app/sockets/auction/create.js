@@ -3,10 +3,12 @@
  */
 'use strict';
 
-var Auction = require('../models/').Auction;
+var Auction = require('../../models/').Auction;
 
 module.exports = function(socket, data) {
     const user = socket.request.user;
+
+    console.log('>>>>>>>>>>>>>>>>>>>>'+data);
 
     if (!((data.name.trim()) && (+data.number))) {
         socket.emit('auctionCreated',
@@ -18,7 +20,7 @@ module.exports = function(socket, data) {
     let auctionData = {
         name: data.name.trim()+'',
         number: +data.number,
-        date: `${+data.date[2]}-${+data.date[1]}-${+data.date[0]}T${+data.date[3]}:${+data.date[4]}:00`,
+        date: `${+data.date[2]}-${+data.date[1]}-${+data.date[0]} ${+data.date[3]}:${+data.date[4]}:00.000 +00:00`,
         isArchive: false
     };
 
@@ -32,7 +34,7 @@ module.exports = function(socket, data) {
                 }
             });
         }).catch(function (err) {
-        socket.emit('userCreated',
+        socket.emit('auctionCreated',
             {err: 1, message: err.message}
         );
     })
