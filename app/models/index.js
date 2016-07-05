@@ -10,3 +10,4 @@ _initiator.fillExportModels(_exports);
 
 module.exports.User = _exports.User;
 module.exports.Role = _exports.Role;
+module.exports.AuctionHouse = _exports.AuctionHouse;

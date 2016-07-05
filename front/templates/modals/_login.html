@@ -2,9 +2,10 @@
     <div class="row row-md">
         <div class="col-sm-5 col-md-4 col">
             <form class="row row-sm">
-                <div class="col-sm-12 col"><input class="custom-input" placeholder="E-mail" type="text" ng-model="regUserData.authEmail"></div>
-                <div class="col-sm-12 col"><input class="custom-input" placeholder="Пароль" type="password" ng-model="regUserData.authPassword"></div>
-                <div class="col-sm-12 col"><input class="custom-btn-lg btn-block" value="Войти" type="submit" ui-sref="lk" data-dismiss="modal" ng-click="authorization()"></div>
+                <form ng-submit = "login()" >
+                <div class="col-sm-12 col"><input class="custom-input" placeholder="E-mail" type="text" id="login-email" ng-model="loginUserData.username" ></div>
+                <div class="col-sm-12 col"><input class="custom-input" placeholder="Пароль" type="password" id="login-password" ng-model="loginUserData.password"></div>
+                <div class="col-sm-12 col"><input class="custom-btn-lg btn-block" value="Войти" type="submit" ui-sref="lk" data-dismiss="modal" ng-click="login()"></div>
                 <div class="col-sm-12 col">
                     <div class="modal-body-in-left-vxod-form-div-left">
                         <label>
@@ -16,6 +17,7 @@
                         <a href="">Забыли пароль?</a>
                     </div>
                 </div>
+            </form>
             </form>
         </div>
         <div class="col-sm-7 col-md-8 col modal-body-in-right">

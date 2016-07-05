@@ -77,9 +77,9 @@ passport.deserializeUser(function(id, done) {
          }
         }).then(function (user){
        // ЧТО ЭТО? ЗОЧЕМ ЭТО?
-          // user == null
-          // ? done(err)
-          // :
+          user == null
+          ? done(err)
+          :
               done(null, user);
     });
   });

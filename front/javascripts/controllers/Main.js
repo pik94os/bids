@@ -1,10 +1,21 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('Main',['$scope','$http', '$rootScope', '$state', function($scope,$http,$rootScope,$state){
+
+        // ngSocket.emit ('getUserInfo', {});
+        // ngSocket.on('userInfo', function (data) {
+        //     if(data.err!=undefined && data.err==0){
+        //         $scope.currentUserInfo = data.doc;
+        //     }else{
+        //         $scope.auth = null;
+        //     }
+        // });
+
         $rootScope.$on('$viewContentLoaded',function(){
             $('content').css('min-height',($(window).height() - $('header').height() - $('footer').height())+'px');
         });
         $scope.regUserData = {};
+        $scope.loginUserData = {};
         $scope.createUser = function (role) {
             if (role = 4) var roleOfNewUser = 4;
             if (role = 3) var roleOfNewUser = 3;
@@ -28,11 +39,17 @@ define(['./module','jquery'],function(controllers,$){
 
         };
 
-        $scope.authorization = function () {
+        $scope.login = function () {
             $http.post('/api/users/login', {
-                username: $scope.regUserData.authEmail,
-                password: $scope.regUserData.authPassword,
-                roleId: 4
+                username: $scope.loginUserData.username,
+                password: $scope.loginUserData.password
+            }, {}).then(function (result) {
+
+            })
+        }
+        $scope.logout = function () {
+            $http.get('/api/users/logout', {
+
             }, {}).then(function (result) {
 
             })

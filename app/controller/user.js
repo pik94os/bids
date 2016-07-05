@@ -9,6 +9,7 @@ var passport = require('passport');
 exports.login = function (req, res, next) {
     passport.authenticate('local',
         function (err, user, info) {
+            console.log(req.body);
             return err
                 ? next(err)
                 : user

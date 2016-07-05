@@ -6,6 +6,7 @@
 var UserMeta = require('./userInit/User.js'),
     RoleMeta = require('./userInit/Role'),
     RightMeta = require('./userInit/Right'),
+    AuctionHouseMeta = require('./userInit/AuctionHouse'),
     connection = require('../sequelize.js');
 
 class Initiator {
@@ -24,7 +25,8 @@ class Initiator {
                 Right: that.Right,
                 Role: that.Role,
                 RoleRight: that.RoleRight,
-                User: that.User
+                User: that.User,
+                AuctionHouse: that.AuctionHouse,
             }
         }).catch(function (err) {
             console.error(err.message)
@@ -36,6 +38,7 @@ class Initiator {
         this.Role = connection.define('role', RoleMeta.attributes, RoleMeta.options);
         this.RoleRight = connection.define('role_right', {});
         this.User = connection.define('users', UserMeta.attributes, UserMeta.options);
+        this.AuctionHouse = connection.define('auction_houses', AuctionHouseMeta.attributes, AuctionHouseMeta.options);
 
         this.Role.hasMany(this.User);
         this.Role.belongsToMany(this.Right, {through: this.RoleRight});
@@ -49,6 +52,7 @@ class Initiator {
         models.User = this.User;
         models.Role = this.Role;
         models.Right = this.Right;
+        models.AuctionHouse = this.AuctionHouse;
     }
 
     _syncModels() {
