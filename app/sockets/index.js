@@ -31,7 +31,10 @@ module.exports = function(io,passportSocketIo) {
             {event:'deleteUser', access:0, comment: "удаление пользователя"},
             {event:'getUserList', access:0, comment: "запрос списка пользователей"},
             {event:'getUser', access:0, comment: "получение информации пользователя"},
-            {event:'getUserRoles', access:0, comment: "получение списка ролей пользователей"}
+            {event:'getUserRoles', access:0, comment: "получение списка ролей пользователей"},
+            //аукционы
+            {event:'auction/create', access:0, comment: "создание аукциона"},
+            {event:'auction/list', access:0, comment: "создание аукциона"}
         ];
 
         //цикл проходит по всем элементам массива возвращая нужное событие
