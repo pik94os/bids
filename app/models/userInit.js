@@ -98,10 +98,16 @@ class Initiator {
                         defaults: {description: 'Покупатель', isArchive: false}
                     }).spread(function (role) {
                         that.roles.buyer = role;
-                        return true;
-                    })
+                        return that.Role.findOrCreate({
+                            where: {roleName: 'leading'},
+                            defaults: {description: 'Ведущий', isArchive: false}
+                        }).spread(function (role) {
+                            that.roles.leading = role;
+                            return true;
+                        })
+                    });
                 })
-            })
+            });
         })
     }
 
