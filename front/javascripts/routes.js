@@ -86,6 +86,19 @@ define(['./app'], function (app) {
                     }
                 }
             })
+            //Страница ведущего
+            .state('page-leading', {
+                url: '/page-leading',
+                views:{
+                    '': {
+                        templateUrl: "/templates/page-leading/list.html",
+                        controller: 'PageLeading'
+                    },
+                    'header':{
+                        templateUrl: "/templates/page-leading/header.html"
+                    }
+                }
+            })
             //Ошибка 404
             .state('err_404', {
                 url: "/err404",
