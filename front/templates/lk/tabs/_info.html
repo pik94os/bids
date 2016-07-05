@@ -5,13 +5,11 @@
             <div class="lk-body-div-center-in-top row">
                 Данные аккаунта
             </div>
-
-            {{currentUserInfo.id}}<br>
             <div class="lk-body-div-center-in-bottom row">
                 <div class="col-sm-8">
                     <form class="lk-body-div-center-in-bottom-left-form">
                         <div class="row">
-                            <div class="col-sm-6"><label class="custom-input"><input value="{{currentUserInfo.firstName}}" placeholder="Имя" type="text" ng-model="firstName"></label></div>
+                            <div class="col-sm-6"><label class="custom-input"><input placeholder="{{currentUserInfo.firstName}}" type="text" ng-model="firstName"></label></div>
                             <div class="col-sm-6"><label class="custom-input"><input value="{{currentUserInfo.lastName}}" placeholder="Фамилия" type="text" ng-model="lastName"></label></div>
                         </div>
                         <div class="row">
@@ -133,5 +131,5 @@
             </div>
         </div>
     </div>
-    <input class="custom-title-block" value="Сохранить" type="submit" ng-click="changeUser()">
+    <input class="custom-title-block" value="Сохранить" type="submit" ng-click="editUser()">
 </div>

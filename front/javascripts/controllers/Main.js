@@ -1,15 +1,15 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('Main',['$scope','$http', '$rootScope', '$state', function($scope,$http,$rootScope,$state){
+    controllers.controller('Main',['$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', function($scope, $http, $rootScope, $state, $stateParams, ngSocket){
 
-        // ngSocket.emit ('getUserInfo', {});
-        // ngSocket.on('userInfo', function (data) {
-        //     if(data.err!=undefined && data.err==0){
-        //         $scope.currentUserInfo = data.doc;
-        //     }else{
-        //         $scope.auth = null;
-        //     }
-        // });
+        ngSocket.emit ('getUserInfo', {});
+        ngSocket.on('userInfo', function (data) {
+            if(data.err!=undefined && data.err==0){
+                $scope.currentUserInfo = data.doc;
+            }else{
+                $scope.auth = null;
+            }
+        });
 
         $rootScope.$on('$viewContentLoaded',function(){
             $('content').css('min-height',($(window).height() - $('header').height() - $('footer').height())+'px');
@@ -33,9 +33,9 @@ define(['./module','jquery'],function(controllers,$){
                     receiveMessages: $scope.regUserData.receiveMessages,
                     roleId: roleOfNewUser
                 }, {}).then(function (result) {
-
+                    window.location.reload();
                 })
-            } else alert("AAAAAAAAAAAAA!!!!111");
+            } else alert("Заполните все необходимые поля");
 
         };
 
@@ -44,15 +44,25 @@ define(['./module','jquery'],function(controllers,$){
                 username: $scope.loginUserData.username,
                 password: $scope.loginUserData.password
             }, {}).then(function (result) {
-
+                window.location.reload();
             })
         }
         $scope.logout = function () {
             $http.get('/api/users/logout', {
 
             }, {}).then(function (result) {
-
+                window.location.reload();
             })
         }
+        // создание аукциона
+        $scope.newAuction = {};
+        $scope.createAuction = function () {console.log('+++++++++++++++++++++++++++++++');
+            ngSocket.emit('auction/create', {
+                name: $scope.newAuction.nameAuction,
+                number: $scope.newAuction.numberAuction,
+                date:  $scope.newAuction.date
+            });
+        };
+        ngSocket.on('auctionCreated', function (data) {});
     }])
 });

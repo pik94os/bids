@@ -7,7 +7,7 @@
 	<script src="/javascripts/require.js" data-main="/javascripts/main.js"></script>
 </head>
 <body class="row-block" ng-controller="Main">
-
+<!--{{currentUserInfo}}<br>-->
 	<a name="top"></a>
 	<header class="row-block">
 		<div class="header-top row-block">
@@ -18,15 +18,17 @@
 				
 				<div class="header-top-right">
 					<a href="#" data-toggle="modal" data-target="#loginModal">
-						<img src="images/icon-arrow.png" class="image-left-left">
-						<div class="div075" >Вход/Регистрация</div>
-						<div class="btn btn-danger" ng-click="logout()">Выйти</div>
+						<img src="images/icon-arrow.png" class="image-left-left" ng-show="currentUserInfo.id===null">
+						<div class="div075" ng-show="currentUserInfo.id === null">Вход/Регистрация</div>
+						<div>{{currentUserInfo.patronymic}} {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}</div>
+						<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id !== null">Выйти</div>
 					</a>
 					<div>
 						<img src="images/icon-search.png">
 						<div><input type="text" class="input-radius" value="Поиск"></div>
 						<div class="button-radius">Найти</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
