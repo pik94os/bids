@@ -5,20 +5,20 @@
 const User = require('../models/').User;
 
 module.exports = function(socket, data) {
-    console.log('>>>>>>>>>>>>>>>>>'+data.userChanges.firstName);
-    if (!data.id) {
-        socket.emit('userChanged',
-            {err: 1, message: 'Undefined user identifier'}
-        );
-        return
-    }
-
-    if (!(data.username && data.password)) {
-        socket.emit('userChanged',
-            {err: 1, message: 'Incorrect username or password'}
-        );
-        return
-    }
+    console.log('>>>>>>>>>>>>>>>>>'+data.id);
+    // if (!data.id) {
+    //     socket.emit('userChanged',
+    //         {err: 1, message: 'Undefined user identifier'}
+    //     );
+    //     return
+    // }
+    //
+    // if (!(data.username && data.password)) {
+    //     socket.emit('userChanged',
+    //         {err: 1, message: 'Incorrect username or password'}
+    //     );
+    //     return
+    // }
 
     User.findById(+data.id).then(
         function(user) {

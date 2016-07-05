@@ -50,7 +50,38 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         $scope.changeUser = function () {
-            ngSocket.emit('editUser', {userChanges});
+            ngSocket.emit('editUser', {
+                id: $scope.currentUserInfo.id,
+                // поля пользователя
+                username: $scope.username,
+                firstName: $scope.firstName,
+                lastName: $scope.lastName,
+                patronymic: $scope.patronymic,
+                email: $scope.email,
+                phone: $scope.phone,
+                confirmationCode: $scope.confirmationCode,
+                password: $scope.password,
+
+                // поля аукционного дома
+                index: $scope.index,
+                country: $scope.country,
+                city: $scope.city,
+                street: $scope.street,
+                house: $scope.house,
+                office: $scope.office,
+
+                // поля кредитной карты
+                typeOfCard: $scope.typeOfCard,
+                numberOfCard: $scope.numberOfCard,
+                nameOfCardHolder: $scope.nameOfCardHolder,
+                month: $scope.month,
+                year: $scope.year,
+                cardCode: $scope.cardCode,
+
+                // прочее
+                acceptTerms: $scope.acceptTerms,
+                receiveMessages: $scope.receiveMessages
+            });
         };
         ngSocket.on('userChanged', function (data) {
         });
