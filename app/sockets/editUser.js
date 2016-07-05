@@ -5,6 +5,7 @@
 const User = require('../models/').User;
 
 module.exports = function(socket, data) {
+    console.log('>>>>>>>>>>>>>>>>>'+data.userChanges.firstName);
     if (!data.id) {
         socket.emit('userChanged',
             {err: 1, message: 'Undefined user identifier'}
@@ -21,16 +22,35 @@ module.exports = function(socket, data) {
 
     User.findById(+data.id).then(
         function(user) {
+            // поля пользователя
             user.username = data.username;
-            user.email = data.email;
             user.firstName = data.firstName;
             user.lastName = data.lastName;
             user.patronymic = data.patronymic;
+            user.email = data.email;
             user.phone = data.phone;
-            user.introduce = data.introduce;
-            user.implementing = data.implementing;
-            user.numberOfClasses = data.numberOfClasses;
+            user.confirmationCode = data.confirmationCode;
             user.password = data.password;
+
+            // поля аукционного дома
+            user.index = data.index;
+            user.country = data.country;
+            user.city = data.city;
+            user.street = data.street;
+            user.house = data.house;
+            user.office = data.office;
+
+            // поля кредитной карты
+            user.typeOfCard = data.typeOfCard;
+            user.numberOfCard = data.numberOfCard;
+            user.nameOfCardHolder = data.nameOfCardHolder;
+            user.month = data.month;
+            user.year = data.year;
+            user.cardCode = data.cardCode;
+
+            // прочее
+            user.acceptTerms = data.acceptTerms;
+            user.receiveMessages = data.receiveMessages;
 
             return user.save().then(function(user){
                 socket.emit('userChanged', {
