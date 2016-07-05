@@ -27,7 +27,7 @@ var attributes = {
     phone: {
         type: Sequelize.INTEGER
     },
-    confirmationCode: {
+    confirmationCode: { 
         type: Sequelize.INTEGER
     },
     password: {
