@@ -2,7 +2,7 @@ define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionHeader',['$scope', '$stateParams', function($scope, $stateParams){
         $scope.open = $stateParams.open;
-    }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
+    }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($scope,$http,$rootScope,$stateParams,ngSocket){
         $scope.open = $stateParams.open;
         $scope.contactsShow= false;
         $scope.showContacts = function () {
@@ -11,7 +11,13 @@ define(['./module','jquery'],function(controllers,$){
         $scope.hideContacts = function () {
             $scope.contactsShow= false;
         }
-        
-        
+
+        // получение списка лотов выбранного аукциона
+        ngSocket.emit('auction/getLotList', {
+            auctionId: $stateParams.auctionId
+        });
+        ngSocket.on('lotList', function (data) {
+            $scope.lotList = JSON.parse(JSON.stringify(data.lotList));
+        });
     }])
 });

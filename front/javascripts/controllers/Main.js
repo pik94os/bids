@@ -56,13 +56,16 @@ define(['./module','jquery'],function(controllers,$){
         }
         // создание аукциона
         $scope.newAuction = {};
-        $scope.createAuction = function () {console.log('+++++++++++++++++++++++++++++++');
+        $scope.createAuction = function () {
             ngSocket.emit('auction/create', {
                 name: $scope.newAuction.nameAuction,
                 number: $scope.newAuction.numberAuction,
-                date:  $scope.newAuction.date
+                date:  $scope.newAuction.date,
+                userId: $scope.currentUserInfo.id
             });
         };
-        ngSocket.on('auctionCreated', function (data) {});
+        ngSocket.on('auctionCreated', function (data) {
+            window.location.reload();
+        });
     }])
 });

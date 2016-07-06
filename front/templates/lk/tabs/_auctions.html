@@ -9,24 +9,26 @@
                     Создать аукцион
                 </div>   
             </div>
+            {{auctionList}}
         </div>
-        <div class="auction row" ng-repeat="i in [1,2,3,4,5,6,7,8]">
+        <div class="auction row" ng-repeat="singleAuction in auctionList">
             <div class="">
                 <div class="col-md-9">
                     <div class="auction-img">
                         <img src="images/image-body-in.png">
                     </div>
                     <div class="auction-body">
-                        <p class="auction-body-header">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
-                        <p class="front-body-in-center-p2">Аукцион 2</p>
-                        <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
+                        <p class="auction-body-header">{{singleAuction.date}} | Москва | Гостинница Украина</p>
+                        <p class="front-body-in-center-p2">{{singleAuction.number}}</p>
+                        <p class="front-body-in-center-p3">{{singleAuction.name}}</p>
                         <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="row">
                         <div class="col-xs-6 col-md-12">
-                            <div class="auction-button active"  ui-sref="auction({open:1})">Просмотреть каталог</div>
+                            <div class="auction-button active"  ui-sref="auction({open:1, auctionId: singleAuction.id})">Просмотреть каталог</div>
+                            <div class="auction-button active"  ui-sref="auction({open})">Редактировать каталог</div>
                             <div class="auction-button">Редактировать аукцион</div>
                         </div>
                     </div>

@@ -90,7 +90,8 @@ module.exports.register = function (req, res, next) {
                     ? next(err)
                     : res.json({
                     err: 0, doc: {
-                        username: user.username
+                        username: user.username,
+                        id: user.id
                     }
                 });
             });

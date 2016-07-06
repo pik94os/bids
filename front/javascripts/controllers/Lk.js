@@ -7,13 +7,18 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.tab = $stateParams.tab;
 
         // получение информации о залогиненом пользователе
-        ngSocket.emit('getUserInfo', {});
         ngSocket.on('userInfo', function (data) {
             if (data.err != undefined && data.err == 0) {
-                $scope.currentUserInfo = data.doc;
+                $scope.currentUserInfo = JSON.parse(JSON.stringify(data.doc));
+                // получение списка аукционов созданных текущим залогинившимся пользователем
+                
             } else {
                 $scope.auth = null;
             }
+        });
+        $scope.$on('$viewContentLoading',function () {
+            ngSocket.emit('auction/list', {});
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>ok');
         });
 
         // редактирование пользователя
@@ -53,6 +58,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         ngSocket.on('userChanged', function (data) {});
 
-       
+        ngSocket.on('auctionList', function (data) {
+            $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
+        });
     }])
 });

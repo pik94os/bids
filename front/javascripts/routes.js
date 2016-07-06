@@ -32,7 +32,7 @@ define(['./app'], function (app) {
             })
             //Страница редактирования аукциона, главная аукциона, любимые лоты
             .state('auction', {
-                url: '/auction?open',
+                url: '/auction?open&auctionId',
                 views:{
                     '': {
                         templateUrl: "/templates/auction/list.html",

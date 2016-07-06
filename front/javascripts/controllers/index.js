@@ -6,6 +6,5 @@ define([
     './Auction',
     './Room',
     './Calendar',
-    './PageLeading',
-    './AuctionLeading'
+    './PageLeading'
 ], function () {});

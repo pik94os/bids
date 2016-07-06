@@ -8,5 +8,7 @@ define(['./module','jquery'],function(controllers,$){
     }]).controller('Lot',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
         $scope.open = +$stateParams.open;
         $scope.tab = $stateParams.tab;
+
+        
     }])
 });

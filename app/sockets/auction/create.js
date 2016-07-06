@@ -8,8 +8,6 @@ var Auction = require('../../models/').Auction;
 module.exports = function(socket, data) {
     const user = socket.request.user;
 
-    console.log('>>>>>>>>>>>>>>>>>>>>'+data);
-
     if (!((data.name.trim()) && (+data.number))) {
         socket.emit('auctionCreated',
             {err: 1, message: 'Incorrect name or number'}
@@ -21,6 +19,7 @@ module.exports = function(socket, data) {
         name: data.name.trim()+'',
         number: +data.number,
         date: `${+data.date[2]}-${+data.date[1]}-${+data.date[0]} ${+data.date[3]}:${+data.date[4]}:00.000 +00:00`,
+        userId: +data.userId,
         isArchive: false
     };
 
