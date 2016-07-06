@@ -161,6 +161,10 @@ input,textarea,.btn,button,a,div{
     position: relative;
     max-width: 1000px;
     min-width: 320px;
+    &-full{
+      max-width: 100%;
+      @include padding-horizontal(15px);
+    }
     @include margin-horizontal(auto);
   }
 }
