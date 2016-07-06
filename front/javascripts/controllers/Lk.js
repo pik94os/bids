@@ -11,15 +11,20 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (data.err != undefined && data.err == 0) {
                 $scope.currentUserInfo = JSON.parse(JSON.stringify(data.doc));
                 // получение списка аукционов созданных текущим залогинившимся пользователем
-                
+                ngSocket.emit('auction/list', {
+                    userId: $scope.currentUserInfo.id
+                });
             } else {
                 $scope.auth = null;
             }
         });
-        $scope.$on('$viewContentLoading',function () {
-            ngSocket.emit('auction/list', {});
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>ok');
-        });
+        // $scope.$on('$viewContentLoading',function () {
+        //     ngSocket.emit('auction/list', {});
+        //     console.log('>>>>>>>>>>>>>>>>>>>>>>>>>ok');
+        // });
+
+
+
 
         // редактирование пользователя
         $scope.editUser = function () {
@@ -61,5 +66,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         ngSocket.on('auctionList', function (data) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
         });
+
+        
     }])
 });
