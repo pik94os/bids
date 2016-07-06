@@ -99,6 +99,21 @@ define(['./app'], function (app) {
                     }
                 }
             })
+
+            //Страница аукциона для ведущего
+            .state('auction-leading', {
+                url: '/auction-leading',
+                views:{
+                    '': {
+                        templateUrl: "/templates/auction-leading/list.html",
+                        controller: 'AuctionLeading'
+                    },
+                    'header':{
+                        templateUrl: "/templates/auction-leading/header.html"
+                    }
+                }
+            })
+
             //Ошибка 404
             .state('err_404', {
                 url: "/err404",
