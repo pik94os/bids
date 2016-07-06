@@ -38,6 +38,4 @@ define(['./module','jquery'],function(controllers,$){
         });
 
     }])
-}).controller('AuctionLeading',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
-    $scope.countdown = $stateParams.countdown;
-}]);
+});

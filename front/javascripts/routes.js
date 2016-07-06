@@ -106,7 +106,7 @@ define(['./app'], function (app) {
                 views:{
                     '': {
                         templateUrl: "/templates/auction-leading/list.html",
-                        controller: 'AuctionLeading'
+                        // controller: 'AuctionLeading'
                     },
                     'header':{
                         templateUrl: "/templates/auction-leading/header.html"
