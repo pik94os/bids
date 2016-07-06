@@ -86,28 +86,101 @@
       }
       &-center {
         height: 100%;
-        background: brown;
+        font-weight: bold;
+        padding: 15px;
         &-gallery {
-
+          .gallery-div {
+            border: 1px solid #a1a6a9;
+            float: left;
+            margin: 10px;
+            position: relative;
+            .check {
+              background: white;
+              border: 1px solid #515151;
+              height: 30px;
+              opacity: 0.5;
+              position: absolute;
+              right: 5px;
+              top: 5px;
+              width: 30px;
+              img {
+                opacity: 1;
+                padding: 3px;
+              }
+            }
+            .noeye {
+              background: rgba(0, 0, 0, 0) url("/images/no-eye.png") no-repeat scroll 0 0;
+              height: 72px;
+              left: 15px;
+              position: absolute;
+              top: 48px;
+              width: 91px
+            }
+          }
         }
         &-bottom {
+          padding-top: 390px;
           &-time {
             float: left;
             width: 50%;
           }
           &-pause {
             float: left;
+            padding: 0 0 0 85px;
             width: 50%;
           }
         }
       }
       &-right {
         height: 100%;
-        background: green;
+        padding: 15px;
+        &-camera {
+          height: 160px;
+          text-align: center;
+        }
+        &-textTop {
+          height: 140px;
+          &-in {
+            &-text {
+              float: left;
+              width: calc(100% - 100px);
+            }
+            &-time {
+              float: left;
+              width: 100px;
+            }
+          }
+        }
+        &-textBottom {
+          height: 125px;
+          text-align: center;
+          .top {
+            color: #687983;
+            font-size: 20px;
+          }
+          .center {
+            font-size: 24px;
+          }
+          .bottom {
+            color: #b90000;
+            font-size: 20px;
+          }
+        }
       }
     }
     &-bottom {
-      background: yellow;
+      &-left {
+
+      }
+      &-right {
+        div {
+          height: 40px;
+          div {
+            float: left;
+            width: 25%;
+          }
+        }
+      }
     }
   }
 
