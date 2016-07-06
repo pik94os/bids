@@ -3,9 +3,7 @@
 
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('pageLeadingHeader',['$scope', '$stateParams', function($scope, $stateParams){
-        $scope.open = $stateParams.open;
-    }]).controller('pageLeading',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
+    controllers.controller('PageLeading',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
 
         $scope.countdown = $stateParams.countdown;
         $scope.popup = false;
