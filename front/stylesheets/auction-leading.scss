@@ -34,7 +34,6 @@
   }
 
   &-right {
-    background: pink;
     &-top {
       &-left {
         background: white;
@@ -60,21 +59,50 @@
         }
         &-bottom {
           color: #b90000;
-          font-size: 30px;
-          font-weight: bold;
+          font: {
+            size: 30px;
+            weight: bold;
+          }
         }
       }
     }
     &-center {
-      background: #dfe6ea;
       height: 460px;
       &-left {
-        background: red;
+        height: 100%;
+        font-weight: bold;
+        padding: 23px;
+        &-top {
+          font-size: 20px;
+        }
+        &-undertop {
+          color: #b90000;
+          font-size: 18px;
+          padding-top: 20px;
+        }
+        &-bottom {
+          padding-top: 228px;
+        }
       }
       &-center {
+        height: 100%;
         background: brown;
+        &-gallery {
+
+        }
+        &-bottom {
+          &-time {
+            float: left;
+            width: 50%;
+          }
+          &-pause {
+            float: left;
+            width: 50%;
+          }
+        }
       }
       &-right {
+        height: 100%;
         background: green;
       }
     }
