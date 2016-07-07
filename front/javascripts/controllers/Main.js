@@ -1,13 +1,19 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('Main',['$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', function($scope, $http, $rootScope, $state, $stateParams, ngSocket){
-
+    controllers.controller('Main',['$sessionStorage','$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', function($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket){
+        $scope.currentUserInfo = {};
         ngSocket.emit ('getUserInfo', {});
+        $scope.currentUserInfo.id = $sessionStorage.user_id;
+        $scope.currentUserInfo.firstName = $sessionStorage.firstName;
+        $scope.currentUserInfo.lastName = $sessionStorage.lastName;
+        $scope.currentUserInfo.email = $sessionStorage.email;
+        $scope.currentUserInfo.phone = $sessionStorage.phone;
         ngSocket.on('userInfo', function (data) {
             if(data.err!=undefined && data.err==0){
-                $scope.currentUserInfo = data.doc;
+                $scope.currentUserInfo = JSON.parse(JSON.stringify(data.doc));
             }else{
                 $scope.auth = null;
+                $scope.currentUserInfo.id = null;
             }
         });
 
@@ -17,8 +23,9 @@ define(['./module','jquery'],function(controllers,$){
         $scope.regUserData = {};
         $scope.loginUserData = {};
         $scope.createUser = function (role) {
-            if (role = 4) var roleOfNewUser = 4;
-            if (role = 3) var roleOfNewUser = 3;
+            var roleOfNewUser;
+            if (role == 4) roleOfNewUser = 4;
+            if (role == 3) roleOfNewUser = 3;
             if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.confirmationCode==123 && $scope.regUserData.acceptTerms == true){
                 $http.post('/api/users/reg',{
                     username: $scope.regUserData.username,
@@ -33,6 +40,10 @@ define(['./module','jquery'],function(controllers,$){
                     receiveMessages: $scope.regUserData.receiveMessages,
                     roleId: roleOfNewUser
                 }, {}).then(function (result) {
+                    $sessionStorage.user_id = result.id;
+                    $sessionStorage.firstName = result.firstName;
+                    $sessionStorage.lastName = result.lastName;
+                    $sessionStorage.patronymic = result.patronymic;
                     window.location.reload();
                 })
             } else alert("Заполните все необходимые поля");
@@ -44,16 +55,20 @@ define(['./module','jquery'],function(controllers,$){
                 username: $scope.loginUserData.username,
                 password: $scope.loginUserData.password
             }, {}).then(function (result) {
+                $sessionStorage.user_id = result.id;
+                $sessionStorage.firstName = result.firstName;
+                $sessionStorage.lastName = result.lastName;
+                $sessionStorage.patronymic = result.patronymic;
                 window.location.reload();
             })
-        }
+        };
         $scope.logout = function () {
             $http.get('/api/users/logout', {
 
             }, {}).then(function (result) {
                 window.location.reload();
             })
-        }
+        };
         // создание аукциона
         $scope.newAuction = {};
         $scope.createAuction = function () {
@@ -64,7 +79,7 @@ define(['./module','jquery'],function(controllers,$){
                 userId: $scope.currentUserInfo.id
             });
         };
-        ngSocket.on('auctionCreated', function (data) {
+        ngSocket.on('auctionCreated', function (result) {
             window.location.reload();
         });
     }])

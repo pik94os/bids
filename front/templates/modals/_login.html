@@ -21,17 +21,20 @@
             </form>
         </div>
         <div class="col-sm-7 col-md-8 col modal-body-in-right">
-            <div class="custom-title-block">
-                <div class="modal-body-in-right-top-top custom-title-block-h3">
-                    Добро пожаловать если вы
-                </div>
-                <div class="modal-body-in-right-top-bottom custom-title-block-h1">
-                    Новый покупатель
-                </div>
+            <!--<div class="custom-title-block">-->
+                <!--<div class="modal-body-in-right-top-top custom-title-block-h3">-->
+                    <!--Добро пожаловать если вы-->
+                <!--</div>-->
+                <!--<div class="modal-body-in-right-top-bottom custom-title-block-h1">-->
+                    <!--Новый покупатель-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="custom-title-block" onclick="$('.modal-body-in-right-form').collapse('show');$('.form-reg').collapse('hide')"  ng-click="tRole=4">
+                <div class="custom-title-block-h1">Новый покупатель</div>
             </div>
-            <div class="modal-body-in-right-form">
+            <div class="modal-body-in-right-form  collapse">
 
-				<form class="modal-body-in-right-form-reg">
+                <form class="modal-body-in-right-form-reg">
                     <div class="row row-sm">
                         <div class="col col-md-6"><label class="custom-input"><input placeholder="Имя" type="text" ng-model="regUserData.firstName"></label></div>
                         <div class="col col-md-6"><label class="custom-input"><input placeholder="Фамилия" type="text" ng-model="regUserData.lastName"></label></div>
@@ -41,7 +44,7 @@
                         <div class="col col-md-6"><label class="custom-input"><input placeholder="E-mail" type="text" ng-model="regUserData.email"></label></div>
                     </div>
                     <!--<div class="row row-sm">-->
-                        <!--<div class="col col-md-6"><label class="custom-input"><input placeholder="E-mail" type="text" ng-model="email"></label></div>-->
+                    <!--<div class="col col-md-6"><label class="custom-input"><input placeholder="E-mail" type="text" ng-model="email"></label></div>-->
                     <!--</div>-->
                     <div class="row row-sm">
                         <div class="col col-md-6"><label class="custom-input"><input placeholder="Телефон" type="text" ng-model="regUserData.phone"></label></div>
@@ -62,20 +65,50 @@
 
                 </form>
 
-				<div id="div-text">
-					Регистрируясь на ADMINGO, вы сможете:
-					<ul>
-					  <li>Иметь доступ к отчетаи о состоянии
-					  <li>Смотреть Live Аукционы
-					  <li>ПодпишиСАТЬСЯ на уведомлениЕ О ПРОДАЖИ ЛОТОВ
-					  <li>Создавать Списки Пожеланий
-					  <li>Отслеживать продажи
-					  <li>Получать Рекомендации
-					</ul>
-				</div>
+                <div id="div-text">
+                    Регистрируясь на ADMINGO, вы сможете:
+                    <ul>
+                        <li>Иметь доступ к отчетаи о состоянии
+                        <li>Смотреть Live Аукционы
+                        <li>ПодпишиСАТЬСЯ на уведомлениЕ О ПРОДАЖИ ЛОТОВ
+                        <li>Создавать Списки Пожеланий
+                        <li>Отслеживать продажи
+                        <li>Получать Рекомендации
+                    </ul>
+                </div>
 
             </div>
-            <div class="custom-btn-lg btn-block" data-dismiss="modal" ng-click="createUser(4)">
+            <div class="custom-title-block" onclick="$('.form-reg').collapse('show');$('.modal-body-in-right-form').collapse('hide')" ng-click="tRole=3">
+                <div class="custom-title-block-h1">Аукционный дом</div>
+            </div>
+            <div class="form-reg collapse">
+                <div class="row row-sm">
+                    <div class="col col-md-6"><label class="custom-input"><input placeholder="Имя" type="text" ng-model="regUserData.firstName"></label></div>
+                    <div class="col col-md-6"><input class="custom-input" placeholder="Отчество" type="text" ng-model="regUserData.patronymic"></div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col col-md-6"><label class="custom-input"><input placeholder="Фамилия" type="text" ng-model="regUserData.lastName"></label></div>
+                    <div class="col col-md-6"><label class="custom-input"><input placeholder="E-mail" type="text" ng-model="regUserData.email"></label></div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col col-md-6"><label class="custom-input"><input placeholder="Телефон" ng-model="regUserData.phone"></label></div>
+                    <div class="col col-md-6"><input class="custom-input reg-form-input-padding" placeholder="Код подтверждения" type="password" ng-model="regUserData.confirmationCode"></div>
+                </div>
+                <div class="row row-sm">
+                    <div class="col col-md-6"><label class="custom-input"><input placeholder="Пароль" type="password" ng-model="regUserData.password"></label></div>
+                    <div class="col col-md-6"><label class="custom-input"><div ng-show="regUserData.confirmationPassword != regUserData.password">NO</div><input placeholder="Подтвердите пароль" type="password" ng-model="regUserData.confirmationPassword"></label></div>
+                </div>
+
+                <div class="form-reg-checkbox">
+                    <div class="checkbox">
+                        <input type="checkbox" id="remember_me3" ng-model="regUserData.acceptTerms"><label for="remember_me3">Я принимаю условия</label>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="remember_me4" ng-model="regUserData.receiveMessages"><label for="remember_me4">Я хочу получать сообщения от admingo</label>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-btn-lg btn-block" data-dismiss="modal" ng-click="createUser(tRole)" ng-show="tRole">
             <!--<div class="custom-btn-lg btn-block" ui-sref="lk" data-dismiss="modal" ng-click="createUser()">-->
                 Создать учетную запись
             </div>
