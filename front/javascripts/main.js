@@ -13,7 +13,8 @@ require.config({
         'localForage': '../components/localforage/dist/localforage.min',
         'angular-localForage': '../components/angular-localforage/dist/angular-localForage.min',
         'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min',
-        'io': './libs/socket.io-1.4.5'
+        'io': './libs/socket.io-1.4.5',
+        'angularFileUpload': '../components/angular-file-upload/dist/angular-file-upload.min'
     },
     // angular не поддерживает AMD из коробки, поэтому экспортируем перменную angular в глобальную область
     shim: {
@@ -33,7 +34,8 @@ require.config({
         'uiSocket':['angular'],
         'uiStorage':['angular'],
         "bstrap" : ['jquery'],
-        'angular-svg-round-progressbar' : ['angular']
+        'angular-svg-round-progressbar' : ['angular'],
+        'angularFileUpload':['angular']
     },
     deps: ['./bootstrap']
 });

@@ -4,7 +4,8 @@
 define([
     'angular',
     'jquery',
-    'bstrap'
+    'bstrap',
+    'angularFileUpload'
     ], function (ng) {
     'use strict';
     return ng.module('app.controllers', []);

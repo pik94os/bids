@@ -12,7 +12,8 @@ define([
     './filters/index',
     './factories/index',
     './directives/index',
-    './services/index'
+    './services/index',
+    'angularFileUpload'
 ], function (ng) {
     'use strict';
 
@@ -26,7 +27,8 @@ define([
         'app.filters',
         'app.factories',
         'app.directives',
-        'app.services'
+        'app.services',
+        'angularFileUpload'
     ]).run([
         '$rootScope', '$state', '$stateParams', '$sessionStorage', 'SessionService','ngSocket',
         function ($rootScope, $state, $stateParams, $sessionStorage, SessionService, ngSocket) {

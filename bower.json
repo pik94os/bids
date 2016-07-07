@@ -30,6 +30,7 @@
     "angular-socket-io": "^0.7.0",
     "angular-localforage": "angular-localForage#^1.2.5",
     "ngstorage": "^0.3.10",
-    "jquery": "^2.0.0"
+    "jquery": "^2.0.0",
+    "angular-file-upload": "^2.3.4"
   }
 }
