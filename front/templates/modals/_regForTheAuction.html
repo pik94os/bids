@@ -16,23 +16,18 @@
 
 		<form class="modal-body-in-right-form-reg">
 			<div class="row row-sm">
-				<div class="col col-md-6"><label class="custom-input"><input placeholder="Имя" type="text" ng-model="regUserData.firstName"></label></div>
-				<div class="col col-md-6"><label class="custom-input"><input placeholder="Фамилия" type="text" ng-model="regUserData.lastName"></label></div>
+				<div class="col col-md-4"><label class="custom-input"><input placeholder="Имя" type="text" ng-model="regUserData.firstName"></label></div>
+				<div class="col col-md-4"><label class="custom-input"><input placeholder="Фамилия" type="text" ng-model="regUserData.lastName"></label></div>
+				<div class="col col-md-4"><input class="custom-input" placeholder="Отчество" type="text" ng-model="regUserData.patronymic"></div>
 			</div>
 			<div class="row row-sm">
-				<div class="col col-md-6"><input class="custom-input" placeholder="Отчество" type="text" ng-model="regUserData.patronymic"></div>
-				<div class="col col-md-6"><label class="custom-input"><input placeholder="E-mail" type="text" ng-model="regUserData.email"></label></div>
-			</div>
-			<!--<div class="row row-sm">-->
-			<!--<div class="col col-md-6"><label class="custom-input"><input placeholder="E-mail" type="text" ng-model="email"></label></div>-->
-			<!--</div>-->
-			<div class="row row-sm">
-				<div class="col col-md-6"><label class="custom-input"><input placeholder="Телефон" type="text" ng-model="regUserData.phone"></label></div>
-				<div class="col col-md-6"><input class="custom-input reg-form-input-padding" placeholder="Код подтверждения" type="password" ng-model="regUserData.confirmationCode"></div>
+				<div class="col col-md-4"><label class="custom-input"><input placeholder="E-mail" type="text" ng-model="regUserData.email"></label></div>
+				<div class="col col-md-4"><label class="custom-input"><input placeholder="Телефон" type="text" ng-model="regUserData.phone"></label></div>
+				<div class="col col-md-4"><input class="custom-input reg-form-input-padding" placeholder="Код подтверждения" type="password" ng-model="regUserData.confirmationCode"></div>
 			</div>
 			<div class="row row-sm">
-				<div class="col col-md-6"><label class="custom-input"><input placeholder="Пароль" type="password" ng-model="regUserData.password"></label></div>
-				<div class="col col-md-6"><label class="custom-input" ng-class=""><div ng-show="regUserData.confirmationPassword != regUserData.password">NO</div><input placeholder="Подтвердите пароль" type="password" ng-model="regUserData.confirmationPassword"></label></div>
+				<div class="col col-md-4"><label class="custom-input"><input placeholder="Пароль" type="password" ng-model="regUserData.password"></label></div>
+				<div class="col col-md-4"><label class="custom-input" ng-class=""><div ng-show="regUserData.confirmationPassword != regUserData.password">NO</div><input placeholder="Подтвердите пароль" type="password" ng-model="regUserData.confirmationPassword"></label></div>
 			</div>
 			<div class="modal-body-in-right-form-reg-bottom">
 				<div class="checkbox">
