@@ -1,13 +1,5 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('Main',['$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', function($scope, $http, $rootScope, $state, $stateParams, ngSocket){
-
-        // $rootScope.user = {
-        //     id: $sessionStorage.user_id,
-        //     firstName: $sessionStorage.firstName,
-        //     lastName: $sessionStorage.lastName,
-        //     patronymic: $sessionStorage.patronymic
-        // };
 
     controllers.controller('Main',['$sessionStorage','$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', function($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket){
         $scope.currentUserInfo = {};
