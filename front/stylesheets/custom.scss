@@ -164,6 +164,7 @@ input,textarea,.btn,button,a,div{
     &-full{
       max-width: 100%;
       @include padding-horizontal(15px);
+      background: #131b2e none repeat scroll 0 0;
     }
     @include margin-horizontal(auto);
   }
