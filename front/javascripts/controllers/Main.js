@@ -9,6 +9,7 @@ define(['./module','jquery'],function(controllers,$){
         $scope.currentUserInfo.lastName = $sessionStorage.lastName;
         $scope.currentUserInfo.email = $sessionStorage.email;
         $scope.currentUserInfo.phone = $sessionStorage.phone;
+        $scope.currentUserInfo.roleId = $sessionStorage.roleId;
         ngSocket.on('userInfo', function (data) {
             if(data.err!=undefined && data.err==0){
                 $scope.currentUserInfo = JSON.parse(JSON.stringify(data.doc));
@@ -158,6 +159,15 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countOfRenewedRows = result.renewedRows;
             $scope.countOfCreatedRows = result.createdRows;
         });
+
+
+        $scope.goToPageHeader = function () {
+            if ( $scope.currentUserInfo.roleId === 5 ) {
+                $state.go('page-leading');
+            } else {
+                $state.go('lk');
+            }
+        };
 
     }])
 });

@@ -54,6 +54,48 @@ header {
     &-right {
       height: 100%;
       float: right;
+      &-heart {
+        background: url("/images/ICONS_svg/fav_w_up_clear.svg") no-repeat;
+        height: 34px;
+        width: 34px;
+        &:hover {
+          cursor: pointer;
+        }
+        a {
+          height: 34px;
+          position: absolute;
+          width: 34px;
+        }
+      }
+      &-avatar {
+        background: url("/images/ICONS_svg/user.svg") no-repeat;
+        &:hover {
+          cursor: pointer;
+        }
+        .avatar-hover {
+          height: 60px;
+          width: 100%;
+          .button-radius {
+            display: none;
+            margin: 34px 0 0 0;
+            padding: 0;
+          }
+          .paddindRight10px {
+            padding: 0 0 0 30px;
+          }
+          &:hover {
+            .button-radius {
+              display: block;
+              height: 30px;
+              margin: 28px 0 0 0;
+              padding: 0;
+              position: absolute;
+              width: 120px;
+              z-index: 2;
+            }
+          }
+        }
+      }
       img, div {
 	    font-family: "Gambria";
 	    font-style: normal;

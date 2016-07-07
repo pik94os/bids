@@ -18,7 +18,8 @@ module.exports = function(socket,data) {
             email: socket.request.user.email,
             phone: socket.request.user.phone,
             confirmationCode: socket.request.user.confirmationCode,
-            receiveMessages: socket.request.user.receiveMessages
+            receiveMessages: socket.request.user.receiveMessages,
+            roleId : socket.request.user.roleId
         }
     });
 };
