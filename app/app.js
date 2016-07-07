@@ -22,6 +22,7 @@ var Model = require('./models');
 //
 // var routes = require('./routes/index');
 var users = require('./routes/users');
+var upload = require('./routes/upload');
 
 // Express
 var app          = express();
@@ -97,6 +98,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/users', users);
+app.use('/api/upload', upload);
 // app.use(checkAuth);
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(function(req,res){
