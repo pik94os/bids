@@ -32,7 +32,7 @@ class Initiator {
                 User: that.User,
                 AuctionHouse: that.AuctionHouse,
                 Lot: that.Lot,
-                LotPicture: that.LotPicture
+                LotPicture: that.LotPicture,
                 Bid: that.Bid,
                 LotBid: that.LotBid
             }
