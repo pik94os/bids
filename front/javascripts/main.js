@@ -10,7 +10,7 @@ require.config({
         'uiStorage': '../components/ngstorage/ngStorage.min',
         'jquery': '../components/jquery/dist/jquery.min',
         'bstrap': '../components/bootstrap-sass/assets/javascripts/bootstrap.min',
-        'localForage': '../components/localforage/dist/localforage.min',
+        'localforage': '../components/localforage/dist/localforage.min',
         'angular-localForage': '../components/angular-localforage/dist/angular-localForage.min',
         'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min',
         'io': './libs/socket.io-1.4.5',
@@ -30,7 +30,7 @@ require.config({
             exports: 'jquery'
         },
         'uiRouter' : ['angular'],
-        'angular-localForage' : ['angular','localForage'],
+        'angular-localForage' : ['angular','localforage'],
         'uiSocket':['angular'],
         'uiStorage':['angular'],
         "bstrap" : ['jquery'],
