@@ -7,11 +7,21 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.tab = $stateParams.tab;
         
         $scope.tempUserInfo = JSON.parse(JSON.stringify($scope.currentUserInfo));
+        if($scope.currentUserInfo.roleId==3){
+            ngSocket.emit('auction/list',{});
+        }
 
         ngSocket.on('userInfo', function (data) {
             if(data.err!=undefined && data.err==0) {
                 $scope.tempUserInfo = JSON.parse(JSON.stringify(data.doc));
+                if(data.doc.roleId==3){
+                    ngSocket.emit('auction/list',{});
+                }
             }
+        });
+
+        ngSocket.on('auctionCreated', function (result) {
+            ngSocket.emit('auction/list',{});
         });
 
 
