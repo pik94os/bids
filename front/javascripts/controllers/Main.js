@@ -68,9 +68,6 @@ define(['./module','jquery'],function(controllers,$){
                 userId: $scope.currentUserInfo.id
             });
         };
-        ngSocket.on('auctionCreated', function (result) {
-            
-        });
 
         // импорт лотов из CSV
         $scope.CSVParsedFile={};

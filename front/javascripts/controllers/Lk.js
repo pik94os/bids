@@ -3,15 +3,28 @@
  */
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('Lk', ['$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $http, $rootScope, $stateParams, ngSocket) {
+    controllers.controller('Lk', ['$scope', '$state', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $state, $rootScope, $stateParams, ngSocket) {
         $scope.tab = $stateParams.tab;
         
         $scope.tempUserInfo = JSON.parse(JSON.stringify($scope.currentUserInfo));
+        if($scope.currentUserInfo.roleId==3){
+            ngSocket.emit('auction/list',{});
+        }
 
         ngSocket.on('userInfo', function (data) {
             if(data.err!=undefined && data.err==0) {
                 $scope.tempUserInfo = JSON.parse(JSON.stringify(data.doc));
+                if(data.doc.roleId==3){
+                    ngSocket.emit('auction/list',{});
+                }
             }
+        });
+
+        ngSocket.on('auctionCreated', function (result) {
+            if(result.err){
+                alert(data.message);
+            }
+            $state.go('auction',{auctionId:1});
         });
 
 
