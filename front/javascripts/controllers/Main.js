@@ -133,15 +133,15 @@ define(['./module','jquery'],function(controllers,$){
         $scope.createNewLotFromCSV = function () {
             var data = {
                 CSVParsedFile: $scope.CSVParsedFile,
-                auctionId: $stateParams.auctionId,
-                importParams: $scope.importParams
+                auctionId: $stateParams.auctionId
             };
             ngSocket.emit('createNewLotFromCSV', data);
         };
 
         ngSocket.on('createCSVReport', function (result) {
-            $scope.countOfRenewedRows = result.renewedRows;
-            $scope.countOfCreatedRows = result.createdRows;
+            // $scope.countOfRenewedRows = result.renewedRows;
+            // $scope.countOfCreatedRows = result.createdRows;
+            // alert('Строки созданы');
         });
 
         $scope.goToPageHeader = function () {

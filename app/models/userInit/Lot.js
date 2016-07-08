@@ -13,7 +13,7 @@ var attributes = {
     //     }
     // },
     number: {type: Sequelize.INTEGER},
-    description: {type: Sequelize.STRING},
+    description: {type: Sequelize.TEXT},
     estimateFrom: {type: Sequelize.INTEGER},
     estimateTo: {type: Sequelize.INTEGER},
     sellingPrice: {type: Sequelize.INTEGER},

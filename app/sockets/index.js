@@ -37,7 +37,7 @@ module.exports = function(io,passportSocketIo) {
             {event:'auction/list', access:0, comment: "получение списка аукционов"},
             {event:'auction/getLotList', access:0, comment: "получение списка лотов"},
             {event:'auction/getLot', access:0, comment: "получение одного лота"},
-            {event:'auction/createNewLotFromCSV', access:0, comment: "создание лотов из CSV"}
+            {event:'createNewLotFromCSV', access:0, comment: "создание лотов из CSV"}
         ];
 
         //цикл проходит по всем элементам массива возвращая нужное событие
