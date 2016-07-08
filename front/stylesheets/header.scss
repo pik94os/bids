@@ -81,6 +81,7 @@ header {
             padding: 0;
           }
           .paddindRight10px {
+            margin-top: -2px;
             padding: 0 0 0 30px;
           }
           &:hover {
@@ -88,7 +89,7 @@ header {
               display: block;
               height: 30px;
               margin: 28px 0 0 0;
-              padding: 0;
+              padding: 6px 0 0 0;
               position: absolute;
               width: 120px;
               z-index: 2;
