@@ -3,7 +3,7 @@
 	<div class="lk-body">
 		<div class="lk-body-div-top">
             <ul class="lk-body-div-top-ul nav nav-tabs" role="tablist">
-				<li ng-class="{'active':tab==='auctions'}" ui-sref="{tab:'auctions'}">Аукционы</li>
+				<li ng-class="{'active':tab==='auctions'}" ui-sref="{tab:'auctions'}" ng-if="currentUserInfo.roleId<=3">Аукционы</li>
 				<li>Календарь</li>
 				<li ng-class="{'active':tab==='description'}" ui-sref="{tab:'description'}">Описание</li>
 				<li>История торгов</li>

@@ -19,7 +19,13 @@ module.exports = function(socket,data) {
             phone: socket.request.user.phone,
             confirmationCode: socket.request.user.confirmationCode,
             receiveMessages: socket.request.user.receiveMessages,
-            roleId : socket.request.user.roleId
+            roleId : socket.request.user.roleId,
+            country : socket.request.user.country,
+            city : socket.request.user.city,
+            street : socket.request.user.street,
+            house : socket.request.user.house,
+            office : socket.request.user.office,
+            index : socket.request.user.index
         }
     });
 };
