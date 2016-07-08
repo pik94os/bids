@@ -6,26 +6,48 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
 	<script src="/javascripts/require.js" data-main="/javascripts/main.js"></script>
 </head>
-<body class="row-block" ng-controller="Main">
-
+<body class="row-block ng-cloak" ng-controller="Main">
+<!--{{currentUserInfo}}<br>-->
 	<a name="top"></a>
 	<header class="row-block">
 		<div class="header-top row-block">
-			<div class="content-block header-top">					
+			<div class="content-block header-top">
 				<div class="header-top-left">
 					
 				</div>
-				
+
 				<div class="header-top-right">
+					<div ng-hide="!currentUserInfo.id">
+						<div class="header-top-right-heart" ui-sref="auction({open:3})">
+							<!--<a href="/auction?open=3" title="Каталог"></a>-->
+						</div>
+						<!--ui-sref="lk"-->
+						<div class="header-top-right-avatar" ng-click="goToPageHeader()">
+							<div class="avatar-hover">
+								<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>
+								<div class="paddindRight10px" ng-show="currentUserInfo.id">
+									<!--<a href="/lk" title="Перейти в личный кабинет"></a>-->
+										{{currentUserInfo.patronymic}} {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--<div ng-show="currentUserInfo.id">-->
+						<!--<a href="/lk">-->
+							<!--{{currentUserInfo.patronymic}} {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}-->
+						<!--</a>-->
+					<!--</div>-->
 					<a href="#" data-toggle="modal" data-target="#loginModal">
-						<img src="images/icon-arrow.png" class="image-left-left">
-						<div class="div075">Вход/Регистрация</div>
+						<img src="images/icon-arrow.png" class="image-left-left" ng-show="currentUserInfo.id===null">
+						<div class="div075" ng-hide="currentUserInfo.id">Вход/Регистрация</div>
+						<!--<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>-->
 					</a>
 					<div>
 						<img src="images/icon-search.png">
 						<div><input type="text" class="input-radius" value="Поиск"></div>
 						<div class="button-radius">Найти</div>
 					</div>
+
 				</div>
 			</div>
 		</div>

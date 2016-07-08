@@ -240,6 +240,33 @@
 				text-transform: uppercase;
 			}
 		}
+		.underline {
+			&:hover {
+				cursor: pointer;
+				text-decoration: underline;
+			}
+		}
+		.window {
+			height: 380px;
+			width: 632px;
+			&-top {
+				font-size: 22px;
+				font-weight: bold;
+				text-align: center;
+			}
+			&-center {
+				padding: 42px 50px;
+				&-in {
+					background-image: url("/images/window-center.png");
+					background-size: 100%;
+					height: 264px;
+					width: 532px;
+				}
+			}
+			&-bottom {
+			}
+		}
+
 	}
 	.custom-title-block {
 		height: 55px;

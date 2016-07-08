@@ -1,15 +1,18 @@
+
 <div class="lot-list" ng-class="{'ll-open':open,'ll-open-1':open===1,'ll-open-2':open===2}">
     <div class="row row-lg">
+
         <div class="top-block">
             <div class=" col col-sm-6">
                 <div class="lot-title">
 					<div class="edit"></div>
-					<p>"Древности Россейскага государства", изданные по высочайшему повелению.</p> 
-					<p>Рисованы академиком Ф.Солнцевым. 6 выпусков + Атлас. В типографии Александра Семена.</p> 
-					<p>Хромолитография Ф.Дрегера 1849-1853</p>
+					<!--<p>"Древности Россейскага государства", изданные по высочайшему повелению.</p>-->
+					<!--<p>Рисованы академиком Ф.Солнцевым. 6 выпусков + Атлас. В типографии Александра Семена.</p> -->
+					<!--<p>Хромолитография Ф.Дрегера 1849-1853</p>-->
+					{{lot.description}}
 				</div>
-                <div class="lot-prisesale">Цена продажи: 8 500 000</div>
-				<div class="lot-estimate">Эстимэйт: 6 500 000 - 7 500 000<div class="edit"></div></div>
+                <div class="lot-prisesale">Цена продажи: {{lot.sellingPrice}}</div>
+				<div class="lot-estimate">Эстимэйт: {{lot.estimateFrom}} - {{lot.estimateTo}}<div class="edit"></div></div>
 				<div class="lot-price">Цена продажи: <div class="edit"></div></div>
 
 				<div class="lot-price1">Разыигрывается сейчас<br>7 000 000 руб</div>

@@ -161,6 +161,11 @@ input,textarea,.btn,button,a,div{
     position: relative;
     max-width: 1000px;
     min-width: 320px;
+    &-full{
+      max-width: 100%;
+      @include padding-horizontal(15px);
+      background: #131b2e none repeat scroll 0 0;
+    }
     @include margin-horizontal(auto);
   }
 }

@@ -32,7 +32,7 @@ define(['./app'], function (app) {
             })
             //Страница редактирования аукциона, главная аукциона, любимые лоты
             .state('auction', {
-                url: '/auction?open',
+                url: '/auction?open&auctionId',
                 views:{
                     '': {
                         templateUrl: "/templates/auction/list.html",
@@ -46,7 +46,7 @@ define(['./app'], function (app) {
             })
             //Страница редактирования и просмотра любого лота
             .state('lot', {
-                url: '/lot?open&tab',
+                url: '/lot?open&tab&lotId',
                 views:{
                     '': {
                         templateUrl: "/templates/lot/list.html",
@@ -86,6 +86,34 @@ define(['./app'], function (app) {
                     }
                 }
             })
+            //Страница ведущего
+            .state('page-leading', {
+                url: '/page-leading?countdown',
+                views:{
+                    '': {
+                        templateUrl: "/templates/page-leading/list.html",
+                        controller: 'PageLeading'
+                    },
+                    'header':{
+                        templateUrl: "/templates/page-leading/header.html"
+                    }
+                }
+            })
+
+            //Страница аукциона для ведущего
+            .state('auction-leading', {
+                url: '/auction-leading',
+                views:{
+                    '': {
+                        templateUrl: "/templates/auction-leading/list.html"
+                        // controller: 'AuctionLeading'
+                    },
+                    'header':{
+                        templateUrl: "/templates/auction-leading/header.html"
+                    }
+                }
+            })
+
             //Ошибка 404
             .state('err_404', {
                 url: "/err404",

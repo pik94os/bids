@@ -7,7 +7,8 @@ define(['./module'], function (directives) {
         return  {
             scope: {
                 title: '@',
-                width: '@'
+                width: '@',
+                data: '='
             },
             restrict: 'E',
             templateUrl: '/templates/modal.html',

@@ -4,33 +4,34 @@
         <div class="lk-body-div-center-in row">
             <div class="lk-body-div-center-in-top row">
                 Данные аккаунта
-            </div>
+
+            </div>{{currentUserInfo}}
             <div class="lk-body-div-center-in-bottom row">
                 <div class="col-sm-8">
                     <form class="lk-body-div-center-in-bottom-left-form">
                         <div class="row">
-                            <div class="col-sm-6"><label class="custom-input"><input placeholder="Имя" type="text"></label></div>
-                            <div class="col-sm-6"><label class="custom-input"><input placeholder="Фамилия" type="text"></label></div>
+                            <div class="col-sm-6"><label class="custom-input"><input placeholder="{{currentUserInfo.firstName}}" type="text" ng-model="firstName"></label></div>
+                            <div class="col-sm-6"><label class="custom-input"><input value="{{currentUserInfo.lastName}}" placeholder="Фамилия" type="text" ng-model="lastName"></label></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6"><input class="custom-input" placeholder="Отчество" type="text"></div>
+                            <div class="col-sm-6"><input class="custom-input" value="{{currentUserInfo.patronymic}}" placeholder="Отчество" type="text" ng-model="patronymic"></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6"><label class="custom-input"><input placeholder="E-mail" type="text"></label></div>
+                            <div class="col-sm-6"><label class="custom-input"><input value="{{currentUserInfo.email}}" placeholder="E-mail" type="text" ng-model="email"></label></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6"><label class="custom-input"><input placeholder="Телефон" type="password"></label></div>
-                            <div class="col-sm-6"><input class="custom-input kod" placeholder="Код подтверждения" type="password"></div>
+                            <div class="col-sm-6"><label class="custom-input"><input value="{{currentUserInfo.phone}}" placeholder="Телефон" type="text" ng-model="phone"></label></div>
+                            <div class="col-sm-6"><input class="custom-input kod" value="{{}}" placeholder="Код подтверждения" type="password"></div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6"><label class="custom-input"><input placeholder="Пароль" type="password"></label></div>
-                            <div class="col-sm-6"><label class="custom-input"><input placeholder="Подтвердите пароль" type="password"></label></div>
+                            <div class="col-sm-6"><label class="custom-input"><input value="{{currentUserInfo.password}}" placeholder="Пароль" type="password" ng-model="password"></label></div>
+                            <div class="col-sm-6"><label class="custom-input"><input value="{{}}" placeholder="Подтвердите пароль" type="password"></label></div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="form-reg-checkbox">
                                     <label>
-                                        <input type="checkbox" name="remember_me">
+                                        <input type="checkbox" value="{{currentUserInfo.receiveMessages}}" name="remember_me" ng-model="receiveMessages">
                                         Я хочу получать сообщения от admingo
                                     </label>
                                 </div>
@@ -52,19 +53,19 @@
         </div>
         <div class="lk-body-div-center-in row">
             <div class="lk-body-div-center-in-top row">
-                Адресс
+                Адрес
             </div>
             <div class="lk-body-div-center-in-bottom row">
                 <form class="lk-body-div-center-in-bottom-left-form col-xs-12">
                     <div class="row">
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Индекс" type="text"></label></div>
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Страна" type="text"></label></div>
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Город / нас. пункт" type="text"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Индекс" type="text" ng-model="index"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Страна" type="text" ng-model="country"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Город / нас. пункт" type="text" ng-model="city"></label></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Улица" type="text"></label></div>
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Дом / стр. / подъезд" type="text"></label></div>
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Квартира / офис" type="text"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Улица" type="text" ng-model="street"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Дом / стр. / подъезд" type="text" ng-model="house"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Квартира / офис" type="text" ng-model="office"></label></div>
                     </div>
                 </form>
             </div>
@@ -76,16 +77,16 @@
             <div class="lk-body-div-center-in-bottom row">
                 <form class="lk-body-div-center-in-bottom-left-form col-xs-12">
                     <div class="row">
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Тип карты" type="text"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Тип карты" type="text" ng-model="typeOfCard"></label></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Номер карты" type="text"></label></div>
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Имя карты держателя" type="text"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Номер карты" type="text" ng-model="numberOfCard"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Имя карты держателя" type="text" ng-model="nameOfCardHolder"></label></div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-2"><label class="custom-input"><input placeholder="Месяц" type="text"></label></div>
-                        <div class="col-sm-2"><label class="custom-input"><input placeholder="Год" type="text"></label></div>
-                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Секретный код" type="password"></label></div>
+                        <div class="col-sm-2"><label class="custom-input"><input placeholder="Месяц" type="text" ng-model="month"></label></div>
+                        <div class="col-sm-2"><label class="custom-input"><input placeholder="Год" type="text" ng-model="year"></label></div>
+                        <div class="col-sm-4"><label class="custom-input"><input placeholder="Секретный код" type="password" ng-model="cardCode"></label></div>
                     </div>
                     <br>
                     <div class="row fullwidth-text">
@@ -105,14 +106,31 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="fullwidth-text">
+
+                            <div class="fullwidth-text underline" ng-click="showWindow = !showWindow">
                                 Где мне найти мой номер счета ?
                             </div>
+
+                            <div class="window" ng-show="showWindow">
+                                <div class="window-top">
+                                    Где мне найти мой номер счёта ?
+                                </div>
+                                <div class="window-center">
+                                    <div class="window-center-in">
+                                    </div>
+                                </div>
+                                <div class="window-bottom">
+                                    Если вам нужна помощь в поиске номера вашего счета, пожалуйста,
+                                    свяжитесь с : НЬЮ-ЙОРК +1 212 606 7000, ЛОНДОН +44 (0) 20 7293 5000,
+                                    ГОНКОНГ +825 2822 8142
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <input class="custom-title-block" value="Сохранить" type="submit">
+    <input class="custom-title-block" value="Сохранить" type="submit" ng-click="editUser()">
 </div>
