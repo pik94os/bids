@@ -68,9 +68,6 @@ define(['./module','jquery'],function(controllers,$){
                 userId: $scope.currentUserInfo.id
             });
         };
-        ngSocket.on('auctionCreated', function (result) {
-            
-        });
 
         // импорт лотов из CSV
         $scope.CSVParsedFile={};
@@ -78,11 +75,7 @@ define(['./module','jquery'],function(controllers,$){
             url: '/api/upload/lotCSV',
             autoUpload: true,
             removeAfterUpload: true,
-            queueLimit: 1,
-            onSuccessItem: function (item, response, status, headers){
-                alert('Файл загружен');
-                $scope.CSVParsedFile = response;
-            }
+            queueLimit: 1
         });
 
         // FILTERS for CSV
@@ -116,6 +109,8 @@ define(['./module','jquery'],function(controllers,$){
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+            alert('Файл загружен');
+            $scope.CSVParsedFile = response;
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -132,12 +127,11 @@ define(['./module','jquery'],function(controllers,$){
 
         console.info('uploader', uploader);
 
-        $scope.addLotsFromCSV = function () {
+        $scope.createNewLotFromCSV = function () {
             var data = {
                 CSVParsedFile: $scope.CSVParsedFile,
-                roleId: $scope.role,
-                importParams: $scope.importParams,
-                classSelected: $scope.classSelected
+                auctionId: $stateParams.auctionId,
+                importParams: $scope.importParams
             };
             ngSocket.emit('createNewLotFromCSV', data);
         };
@@ -147,7 +141,6 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countOfCreatedRows = result.createdRows;
         });
 
-
         $scope.goToPageHeader = function () {
             if ( $scope.currentUserInfo.roleId === 5 ) {
                 $state.go('page-leading');
@@ -155,6 +148,5 @@ define(['./module','jquery'],function(controllers,$){
                 $state.go('lk');
             }
         };
-
     }])
 });

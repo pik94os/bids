@@ -1,5 +1,5 @@
 /**
- * Created by piligrim on 06.07.16.
+ * Created by piligrim on 08.07.16.
  */
 var Sequelize = require('sequelize');
 
@@ -12,12 +12,8 @@ var attributes = {
     //         is: /^[a-z0-9\_\-]+$/i
     //     }
     // },
-    number: {type: Sequelize.INTEGER},
-    description: {type: Sequelize.STRING},
-    estimateFrom: {type: Sequelize.INTEGER},
-    estimateTo: {type: Sequelize.INTEGER},
-    sellingPrice: {type: Sequelize.INTEGER},
-    year: {type: Sequelize.INTEGER},
+    titlePic: {type: Sequelize.STRING},
+    gallery: {type: Sequelize.STRING},
     isArchive: {type: Sequelize.BOOLEAN}
 };
 

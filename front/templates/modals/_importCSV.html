@@ -4,37 +4,36 @@
     </div>
     <input id="selectCSV" type="file" nv-file-select="" uploader="uploader" name="CSVfile" ng-hide="true"/>
     <div class="button btn-primary" onclick="$('#selectCSV').click()">Загрузить CSV</div>
+    <div class="button btn-danger" ng-click="createNewLotFromCSV()">Импорт</div>
 
-    <div class="col-sm-6" ng-show="CSVParsedFile">
-        <div class="pull-right" style="padding-top: 25px;">
-            В файле записей: {{CSVParsedFile.length}} | Обработано: {{CSVParsedFile.length}}
-        </div>
-    </div>
+    ['auctionName', 'id', 'lotNumber', 'description', 'estimate', 'sellingPrice', 'year', 'titlePic', 'gallery']
+
+<div ng-show="CSVParsedFile">
     {{CSVParsedFile}}
-    <div class="col-sm-7" ng-show="CSVParsedFile">
-        <div class="result-field pull-right">
-            <div>
-                <table>
-                    <tr>
-                        <td></td>
-                        <td><b>ФИО:</b></td>
-                        <td><b>Логин:</b></td>
-                        <td><b>Пароль:</b></td>
-                        <td><b>Телефон:</b></td>
-                        <td><b>e-mail:</b></td>
-                    </tr>
-                    <tr ng-repeat="oneRowFromCSV in CSVParsedFile">
-                        <td>{{$index+1}}</td>
-                        <td>{{oneRowFromCSV.firstName}} {{oneRowFromCSV.lastName}} {{oneRowFromCSV.patronymic}}</td>
-                        <td>{{oneRowFromCSV.username}}</td>
-                        <td>{{oneRowFromCSV.password}}</td>
-                        <td>{{oneRowFromCSV.phone}}</td>
-                        <td>{{oneRowFromCSV.email}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <div class="button btn-danger" ng-click="addLotsFromCSV()">Импорт</div>
+    <table>
+        <!--<tr>-->
+            <!--<td></td>-->
+            <!--<td><b>ФИО:</b></td>-->
+            <!--<td><b>Логин:</b></td>-->
+            <!--<td><b>Пароль:</b></td>-->
+            <!--<td><b>Телефон:</b></td>-->
+            <!--<td><b>e-mail:</b></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>В файле записей: {{CSVParsedFile.length}} | Обработано: {{CSVParsedFile.length}}</td>-->
+        <!--</tr>-->
+        <tr ng-repeat="oneRowFromCSV in CSVParsedFile">
+            <td>{{$index+1}}</td>
+            <td>{{oneRowFromCSV.auctionName}}</td>
+            <td>{{oneRowFromCSV.id}}</td>
+            <td>{{oneRowFromCSV.lotNumber}}</td>
+            <td height="100px" overflow ="hidden">{{oneRowFromCSV.description}}</td>
+            <td>{{oneRowFromCSV.estimate}}</td>
+            <td>{{oneRowFromCSV.sellingPrice}}</td>
+            <td>{{oneRowFromCSV.year}}</td>
+            <td>{{oneRowFromCSV.titlePic}}</td>
+            <td>{{oneRowFromCSV.gallery}}</td>
+        </tr>
+    </table>
+</div>
 </modal>
