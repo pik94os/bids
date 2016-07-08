@@ -9,6 +9,7 @@ var UserMeta = require('./userInit/User.js'),
     AuctionHouseMeta = require('./userInit/AuctionHouse'),
     AuctionMeta = require('./userInit/Auction'),
     LotMeta = require('./userInit/Lot'),
+    BidMeta = require('./userInit/Bid'),
     connection = require('../sequelize.js');
 
 class Initiator {
@@ -29,7 +30,9 @@ class Initiator {
                 RoleRight: that.RoleRight,
                 User: that.User,
                 AuctionHouse: that.AuctionHouse,
-                Lot: that.Lot
+                Lot: that.Lot,
+                Bid: that.Bid,
+                LotBid: that.LotBid
             }
         }).catch(function (err) {
             console.error(err.message)
@@ -40,10 +43,12 @@ class Initiator {
         this.Right = connection.define('right', RightMeta.attributes);
         this.Role = connection.define('role', RoleMeta.attributes, RoleMeta.options);
         this.RoleRight = connection.define('role_right', {});
+        this.LotBid = connection.define('lot_bid', {});
         this.User = connection.define('users', UserMeta.attributes, UserMeta.options);
         this.AuctionHouse = connection.define('auction_houses', AuctionHouseMeta.attributes);
         this.Auction = connection.define('auction', AuctionMeta.attributes);
         this.Lot = connection.define('lot', LotMeta.attributes);
+        this.Bid = connection.define('bid', BidMeta.attributes)
 
         this.Role.hasMany(this.User);
         this.Role.belongsToMany(this.Right, {through: this.RoleRight});
@@ -51,6 +56,8 @@ class Initiator {
         // this.Auction.belongsTo(this.User);
         this.User.hasMany(this.Auction);
         this.Auction.hasMany(this.Lot);
+        this.Bid.hasOne(this.Lot, {as: 'Lot'});
+        this.User.belongsToMany(this.Bid, {as: 'Bids', through: this.LotBid});
 
         this.roles = {};
         this.rights = {};
@@ -63,6 +70,7 @@ class Initiator {
         models.AuctionHouse = this.AuctionHouse;
         models.Auction = this.Auction;
         models.Lot = this.Lot;
+        models.Bid = this.Bid;
     }
 
     _syncModels() {
@@ -77,7 +85,9 @@ class Initiator {
             return that.Auction.sync({force: false})
         }).then(function () {
             return that.Lot.sync({force: false})
-        })
+        }).then(function () {
+                return that.Bid.sync({force: false})
+            })
     }
 
     _addRoles() {
