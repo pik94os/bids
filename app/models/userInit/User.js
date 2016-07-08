@@ -34,6 +34,8 @@ var attributes = {
 
     // поля кредитной карты
     typeOfCard: {type: Sequelize.STRING},
+    icon: {type: Sequelize.STRING},
+    image: {type: Sequelize.STRING},
     numberOfCard: {type: Sequelize.INTEGER},
     nameOfCardHolder: {type: Sequelize.STRING},
     month: {type: Sequelize.INTEGER},
