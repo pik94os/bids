@@ -13,12 +13,13 @@ var attributes = {
     //     }
     // },
     number: {type: Sequelize.INTEGER},
-    description: {type: Sequelize.TEXT},
+    description: {type: Sequelize.STRING},
     estimateFrom: {type: Sequelize.INTEGER},
     estimateTo: {type: Sequelize.INTEGER},
     sellingPrice: {type: Sequelize.INTEGER},
     year: {type: Sequelize.INTEGER},
-    isArchive: {type: Sequelize.BOOLEAN}
+    isArchive: {type: Sequelize.BOOLEAN, defaultValue: false},
+    isSold: {type: Sequelize.BOOLEAN, defaultValue: false}
 };
 
 module.exports.attributes = attributes;
