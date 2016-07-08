@@ -2,8 +2,8 @@
  * Created by piligrim on 07.07.16.
  */
 'use strict';
-const express    = require('express');
-const fs         = require("fs");
+const express = require('express');
+const fs = require("fs");
 const multiparty = require('multiparty');
 const Lot = require('../models/').Lot;
 // const Learner = require('../models/').Learner;
@@ -15,7 +15,7 @@ const Lot = require('../models/').Lot;
 
 exports.lotCSV = function (req, res) {
 
-    var csv = require('csv-parser')
+    var csv = require('csv-parser');
     // var fs = require('fs')
 
     var form = new multiparty.Form();
@@ -27,14 +27,14 @@ exports.lotCSV = function (req, res) {
         // uploadFile.size = part.byteCount;
         // console.log('ФАЙЛ:', uploadFile);
         // res.status(200).send(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>pong!");
-        part.pipe(csv(['username', 'email', 'firstName', 'lastName', 'patronymic', 'password', 'introduce', 'phone'],{
+        part.pipe(csv([/*'auctionName',*/ 'id', 'lotNumber', 'description', 'estimate', 'sellingPrice', 'year', 'titlePic', 'gallery'], {
             raw: true,
             separator: ','
         }))
-            .on('data', function(row) {
+            .on('data', function (row) {
                 data.push(row);
             })
-            .on('end', function (){
+            .on('end', function () {
                 res.json(data);
             });
         // res.end(data);
