@@ -6,8 +6,11 @@
 var Auction = require('../../models/').Auction;
 
 module.exports = function(socket, data) {
-
-    Auction.findAll({where: {userId: socket.request.user.id}})
+    let where;
+    if(!data.public){
+        where = {userId: socket.request.user.id}
+    }
+    Auction.findAll({where})
         .then(function(auctionList) {
             socket.emit('auctionList', {
                 'err': 0,
