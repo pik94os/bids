@@ -2,14 +2,9 @@ define(['./module','jquery'],function(controllers,$){
     'use strict';
 
     controllers.controller('Main',['$sessionStorage','$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader){
-        $scope.currentUserInfo = {};
         ngSocket.emit ('getUserInfo', {});
-        $scope.currentUserInfo.id = $sessionStorage.user_id;
-        $scope.currentUserInfo.firstName = $sessionStorage.firstName;
-        $scope.currentUserInfo.lastName = $sessionStorage.lastName;
-        $scope.currentUserInfo.email = $sessionStorage.email;
-        $scope.currentUserInfo.phone = $sessionStorage.phone;
-        $scope.currentUserInfo.roleId = $sessionStorage.roleId;
+        $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
+        console.log($sessionStorage);
         ngSocket.on('userInfo', function (data) {
             if(data.err!=undefined && data.err==0){
                 $scope.currentUserInfo = JSON.parse(JSON.stringify(data.doc));
@@ -42,10 +37,6 @@ define(['./module','jquery'],function(controllers,$){
                     receiveMessages: $scope.regUserData.receiveMessages,
                     roleId: roleOfNewUser
                 }, {}).then(function (result) {
-                    $sessionStorage.user_id = result.id;
-                    $sessionStorage.firstName = result.firstName;
-                    $sessionStorage.lastName = result.lastName;
-                    $sessionStorage.patronymic = result.patronymic;
                     window.location.reload();
                 })
             } else alert("Заполните все необходимые поля");
@@ -57,10 +48,6 @@ define(['./module','jquery'],function(controllers,$){
                 username: $scope.loginUserData.username,
                 password: $scope.loginUserData.password
             }, {}).then(function (result) {
-                $sessionStorage.user_id = result.id;
-                $sessionStorage.firstName = result.firstName;
-                $sessionStorage.lastName = result.lastName;
-                $sessionStorage.patronymic = result.patronymic;
                 window.location.reload();
             })
         };
@@ -82,7 +69,7 @@ define(['./module','jquery'],function(controllers,$){
             });
         };
         ngSocket.on('auctionCreated', function (result) {
-            window.location.reload();
+            
         });
 
         // импорт лотов из CSV

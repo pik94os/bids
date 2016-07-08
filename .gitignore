@@ -8,5 +8,5 @@ tmp
 /node_modules
 /public
 front/components/
-/admingo.iml
+admingo.iml
 Thumbs.db
