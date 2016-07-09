@@ -12,6 +12,9 @@
   &-menu {
     @extend .content-block;
     height: 100%;
+    .ul-fix {
+      padding-left: 0px;
+    }
     > ul {
       $li-padding: 8px;
       height: 100%;
