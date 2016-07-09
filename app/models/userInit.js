@@ -58,8 +58,10 @@ class Initiator {
         this.User.hasMany(this.Auction);
         this.Auction.hasMany(this.Lot);
         this.Lot.hasMany(this.LotPicture);
-        this.LotBid = this.Bid.belongsTo(this.Lot, {as: "lot"});
-        this.Creator = this.Bid.belongsTo(this.User, {as: "creator"});
+        this.Bid.belongsTo(this.Lot, {as: "lot"});
+        this.Bid.belongsTo(this.User, {as: "creator"});
+       // this.Notification.belongsTo(this.Lot, {as: "lot"});
+       // this.Notification.belongsTo(this.User, {as: "users"});
 
         this.roles = {};
         this.rights = {};
@@ -74,8 +76,6 @@ class Initiator {
         models.Lot = this.Lot;
         models.LotPicture = this.LotPicture;
         models.Bid = this.Bid;
-        models.Creator = this.Creator;
-        models.LotBid = this.LotBid;
     }
 
     _syncModels() {

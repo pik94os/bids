@@ -20,7 +20,8 @@ var attributes = {
     year: {type: Sequelize.INTEGER},
     isArchive: {type: Sequelize.BOOLEAN, defaultValue: false},
     isSold: {type: Sequelize.BOOLEAN, defaultValue: false},
-    titlePicId: {type: Sequelize.INTEGER}
+    titlePicId: {type: Sequelize.INTEGER},
+    isPlayOut: {type: Sequelize.BOOLEAN, defaultValue: false}
 };
 
 module.exports.attributes = attributes;
