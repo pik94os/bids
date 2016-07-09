@@ -123,18 +123,16 @@ define(['./module','jquery'],function(controllers,$){
             $scope.calendar = createCalendarForMonth();
         };
         // месяцы конец
+        
         // год начало
-
-
+        var dd = new Date;
+        $scope.nowYear = dd.getFullYear();
         // отобразить числа на следующий год
         $scope.nextYear = function () {
             d.setFullYear(d.getFullYear() + 1);
             $scope.calendar = createCalendarForMonth();
         };
-        
         // отобразить числа на этот год
-        var dd = new Date;
-        $scope.nowYear = dd.getFullYear();
         $scope.thisYear = function () {            
             d.setFullYear(dd.getFullYear());
             $scope.calendar = createCalendarForMonth();
