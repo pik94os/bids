@@ -4,19 +4,49 @@
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
     controllers.controller('LotHeader', ['$scope', '$stateParams', 'ngSocket', function ($scope, $stateParams, ngSocket) {
-        $scope.open = +$stateParams.open;
+        $scope.open = 1//+$stateParams.open;
+        var lotArr = new Array();
+        var currentId = 1;
 
         // получение одного лота по ID
-        ngSocket.emit('auction/getLot', {
-            lotId: $stateParams.lotId
+        ngSocket.emit('auction/getLotList', {
+                auctionId: $stateParams.auctionId
+            });
+
+        ngSocket.on('lotList', function (data) {
+            lotArr = data.lotList;
+                ngSocket.emit('auction/getLot', {
+                    lotId: lotArr[currentId].id
+                });
+
         });
+
         ngSocket.on('lotSelected', function (data) {
             $scope.lot = JSON.parse(JSON.stringify(data.lot))
+            $scope.lotId = $scope.lot.id;
+            $scope.isPlayOut = $scope.lot.isPlayOut;
+            $scope.open = ($scope.lot.isSold) ? 2 : 1;
         });
 
+        // переход на предыдущий лот
+        $scope.goToPrevLot = function(){
+            if (currentId > 0)
+                currentId -= 1;
+                    ngSocket.emit('auction/getLot', {
+                        lotId: lotArr[currentId].id
+                    });
+        }
 
+        // переход на следующий лот
+        $scope.goToNextLot = function(){
+            if (currentId < lotArr.length - 1)
+                currentId += 1;
+                    ngSocket.emit('auction/getLot', {
+                         lotId: lotArr[currentId].id
+                    });
+        }
     }]).controller('Lot', ['$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $http, $rootScope, $stateParams, ngSocket) {
-        $scope.open = +$stateParams.open;
+        $scope.open = 1;
         $scope.tab = $stateParams.tab;
         $scope.bidPrice = 0;
         $scope.step = 1;
@@ -33,7 +63,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         }
         // подтверждение бида
         $scope.confirmLot = function () {
-            //$scope.userId = 1;
+            $scope.userId = 1;
             //$scope.lotId = 1;
             console.log($scope.lotId, $scope.bidPrice, $scope.userId);
                 ngSocket.emit('auction/confirmLot', {
@@ -49,6 +79,9 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.on('lotSelected', function (data) {
                 $scope.lot = JSON.parse(JSON.stringify(data.lot));
+                $scope.lotId = $scope.lot.id;
+                $scope.isPlayOut = $scope.lot.isPlayOut;
+                $scope.open = ($scope.lot.isSold) ? 2 : 1;
                 initStep();
             });
 
@@ -108,5 +141,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                     $scope.step = 100000;
                 }
             }
+
     }])
 });

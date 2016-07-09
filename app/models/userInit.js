@@ -54,8 +54,10 @@ class Initiator {
         // this.Auction.belongsTo(this.User);
         this.User.hasMany(this.Auction);
         this.Auction.hasMany(this.Lot);
-        this.LotBid = this.Bid.belongsTo(this.Lot, {as: "lot"});
-        this.Creator = this.Bid.belongsTo(this.User, {as: "creator"});
+        this.Bid.belongsTo(this.Lot, {as: "lot"});
+        this.Bid.belongsTo(this.User, {as: "creator"});
+       // this.Notification.belongsTo(this.Lot, {as: "lot"});
+       // this.Notification.belongsTo(this.User, {as: "users"});
 
         this.roles = {};
         this.rights = {};
@@ -69,18 +71,16 @@ class Initiator {
         models.Auction = this.Auction;
         models.Lot = this.Lot;
         models.Bid = this.Bid;
-        models.Creator = this.Creator;
-        models.LotBid = this.LotBid;
     }
 
     _syncModels() {
         var that = this;
         return this.Role.sync({force: false}).then(function () {
+            return that.User.sync({force: false})
+        }).then(function () {
                 return that.Auction.sync({force: false})
         }).then(function () {
                 return that.Lot.sync({force: false})
-        }).then(function () {
-                return that.User.sync({force: false})
         }).then(function () {
                 return that.Bid.sync({force: false})
         }).then(function () {

@@ -18,7 +18,8 @@ var attributes = {
     estimateTo: {type: Sequelize.INTEGER},
     sellingPrice: {type: Sequelize.INTEGER},
     isArchive: {type: Sequelize.BOOLEAN, defaultValue: false},
-    isSold: {type: Sequelize.BOOLEAN, defaultValue: false}
+    isSold: {type: Sequelize.BOOLEAN, defaultValue: false},
+    isPlayOut: {type: Sequelize.BOOLEAN, defaultValue: false}
 };
 
 module.exports.attributes = attributes;

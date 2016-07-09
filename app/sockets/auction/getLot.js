@@ -19,7 +19,7 @@ module.exports = function(socket, data) {
                 lot: lot
             });
         }).catch(function (err) {
-        socket.emit('lotSelected',
+            socket.emit('lotSelected',
             {err: 1, message: err.message}
         );
     })
