@@ -3,8 +3,9 @@ define(['./module','jquery'],function(controllers,$){
 
     controllers.controller('Main',['$sessionStorage','$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader){
         ngSocket.emit ('getUserInfo', {});
-        $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
-        console.log($sessionStorage);
+        if($sessionStorage.auth){
+            $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
+        }        
         ngSocket.on('userInfo', function (data) {
             if(data.err!=undefined && data.err==0){
                 $scope.currentUserInfo = JSON.parse(JSON.stringify(data.doc));
@@ -130,15 +131,15 @@ define(['./module','jquery'],function(controllers,$){
         $scope.createNewLotFromCSV = function () {
             var data = {
                 CSVParsedFile: $scope.CSVParsedFile,
-                auctionId: $stateParams.auctionId,
-                importParams: $scope.importParams
+                auctionId: $stateParams.auctionId
             };
             ngSocket.emit('createNewLotFromCSV', data);
         };
 
         ngSocket.on('createCSVReport', function (result) {
-            $scope.countOfRenewedRows = result.renewedRows;
-            $scope.countOfCreatedRows = result.createdRows;
+            // $scope.countOfRenewedRows = result.renewedRows;
+            // $scope.countOfCreatedRows = result.createdRows;
+            // alert('Строки созданы');
         });
 
         $scope.goToPageHeader = function () {

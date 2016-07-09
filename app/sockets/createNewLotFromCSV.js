@@ -3,92 +3,109 @@
  */
 'use strict';
 
-const Lot = require('../models/userInit').Lot;
+const Lot = require('../models/').Lot;
 
 module.exports = function (socket, data) {
+    // console.log(data);
+    // let where = {
+    //     // isArchive: false,
+    //     username: {$in: usernameCSVArray}
+    // };
 
-    let myCount = {
-        renewedRows: 0,
-        createdRows: 0
-    };
-    let usernameCSVArray = [];
-    data.CSVParsedFile.forEach(function (row) {
-        usernameCSVArray.push(row.username);
-    });
-    let where = {
-        // isArchive: false,
-        username: {$in: usernameCSVArray}
-    };
+    // let idCSVArray = [];
+    // data.CSVParsedFile.forEach(function (row) {
+    //     idCSVArray.push(+row.id);
+    // });
+    // let where = {
+    //     // isArchive: false,
+    //     id: {$in: idCSVArray}
+    // };
 
-    Lot.findAll({where}).then(function (result) {
-        let _insert = [];
-        let updated;
-        let allUpdatesSuccess = [];
-        data.CSVParsedFile.every(function (row) {
-            let _lotData = {
-                id: row.id,
-                isArchive: false
-            };
-            let isNew = result.every(function (user) {
-                if (user.username === _userData.username) {
-                    if (+data.importParams > 1) {
-                        let key;
-                        for (key in _userData) {
-                            user[key] = _userData[key];
-                        }
-                        allUpdatesSuccess.push(user.save().then(function (createdUser) {
-                            if (_userData.roleId == 4) {
-                                return Learner.findOne({where: {userId: createdUser.id}}).then(function (learner) {
-                                    if (learner == null) {
-                                        return Learner.create({
-                                            isArchive: false,
-                                            userId: +createdUser.id,
-                                            classId: +data.classSelected
-                                        });
-                                    }
-                                    learner.classId = +data.classSelected;
-                                    myCount.renewedRows++;
-                                    return learner.save();
-                                })
-                            }
-                            myCount.renewedRows++;
-                        }));
+    // let _lotData = {};
+    // let _lotData = {
+    //     id: +row.id,
+    //     number: +row.lotNumber.split('№')[1],
+    //     description: row.description,
+    //     estimateFrom: +row.estimate.split('-')[0],
+    //     estimateTo: +row.estimate.split('-')[1],
+    //     sellingPrice: parseInt(row.sellingPrice),
+    //     year: +row.year,
+    //     auctionId: +data.auctionId,
+    //     isArchive: false
+    // };
+    // if (row.sellingPrice){
+    //     _lotData.sellingPrice = parseInt(row.sellingPrice);
+    // }
+        let toSaveArr = [];
+
+
+        data.CSVParsedFile.forEach(function (row) {
+            // console.log('--------'+row.id);
+
+            Lot.findById(row.id).then(function (result) {
+                // console.log('++++++'+result.id);
+                // console.log(result.id + '<<<<<<>>>>>>' + row.id);
+
+                if (result){
+                    result.auctionId = +data.auctionId;
+                    result.isArchive = false;
+
+                    if (row.lotNumber) {
+                        result.number = +row.lotNumber.split('№')[1];
                     }
-                    return false;
+                    if (row.description) {
+                        result.description = row.description;
+                    }
+                    if (row.estimate) {
+                        result.estimateFrom = +row.estimate.split('-')[0];
+                        result.estimateTo = +row.estimate.split('-')[1];
+                    }
+                    if (row.sellingPrice) {
+                        result.sellingPrice = parseInt(row.sellingPrice);
+                    }
+                    if (row.year) {
+                        result.year = +row.year;
+                    }
+                    // console.log('>>>>>>>>>>'+result);
+                    // Lot.save(tosave);
+                    // toSaveArr.push(tosave);
+                    result.save();
                 }
-                return true;
+                if (!result){
+                    console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+                    let _lotData = {
+                            id: +row.id,
+                            number: +row.lotNumber.split('№')[1],
+                            description: row.description,
+                            estimateFrom: +row.estimate.split('-')[0],
+                            estimateTo: +row.estimate.split('-')[1],
+                            sellingPrice: parseInt(row.sellingPrice),
+                            year: +row.year,
+                            auctionId: +data.auctionId,
+                            isArchive: false
+                        };
+                    Lot.create(_lotData);
+                }
+                    
             });
-            if (isNew) {
-                _userData.schoolId = +socket.request.user.schoolId;
-                _insert.push(_userData);
-            }
-            return true;
+
         });
-        updated = Promise.all(allUpdatesSuccess);
-        if (+data.importParams == 3 || _insert.length < 1) {
-            updated.then(function (d) {
-                socket.emit("createCSVReport", myCount);
-            });
-            return false;
-        }
-        let createdUsers = [];
-        _insert.every(function (userData) {
-            if (userData !== null) {
-                createdUsers.push(User.create(userData).then(function (createdUser) {
-                    myCount.createdRows++;
-                    if (userData.roleId == 4) {
-                        return Learner.create({
-                            isArchive: false,
-                            userId: +createdUser.id,
-                            classId: +data.classSelected
-                        });
-                    }
-                }))
-            }
-            return true;
-        });
-        Promise.all([...createdUsers, updated]).then(function () {
-            socket.emit('createCSVReport', myCount);
-        });
-    });
+
+    // Lot.create(_lotData)
+    //     .then(function (lot) {
+    //         // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
+    //         socket.emit('createCSVReport', {
+    //             'err': 0,
+    //             // newUser: {
+    //             //     userId : user.id,
+    //             //     username: user.username
+    //             // }
+    //         });
+    //     }).catch(function (err) {
+    //     socket.emit('createCSVReport',
+    //         {err: 1, message: err.message}
+    //     );
+    // });
+
+
 };
