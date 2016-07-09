@@ -3,6 +3,7 @@ define(['./module','jquery'],function(controllers,$){
 
     controllers.controller('Main',['$sessionStorage','$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader){
         ngSocket.emit ('getUserInfo', {});
+        $scope.isAD = true;
         if($sessionStorage.auth){
             $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
         }        
@@ -17,6 +18,13 @@ define(['./module','jquery'],function(controllers,$){
 
         $rootScope.$on('$viewContentLoaded',function(){
             $('content').css('min-height',($(window).height() - $('header').height() - $('footer').height())+'px');
+        });
+
+        $rootScope.$on('$stateChangeStart', function(event, toState){
+           if(toState.data!=undefined && toState.data.noAD){
+               $scope.isAD = false;
+           }
+
         });
         $scope.regUserData = {};
         $scope.loginUserData = {};
