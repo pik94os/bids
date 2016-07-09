@@ -3,8 +3,9 @@ define(['./module','jquery'],function(controllers,$){
 
     controllers.controller('Main',['$sessionStorage','$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader){
         ngSocket.emit ('getUserInfo', {});
-        $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
-        console.log($sessionStorage);
+        if($sessionStorage.auth){
+            $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
+        }        
         ngSocket.on('userInfo', function (data) {
             if(data.err!=undefined && data.err==0){
                 $scope.currentUserInfo = JSON.parse(JSON.stringify(data.doc));
