@@ -15,6 +15,9 @@ define(['./app'], function (app) {
                     'header':{
                         templateUrl: "/templates/front-page/header.html"
                     }
+                },
+                data:{
+                    noAD:true
                 }
             })
             //Личный кабинет
@@ -84,6 +87,9 @@ define(['./app'], function (app) {
                         templateUrl: "/templates/calendar/header.html",
                         controller: 'CalendarHeader'
                     }
+                },
+                data:{
+                    noAD:true
                 }
             })
             //Страница ведущего
