@@ -119,10 +119,13 @@ define(['./app'], function (app) {
                     'header':{
                         templateUrl: "/templates/about-us/header.html"
                     }
+                },
+                data:{
+                    noAD:true
                 }
             })
 
-            //Страница Клнтакты
+            //Страница Контакты
             .state('contacts', {
                 url: '/contacts',
                 views:{
@@ -132,6 +135,9 @@ define(['./app'], function (app) {
                     'header':{
                         templateUrl: "/templates/contacts/header.html"
                     }
+                },
+                data:{
+                    noAD:true
                 }
             })
 
@@ -152,7 +158,10 @@ define(['./app'], function (app) {
             //Ошибка 404
             .state('err_404', {
                 url: "/err404",
-                templateUrl: "/templates/err404.html"
+                templateUrl: "/templates/err404.html",
+                data:{
+                    noAD:true
+                }
             });
         //Включаем красивые url(требуется html5)
         $locationProvider.html5Mode({
