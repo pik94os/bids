@@ -18,6 +18,7 @@ var attributes = {
     estimateTo: {type: Sequelize.INTEGER},
     sellingPrice: {type: Sequelize.INTEGER},
     year: {type: Sequelize.INTEGER},
+    titlePicId: {type: Sequelize.INTEGER},
     isArchive: {type: Sequelize.BOOLEAN}
 };
 

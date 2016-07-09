@@ -12,8 +12,9 @@ var attributes = {
     //         is: /^[a-z0-9\_\-]+$/i
     //     }
     // },
-    titlePic: {type: Sequelize.STRING},
-    gallery: {type: Sequelize.STRING},
+
+    originalName: {type: Sequelize.STRING},
+    fileName: {type: Sequelize.STRING},
     isArchive: {type: Sequelize.BOOLEAN}
 };
 

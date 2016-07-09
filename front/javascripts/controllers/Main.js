@@ -141,6 +141,64 @@ define(['./module','jquery'],function(controllers,$){
             // alert('Строки созданы');
         });
 
+        // загрузка картинок на сервер
+        // angular-file-upload
+        // https://github.com/nervgh/angular-file-upload/wiki/Module-API#directives
+        var lotPicUploader = $scope.lotPicUploader = new FileUploader({
+            url: '/api/upload/lotPic',
+            // queueLimit: 1,
+            // autoUpload: true,
+            removeAfterUpload: true
+        });
+
+        // FILTERS
+
+        // lotPicUploader.filters.push({
+        //     name: 'customFilter',
+        //     fn: function(item /*{File|FileLikeObject}*/, options) {
+        //         // return this.queue.length < 10;
+        //     }
+        // });
+
+        // CALLBACKS
+
+        lotPicUploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+        };
+        lotPicUploader.onAfterAddingFile = function(fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        lotPicUploader.onAfterAddingAll = function(addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        lotPicUploader.onBeforeUploadItem = function(item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        lotPicUploader.onProgressItem = function(fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        lotPicUploader.onProgressAll = function(progress) {
+            console.info('onProgressAll', progress);
+        };
+        lotPicUploader.onSuccessItem = function(fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+        };
+        lotPicUploader.onErrorItem = function(fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        lotPicUploader.onCancelItem = function(fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        lotPicUploader.onCompleteItem = function(fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+        };
+        lotPicUploader.onCompleteAll = function() {
+            console.info('onCompleteAll');
+            alert('Файлы загружены');
+        };
+
+        console.info('lotPicUploader', lotPicUploader);
+
         $scope.goToPageHeader = function () {
             if ( $scope.currentUserInfo.roleId === 5 ) {
                 $state.go('page-leading');

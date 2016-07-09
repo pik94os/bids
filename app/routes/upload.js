@@ -10,6 +10,7 @@ var passport = require('passport');
 
 // router.post('/avatar', upload.avatar);
 router.post('/lotCSV', upload.lotCSV);
+router.post('/lotPic', upload.lotPic);
 // router.post('/uploadFile', upload.uploadFile);
 
 module.exports = router;
