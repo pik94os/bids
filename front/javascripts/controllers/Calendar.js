@@ -6,26 +6,33 @@ define(['./module','jquery'],function(controllers,$){
         var d = new Date;
         $scope.calendar = createCalendarForMonth();
         $scope.currentDay = (new Date).getDate();
+        $scope.currentMonth = (new Date).getMonth();
+        $scope.currentYear = (new Date).getFullYear();
+        $scope.getYear = function (incr) {
+            var tempDate = new Date(d.getTime());
+            tempDate.setMonth(d.getMonth()+incr);
+            return tempDate.getFullYear();
+        };
         function createCalendarForMonth() {
             
             var currentDate = new Date();
-            var theMonth = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-                "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+            var theMonth = ["Октябрь", "Ноябрь", "Декабрь", "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+                "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь", "Январь"];
             
             var selectedYear = d.getFullYear();
             d.setDate(1);
             var selectedMonth = d.getMonth();
-
-            $scope.theMonth1 = theMonth[d.getMonth()+1];
-            $scope.theMonth0 = theMonth[d.getMonth()];
-            $scope.theMonth_1 = theMonth[d.getMonth()-1];
-            $scope.theMonth_2 = theMonth[d.getMonth()-2];
-            $scope.theMonth_3 = theMonth[d.getMonth()-3];
-
+            // прибавление к месяцам смещено на +3, т.к. в массиве theMonth + 3 элемента вначале
+            $scope.theMonth1 = theMonth[d.getMonth()+4];
+            $scope.theMonth0 = theMonth[d.getMonth()+3];
+            $scope.theMonth_1 = theMonth[d.getMonth()+2];
+            $scope.theMonth_2 = theMonth[d.getMonth()+1];
+            $scope.theMonth_3 = theMonth[d.getMonth()];
+            // $scope.theYear = theYear[d.getFullYear()];
             $scope.theYear = d.getFullYear();
+
+            $scope.theYear1 = (d.getFullYear()+1);
             $scope.theYear_1 = (d.getFullYear()-1);
-            $scope.theYear_2 = (d.getFullYear()-2);
-            $scope.theYear_3 = (d.getFullYear()-3);
 
             var countDays = new Date(selectedYear,selectedMonth+1,0).getDate();
             var calendar = [];
@@ -66,13 +73,18 @@ define(['./module','jquery'],function(controllers,$){
                     var calendarTemp = {};
                     if(calendar.length+1 > getWeekDay(d) && num < countDays){
                         num++;
+                        var curD = new Date(+d.getTime());
+                        curD.setDate(num);
                         calendarTemp = {
                             day : num,
                             string : m[i],
                             current : (
-                                currentDate.getFullYear()===selectedYear &&
-                                currentDate.getMonth()===selectedMonth &&
-                                currentDate.getDate()===num
+                                +currentDate.getFullYear()===+selectedYear &&
+                                +currentDate.getMonth()===+selectedMonth &&
+                                +currentDate.getDate()===+num
+                            ),
+                            old : (
+                                +currentDate.getTime() > +curD.getTime()
                             ),
                             tasks : false
                         };
@@ -112,6 +124,14 @@ define(['./module','jquery'],function(controllers,$){
         };
         // месяцы конец
         // год начало
+
+
+        // отобразить числа на следующий год
+        $scope.nextYear = function () {
+            d.setFullYear(d.getFullYear() + 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        
         // отобразить числа на этот год
         var dd = new Date;
         $scope.nowYear = dd.getFullYear();
@@ -120,18 +140,8 @@ define(['./module','jquery'],function(controllers,$){
             $scope.calendar = createCalendarForMonth();
         };
         // отобразить числа на предыдущий год
-        $scope.previous1Year = function () {
+        $scope.previousYear = function () {
             d.setFullYear(d.getFullYear() - 1);
-            $scope.calendar = createCalendarForMonth();
-        };
-        // отобразить числа на предпредыдущий год
-        $scope.previous2Year = function () {
-            d.setFullYear(d.getFullYear() - 2);
-            $scope.calendar = createCalendarForMonth();
-        };
-        // отобразить числа на предпредыдущий год
-        $scope.previous3Year = function () {
-            d.setFullYear(d.getFullYear() - 3);
             $scope.calendar = createCalendarForMonth();
         };
         // год конец

@@ -3,40 +3,56 @@
         <div>
             <div class="calendar-header-menu container">
                 <ul class="row ul-fix">
-                    <li class="col-xs-1 left-arrow" ng-click="nextMonth()">next</li>
+                    <li class="col-xs-1 left-arrow" ng-click="nextMonth()" ng-repaet="v1 in v"></li>
                     <li class="col-xs-2" ng-click="nextMonth()">
                         <div>
                             <div class="calendar-header-menu-title">{{theMonth1}}</div>
-                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                            <div class="calendar-header-menu-year">{{getYear(1)}}</div>
+                            <div class="calendar-header-menu-bottom"><span class="icon-molotok"></span></div>
                         </div>
                     </li>
                     <li class="col-xs-2">
                         <div class="active">
                             <div class="calendar-header-menu-title">{{theMonth0}}</div>
-                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                            <div class="calendar-header-menu-year">{{getYear(0)}}</div>
                             <div class="calendar-header-menu-bottom">
+                                <span class="icon-molotok"></span>
+                                <span class="icon-molotok"></span>
+                                <span class="icon-molotok"></span>
                             </div>
                         </div>
                     </li>
                     <li class="col-xs-2" ng-click="previous1Month()">
                         <div>
                             <div class="calendar-header-menu-title">{{theMonth_1}}</div>
-                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                            <div class="calendar-header-menu-year">{{getYear(-1)}}</div>
+                            <div class="calendar-header-menu-bottom"><span class="icon-molotok"
+                            ng-repeat="r in [1,2,3,4,5,6,7,8,9]"></span>
+                            </div>
                         </div>
                     </li>
                     <li class="col-xs-2" ng-click="previous2Month()">
                         <div>
                             <div class="calendar-header-menu-title">{{theMonth_2}}</div>
-                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                            <div class="calendar-header-menu-year">{{getYear(-2)}}</div>
+                            <div class="calendar-header-menu-bottom">
+                                <span class="icon-molotok"></span>
+                                <span class="icon-molotok"></span>
+                                <span class="icon-molotok"></span>
+                            </div>
                         </div>
                     </li>
                     <li class="col-xs-2" ng-click="previous3Month()">
                         <div>
                             <div class="calendar-header-menu-title">{{theMonth_3}}</div>
-                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                            <div class="calendar-header-menu-year">{{getYear(-3)}}</div>
+                            <div class="calendar-header-menu-bottom">
+                                <span class="icon-molotok"></span>
+                                <span class="icon-molotok"></span>
+                            </div>
                         </div>
                     </li>
-                    <li class="col-xs-1 right-arrow" ng-click="previous1Month()">previous</li>
+                    <li class="col-xs-1 right-arrow" ng-click="previous1Month()"></li>
                 </ul>
             </div>
 
@@ -51,10 +67,10 @@
             <div class="calendar-list-years">
                 <ul>
                     <li ng-click="thisYear()">{{nowYear}}</li>
+                    <li ng-click="nextYear()">{{theYear1}}</li>
                     <li class="active">{{theYear}}</li>
-                    <li ng-click="previous1Year()">{{theYear_1}}</li>
-                    <li ng-click="previous2Year()">{{theYear_2}}</li>
-                    <li ng-click="previous3Year()">{{theYear_3}}</li>
+                    <li ng-click="previousYear()">{{theYear_1}}</li>
+                    <!--<li ng-click="previous3Year()">{{theYear_3}}</li>-->
                 </ul>
             </div>
             <div class="calendar-list-days">
@@ -74,7 +90,12 @@
                 <!--</td>-->
                 <!--</tr>-->
                 <!--</table>-->
-                <div class="one-day {{day.tasks.cl}}" ng-repeat = "day in calendar" ng-class="{'last':!day.tasks.cl && currentDay>day.day,'current':currentDay===day.day,'visible-lg-block':!day.day}">
+                <div class="one-day {{day.tasks.cl}}"
+                     ng-repeat = "day in calendar"
+                     ng-class="{'last':day.old,
+                     'current':day.current,'visible-lg-block':!day.day}">
+                     <!--ng-class="{'last':!day.tasks.cl && currentDay>day.day,-->
+                     <!--'current':currentDay===day.day,'visible-lg-block':!day.day}">-->
                     <div>
                         <div class="day" ng-bind="day.day"></div>
                         <div class="weekday" ng-bind="day.string.lg"></div>
