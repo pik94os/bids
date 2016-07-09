@@ -3,14 +3,29 @@ define(['./module','jquery'],function(controllers,$){
     controllers.controller('CalendarHeader',['$scope', '$stateParams', function($scope, $stateParams){
         $scope.open = $stateParams.open;
     }]).controller('Calendar',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
+        var objectFunctions = {};
+        //alert (  );
         var d = new Date;
         $scope.calendar = createCalendarForMonth(d);
         $scope.currentDay = (new Date).getDate();
-        function createCalendarForMonth(d) {
+        function createCalendarForMonth() {
             var currentDate = new Date;
+
+            var theTheMonth = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+            $scope.theTheMonth = theTheMonth[currentDate.getMonth()+1];
+
             var selectedYear = d.getFullYear();
             d.setDate(1);
+
+            // var selectedMonth;
             var selectedMonth = d.getMonth();
+            //
+            // if ( objectFunctions.length === 0 ) {
+            //     selectedMonth = d.getMonth();
+            // } else {
+            //     selectedMonth = objectFunctions.month;
+            // }
+
             var countDays = new Date(selectedYear,selectedMonth+1,0).getDate();
             var calendar = [];
             var m = [
@@ -72,6 +87,26 @@ define(['./module','jquery'],function(controllers,$){
 
             return calendar;
         }
+
+        // месяцы начало
+        var theDate = new Date();
+        var theMonth = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+        $scope.theMonth1 = theMonth[theDate.getMonth()+1];
+        $scope.theMonth0 = theMonth[theDate.getMonth()];
+        $scope.theMonth_1 = theMonth[theDate.getMonth()-1];
+        $scope.theMonth_2 = theMonth[theDate.getMonth()-2];
+        $scope.theMonth_3 = theMonth[theDate.getMonth()-3];
+        $scope.theYear = theDate.getFullYear();
+
+        $scope.previousMonth = function () {
+            // createCalendarForMonth(currentDate.getMonth() - 1);
+            var selectedMonthValue = d.getMonth() - 1;
+            objectFunctions.month = selectedMonthValue;
+        };
+        $scope.nextMonth = function () {
+            createCalendarForMonth(d.getMonth() + 1);
+        };
+        // месяцы конец
 
         function getWeekDay(d) {
             return d.getDay()===0?6:d.getDay()-1;

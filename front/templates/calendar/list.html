@@ -1,4 +1,63 @@
 <div class="calendar-list">
+
+    <div>
+
+
+
+
+        <div>сейчас-{{theYear}}</div>
+        <div>сейчас-{{theMonth}}</div>
+        <div>0-{{theTheMonth}}</div>
+
+
+
+
+        <div class="calendar-header-menu container">
+            <ul class="row">
+                <li class="col-xs-1 left-arrow"></li>
+                <li class="col-xs-2">
+                    <div>
+                        <div class="calendar-header-menu-title" ng-click="nextMonth()">{{theMonth1}}</div>
+                        <div class="calendar-header-menu-year">{{theYear}}</div>
+                    </div>
+                </li>
+                <li class="col-xs-2">
+                    <div class="active">
+                        <div class="calendar-header-menu-title">{{theMonth0}}</div>
+                        <div class="calendar-header-menu-year">{{theYear}}</div>
+                        <div class="calendar-header-menu-bottom">
+                        </div>
+                    </div>
+                </li>
+                <li class="col-xs-2">
+                    <div>
+                        <div class="calendar-header-menu-title" ng-click="previousMonth()">{{theMonth_1}}</div>
+                        <div class="calendar-header-menu-year">{{theYear}}</div>
+                    </div>
+                </li>
+                <li class="col-xs-2">
+                    <div>
+                        <div class="calendar-header-menu-title">{{theMonth_2}}</div>
+                        <div class="calendar-header-menu-year">{{theYear}}</div>
+                    </div>
+                </li>
+                <li class="col-xs-2">
+                    <div>
+                        <div class="calendar-header-menu-title">{{theMonth_3}}</div>
+                        <div class="calendar-header-menu-year">{{theYear}}</div>
+                    </div>
+                </li>
+                <li class="col-xs-1 right-arrow"></li>
+            </ul>
+        </div>
+
+
+
+
+
+
+    </div>
+
     <div class="calendar-list-content">
         <div class="calendar-list-years">
             <ul>

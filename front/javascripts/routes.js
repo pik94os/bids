@@ -100,6 +100,32 @@ define(['./app'], function (app) {
                 }
             })
 
+            //Страница О нас
+            .state('about-us', {
+                url: '/about-us',
+                views:{
+                    '': {
+                        templateUrl: "/templates/about-us/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/about-us/header.html"
+                    }
+                }
+            })
+
+            //Страница Клнтакты
+            .state('contacts', {
+                url: '/contacts',
+                views:{
+                    '': {
+                        templateUrl: "/templates/contacts/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/contacts/header.html"
+                    }
+                }
+            })
+
             //Страница аукциона для ведущего
             .state('auction-leading', {
                 url: '/auction-leading',
