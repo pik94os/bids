@@ -1,25 +1,26 @@
 
-<div class="lot-list" ng-class="{'ll-open':open,'ll-open-1':open===1,'ll-open-2':open===2}">
+<div class="lot-list" ng-class="{'ll-open':open,'ll-open-1':open===1,'ll-open-2':open===2,'ll-open-1-false':isPlayOut == false,'ll-open-1-true':isPlayOut == true }">
     <div class="row row-lg">
 
         <div class="top-block">
             <div class=" col col-sm-6">
                 <div class="lot-title">
 					<div class="edit"></div>
-					<!--<p>"Древности Россейскага государства", изданные по высочайшему повелению.</p>-->
-					<!--<p>Рисованы академиком Ф.Солнцевым. 6 выпусков + Атлас. В типографии Александра Семена.</p> -->
-					<!--<p>Хромолитография Ф.Дрегера 1849-1853</p>-->
-					{{lot.description}}
+                    <div contenteditable="true" ng-model="description">{{lot.description}}</div>
 				</div>
                 <div class="lot-prisesale">Цена продажи: {{lot.sellingPrice}}</div>
 				<div class="lot-estimate">Эстимэйт: {{lot.estimateFrom}} - {{lot.estimateTo}}<div class="edit"></div></div>
-				<div class="lot-price">Цена продажи: <div class="edit"></div></div>
+				<div class="lot-price">Цена продажи: {{lot.sellingPrice}}<div class="edit"></div></div>
 
-				<div class="lot-price1">Разыигрывается сейчас<br>7 000 000 руб</div>
+				<div class="lot-price1">Разыигрывается сейчас<br>{{lot.sellingPrice}} руб</div>
 				<div class="lot-pricediv1">
 					<div class="lot-pricediv1-11">Разместить максимальный бид</div>
-					<div class="lot-pricediv1-2">Сделайте шаг / впишите свой<div class="lot-pricediv1-2-1"></div><div class="lot-pricediv1-2-2"></div></div>
-					<div class="lot-pricediv1-3">Подтвердить</div>
+					<div class="lot-pricediv1-2">
+                        <input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
+                        <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
+                        <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
+                    </div>
+					<div class="lot-pricediv1-3" ng-click="confirmLot()">Подтвердить</div>
 					<div class="lot-pricediv1-4">Таблица шагов</div>
 					<div class="lot-pricediv1-5"><div class="div032"></div><div class="div033">Включить напоминание</div></div>
 					<div class="lot-pricediv1-6">

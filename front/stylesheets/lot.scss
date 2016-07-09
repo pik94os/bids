@@ -339,6 +339,11 @@
   .lot-pricediv1 {
     display: none;
   }
+  .lot-priceinput{
+    background-color: transparent;
+    border:none;
+    width: 70%;
+  }
   .lot-price {
     position: relative;
     width: 100%;
@@ -506,6 +511,10 @@
     }
     &-1 {
       .lot-price1 {
+        display: none;
+      }
+    &-true{
+      .lot-price1 {
         display: block;
         background: green;
         color: white;
@@ -513,6 +522,7 @@
         width: 100%;
         padding: 20px;
         font-size: 18px;
+      }
       }
       .lot-pricediv1 {
         display: block;

@@ -31,6 +31,9 @@ define(['./app'], function (app) {
                     'header':{
                         templateUrl: "/templates/lk/header.html"
                     }
+                },
+                data:{
+                    noAD:true
                 }
             })
             //Страница редактирования аукциона, главная аукциона, любимые лоты
@@ -49,7 +52,7 @@ define(['./app'], function (app) {
             })
             //Страница редактирования и просмотра любого лота
             .state('lot', {
-                url: '/lot?open&tab&lotId',
+                url: '/lot?&lotId&auctionId',
                 views:{
                     '': {
                         templateUrl: "/templates/lot/list.html",
@@ -106,6 +109,38 @@ define(['./app'], function (app) {
                 }
             })
 
+            //Страница О нас
+            .state('about-us', {
+                url: '/about-us',
+                views:{
+                    '': {
+                        templateUrl: "/templates/about-us/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/about-us/header.html"
+                    }
+                },
+                data:{
+                    noAD:true
+                }
+            })
+
+            //Страница Контакты
+            .state('contacts', {
+                url: '/contacts',
+                views:{
+                    '': {
+                        templateUrl: "/templates/contacts/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/contacts/header.html"
+                    }
+                },
+                data:{
+                    noAD:true
+                }
+            })
+
             //Страница аукциона для ведущего
             .state('auction-leading', {
                 url: '/auction-leading',
@@ -123,7 +158,10 @@ define(['./app'], function (app) {
             //Ошибка 404
             .state('err_404', {
                 url: "/err404",
-                templateUrl: "/templates/err404.html"
+                templateUrl: "/templates/err404.html",
+                data:{
+                    noAD:true
+                }
             });
         //Включаем красивые url(требуется html5)
         $locationProvider.html5Mode({

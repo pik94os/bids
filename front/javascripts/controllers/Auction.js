@@ -1,9 +1,9 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionHeader',['$scope', '$stateParams', function($scope, $stateParams){
-        $scope.open = $stateParams.open;
+        $scope.open = +$stateParams.auctionId?$stateParams.open:2;
     }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function($scope,$http,$rootScope,$stateParams,ngSocket,FileUploader){
-        $scope.open = $stateParams.open;
+        $scope.open = +$stateParams.auctionId?$stateParams.open:2;
         $scope.contactsShow= false;
         $scope.showContacts = function () {
             $scope.contactsShow= true;

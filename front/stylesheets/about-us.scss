@@ -1,0 +1,51 @@
+.abous-us {
+  &-header {
+    height: 146px;
+    padding-top: 2px;
+    text-align: center;
+    h1 {
+      color: white;
+    }
+    div {
+      color: #c59662;
+      font-size: 18px;
+    }
+  }
+  &-list {
+    margin: -29px 0;
+    position: relative;
+
+    width: 100%;
+    &-text {
+      background: white;
+      padding: 30px;
+    }
+    &-form {
+      background: white;
+      margin: 18px 0 0 0;
+      padding: 30px;
+      &-name {
+        border-bottom: 1px solid #e2e2e2;
+        padding: 0 0 10px;
+        text-transform: uppercase;
+      }
+      &-form {
+        padding: 11px 0 0 0;
+        .custom-title-block {
+          float: right;
+          height: 55px;
+          margin-right: 15px;
+          width: 255px;
+        }
+        .div-debug {
+          background: transparent;
+          border: none;
+          cursor: default;
+          color: white;
+          height: 55px;
+          width: 255px;
+        }
+      }
+    }
+  }
+}

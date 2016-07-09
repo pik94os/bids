@@ -2,15 +2,25 @@
     <div class="custom-title-block">
         <div class="custom-title-block-h1">Импорт лотов из CSV</div>
     </div>
+    <br>
     <input id="selectCSV" type="file" nv-file-select="" uploader="uploader" name="CSVfile" ng-hide="true"/>
     <div class="button btn-primary" onclick="$('#selectCSV').click()">Загрузить CSV</div>
-    <div class="button btn-danger" ng-click="createNewLotFromCSV()">Импорт</div>
 
-    ['auctionName', 'id', 'lotNumber', 'description', 'estimate', 'sellingPrice', 'year', 'titlePic', 'gallery']
+    <div class="button btn-danger" ng-click="createNewLotFromCSV()" ng-show="CSVParsedFile">Импорт CSV</div>
+    <br>
+    <input id="selectPhoto" type="file" nv-file-select="" uploader="lotPicUploader" multiple name="PhotoFiles" ng-hide="true"/>
+    <div class="button btn-primary" onclick="$('#selectPhoto').click()" ng-show="CSVParsedFile">Загрузить фотографии</div>
+
+    <button type="button" class="btn btn-success btn-s" ng-click="lotPicUploader.uploadAll()" ng-disabled="!lotPicUploader.getNotUploadedItems().length">
+        <span class="glyphicon glyphicon-upload"></span> Upload all
+    </button>
+    <!--<div class="button btn-danger" ng-click="importImages()" ng-show="CSVParsedFile">Импорт фотографий</div>-->
+
+    <!--['auctionName', 'id', 'lotNumber', 'description', 'estimate', 'sellingPrice', 'year', 'titlePic', 'gallery']-->
 
 <div ng-show="CSVParsedFile">
     {{CSVParsedFile}}
-    <table>
+    <!--<table>-->
         <!--<tr>-->
             <!--<td></td>-->
             <!--<td><b>ФИО:</b></td>-->
@@ -34,6 +44,6 @@
             <!--<td>{{oneRowFromCSV.titlePic}}</td>-->
             <!--<td>{{oneRowFromCSV.gallery}}</td>-->
         <!--</tr>-->
-    </table>
+    <!--</table>-->
 </div>
 </modal>

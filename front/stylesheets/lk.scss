@@ -328,9 +328,57 @@
 	}
 }
 
+.div-table-historyofauctions {
+	background: white;
+	border-top: 2px solid #132038;
+	padding: 20px;
+	.table-historyofauctions {
+		background: pink;
+		.tr-top {
+			background: #b9b8b9;
+			width: 100%;
+		}
+		.tr-center {
+			background: #f2f2f2;
+			color: #132038;
+			font: {
+				family: "Century Gothic";
+				size: 14px;
+			}
+		}
+		.tr-bottom {
+			background: #e6e6e5;
+			color: #132038;
+			font: {
+				family: "Century Gothic";
+				size: 14px;
+			}
+		}
+		td {
+			height: 37px;
+		}
+		.td01 {
+			width: 312px;
+			padding-left: 12px;
+		}
+		.td02 {
+			width: 230px;
+		}
+		.td03 {
+			width: 245px;
+		}
+		.td04 {
+			width: 123px;
+		}
+	}
+}
 
-
-
+.iframe-class {
+	//background: pink;
+	header {
+		display: none;
+	}
+}
 
 
 

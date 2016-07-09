@@ -4,13 +4,36 @@ define(['./module','jquery'],function(controllers,$){
         $scope.open = $stateParams.open;
     }]).controller('Calendar',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
         var d = new Date;
-        $scope.calendar = createCalendarForMonth(d);
+        $scope.calendar = createCalendarForMonth();
         $scope.currentDay = (new Date).getDate();
-        function createCalendarForMonth(d) {
-            var currentDate = new Date;
+        $scope.currentMonth = (new Date).getMonth();
+        $scope.currentYear = (new Date).getFullYear();
+        $scope.getYear = function (incr) {
+            var tempDate = new Date(d.getTime());
+            tempDate.setMonth(d.getMonth()+incr);
+            return tempDate.getFullYear();
+        };
+        function createCalendarForMonth() {
+            
+            var currentDate = new Date();
+            var theMonth = ["Октябрь", "Ноябрь", "Декабрь", "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+                "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь", "Январь"];
+            
             var selectedYear = d.getFullYear();
             d.setDate(1);
             var selectedMonth = d.getMonth();
+            // прибавление к месяцам смещено на +3, т.к. в массиве theMonth + 3 элемента вначале
+            $scope.theMonth1 = theMonth[d.getMonth()+4];
+            $scope.theMonth0 = theMonth[d.getMonth()+3];
+            $scope.theMonth_1 = theMonth[d.getMonth()+2];
+            $scope.theMonth_2 = theMonth[d.getMonth()+1];
+            $scope.theMonth_3 = theMonth[d.getMonth()];
+            // $scope.theYear = theYear[d.getFullYear()];
+            $scope.theYear = d.getFullYear();
+
+            $scope.theYear1 = (d.getFullYear()+1);
+            $scope.theYear_1 = (d.getFullYear()-1);
+
             var countDays = new Date(selectedYear,selectedMonth+1,0).getDate();
             var calendar = [];
             var m = [
@@ -50,13 +73,18 @@ define(['./module','jquery'],function(controllers,$){
                     var calendarTemp = {};
                     if(calendar.length+1 > getWeekDay(d) && num < countDays){
                         num++;
+                        var curD = new Date(+d.getTime());
+                        curD.setDate(num);
                         calendarTemp = {
                             day : num,
                             string : m[i],
                             current : (
-                                currentDate.getFullYear()===selectedYear &&
-                                currentDate.getMonth()===selectedMonth &&
-                                currentDate.getDate()===num
+                                +currentDate.getFullYear()===+selectedYear &&
+                                +currentDate.getMonth()===+selectedMonth &&
+                                +currentDate.getDate()===+num
+                            ),
+                            old : (
+                                +currentDate.getTime() > +curD.getTime()
                             ),
                             tasks : false
                         };
@@ -73,6 +101,49 @@ define(['./module','jquery'],function(controllers,$){
             return calendar;
         }
 
+        // месяцы начало
+        // отобразить числа на сдедующий месяц
+        $scope.nextMonth = function () {
+            d.setMonth(d.getMonth() + 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предыдущий месяц
+        $scope.previous1Month = function () {
+            d.setMonth(d.getMonth() - 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предпредыдущий месяц
+        $scope.previous2Month = function () {
+            d.setMonth(d.getMonth() - 2);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предпредпредыдущий месяц
+        $scope.previous3Month = function () {
+            d.setMonth(d.getMonth() - 3);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // месяцы конец
+        
+        // год начало
+        var dd = new Date;
+        $scope.nowYear = dd.getFullYear();
+        // отобразить числа на следующий год
+        $scope.nextYear = function () {
+            d.setFullYear(d.getFullYear() + 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на этот год
+        $scope.thisYear = function () {            
+            d.setFullYear(dd.getFullYear());
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предыдущий год
+        $scope.previousYear = function () {
+            d.setFullYear(d.getFullYear() - 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // год конец
+        
         function getWeekDay(d) {
             return d.getDay()===0?6:d.getDay()-1;
         }
