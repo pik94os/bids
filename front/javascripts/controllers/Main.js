@@ -27,6 +27,8 @@ define(['./module','jquery'],function(controllers,$){
         $rootScope.$on('$stateChangeStart', function(event, toState){
            if(toState.data!=undefined && toState.data.noAD){
                $scope.isAD = false;
+           }else{
+               $scope.isAD = true;
            }
 
         });

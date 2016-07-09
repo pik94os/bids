@@ -31,6 +31,9 @@ define(['./app'], function (app) {
                     'header':{
                         templateUrl: "/templates/lk/header.html"
                     }
+                },
+                data:{
+                    noAD:true
                 }
             })
             //Страница редактирования аукциона, главная аукциона, любимые лоты
