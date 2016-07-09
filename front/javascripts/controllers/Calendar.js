@@ -4,13 +4,25 @@ define(['./module','jquery'],function(controllers,$){
         $scope.open = $stateParams.open;
     }]).controller('Calendar',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
         var d = new Date;
-        $scope.calendar = createCalendarForMonth(d);
+        $scope.calendar = createCalendarForMonth();
         $scope.currentDay = (new Date).getDate();
-        function createCalendarForMonth(d) {
-            var currentDate = new Date;
+        function createCalendarForMonth() {
+
+            var theDate = new Date();
+            var theMonth = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+            $scope.theMonth1 = theMonth[theDate.getMonth()+1];
+            $scope.theMonth0 = theMonth[theDate.getMonth()];
+            $scope.theMonth_1 = theMonth[theDate.getMonth()-1];
+            $scope.theMonth_2 = theMonth[theDate.getMonth()-2];
+            $scope.theMonth_3 = theMonth[theDate.getMonth()-3];
+            $scope.theYear = theDate.getFullYear();
+            
+            var currentDate = new Date();
             var selectedYear = d.getFullYear();
             d.setDate(1);
+
             var selectedMonth = d.getMonth();
+
             var countDays = new Date(selectedYear,selectedMonth+1,0).getDate();
             var calendar = [];
             var m = [
@@ -72,6 +84,19 @@ define(['./module','jquery'],function(controllers,$){
 
             return calendar;
         }
+
+        // месяцы начало
+        // отобразить числа на предыдущий месяц
+        $scope.previousMonth = function () {
+            d.setMonth(d.getMonth() - 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предыдущий месяц
+        $scope.nextMonth = function () {
+            d.setMonth(d.getMonth() + 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // месяцы конец
 
         function getWeekDay(d) {
             return d.getDay()===0?6:d.getDay()-1;

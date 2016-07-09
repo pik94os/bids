@@ -84,11 +84,11 @@ gulp.task('fonts',() => {
 
 gulp.task('image',() => {
     return gulp.src(path.src.img)
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()]
-        }))
+        // .pipe(imagemin({
+        //     progressive: true,
+        //     svgoPlugins: [{removeViewBox: false}],
+        //     use: [pngquant()]
+        // }))
         .pipe(gulp.dest(path.build.img));
 });
 

@@ -15,6 +15,9 @@ define(['./app'], function (app) {
                     'header':{
                         templateUrl: "/templates/front-page/header.html"
                     }
+                },
+                data:{
+                    noAD:true
                 }
             })
             //Личный кабинет
@@ -84,6 +87,9 @@ define(['./app'], function (app) {
                         templateUrl: "/templates/calendar/header.html",
                         controller: 'CalendarHeader'
                     }
+                },
+                data:{
+                    noAD:true
                 }
             })
             //Страница ведущего
@@ -96,6 +102,32 @@ define(['./app'], function (app) {
                     },
                     'header':{
                         templateUrl: "/templates/page-leading/header.html"
+                    }
+                }
+            })
+
+            //Страница О нас
+            .state('about-us', {
+                url: '/about-us',
+                views:{
+                    '': {
+                        templateUrl: "/templates/about-us/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/about-us/header.html"
+                    }
+                }
+            })
+
+            //Страница Клнтакты
+            .state('contacts', {
+                url: '/contacts',
+                views:{
+                    '': {
+                        templateUrl: "/templates/contacts/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/contacts/header.html"
                     }
                 }
             })
