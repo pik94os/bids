@@ -5,10 +5,9 @@ define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
     controllers.controller('LotHeader', ['$scope', '$stateParams', 'ngSocket', function ($scope, $stateParams, ngSocket) {
         $scope.open = +$stateParams.open;
-
         // получение одного лота по ID
         ngSocket.emit('auction/getLot', {
-            lotId: $stateParams.lotId
+            lotId: +$stateParams.lotId
         });
         ngSocket.on('lotSelected', function (data) {
             $scope.lot = JSON.parse(JSON.stringify(data.lot))
@@ -30,7 +29,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     estimateTo: $scope.estimateTo,
                     sellingPrice: $scope.sellingPrice
                 });
-        }
+        };
         // подтверждение бида
         $scope.confirmLot = function () {
             //$scope.userId = 1;
@@ -41,7 +40,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     bidPrice: $scope.bidPrice,
                     userId: $scope.userId
                 });
-        }
+        };
 
         ngSocket.on('lotConfirmed', function (data) {
            console.log(data);
