@@ -8,7 +8,7 @@ footer {
 	}
 	.logo-footer{
 		position: absolute;
-		margin: -10px 10px 0 16px;
+		margin: 40px 10px 0 16px;
 		float: left;
 		background:{
 			image: url(/images/logo-footer.png);
@@ -16,7 +16,7 @@ footer {
 			position: 0 0;
 		}
 		width: 316px;
-		height: 130px;
+		height: 90px;
 		@include xs-display {
 			margin: 3px 10px 0 15px;
 			height: 120px;

@@ -81,19 +81,19 @@ class Initiator {
     _syncModels() {
         var that = this;
         return this.Role.sync({force: false}).then(function () {
-                return that.Auction.sync({force: false})
-        }).then(function () {
-                return that.Lot.sync({force: false})
-        }).then(function () {
-            return that.LotPicture.sync({force: false})
-        }).then(function () {
                 return that.User.sync({force: false})
-        }).then(function () {
-                return that.Bid.sync({force: false})
         }).then(function () {
                 return that.Right.sync({force: false})
         }).then(function () {
                 return that.RoleRight.sync({force: false})
+        }).then(function () {
+            return that.Auction.sync({force: false})
+        }).then(function () {
+            return that.Lot.sync({force: false})
+        }).then(function () {
+            return that.LotPicture.sync({force: false})
+        }).then(function () {
+            return that.Bid.sync({force: false})
         })
     }
 

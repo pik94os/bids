@@ -2,22 +2,12 @@
 
     <div>
 
-
-
-
-        <div>сейчас-{{theYear}}</div>
-        <div>сейчас-{{theMonth}}</div>
-        <div>0-{{theTheMonth}}</div>
-
-
-
-
         <div class="calendar-header-menu container">
             <ul class="row">
-                <li class="col-xs-1 left-arrow"></li>
+                <li class="col-xs-1 left-arrow" ng-click="nextMonth()">next</li>
                 <li class="col-xs-2">
                     <div>
-                        <div class="calendar-header-menu-title" ng-click="nextMonth()">{{theMonth1}}</div>
+                        <div class="calendar-header-menu-title">{{theMonth1}}</div>
                         <div class="calendar-header-menu-year">{{theYear}}</div>
                     </div>
                 </li>
@@ -31,7 +21,7 @@
                 </li>
                 <li class="col-xs-2">
                     <div>
-                        <div class="calendar-header-menu-title" ng-click="previousMonth()">{{theMonth_1}}</div>
+                        <div class="calendar-header-menu-title">{{theMonth_1}}</div>
                         <div class="calendar-header-menu-year">{{theYear}}</div>
                     </div>
                 </li>
@@ -47,14 +37,9 @@
                         <div class="calendar-header-menu-year">{{theYear}}</div>
                     </div>
                 </li>
-                <li class="col-xs-1 right-arrow"></li>
+                <li class="col-xs-1 right-arrow" ng-click="previousMonth()">previous</li>
             </ul>
         </div>
-
-
-
-
-
 
     </div>
 
