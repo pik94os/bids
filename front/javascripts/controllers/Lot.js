@@ -63,7 +63,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         }
         // подтверждение бида
         $scope.confirmLot = function () {
-            $scope.userId = 1;
+            //$scope.userId = 1;
             //$scope.lotId = 1;
             console.log($scope.lotId, $scope.bidPrice, $scope.userId);
                 ngSocket.emit('auction/confirmLot', {
