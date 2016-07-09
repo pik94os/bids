@@ -33,8 +33,7 @@ class Initiator {
                 AuctionHouse: that.AuctionHouse,
                 Lot: that.Lot,
                 LotPicture: that.LotPicture,
-                Bid: that.Bid,
-                LotBid: that.LotBid
+                Bid: that.Bid
             }
         }).catch(function (err) {
             console.error(err.message)
@@ -45,12 +44,11 @@ class Initiator {
         this.Right = connection.define('right', RightMeta.attributes);
         this.Role = connection.define('role', RoleMeta.attributes, RoleMeta.options);
         this.RoleRight = connection.define('role_right', {});
-        this.LotBid = connection.define('lot_bid', {});
         this.User = connection.define('users', UserMeta.attributes, UserMeta.options);
         this.AuctionHouse = connection.define('auction_houses', AuctionHouseMeta.attributes);
         this.Auction = connection.define('auction', AuctionMeta.attributes);
         this.Lot = connection.define('lot', LotMeta.attributes);
-        this.Bid = connection.define('bid', BidMeta.attributes)
+        this.Bid = connection.define('bid', BidMeta.attributes);
         this.LotPicture = connection.define('lot_picture', LotPictureMeta.attributes);
 
         this.Role.hasMany(this.User);
@@ -60,8 +58,8 @@ class Initiator {
         this.User.hasMany(this.Auction);
         this.Auction.hasMany(this.Lot);
         this.Lot.hasMany(this.LotPicture);
-        this.Bid.hasOne(this.Lot, {as: 'Lot'});
-        this.User.belongsToMany(this.Bid, {as: 'Bids', through: this.LotBid});
+        this.LotBid = this.Bid.belongsTo(this.Lot, {as: "lot"});
+        this.Creator = this.Bid.belongsTo(this.User, {as: "creator"});
 
         this.roles = {};
         this.rights = {};
@@ -76,24 +74,26 @@ class Initiator {
         models.Lot = this.Lot;
         models.LotPicture = this.LotPicture;
         models.Bid = this.Bid;
+        models.Creator = this.Creator;
+        models.LotBid = this.LotBid;
     }
 
     _syncModels() {
         var that = this;
         return this.Role.sync({force: false}).then(function () {
-            return that.User.sync({force: false})
+                return that.Auction.sync({force: false})
         }).then(function () {
-            return that.Right.sync({force: false})
-        }).then(function () {
-            return that.RoleRight.sync({force: false})
-        }).then(function () {
-            return that.Auction.sync({force: false})
-        }).then(function () {
-            return that.Lot.sync({force: false})
+                return that.Lot.sync({force: false})
         }).then(function () {
             return that.LotPicture.sync({force: false})
         }).then(function () {
+                return that.User.sync({force: false})
+        }).then(function () {
                 return that.Bid.sync({force: false})
+        }).then(function () {
+                return that.Right.sync({force: false})
+        }).then(function () {
+                return that.RoleRight.sync({force: false})
         })
     }
 
