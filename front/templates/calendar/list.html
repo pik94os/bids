@@ -1,86 +1,93 @@
-<div class="calendar-list">
-
-    <div>
-
-        <div class="calendar-header-menu container">
-            <ul class="row">
-                <li class="col-xs-1 left-arrow" ng-click="nextMonth()">next</li>
-                <li class="col-xs-2">
-                    <div>
-                        <div class="calendar-header-menu-title">{{theMonth1}}</div>
-                        <div class="calendar-header-menu-year">{{theYear}}</div>
-                    </div>
-                </li>
-                <li class="col-xs-2">
-                    <div class="active">
-                        <div class="calendar-header-menu-title">{{theMonth0}}</div>
-                        <div class="calendar-header-menu-year">{{theYear}}</div>
-                        <div class="calendar-header-menu-bottom">
+<div>
+    <div class="calendar-header">
+        <div>
+            <div class="calendar-header-menu container">
+                <ul class="row ul-fix">
+                    <li class="col-xs-1 left-arrow" ng-click="nextMonth()">next</li>
+                    <li class="col-xs-2" ng-click="nextMonth()">
+                        <div>
+                            <div class="calendar-header-menu-title">{{theMonth1}}</div>
+                            <div class="calendar-header-menu-year">{{theYear}}</div>
                         </div>
-                    </div>
-                </li>
-                <li class="col-xs-2">
-                    <div>
-                        <div class="calendar-header-menu-title">{{theMonth_1}}</div>
-                        <div class="calendar-header-menu-year">{{theYear}}</div>
-                    </div>
-                </li>
-                <li class="col-xs-2">
-                    <div>
-                        <div class="calendar-header-menu-title">{{theMonth_2}}</div>
-                        <div class="calendar-header-menu-year">{{theYear}}</div>
-                    </div>
-                </li>
-                <li class="col-xs-2">
-                    <div>
-                        <div class="calendar-header-menu-title">{{theMonth_3}}</div>
-                        <div class="calendar-header-menu-year">{{theYear}}</div>
-                    </div>
-                </li>
-                <li class="col-xs-1 right-arrow" ng-click="previousMonth()">previous</li>
-            </ul>
-        </div>
+                    </li>
+                    <li class="col-xs-2">
+                        <div class="active">
+                            <div class="calendar-header-menu-title">{{theMonth0}}</div>
+                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                            <div class="calendar-header-menu-bottom">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="col-xs-2" ng-click="previous1Month()">
+                        <div>
+                            <div class="calendar-header-menu-title">{{theMonth_1}}</div>
+                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                        </div>
+                    </li>
+                    <li class="col-xs-2" ng-click="previous2Month()">
+                        <div>
+                            <div class="calendar-header-menu-title">{{theMonth_2}}</div>
+                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                        </div>
+                    </li>
+                    <li class="col-xs-2" ng-click="previous3Month()">
+                        <div>
+                            <div class="calendar-header-menu-title">{{theMonth_3}}</div>
+                            <div class="calendar-header-menu-year">{{theYear}}</div>
+                        </div>
+                    </li>
+                    <li class="col-xs-1 right-arrow" ng-click="previous1Month()">previous</li>
+                </ul>
+            </div>
 
+        </div>
     </div>
 
-    <div class="calendar-list-content">
-        <div class="calendar-list-years">
-            <ul>
-                <li class="active">2016</li>
-                <li>2015</li>
-                <li>2014</li>
-                <li>2013</li>
-            </ul>
-        </div>
-        <div class="calendar-list-days">
-            <!--<table>-->
+    <div class="calendar-list">
+
+
+
+        <div class="calendar-list-content">
+            <div class="calendar-list-years">
+                <ul>
+                    <li ng-click="thisYear()">{{nowYear}}</li>
+                    <li class="active">{{theYear}}</li>
+                    <li ng-click="previous1Year()">{{theYear_1}}</li>
+                    <li ng-click="previous2Year()">{{theYear_2}}</li>
+                    <li ng-click="previous3Year()">{{theYear_3}}</li>
+                </ul>
+            </div>
+            <div class="calendar-list-days">
+                <!--<table>-->
                 <!--<tr ng-repeat = "week in calendar">-->
-                    <!--<td ng-repeat = "day in week" class="{{day.tasks.cl}}" ng-class="{'last':!day.tasks.cl && currentDay>day.day,'current':currentDay===day.day}">-->
-                        <!--<div>-->
-                            <!--<div class="day" ng-bind="day.day"></div>-->
-                            <!--<div class="weekday visible-lg-block" ng-bind="day.string.lg"></div>-->
-                            <!--<div class="weekday hidden-lg" ng-bind="day.string.sm"></div>-->
-                            <!--<div class="info" ng-if="day.tasks">-->
-                                <!--<div class="date" ng-bind="day.tasks.date"></div>-->
-                                <!--<div class="auct" ng-bind="day.tasks.title"></div>-->
-                                <!--<div class="city" ng-bind="day.tasks.city"></div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</td>-->
+                <!--<td ng-repeat = "day in week" class="{{day.tasks.cl}}" ng-class="{'last':!day.tasks.cl && currentDay>day.day,'current':currentDay===day.day}">-->
+                <!--<div>-->
+                <!--<div class="day" ng-bind="day.day"></div>-->
+                <!--<div class="weekday visible-lg-block" ng-bind="day.string.lg"></div>-->
+                <!--<div class="weekday hidden-lg" ng-bind="day.string.sm"></div>-->
+                <!--<div class="info" ng-if="day.tasks">-->
+                <!--<div class="date" ng-bind="day.tasks.date"></div>-->
+                <!--<div class="auct" ng-bind="day.tasks.title"></div>-->
+                <!--<div class="city" ng-bind="day.tasks.city"></div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</td>-->
                 <!--</tr>-->
-            <!--</table>-->
-            <div class="one-day {{day.tasks.cl}}" ng-repeat = "day in calendar" ng-class="{'last':!day.tasks.cl && currentDay>day.day,'current':currentDay===day.day,'visible-lg-block':!day.day}">
-                <div>
-                    <div class="day" ng-bind="day.day"></div>
-                    <div class="weekday" ng-bind="day.string.lg"></div>
-                    <!--<div class="weekday hidden-lg" ng-bind="day.string.sm"></div>-->
-                    <div class="info" ng-if="day.tasks">
-                        <div class="date" ng-bind="day.tasks.date"></div>
-                        <div class="auct" ng-bind="day.tasks.title"></div>
-                        <div class="city" ng-bind="day.tasks.city"></div>
+                <!--</table>-->
+                <div class="one-day {{day.tasks.cl}}" ng-repeat = "day in calendar" ng-class="{'last':!day.tasks.cl && currentDay>day.day,'current':currentDay===day.day,'visible-lg-block':!day.day}">
+                    <div>
+                        <div class="day" ng-bind="day.day"></div>
+                        <div class="weekday" ng-bind="day.string.lg"></div>
+                        <!--<div class="weekday hidden-lg" ng-bind="day.string.sm"></div>-->
+                        <div class="info" ng-if="day.tasks">
+                            <div class="date" ng-bind="day.tasks.date"></div>
+                            <div class="auct" ng-bind="day.tasks.title"></div>
+                            <div class="city" ng-bind="day.tasks.city"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

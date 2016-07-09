@@ -7,21 +7,25 @@ define(['./module','jquery'],function(controllers,$){
         $scope.calendar = createCalendarForMonth();
         $scope.currentDay = (new Date).getDate();
         function createCalendarForMonth() {
-
-            var theDate = new Date();
-            var theMonth = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-            $scope.theMonth1 = theMonth[theDate.getMonth()+1];
-            $scope.theMonth0 = theMonth[theDate.getMonth()];
-            $scope.theMonth_1 = theMonth[theDate.getMonth()-1];
-            $scope.theMonth_2 = theMonth[theDate.getMonth()-2];
-            $scope.theMonth_3 = theMonth[theDate.getMonth()-3];
-            $scope.theYear = theDate.getFullYear();
             
             var currentDate = new Date();
+            var theMonth = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+                "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+            
             var selectedYear = d.getFullYear();
             d.setDate(1);
-
             var selectedMonth = d.getMonth();
+
+            $scope.theMonth1 = theMonth[d.getMonth()+1];
+            $scope.theMonth0 = theMonth[d.getMonth()];
+            $scope.theMonth_1 = theMonth[d.getMonth()-1];
+            $scope.theMonth_2 = theMonth[d.getMonth()-2];
+            $scope.theMonth_3 = theMonth[d.getMonth()-3];
+
+            $scope.theYear = d.getFullYear();
+            $scope.theYear_1 = (d.getFullYear()-1);
+            $scope.theYear_2 = (d.getFullYear()-2);
+            $scope.theYear_3 = (d.getFullYear()-3);
 
             var countDays = new Date(selectedYear,selectedMonth+1,0).getDate();
             var calendar = [];
@@ -86,18 +90,52 @@ define(['./module','jquery'],function(controllers,$){
         }
 
         // месяцы начало
-        // отобразить числа на предыдущий месяц
-        $scope.previousMonth = function () {
-            d.setMonth(d.getMonth() - 1);
-            $scope.calendar = createCalendarForMonth();
-        };
-        // отобразить числа на предыдущий месяц
+        // отобразить числа на сдедующий месяц
         $scope.nextMonth = function () {
             d.setMonth(d.getMonth() + 1);
             $scope.calendar = createCalendarForMonth();
         };
+        // отобразить числа на предыдущий месяц
+        $scope.previous1Month = function () {
+            d.setMonth(d.getMonth() - 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предпредыдущий месяц
+        $scope.previous2Month = function () {
+            d.setMonth(d.getMonth() - 2);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предпредпредыдущий месяц
+        $scope.previous3Month = function () {
+            d.setMonth(d.getMonth() - 3);
+            $scope.calendar = createCalendarForMonth();
+        };
         // месяцы конец
-
+        // год начало
+        // отобразить числа на этот год
+        var dd = new Date;
+        $scope.nowYear = dd.getFullYear();
+        $scope.thisYear = function () {            
+            d.setFullYear(dd.getFullYear());
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предыдущий год
+        $scope.previous1Year = function () {
+            d.setFullYear(d.getFullYear() - 1);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предпредыдущий год
+        $scope.previous2Year = function () {
+            d.setFullYear(d.getFullYear() - 2);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // отобразить числа на предпредыдущий год
+        $scope.previous3Year = function () {
+            d.setFullYear(d.getFullYear() - 3);
+            $scope.calendar = createCalendarForMonth();
+        };
+        // год конец
+        
         function getWeekDay(d) {
             return d.getDay()===0?6:d.getDay()-1;
         }
