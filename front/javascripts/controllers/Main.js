@@ -4,6 +4,10 @@ define(['./module','jquery'],function(controllers,$){
     controllers.controller('Main',['$sessionStorage','$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader){
         ngSocket.emit ('getUserInfo', {});
         $scope.isAD = true;
+        $scope.setIsAD = function () {
+            $scope.isAD=true;
+        };
+        
         if($sessionStorage.auth){
             $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
         }        
