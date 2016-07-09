@@ -3,8 +3,9 @@
  */
 'use strict';
 var Lot = require('../../models/').Lot;
-var User = require('../models/').User;
-var Bid = require('../models/').Bid;
+var User = require('../../models/').User;
+var Bid = require('../../models/').Bid;
+
 
 module.exports = function(socket, data) {
     if (!data.lotId || !data.userId) {
@@ -13,52 +14,42 @@ module.exports = function(socket, data) {
         );
         return
     }
-    Bid.create(data.bidPrice)
-        .then(function (bid) {
-            addLotToBid(bid, data.lotId, function(err, bid){
+    findLot(data.lotId, function(err, lot){
+        if (err) return emitError(socket, err);
+        if (err) return emitError(socket, err);
+            findUser(data.userId, function (err, user){
                 if (err) return emitError(socket, err);
-                    addBidToUser(bid, data.userId, function(err, bid){
-                        if (err) return emitError(socket, err);
-                            socket.emit('lotConfirmed',
-                                {err: 0, bid: bid});
+                Bid.create({price: data.bidPrice, lotId: lot.id, creatorId: user.id})
+                    .then(function (bid){
+                        socket.emit('lotConfirmed',
+                            {err: 0, bid: bid});
+                    }).catch(function (err) {
+                        return emitError(socket, err);
                     })
             })
-        })
-        .catch(function (err) {
-            emitError(socket, err);
-        })
+    })
 
-    function addLotToBid(bid, lotId, cb){
+
+    function findLot(lotId, cb){
         Lot.findById(lotId)
             .then(function(lot) {
-                bid.addLot(lot)
-                    .then(function (){
-                        return cb(null, bid);
-                    })
-                    .catch(function (err) {
-                        return cb(err);
-                    })
+                return cb(null, lot);
             })
             .catch(function (err) {
                 return cb(err);
             })
 
     }
-    function addBidToUser(bid, userId, cb){
+    function findUser(userId, cb){
         User.findById(userId)
             .then(function(user){
-                user.addBid(bid)
-                    .then(function () {
-                        return cb(null, bid)
-                    })
-                    .catch(function (err) {
-                        return cb(err);
-                    })
+                    return cb(null, user)
             })
             .catch(function (err) {
                     return cb (err);
             })
     }
+
     function emitError(socket, err){
         socket.emit('lotConfirmed',
             {err: 1, message: err.message})
