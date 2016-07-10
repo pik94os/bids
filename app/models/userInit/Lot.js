@@ -13,14 +13,14 @@ var attributes = {
     //     }
     // },
     number: {type: Sequelize.INTEGER},
-    description: {type: Sequelize.STRING},
-    estimateFrom: {type: Sequelize.INTEGER},
-    estimateTo: {type: Sequelize.INTEGER},
-    sellingPrice: {type: Sequelize.INTEGER},
-    year: {type: Sequelize.INTEGER},
+    description: {type: Sequelize.TEXT, defaultValue: null},
+    estimateFrom: {type: Sequelize.INTEGER, defaultValue: null},
+    estimateTo: {type: Sequelize.INTEGER, defaultValue: null},
+    sellingPrice: {type: Sequelize.INTEGER, defaultValue: null},
+    year: {type: Sequelize.INTEGER, defaultValue: null},
     isArchive: {type: Sequelize.BOOLEAN, defaultValue: false},
     isSold: {type: Sequelize.BOOLEAN, defaultValue: false},
-    titlePicId: {type: Sequelize.INTEGER},
+    titlePicId: {type: Sequelize.INTEGER,  defaultValue: null},
     isPlayOut: {type: Sequelize.BOOLEAN, defaultValue: false}
 };
 
