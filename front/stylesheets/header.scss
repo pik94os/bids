@@ -21,6 +21,10 @@ header {
       image: url(/images/background-header.png);
       color: black;
     }
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     .input-radius {
       border-radius: 15px;
       padding: 0 0 0 5px;
@@ -130,6 +134,10 @@ header {
         display: inline-block;
       }
     }
+  }
+
+  .header-top2 {
+    height: 40px;
   }
 
   .header-bottom {
