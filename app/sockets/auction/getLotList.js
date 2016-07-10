@@ -12,7 +12,10 @@ module.exports = function(socket, data) {
         );
         return
     }
+    // если делать эту строку то назад возвращаются только ID лотов и на странице аукциона не будут выводиться описания лотов и тд:
     Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
+    // если раскомментировать эту строку то на странице аукциона будет выводиться вся информация о лоте но вся вестка поползет:
+    // Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
         .then(function(lotList) {
             socket.emit('lotList', {
                 'err': 0,
