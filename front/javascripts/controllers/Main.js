@@ -255,27 +255,24 @@ define(['./module','jquery'],function(controllers,$){
         };
         // кнопка наверх конец
         
-        // убирание <p></p> из текста нач
+        // убирание <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
-            text = '<p>Что толку в @@@твоем уме, если при этом ты @равнодушный и косный человек.</p><p>А если все зовут тебя @Дурнем, но при этом у тебя доброе и отзывчивое сердце, то Господь обязательно вознаградит тебя.</p><p>И золотым гусем, и прекрасной королевной.</p>';
+            text = '<p>Что толку в @@@твоем уме, если при этом ты @равнодушный и косный человек.</p><p>А если все зовут тебя @Дурнем, но при этом у тебя доброе и отзывчивое сердце, то Господь обязательно вознаградит тебя.</p><p>И золотым гусем, и @прекрасной королевной.</p>';
             var mas = [];
 
-            var slugger = "Josh Hamilton";
-            var betterSlugger = slugger.replace("h Hamilton", "e Bautista");
-            console.log(betterSlugger); // "Jose Bautista"
-
             while (text.indexOf("@")+1) {
-                text = (text.indexOf("@")+1).replace("");
+                text = text.replace("@", "");
             }
-            // while (text.indexOf("<p>")+1) {
-            //     var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
-            //
-            //     text = text.substring(text.indexOf("</p>") + 3, text.length);
-            //     mas.push(text1);
-            // }
 
-            return text;
+            while (text.indexOf("<p>")+1) {
+                var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
+
+                text = text.substring(text.indexOf("</p>") + 3, text.length);
+                mas.push(text1);
+            }
+
+            return mas;
         };
-        // убирание <p></p> из текста кон
+        // убирание <p></p> из текста и удаление @ кон
     }])
 });
