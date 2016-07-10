@@ -13,6 +13,7 @@ var attributes = {
     //     }
     // },
     number: {type: Sequelize.INTEGER},
+    descriptionPrev: {type: Sequelize.TEXT, defaultValue: null},
     description: {type: Sequelize.TEXT, defaultValue: null},
     estimateFrom: {type: Sequelize.INTEGER, defaultValue: null},
     estimateTo: {type: Sequelize.INTEGER, defaultValue: null},

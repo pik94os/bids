@@ -4,6 +4,7 @@
 'use strict';
 
 var Lot = require('../../models/').Lot;
+var LotPicture = require('../../models/').LotPicture;
 
 module.exports = function(socket, data) {
     if (!data.auctionId) {
@@ -15,12 +16,16 @@ module.exports = function(socket, data) {
     // если делать эту строку то назад возвращаются только ID лотов и на странице аукциона не будут выводиться описания лотов и тд:
     Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
     // если раскомментировать эту строку то на странице аукциона будет выводиться вся информация о лоте но вся вестка поползет:
-    // Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
+    // Lot.findAll({where: {auctionId: data.auctionId}})
         .then(function(lotList) {
-            socket.emit('lotList', {
-                'err': 0,
-                lotList: lotList
+            LotPicture.findAll({where: {lotId: lotList.id}}).then(function (listPics) {
+                socket.emit('lotList', {
+                    'err': 0,
+                    lotList: lotList,
+                    listPics: listPics
+                }); 
             });
+            
         }).catch(function (err) {
         socket.emit('lotList',
             {err: 1, message: err.message}
