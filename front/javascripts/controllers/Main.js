@@ -214,6 +214,7 @@ define(['./module','jquery'],function(controllers,$){
 
         console.info('lotPicUploader', lotPicUploader);
 
+        // Проверка роли : от 1до4 и 5-ая роль
         $scope.goToPageHeader = function () {
             if ( $scope.currentUserInfo.roleId === 5 ) {
                 $state.go('page-leading');
@@ -221,5 +222,38 @@ define(['./module','jquery'],function(controllers,$){
                 $state.go('lk');
             }
         };
+
+
+        // кнопка наверх начало
+        var scrollUp = document.getElementById('scrollup'); // найти элемент
+        scrollUp.style.display = 'none';
+        $scope.buttonUp = function () {
+
+            scrollUp.onmouseover = function() { // добавить прозрачность
+                scrollUp.style.opacity=0.3;
+                scrollUp.style.filter  = 'alpha(opacity=30)';
+            };
+
+            scrollUp.onmouseout = function() { //убрать прозрачность
+                scrollUp.style.opacity = 0.5;
+                scrollUp.style.filter  = 'alpha(opacity=50)';
+            };
+
+            scrollUp.onclick = function() { //обработка клика
+                $('body,html').animate({ scrollTop: 0 }, 800);
+            };           
+        };
+
+        // show button
+        window.onscroll = function () { // при скролле показывать и прятать блок
+
+            if ( window.pageYOffset > 75 ) {
+                scrollUp.style.display = 'block';
+            } else {
+                scrollUp.style.display = 'none';
+            }
+        };
+        // кнопка наверх конец
+        
     }])
 });
