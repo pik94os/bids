@@ -74,6 +74,7 @@
         }
       }
       &-right {
+        color: red !important;
         @include sm-or-more-display{
           border-left: 1px solid #4e586a;
         }
@@ -83,7 +84,7 @@
           }
         }
         &-form {
-          margin-top: 25px;
+          margin-top: 10px;
           label {
             margin-bottom: 0px;
             display: inline;
@@ -149,6 +150,18 @@
     margin-bottom: 10px !important;
   }
 }
+
+#reg-for-the-auction{
+  @extend #loginModal;
+}
+.form-reg{
+  @extend .modal-body-in-right-form;
+}
+.custom-title-block{
+  cursor: pointer;
+  margin-bottom: 10px !important;
+}
+
 
 #reg-auction-house {
   .modal-body {
