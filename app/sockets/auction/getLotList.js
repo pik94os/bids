@@ -12,7 +12,7 @@ module.exports = function(socket, data) {
         );
         return
     }
-    Lot.findAll({where: {auctionId: data.auctionId}})
+    Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
         .then(function(lotList) {
             socket.emit('lotList', {
                 'err': 0,
