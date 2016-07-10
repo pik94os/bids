@@ -34,6 +34,7 @@ module.exports = function(io,passportSocketIo) {
             {event:'getUserRoles', access:0, comment: "получение списка ролей пользователей"},
             //аукционы
             {event:'auction/create', access:0, comment: "создание аукциона"},
+            {event:'auction/room', access:0, comment: "комната аукциона"},
             {event:'auction/list', access:0, comment: "получение списка аукционов"},
             {event:'auction/getLotList', access:0, comment: "получение списка лотов"},
             {event:'auction/getLot', access:0, comment: "получение одного лота"},

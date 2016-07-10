@@ -66,7 +66,7 @@ define(['./app'], function (app) {
             })
             //Комната торгов
             .state('room', {
-                url: '/room?countdown',
+                url: '/room?auctionId',
                 views:{
                     '': {
                         templateUrl: "/templates/room/list.html",

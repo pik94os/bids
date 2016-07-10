@@ -116,10 +116,10 @@
         </div>
         -->
     </div>
-    <div class="auctions-list collapse in" ui-sref="">
+    <div class="auctions-list collapse in">
         <div class="auction row" ng-repeat="auction in auctionList">
             <div>
-                <div class="col-md-9">
+                <div class="col-md-9" ui-sref="room({auctionId:auction.id})">
                     <div class="auction-img">
                         <img src="images/image-body-in.png">
                     </div>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-xs-4 col-md-12">
                             <div class="auction-button active" data-toggle="modal" data-target="#reg-for-the-auction">Регистрация</div>
                         </div>

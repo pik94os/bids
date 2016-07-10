@@ -2,10 +2,10 @@ define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('RoomHeader',['ngSocket','$scope','$http', '$rootScope', '$stateParams', function(ngSocket,$scope,$http,$rootScope,$stateParams){
         // получение одного аукциона по ID
-        ngSocket.emit('auction/get', {
-            id: $stateParams.lotId
+        ngSocket.emit('auction/room', {
+            id: $stateParams.auctionId
         });
-        ngSocket.on('auction',function (data) {
+        ngSocket.on('room',function (data) {
             if(data.err){
                 return alert(data.message);
             }
@@ -13,7 +13,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countdown = (date.getTime() > Date.now())?1:2;
         })
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams', function(ngSocket,$scope,$http,$rootScope,$stateParams){
-        ngSocket.on('auction',function (data) {
+        ngSocket.on('room',function (data) {
             if(data.err){
                 return alert(data.message);
             }
