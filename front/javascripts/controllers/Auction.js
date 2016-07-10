@@ -18,6 +18,7 @@ define(['./module','jquery'],function(controllers,$){
         });
         ngSocket.on('lotList', function (data) {
             $scope.lotList = JSON.parse(JSON.stringify(data.lotList));
+            $scope.listPics = JSON.parse(JSON.stringify(data.listPics));
             // $scope.lotList = data;
         });
 

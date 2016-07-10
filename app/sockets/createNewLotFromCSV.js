@@ -20,7 +20,14 @@ module.exports = function (socket, data) {
                     result.number = +row.lotNumber.split('№')[1];
                 }
                 if (row.description) {
-                    result.description = row.description;
+                    var descriptionSplitted = row.description.split('@');
+                    if (descriptionSplitted.length == 1){
+                        result.description = row.description
+                    }
+                    if (descriptionSplitted.length > 1) {
+                        result.descriptionPrev = descriptionSplitted[0];
+                        result.description = descriptionSplitted[0] + descriptionSplitted[1];
+                    }
                 }
                 if (row.estimate) {
                     result.estimateFrom = +row.estimate.split('-')[0];
@@ -90,7 +97,14 @@ module.exports = function (socket, data) {
                     _lotData.number = +row.lotNumber.split('№')[1]
                 }
                 if (row.description) {
-                    _lotData.description = row.description
+                    var descriptionSplitted = row.description.split('@');
+                    if (descriptionSplitted.length == 1){
+                        _lotData.description = row.description
+                    }
+                    if (descriptionSplitted.length > 1) {
+                        _lotData.descriptionPrev = descriptionSplitted[0];
+                        _lotData.description = descriptionSplitted[0] + descriptionSplitted[1];
+                    }
                 }
                 if (row.estimate) {
                     _lotData.estimateFrom = +row.estimate.split('-')[0];
