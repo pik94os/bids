@@ -16,15 +16,11 @@
 					</div>
 					<div class="header-top-right">
 						<div ng-hide="!currentUserInfo.id">
-							<div class="header-top-right-heart" ui-sref="auction({open:3})">
-								<!--<a href="/auction?open=3" title="Каталог"></a>-->
-							</div>
-							<!--ui-sref="lk"-->
+							<!--<div class="header-top-right-heart" ui-sref="auction({open:3})"></div>-->
 							<div class="header-top-right-avatar" ng-click="goToPageHeader()">
 								<div class="avatar-hover">
 									<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>
 									<div class="paddindRight10px" ng-show="currentUserInfo.id">
-										<!--<a href="/lk" title="Перейти в личный кабинет"></a>-->
 											{{currentUserInfo.patronymic}} {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}
 									</div>
 								</div>
@@ -72,8 +68,8 @@
 				<a href="#" ng-click="topMenuShow = !topMenuShow" ng-blur="topMenuShow=false">
 					<ul ng-class="{'open':topMenuShow}">
 						<li class="current top-menu_col-3" ui-sref="front-page"><a>Главная</a></li>
-						<li class="top-menu_col-3"><a>Аукционы</a></li>
-						<li class="top-menu_col-3"><a>Информация</a></li>
+						<li class="top-menu_col-3" ui-sref="auctions"><a>Аукционы</a></li>
+						<li class="top-menu_col-3" ui-sref="information"><a>Информация</a></li>
 					</ul>
 				</a>
 			</div>

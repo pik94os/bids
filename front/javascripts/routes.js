@@ -147,10 +147,36 @@ define(['./app'], function (app) {
                 views:{
                     '': {
                         templateUrl: "/templates/auction-leading/list.html"
-                        // controller: 'AuctionLeading'
                     },
                     'header':{
                         templateUrl: "/templates/auction-leading/header.html"
+                    }
+                }
+            })
+
+            //Страница информация
+            .state('information', {
+                url: '/information',
+                views:{
+                    '': {
+                        templateUrl: "/templates/information/list.html"
+                    },
+                    'header':{
+                        templateUrl: "/templates/information/header.html"
+                    }
+                }
+            })
+
+            //Страница аукционы
+            .state('auctions', {
+                url: '/auctions',
+                views:{
+                    '': {
+                        templateUrl: "/templates/auctions/list.html",
+                        controller: 'FrontPage'
+                    },
+                    'header':{
+                        templateUrl: "/templates/auctions/header.html"
                     }
                 }
             })
