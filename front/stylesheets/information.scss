@@ -1,0 +1,21 @@
+.information {
+  &-header {
+    height: 100px;
+    padding-top: 2px;
+    text-align: center;
+    h1 {
+      color: white;
+    }
+    div {
+      color: #c59662;
+      font-size: 18px;
+    }
+  }
+  &-list {
+    .gold {
+      color: gold;
+      display: inline;
+    }
+  }
+
+}
