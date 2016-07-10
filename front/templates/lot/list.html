@@ -31,7 +31,9 @@
 				</div>
 
 				<div class="lot-price2">Продан</div>
+                <div ng-class="{'lot-hide': confirm.message == null, 'lot-error': confirm.err === 1, 'lot-confirm': confirm.err === 0}">{{confirm.message}}</div>
             </div>
+
             <div class="col col-sm-6">
                 <div class="big-photo">
 					<div class="cclose"></div>
