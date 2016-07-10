@@ -1,9 +1,25 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('RoomHeader',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
-        $scope.countdown = +$stateParams.countdown-1?2:1;
-    }]).controller('Room',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
-        $scope.countdown = +$stateParams.countdown-1?2:1;
+    controllers.controller('RoomHeader',['ngSocket','$scope','$http', '$rootScope', '$stateParams', function(ngSocket,$scope,$http,$rootScope,$stateParams){
+        // получение одного аукциона по ID
+        ngSocket.emit('auction/get', {
+            id: $stateParams.lotId
+        });
+        ngSocket.on('auction',function (data) {
+            if(data.err){
+                return alert(data.message);
+            }
+            var date = new Date(data.auction.date);
+            $scope.countdown = (date.getTime() > Date.now())?1:2;
+        })
+    }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams', function(ngSocket,$scope,$http,$rootScope,$stateParams){
+        ngSocket.on('auction',function (data) {
+            if(data.err){
+                return alert(data.message);
+            }
+            var date = new Date(data.auction.date);
+            $scope.countdown = (date.getTime() > Date.now())?1:2;
+        });
         $scope.popup = false;
         $scope.setPopup = function(index){
             $scope.popup = index;
