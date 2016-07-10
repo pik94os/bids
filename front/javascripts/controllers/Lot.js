@@ -51,6 +51,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.tab = $stateParams.tab;
         $scope.bidPrice = 0;
         $scope.step = 1;
+        $scope.confirm = {err: null, message: null};
         //инициализация параметров лота
         var params = ['description', 'sellingPrice', 'estimateFrom', 'estimateTo'];
             initLotParams($scope, params, initObjFromArr(params,["", 0, 0, 0]));
@@ -58,7 +59,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         // создание лота
         $scope.createLot = function () {
                 ngSocket.emit('auction/createLot', {
-                    number: 2,//$scope.number,
+                    number: $stateParams.number,
                     description: $scope.description,
                     estimateFrom: $scope.estimateFrom,
                     estimateTo: $scope.estimateTo,
@@ -70,7 +71,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         // подтверждение бида
         $scope.confirmLot = function () {
-            //$scope.userId = 1;
+            $scope.userId = 1;
             //$scope.lotId = 1;
             console.log($scope.lotId, $scope.bidPrice, $scope.userId);
                 ngSocket.emit('auction/confirmLot', {
@@ -82,6 +83,11 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.on('lotConfirmed', function (data) {
            console.log(data);
+            if (data.err == 0){
+                $scope.confirm = data;
+                $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
+            }
+            $scope.confirm = data
             });
 
         ngSocket.on('lotSelected', function (data) {
@@ -89,6 +95,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.lotId = $scope.lot.id;
                 $scope.isPlayOut = $scope.lot.isPlayOut;
                 $scope.open = ($scope.lot.isSold) ? 2 : 1;
+                $scope.bidPrice =  $scope.lot.estimateFrom;
                 initLotParams($scope, params, $scope.lot);
                 initStep();
             });
@@ -110,7 +117,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         }
 
         $scope.formatBid = function () {
-            var bid = $scope.Price;
+            var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
         }

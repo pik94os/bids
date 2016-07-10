@@ -363,6 +363,24 @@
   .lot-pricediv1 {
     display: none;
   }
+  .lot-confirm {
+    display: block;
+    background: green;
+    color: white;
+    text-transform: uppercase;
+    width: 100%;
+    padding: 20px;
+    font-size: 18px;
+  }
+  .lot-error {
+    display: block;
+    background: red;
+    color: white;
+    text-transform: uppercase;
+    padding: 8px 0 8px 20px;
+    width: 100%;
+    font-weight: bold;
+  }
   .lot-priceinput{
     background-color: transparent;
     border:none;
