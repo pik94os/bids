@@ -141,6 +141,13 @@
       }
     }
   }
+  .form-reg{
+    @extend .modal-body-in-right-form;
+  }
+  .custom-title-block{
+    cursor: pointer;
+    margin-bottom: 10px !important;
+  }
 }
 
 #reg-auction-house {
