@@ -6,6 +6,10 @@ footer {
 	  color: black;
 	  size: 100% auto;
 	}
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 	.logo-footer{
 		position: absolute;
 		margin: 40px 10px 0 16px;
@@ -75,4 +79,25 @@ footer {
 			right: 0px;
 		}
 	}
+
+	@media screen and (min-width: 1072px) {
+		#scrollup {
+			position: fixed;
+			opacity: 0.8;
+			right: 30px;
+			bottom: 135px;
+			cursor: pointer;
+		}
+	}
+
+	@media screen and (max-width: 1072px) {
+		#scrollup {
+			position: fixed;
+			opacity: 0.8;
+			right: 0;
+			bottom: 135px;
+			cursor: pointer;
+		}
+	}
+
 }
