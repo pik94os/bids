@@ -6,7 +6,7 @@ var Lot = require('../../models/').Lot;
 
 
 module.exports = function(socket, data) {
-    if (!data.number) {
+   if (!data.number) {
         socket.emit('lotCreated',
             {err: 1, message: 'Undefined lot number'}
         );
@@ -17,7 +17,10 @@ module.exports = function(socket, data) {
         description: data.description,
         estimateFrom: data.estimateFrom,
         estimateTo: data.estimateTo,
-        sellingPrice: data.sellingPrice
+        sellingPrice: data.sellingPrice,
+        auctionId: data.auctionId,
+        year: data.year,
+        titlePicId: data.titlePicId
     };
 
     Lot.create(_lotData)
@@ -30,7 +33,7 @@ module.exports = function(socket, data) {
             });
         }).catch(function (err) {
             socket.emit('lotCreated',
-                {err: 1, message: err.message}
+                {err: 1, message: err.message, data:_lotData}
             );
         });
 };

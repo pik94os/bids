@@ -33,7 +33,6 @@ module.exports = function(socket, data) {
             })
     })
 
-
     function findLot(lotId, cb){
         Lot.findById(lotId)
             .then(function(lot) {

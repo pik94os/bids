@@ -1,18 +1,19 @@
 
-<div class="lot-list" ng-class="{'ll-open':open,'ll-open-1':open===1,'ll-open-2':open===2,'ll-open-1-false':isPlayOut == false,'ll-open-1-true':isPlayOut == true }">
+<div class="lot-list" ng-class="{'ll-open':open,'ll-open-1':open===1,'ll-open-2':open===2,'ll-open-1-false':isPlayOut === false,'ll-open-1-true':isPlayOut === true }">
     <div class="row row-lg">
 
         <div class="top-block">
             <div class=" col col-sm-6">
                 <div class="lot-title">
 					<div class="edit"></div>
-                    <div contenteditable="true" ng-model="description">{{lot.description}}</div>
+                    <div><textarea class="lot-description-input" ng-model="description" ng-readonly="{{open != 0}}">{{description}}</textarea></div>
 				</div>
-                <div class="lot-prisesale">Цена продажи: {{lot.sellingPrice}}</div>
-				<div class="lot-estimate">Эстимэйт: {{lot.estimateFrom}} - {{lot.estimateTo}}<div class="edit"></div></div>
-				<div class="lot-price">Цена продажи: {{lot.sellingPrice}}<div class="edit"></div></div>
+                <div class="lot-prisesale">Цена продажи: {{sellingPrice}}</div>
+				<div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="estimateFrom" value="{{estimateFrom}}" ng-readonly="{{open != 0}}"/> - <input class="lot-priceinput" ng-model="estimateTo" value="{{estimateTo}}" ng-readonly="{{open != 0}}"/><div class="edit"></div></div>
+                <div class="lot-estimate">Эстимэйт: {{estimateFrom}} - {{estimateTo}} <div class="edit"></div></div>
+                <div class="lot-price">Цена продажи: <input class="lot-priceinput" ng-model="sellingPrice" value="{{sellingPrice}}" ng-readonly="{{open != 0}}"/><div class="edit"></div></div>
 
-				<div class="lot-price1">Разыигрывается сейчас<br>{{lot.sellingPrice}} руб</div>
+				<div class="lot-price1">Разыигрывается сейчас<br>{{sellingPrice}} руб</div>
 				<div class="lot-pricediv1">
 					<div class="lot-pricediv1-11">Разместить максимальный бид</div>
 					<div class="lot-pricediv1-2">
@@ -20,7 +21,7 @@
                         <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
                         <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                     </div>
-					<div class="lot-pricediv1-3" ng-click="confirmLot()">Подтвердить</div>
+					<div class="lot-pricediv1-3" ng-click="confirmLot()">{{ isPlayOut ? "Подтвердить" : "Заочный бид"}}</div>
 					<div class="lot-pricediv1-4">Таблица шагов</div>
 					<div class="lot-pricediv1-5"><div class="div032"></div><div class="div033">Включить напоминание</div></div>
 					<div class="lot-pricediv1-6">
@@ -91,6 +92,6 @@
     <div class="row lot-buttons" ng-hide="open">
         <div class="col-sm-3"> <div class="custom-btn-sm btn-block custom-btn-red">Удалить</div> </div>
         <div class="col-sm-3"> <div class="custom-btn-sm btn-block">Сохранить</div> </div>
-        <div class="col-sm-6"> <div class="custom-btn-sm btn-block">Сохранить и создать новый</div> </div>
+        <div class="col-sm-6"> <div class="custom-btn-sm btn-block" ng-click="createLot()">Сохранить и создать новый</div> </div>
     </div>
 </div>

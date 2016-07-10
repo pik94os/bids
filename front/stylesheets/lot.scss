@@ -311,7 +311,7 @@
     }
 
   }
-  .lot-estimate {
+  .lot-estimate-editable {
     position: relative;
     width: 100%;
     height: 56px; // высота по макету 56px
@@ -332,6 +332,30 @@
         display: block;
       }
     }
+    display: block;
+  }
+  .lot-estimate{
+    position: relative;
+    width: 100%;
+    height: 56px; // высота по макету 56px
+    background: #151789;
+    @extend %font_strong; // от верха кнопки до верха шрифта - 21 и до низа - 36
+    padding: 15px 0 0 20px; // левый отступ - 20px
+    font-weight: bold;
+
+    color: white;
+    .edit {
+      @extend %edit;
+      top: 12px;
+      right: 1px;
+      display: none;
+    }
+    &:hover {
+      .edit {
+        display: block;
+      }
+    }
+    display: none;
   }
   .lot-prisesale {
     display: none;
@@ -342,7 +366,14 @@
   .lot-priceinput{
     background-color: transparent;
     border:none;
-    width: 70%;
+    width: 30%;
+  }
+  .lot-description-input{
+    background-color: transparent;
+    border:none;
+    width: 100%;
+    overflow:auto;
+    resize: none;
   }
   .lot-price {
     position: relative;
@@ -513,6 +544,12 @@
       .lot-price1 {
         display: none;
       }
+      .lot-estimate-editable{
+        display: none;
+      }
+      .lot-estimate{
+        display: block;
+      }
     &-true{
       .lot-price1 {
         display: block;
@@ -661,6 +698,12 @@
     &-2 {
       .lot-pricediv1 {
         display: none;
+      }
+      .lot-estimate-editable{
+        display: none;
+      }
+      .lot-estimate{
+        display: block;
       }
       .lot-estimate {
         background: #aaaaaa;
