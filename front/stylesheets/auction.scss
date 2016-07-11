@@ -37,7 +37,9 @@
 }
 
 .auction-header-image {
-	background: rgba(0, 0, 0, 0) url("/images/background-header.jpg") no-repeat scroll 0 0 / 100% auto;
+	*background: rgba(0, 0, 0, 0) url("/images/background-header.jpg") no-repeat scroll 0 0 / 100% auto;
+	background: rgba(0, 0, 0, 0) url("/images/bg_auction.jpg") no-repeat scroll 0 0 / 100% auto;
+
 	height: 420px;
 	text-align: center;
 	&-top {
