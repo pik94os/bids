@@ -1,0 +1,105 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "ng-simple-webrtc",
+        "scope": null,
+        "escapedName": "ng-simple-webrtc",
+        "name": "ng-simple-webrtc",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/pik/Документы/sites/admingo"
+    ]
+  ],
+  "_from": "ng-simple-webrtc@latest",
+  "_id": "ng-simple-webrtc@0.22.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/ng-simple-webrtc",
+  "_nodeVersion": "0.12.7",
+  "_npmUser": {
+    "name": "bahmutov",
+    "email": "gleb.bahmutov@gmail.com"
+  },
+  "_npmVersion": "2.11.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "ng-simple-webrtc",
+    "scope": null,
+    "escapedName": "ng-simple-webrtc",
+    "name": "ng-simple-webrtc",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ng-simple-webrtc/-/ng-simple-webrtc-0.22.0.tgz",
+  "_shasum": "091eed57e4eb11e6270b7d4128ff78f64f3f2164",
+  "_shrinkwrap": null,
+  "_spec": "ng-simple-webrtc",
+  "_where": "/home/pik/Документы/sites/admingo",
+  "author": {
+    "name": "Gleb Bahmutov",
+    "email": "gleb.bahmutov@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/bahmutov/ng-simple-webrtc/issues"
+  },
+  "dependencies": {
+    "angular": "1.4.1",
+    "http-server": "0.8.0",
+    "simplewebrtc": "1.19.0"
+  },
+  "description": "AngularJS wrapper for SimpleWebRTC client from https://simplewebrtc.com/",
+  "devDependencies": {
+    "clean-console": "0.3.0",
+    "console-log-div": "0.6.2",
+    "es5-shim": "4.1.7",
+    "pre-git": "0.6.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "091eed57e4eb11e6270b7d4128ff78f64f3f2164",
+    "tarball": "https://registry.npmjs.org/ng-simple-webrtc/-/ng-simple-webrtc-0.22.0.tgz"
+  },
+  "gitHead": "639e07eb1c979f7c24661db1071a8511113a5df5",
+  "homepage": "https://github.com/bahmutov/ng-simple-webrtc",
+  "keywords": [
+    "webrtc",
+    "video",
+    "peer",
+    "communication",
+    "simple",
+    "simplewebrtc",
+    "angular",
+    "ng",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "bahmutov",
+      "email": "gleb.bahmutov@gmail.com"
+    }
+  ],
+  "name": "ng-simple-webrtc",
+  "optionalDependencies": {},
+  "post-commit": "npm version",
+  "pre-commit": "npm test",
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/ng-simple-webrtc.git"
+  },
+  "scripts": {
+    "start": "http-server -p 3400",
+    "test": "clean-console broadcast.html && clean-console watch.html"
+  },
+  "version": "0.22.0"
+}

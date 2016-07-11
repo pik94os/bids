@@ -6,6 +6,7 @@ define([
     'uiRouter',
     'uiSocket',
     'uiStorage',
+    'SimpleWebRTC',
     'angular-localForage',
     'angular-svg-round-progressbar',
     './controllers/index',
@@ -21,6 +22,7 @@ define([
         'ui.router',
         'btford.socket-io',
         'ngStorage',
+        'SimpleWebRTC',
         'LocalForageModule',
         'angular-svg-round-progressbar',
         'app.controllers',
@@ -32,7 +34,13 @@ define([
     ]).run([
         '$rootScope', '$state', '$stateParams', '$sessionStorage', 'SessionService','ngSocket',
         function ($rootScope, $state, $stateParams, $sessionStorage, SessionService, ngSocket) {
-
+            navigator.mediaDevices.enumerateDevices()
+                .then(function(devices) {
+                    devices.forEach(function(device) {
+                        console.log(device.kind + ": " + device.label +
+                            " id = " + device.deviceId);
+                    });
+                });
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 

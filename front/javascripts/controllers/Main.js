@@ -257,7 +257,6 @@ define(['./module','jquery'],function(controllers,$){
         
         // убирание <p></p> из текста нач
         $scope.deleteTegP = function (text) {
-            text = '<p>Что толку в @@@твоем уме, если при этом ты @равнодушный и косный человек.</p><p>А если все зовут тебя @Дурнем, но при этом у тебя доброе и отзывчивое сердце, то Господь обязательно вознаградит тебя.</p><p>И золотым гусем, и прекрасной королевной.</p>';
             var mas = [];
 
             var slugger = "Josh Hamilton";
@@ -267,14 +266,14 @@ define(['./module','jquery'],function(controllers,$){
             while (text.indexOf("@")+1) {
                 text = (text.indexOf("@")+1).replace("");
             }
-            // while (text.indexOf("<p>")+1) {
-            //     var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
-            //
-            //     text = text.substring(text.indexOf("</p>") + 3, text.length);
-            //     mas.push(text1);
-            // }
+            while (text.indexOf("<p>")+1) {
+                var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
+            
+                text = text.substring(text.indexOf("</p>") + 3, text.length);
+                mas.push(text1);
+            }
 
-            return text;
+            return mas;
         };
         // убирание <p></p> из текста кон
     }])

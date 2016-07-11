@@ -81,5 +81,16 @@ define(['./module','jquery'],function(controllers,$){
         $(window).resize( function(){
             moveToTheRigh();
         });
+        $scope.roomName = $stateParams.auctionId;
+        $scope.joinedRoom = false;
+        $scope.joinRoom = function () {
+            $scope.$broadcast('joinRoom');
+        };
+        $scope.leaveRoom = function () {
+            $scope.$broadcast('leaveRoom');
+        };
+        setTimeout(function () {
+            $scope.joinRoom();
+        },2000);
     }])
 });
