@@ -255,26 +255,18 @@ define(['./module','jquery'],function(controllers,$){
         };
         // кнопка наверх конец
         
-        // убирание <p></p> из текста нач
+        // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
             var mas = [];
-
-            var slugger = "Josh Hamilton";
-            var betterSlugger = slugger.replace("h Hamilton", "e Bautista");
-            console.log(betterSlugger); // "Jose Bautista"
-
-            while (text.indexOf("@")+1) {
-                text = (text.indexOf("@")+1).replace("");
-            }
             while (text.indexOf("<p>")+1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
-            
+
                 text = text.substring(text.indexOf("</p>") + 3, text.length);
                 mas.push(text1);
             }
 
             return mas;
         };
-        // убирание <p></p> из текста кон
+        // удаление <p></p> из текста и удаление @ кон
     }])
 });
