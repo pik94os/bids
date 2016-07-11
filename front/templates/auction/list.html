@@ -87,7 +87,8 @@
     <!--<input id="selectCSV" type="file" nv-file-select="" uploader="uploader" name="CSVfile" ng-hide="true"/>-->
     <!--<div class="button btn-primary" onclick="$('#selectCSV').click()">Загрузить CSV</div>-->
     <!--{{CSVParsedFile}}-->
-    {{lotList}}
+
+
     <div class="tabs">
         <div class="row">
             <!--{{lotList}}-->
@@ -115,6 +116,15 @@
                         <!--&lt;!&ndash;<div class="info" ng-if="singleLot.sellingPrice"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice}} Р</p></div>&ndash;&gt;-->
                     <!--</div>-->
                 <!--</div>-->
+            <!--<div ng-repeat="a in lotList">-->
+                <!--lottitleid: {{a.titlePicId}}<br>-->
+                <!--lotpictudeid: {{a.lot_pictures}}-->
+
+                    <!--<div ng-if="a.titlePicId == b.id">-->
+                        <!--find: {{b}}-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
                 <div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="singleLot in lotList">
                     <div class="tab">
                         <div class="over">
@@ -126,8 +136,13 @@
 
                         <div class="img222">
                             <!--{{singleLot.lot_pictures.originalName}}-->
+                            <div ng-repeat="titlepic in singleLot.lot_pictures">
+                                <div ng-if="singleLot.titlePicId == titlepic.id">
+                                    <!--find: {{titlepic}}-->
+                                    <img src="images/lot-images/{{titlepic.fileName}}">
+                                </div>
+                            </div>
 
-                            <img src="images/lot-images/{{lot_pictures.fileName}}">
 
                         </div>
                         <div class="img222-under1">Лот {{singleLot.number}}</div>
