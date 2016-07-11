@@ -70,6 +70,49 @@
     }
   }
 }
+.lot-priceinput {
+  background-color: transparent;
+  border:none;
+  width: 30%;
+}
+.lot-pricediv1 {
+  display: block;
+  padding: 20px 15px 0;
+  background: white;
+  &-11 {
+    font-weight: bold;
+    margin: -10px 0 5px;
+    }
+      &-2 {
+        background: #efefef;
+        text-transform: uppercase;
+        padding: 15px;
+        color: #aaaaaa;
+        font-size: 16px;
+          &-1 {
+            background: url(/images/ICONS_svg/bit_down.svg) no-repeat;
+            margin-top: -4px;
+            float: right;
+            height: 28px;
+            width: 28px;
+            &:hover {
+              background: url(/images/ICONS_svg/bit_down_hover.svg) no-repeat;
+              cursor: pointer;
+              }
+           }
+          &-2 {
+            background: url(/images/ICONS_svg/bit_up.svg) no-repeat;
+            margin-top: -4px;
+            float: right;
+            height: 28px;
+            width: 28px;
+            &:hover {
+              background: url(/images/ICONS_svg/bit_up_hover.svg) no-repeat;
+              cursor: pointer;
+              }
+          }
+      }
+  }
 
 .pb-container {
   @include square(200px);
