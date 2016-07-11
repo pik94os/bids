@@ -1,4 +1,4 @@
-<div class="row-block">
+    <div class="row-block">
     <div class="content-block">
         <!--//-->
 
@@ -24,19 +24,20 @@
             </div>
 
             <!--// 1-ая строка ниже-->
-            <div class="page-leading-list-div active">
-                <div class="color-background">
+            <div  class="page-leading-list-div active" ng-repeat="auction in auctions" ui-sref="auction-leading({auctionId: auction.id})">
+                <div class="color-background" >
                     <div class="page-leading-list-div-div1">
                         лого
                     </div>
                 </div>
                 <div class="page-leading-list-div-div2">
-                    Аукционный дом 1
+                    Аукционный дом {{auction.name}}
                     <div class="italic">
                         Ценные книги и рукописи
                     </div>
                 </div>
                 <div class="page-leading-list-div-div3">
+                    {{auction.date | dateTimeFilter}}
                     <!--прогресс-бары-->
                     <div class="rom-container">
                         <div ng-show="countdown==1">
@@ -45,13 +46,13 @@
                                 <div class="progress-bar-circle-container">
                                     <div class="room_container-for-circles">
                                         <round-progress class="room-circle-bar"
-                                                        max="60"
-                                                        current="45"
+                                                        max="24"
+                                                        current="ch"
                                                         color="#162346"
-                                                        bgcolor="#b5d8ba"
-                                                        radius="35"
+                                                        bgcolor="#E2F3FB"
+                                                        radius="70"
                                                         semi="false"
-                                                        stroke="3"
+                                                        stroke="7"
                                                         rounded="false"
                                                         clockwise="true"
                                                         responsive="false"
@@ -117,63 +118,12 @@
                     </div>
                 </div>
                 <div class="page-leading-list-div-div4">
-                    101
+                   {{auction.lots.length}}
                 </div>
                 <div class="page-leading-list-div-div5">
-                    40
                 </div>
             </div>
-
-            <!--// 2-я строка ниже-->
-            <div class="page-leading-list-div">
-                <div class="page-leading-list-div-div1">
-                    лого
-                </div>
-                <div class="page-leading-list-div-div2">
-                    Аукционный дом 1
-                    <div class="italic">
-                        Ценные книги и рукописи
-                    </div>
-                </div>
-                <div class="page-leading-list-div-div3">
-                    01.01.2001 01:01
-                </div>
-                <div class="page-leading-list-div-div4">
-                    101
-                </div>
-                <div class="page-leading-list-div-div5">
-                    40
-                </div>
-            </div>
-            <!--// 3-я строка ниже-->
-            <div class="page-leading-list-div">
-                <div class="page-leading-list-div-div1">
-                    лого
-                </div>
-                <div class="page-leading-list-div-div2">
-                    Аукционный дом 1
-                    <div class="italic">
-                        Ценные книги и рукописи
-                    </div>
-                </div>
-                <div class="page-leading-list-div-div3">
-                    01.01.2001 01:01
-                </div>
-                <div class="page-leading-list-div-div4">
-                    101
-                </div>
-                <div class="page-leading-list-div-div5">
-                    40
-                </div>
-            </div>
-            <!--   -->
-
-        </div>
-
-
-
-
-
+                 </div>
         <!--//-->
     </div>
 </div>
