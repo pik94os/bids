@@ -34,11 +34,19 @@ define(['./module','jquery'],function(controllers,$){
         });
         $scope.regUserData = {};
         $scope.loginUserData = {};
+        $scope.selectedAuctionInMain = {
+            id: 0,
+            setId: function (id) {
+                this.id = id
+            },
+            number: null,
+            date: null
+        };
         $scope.createUser = function (role) {
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
             if (role == 3) roleOfNewUser = 3;
-            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.acceptTerms == true){
+            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.acceptTerms == true) {
                 $http.post('/api/users/reg',{
                     username: $scope.regUserData.username,
                     firstName: $scope.regUserData.firstName,
@@ -50,7 +58,8 @@ define(['./module','jquery'],function(controllers,$){
                     password: $scope.regUserData.password,
                     acceptTerms: $scope.regUserData.acceptTerms,
                     receiveMessages: $scope.regUserData.receiveMessages,
-                    roleId: roleOfNewUser
+                    roleId: roleOfNewUser,
+                    auctionId: (+$scope.selectedAuctionInMain.id)
                 }, {}).then(function (result) {
                     window.location.reload();
                 })
