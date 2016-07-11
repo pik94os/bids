@@ -6,10 +6,18 @@
     <input id="selectCSV" type="file" nv-file-select="" uploader="uploader" name="CSVfile" ng-hide="true"/>
     <div class="button btn-primary" onclick="$('#selectCSV').click()">Загрузить CSV</div>
 
+    <div class="progress" style="">
+        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+    </div>
+
     <div class="button btn-danger" ng-click="createNewLotFromCSV()" ng-show="CSVParsedFile">Импорт CSV</div>
     <br>
     <input id="selectPhoto" type="file" nv-file-select="" uploader="lotPicUploader" multiple name="PhotoFiles" ng-hide="true"/>
     <div class="button btn-primary" onclick="$('#selectPhoto').click()" ng-show="CSVParsedFile">Загрузить фотографии</div>
+
+    <div class="progress" style="">
+        <div class="progress-bar" role="progressbar" ng-style="{ 'width': lotPicUploader.progress + '%' }"></div>
+    </div>
 
     <button type="button" class="btn btn-success btn-s" ng-click="lotPicUploader.uploadAll()" ng-disabled="!lotPicUploader.getNotUploadedItems().length">
         <span class="glyphicon glyphicon-upload"></span> Upload all

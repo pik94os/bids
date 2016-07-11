@@ -387,6 +387,7 @@
         margin-bottom: 10px;
       }
     }
+
     &.ll-open {
       .edit, .cclose, .lot-body-div-center-in-top.pad-icon {
         display: none !important;
@@ -395,6 +396,28 @@
         height: 90px;
         overflow: hidden;
       }
+    }
+
+    .swap-btn {
+      background: white;
+      height: 30px;
+      width: 30px;
+      position: absolute;
+      //top: 0;
+      margin-left: -35;
+      background-image: url(/images/ICONS_svg/view_change.svg);
+      border-radius: 100%;
+    }
+
+    .sound-btn {
+      background: white;
+      height: 30px;
+      width: 30px;
+      position: absolute;
+      //top: 0;
+      margin-left: -35;
+      background-image: url(/images/ICONS_svg/sound.svg);
+      border-radius: 100%;
     }
 
     .room-message-form {

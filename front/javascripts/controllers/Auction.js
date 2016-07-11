@@ -29,9 +29,9 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('lotList', function (data) {
             $scope.lotList = JSON.parse(JSON.stringify(data.lotList));
             // $scope.listPics = JSON.parse(JSON.stringify(data.listPics));
-            // $scope.lotList = data;
+            // $scope.lotList = data.lotList;
             ngSocket.emit('auction/getAuction', {id: +$stateParams.auctionId});
-            console.log($scope.lotList);
+            // console.log('>>>>>>>>>>>'+data);
         });
         
         // ngSocket.emit('auction/getPictureList', {

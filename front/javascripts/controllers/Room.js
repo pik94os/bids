@@ -92,5 +92,8 @@ define(['./module','jquery'],function(controllers,$){
         setTimeout(function () {
             $scope.joinRoom();
         },2000);
+        
+        $scope.swap = false;
+        $scope.popo = function () {$scope.swap = !$scope.swap;}
     }])
 });

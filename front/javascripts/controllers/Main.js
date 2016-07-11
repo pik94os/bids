@@ -147,6 +147,7 @@ define(['./module','jquery'],function(controllers,$){
         };
         uploader.onCompleteAll = function() {
             console.info('onCompleteAll');
+            alert('Файл загружен в базу');
         };
 
         console.info('uploader', uploader);
@@ -206,6 +207,7 @@ define(['./module','jquery'],function(controllers,$){
         };
         lotPicUploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+            alert('Файлы загружены');
         };
         lotPicUploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
