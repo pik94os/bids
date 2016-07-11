@@ -7,7 +7,7 @@
                     <img src="images/image-body-in.png">
                 </div>
                 <div class="auction-body">
-                    <p class="auction-body-header">{{date}} в {{time}} | Москва | Гостинница Украина</p>
+                    <p class="auction-body-header">{{date}} в {{time}} | Москва | Online</p>
                     <p class="front-body-in-center-p2">Аукцион {{number}}</p>
                     <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
                     <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
@@ -16,10 +16,11 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-xs-4 col-md-12">
-                        <div class="auction-button active" data-toggle="modal" data-target="#reg-for-the-auction">Регистрация</div>
+                        <div class="auction-button active" ng-if="notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>
+                        <div class="auction-button active" ng-if="!notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#reg-for-the-auction">Регистрация</div>
                     </div>
                     <!--div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div-->
-                    <div class="col-xs-4 col-md-12"><div class="auction-button">Распечатать каталог</div></div>
+                    <a class="col-xs-4 col-md-12" href="/images/pdf/abc_auction_{{auction.number}}.pdf" target="_blank"><div class="auction-button">Распечатать каталог</div></a>
                 </div>
             </div>
         </div>
