@@ -2,23 +2,24 @@
  * Created by piligrim on 06.07.16.
  */
 'use strict';
-var Lot = require('../../models/').Lot;
-var User = require('../../models/').User;
-var Bid = require('../../models/').Bid;
+const Lot = require('../../models/').Lot;
+const User = require('../../models/').User;
+const Bid = require('../../models/').Bid;
 
 
 module.exports = function(socket, data) {
-    if (!data.lotId || !data.userId) {
+    if (!data.lotId) {
         socket.emit('lotConfirmed',
             {err: 1, message: 'Undefined identifier'}
         );
         return
     }
+    const user = socket.request.user;
 
     findLot(data.lotId, function(err, lot){
         if (err) return emitError(socket, err);
         if (err) return emitError(socket, err);
-            findUser(data.userId, function (err, user){
+            findUser(user.id, function (err, user){
                 if (err) return emitError(socket, err);
                 checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, function(err){
                     if (err) return emitError(socket, err);
