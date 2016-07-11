@@ -13,11 +13,11 @@
                 <div class="room-auction-title-starts-in">НАЧНЕТСЯ ЧЕРЕЗ</div>
             </div>
             <!--прогресс бары-->
-            <div class="progress-bar-circle-container">
+            <div class="progress-bar-circle-container" ng-hide="notDate">
                 <div class="room_container-for-circles">
                     <round-progress class="room-circle-bar"
-                                    max="60"
-                                    current="45"
+                                    max="24"
+                                    current="ch"
                                     color="#162346"
                                     bgcolor="#E2F3FB"
                                     radius="70"
@@ -31,7 +31,7 @@
                                     offset="0"
                                     animation-delay="0"></round-progress>
                     <div class="room-circle-bar-text">
-                        <div class="room-circle-bar-text-digit">30</div>
+                        <div class="room-circle-bar-text-digit">{{ch}}</div>
                         <div class="room-circle-bar-text-text">ЧАСОВ</div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 <div class="room_container-for-circles">
                     <round-progress class="room-circle-bar"
                                     max="60"
-                                    current="35"
+                                    current="min"
                                     color="#162346"
                                     bgcolor="#E2F3FB"
                                     radius="70"
@@ -53,7 +53,7 @@
                                     offset="0"
                                     animation-delay="0"></round-progress>
                     <div class="room-circle-bar-text">
-                        <div class="room-circle-bar-text-digit">26</div>
+                        <div class="room-circle-bar-text-digit">{{min}}</div>
                         <div class="room-circle-bar-text-text">МИНУТ</div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 <div class="room_container-for-circles">
                     <round-progress class="room-circle-bar"
                                     max="60"
-                                    current="55"
+                                    current="sec"
                                     color="#162346"
                                     bgcolor="#E2F3FB"
                                     radius="70"
@@ -75,7 +75,7 @@
                                     offset="0"
                                     animation-delay="0"></round-progress>
                     <div class="room-circle-bar-text">
-                        <div class="room-circle-bar-text-digit">05</div>
+                        <div class="room-circle-bar-text-digit">{{sec}}</div>
                         <div class="room-circle-bar-text-text">СЕКУНД</div>
                     </div>
                 </div>

@@ -20,6 +20,14 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
         });
 
+        $scope.myDate = function (d) {
+            var date = d.split('T')[0].split('-');
+            var t = d.split('T')[1].split(':');
+            var time = t[0]+':'+t[1];
+            d = date[2]+'.'+date[1]+'.'+date[0];
+            return d + ' в ' + time;
+        };
+
         ngSocket.on('auctionCreated', function (result) {
             if(result.err){
                 alert(data.message);

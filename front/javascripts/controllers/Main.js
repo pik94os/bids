@@ -38,7 +38,7 @@ define(['./module','jquery'],function(controllers,$){
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
             if (role == 3) roleOfNewUser = 3;
-            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.confirmationCode==123 && $scope.regUserData.acceptTerms == true){
+            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.acceptTerms == true){
                 $http.post('/api/users/reg',{
                     username: $scope.regUserData.username,
                     firstName: $scope.regUserData.firstName,
@@ -60,7 +60,7 @@ define(['./module','jquery'],function(controllers,$){
 
         $scope.login = function () {
             $http.post('/api/users/login', {
-                username: $scope.loginUserData.username,
+                username: $scope.loginUserData.username.toUpperCase(),
                 password: $scope.loginUserData.password
             }, {}).then(function (result) {
                 window.location.reload();
