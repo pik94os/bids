@@ -17,16 +17,6 @@ define(['./module','jquery'],function(controllers,$){
                 d = date[2]+'.'+date[1]+'.'+date[0];
                 return d + ' в ' + time;
             };
-            $scope.regist = function (auction) {
-                if(+$scope.currentUserInfo.id)
-                    ngSocket.emit('userAuction', {auctionId: +auction, userId: +$scope.currentUserInfo.id});
-                };
-            ngSocket.on('auctionUser', function (data) {
-                if(data.err){
-                    alert(data.message)
-                }
-                    $('#regUserAuction').modal('show');
-            });
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
         });
             

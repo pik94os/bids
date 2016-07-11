@@ -392,6 +392,10 @@
     width: 100%;
     overflow:auto;
     resize: none;
+    padding: 10px;
+height: 70px;
+    *overflow: hidden;
+
   }
   .lot-price {
     position: relative;
