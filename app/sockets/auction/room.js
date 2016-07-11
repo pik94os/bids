@@ -1,5 +1,7 @@
 'use strict';
 const Auction = require('../../models/').Auction;
+const Lot = require('../../models/').Lot;
+const LotPicture = require('../../models/').LotPicture;
 
 module.exports = function(socket, data) {
     if (!data.id) {
@@ -9,7 +11,15 @@ module.exports = function(socket, data) {
         return
     }
 
-    Auction.findById(+data.id)
+    Auction.findById(+data.id/*,{
+        include:[{
+            model:Lot,
+            limit:10,
+            include: [{
+                model: LotPicture
+            }]
+        }]
+    }*/)
         .then(function(auction) {
             socket.emit('room', {
                 'err': 0,
