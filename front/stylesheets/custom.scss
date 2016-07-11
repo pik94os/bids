@@ -251,6 +251,7 @@ input,textarea,.btn,button,a,div{
   margin: 5px 0 0 0;
   padding: 15px 0;
   border: 1px solid lightgray;
+  margin-bottom: 25px;
   &-img{
     @include square(191px);
     float: left;
