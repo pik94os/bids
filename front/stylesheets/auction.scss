@@ -91,7 +91,7 @@
 			padding: 7px 20px;
 			color: #fff;
 			
-			&:hover {background-color: #c6c6ed;}
+			&:hover {background-color: #132038;}
 
 			li{
 				text-align: center;
@@ -210,6 +210,7 @@
 			border-bottom: 2px solid black;
 			background: white;
 			position: relative;
+			margin-top: 20px;
 		}
 		&-bottom{
 			@extend .c-panel;
