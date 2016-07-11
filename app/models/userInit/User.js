@@ -19,7 +19,7 @@ var attributes = {
             isEmail: true
         }
     },
-    phone: {type: Sequelize.INTEGER},
+    phone: {type: Sequelize.STRING},
     confirmationCode: {type: Sequelize.INTEGER},
     password: {type: Sequelize.STRING},
     salt: {type: Sequelize.STRING},
