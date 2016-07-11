@@ -18,8 +18,10 @@ module.exports = function(socket, data) {
     //Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
     // если раскомментировать эту строку то на странице аукциона будет выводиться вся информация о лоте но вся вестка поползет:
      Lot.findAll({
-         where: {auctionId: data.auctionId}
-         ,
+         where: {
+             isArchive:false,
+             auctionId: data.auctionId
+         },
          // include: [{model:LotPicture, where: {id: Sequelize.col('lot.titlePicId')}}]
          include: [{model:LotPicture}]
      })

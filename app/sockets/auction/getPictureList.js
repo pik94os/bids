@@ -5,7 +5,11 @@
 var LotPicture = require('../../models/').LotPicture;
 
 module.exports = function(socket, data) {
-    LotPicture.findAll({include: []}).then(function (result) {
+    LotPicture.findAll({
+        where : {
+            isArchive : false
+        },include: []
+    }).then(function (result) {
         socket.emit('pictureList', {
             'err': 0,
             pictureList: result
