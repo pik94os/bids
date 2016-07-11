@@ -125,14 +125,15 @@
                     <!--карточки-->
                     <div class="row">
                         <div class="room-container-with-circles">
-                            <div  emit-last-repeater-element class="lot-table"
+                            <div emit-last-repeater-element class="lot-table"
                                  ng-repeat="r in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,'...']"
                                  ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,
             'lot-table-press-inet':r===5, 'lot-table-press-zal':r===6,
             'lot-table-stavka':r===7, 'lot-table-user':r===8}"
-                            ng-click='setPopup($index)'>
+                                 ng-click='setPopup($index)'>
                                 <div class="popup-window" ng-show="popup===$index">
-                                    <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
+                                    <div class="popup-close-btn"
+                                         ng-click='setPopup(false);$event.stopPropagation();'></div>
                                     <div class="popup-avatar"></div>
                                     <div class="popup-text">
                                         <div class="popup-text-name">
@@ -233,25 +234,28 @@
                                     <div class="rate-from-inet-third-row">ОТ #14</div>
                                 </div>
                                 <div class="dollar-arrows"></div>
-                                    <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
+                                <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
+                                <div>
                                     <watch-room room-name="roomName" joined-room="joinedRoom"></watch-room>
+                                    <img src="/images/camera.png" width="130pt">
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                    <div class="row">
-                        <div class="insert-your col-sm-12">СДЕЛАЙТЕ ШАГ \ ВПИШИТЕ СВОЙ</div>
-                        <div class="room-price do-rate col-sm-6">СДЕЛАТЬ СТАВКУ</div>
-                        <div class="room-price number-of-rate col-sm-6">6 900 000</div>
-                    </div>
-                    <div class="max-rate">
-                        МАКСИМАЛЬНАЯ СТАВКА
-                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="insert-your col-sm-12">СДЕЛАЙТЕ ШАГ \ ВПИШИТЕ СВОЙ</div>
+                    <div class="room-price do-rate col-sm-6">СДЕЛАТЬ СТАВКУ</div>
+                    <div class="room-price number-of-rate col-sm-6">6 900 000</div>
+                </div>
+                <div class="max-rate">
+                    МАКСИМАЛЬНАЯ СТАВКА
                 </div>
             </div>
         </div>
-        <br>
     </div>
+    <br>
+</div>
 </div>

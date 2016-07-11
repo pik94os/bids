@@ -28,10 +28,18 @@ define(['./module','jquery'],function(controllers,$){
         });
         ngSocket.on('lotList', function (data) {
             $scope.lotList = JSON.parse(JSON.stringify(data.lotList));
-            $scope.listPics = JSON.parse(JSON.stringify(data.listPics));
+            // $scope.listPics = JSON.parse(JSON.stringify(data.listPics));
             // $scope.lotList = data;
             ngSocket.emit('auction/getAuction', {id: +$stateParams.auctionId});
+            console.log($scope.lotList);
         });
+        
+        // ngSocket.emit('auction/getPictureList', {
+        //     // auctionId: $stateParams.auctionId
+        // });
+        // ngSocket.on('pictureList', function (data) {
+        //     $scope.pictureList = data;
+        // });
 
         ngSocket.on('catchAuction', function (data) {
             if(data.err) {
