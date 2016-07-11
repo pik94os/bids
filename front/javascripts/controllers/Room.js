@@ -34,5 +34,15 @@ define(['./module','jquery'],function(controllers,$){
         $(window).resize( function(){
             moveToTheRigh();
         });
+
+        var masImages = ["/images/FOR_DEV/lg_book.png", "/images/FOR_DEV/sm_book.png"];
+        $scope.currentImage = masImages[0];
+        var iij = -1;
+        setInterval(function () {
+            iij = (iij==masImages.length)?0:iij + 1;
+            $scope.currentImage = masImages[iij];
+            $scope.$apply();
+        }, 2000);
+
     }])
 });
