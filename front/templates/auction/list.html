@@ -88,6 +88,7 @@
     <!--<div class="button btn-primary" onclick="$('#selectCSV').click()">Загрузить CSV</div>-->
     <!--{{CSVParsedFile}}-->
 
+
     <div class="tabs">
         <div class="row">
             <!--{{lotList}}-->
@@ -115,6 +116,15 @@
                         <!--&lt;!&ndash;<div class="info" ng-if="singleLot.sellingPrice"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice}} Р</p></div>&ndash;&gt;-->
                     <!--</div>-->
                 <!--</div>-->
+            <!--<div ng-repeat="a in lotList">-->
+                <!--lottitleid: {{a.titlePicId}}<br>-->
+                <!--lotpictudeid: {{a.lot_pictures}}-->
+
+                    <!--<div ng-if="a.titlePicId == b.id">-->
+                        <!--find: {{b}}-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
                 <div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="singleLot in lotList">
                     <div class="tab">
                         <div class="over">
@@ -123,17 +133,24 @@
                             <div class="edit" ui-sref="lot({open:singleLot.sellingPrice?2:1, lotId:singleLot.id})"></div>
                             <div class="delete"></div>
                         </div>
-<!--{{lotList}}-->
+
                         <div class="img222">
-                            <img src="images/lot-images/{{singleLot.lot_pictures[0].fileName}}">
+                            <!--{{singleLot.lot_pictures.originalName}}-->
+                            <div ng-repeat="titlepic in singleLot.lot_pictures">
+                                <div ng-if="singleLot.titlePicId == titlepic.id">
+                                    <!--find: {{titlepic}}-->
+                                    <img src="images/lot-images/{{titlepic.fileName}}">
+                                </div>
+                            </div>
+
 
                         </div>
                         <div class="img222-under1">Лот {{singleLot.number}}</div>
                         <div class="img222-under2"></div>
                         <!--<div class="img222-under2">{{singleLot.description}}</div>-->
                         <div class="img222-under3">Эстимейт</div>
-                        <div class="img222-under41">{{singleLot.estimateFrom}} - {{singleLot.estimateTo}} р</div><div class="img222-under42"></div>
-                        <div class="info" ng-if="singleLot.sellingPrice"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice}} Р</p></div>
+                        <div class="img222-under41">{{singleLot.estimateFrom.toLocaleString()}} - {{singleLot.estimateTo.toLocaleString()}} р</div><div class="img222-under42"></div>
+                        <div class="info" ng-if="singleLot.sellingPrice.toLocaleString()"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice.toLocaleString()}} Р</p></div>
                     </div>
                 </div>
         </div>

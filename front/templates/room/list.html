@@ -216,7 +216,8 @@
                                 </div>
                                 <hr>
                                 <div class="room-large-book">
-                                    <img src="/images/FOR_DEV/lg_book.png" width="200pt">
+                                    <img src="/images/FOR_DEV/lg_book.png" width="200pt" ng-if="swap == false">
+                                    <img src="/images/FOR_DEV/video.png" width="260pt" ng-if = "swap == true">
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -233,8 +234,14 @@
                                     <div class="rate-from-inet-third-row">ОТ #14</div>
                                 </div>
                                 <div class="dollar-arrows"></div>
+                                <div class="video-container">
+                                    <button class="btn swap-btn" ng-click="popo()" style="margin-left: -35px"></button>
+                                    <button class="btn sound-btn" style="margin-left: -35px; margin-top: 50px"></button>
                                     <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
                                     <watch-room room-name="roomName" joined-room="joinedRoom" max-num-peers=1000></watch-room>
+                                    <img src="/images/FOR_DEV/lg_book.png" height="70pt" ng-if="swap == true">
+                                    <img src="/images/FOR_DEV/video.png" width="130pt" ng-if = "swap == false">
+                                </div>
                                 </div>
                             </div>
                         </div>
