@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const User = require('../models/').User;
 const Role = require('../models/').Role;
 const passport = require('passport');
-
+const AuctionUser = require('../models/').AuctionUser;
 exports.login = function (req, res, next) {
     passport.authenticate('local',
         function (err, user, info) {
@@ -32,6 +32,8 @@ exports.login = function (req, res, next) {
     )(req, res, next);
 };
 
+
+
 // exports.login = function (req, res, next) {
 //     passport.authenticate('local',
 //         function (err, user, info) {
@@ -55,8 +57,6 @@ exports.login = function (req, res, next) {
 
 module.exports.register = function (req, res, next) {
 
-    console.log(req.body);
-
     User.create({
         username: req.body.email.toUpperCase(),
         firstName: req.body.firstName.toUpperCase(),
@@ -71,6 +71,11 @@ module.exports.register = function (req, res, next) {
         isArchive: false,
         roleId: req.body.roleId
     }).then(function (user) {
+        let k = false;
+            k = AuctionUser.create({
+                userId: user.id,
+                auctionId: req.body.auctionId
+            });
         req.logIn(user, function (err) {
                 return err
                     ? next(err)
@@ -83,6 +88,7 @@ module.exports.register = function (req, res, next) {
             });
         }).catch(function (err) {
         res.json({err: 1, errorDescription: err.message});
+        return k;
     })
 };
 

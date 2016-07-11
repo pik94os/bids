@@ -132,8 +132,7 @@
             'lot-table-stavka':r===7, 'lot-table-user':r===8}"
                                  ng-click='setPopup($index)'>
                                 <div class="popup-window" ng-show="popup===$index">
-                                    <div class="popup-close-btn"
-                                         ng-click='setPopup(false);$event.stopPropagation();'></div>
+                                    <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
                                     <div class="popup-avatar"></div>
                                     <div class="popup-text">
                                         <div class="popup-text-name">
@@ -234,14 +233,11 @@
                                     <div class="rate-from-inet-third-row">ОТ #14</div>
                                 </div>
                                 <div class="dollar-arrows"></div>
-                                <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
-                                <div>
-                                    <watch-room room-name="roomName" joined-room="joinedRoom"></watch-room>
-                                    <img src="/images/camera.png" width="130pt">
+                                    <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
+                                    <watch-room room-name="roomName" joined-room="joinedRoom" max-num-peers=1000></watch-room>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                 </div>
 

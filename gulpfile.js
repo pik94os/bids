@@ -116,7 +116,8 @@ gulp.task("js", () => {
                 'angular-localForage': '../components/angular-localforage/dist/angular-localForage.min',
                 'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min',
                 'io': './libs/socket.io-1.4.5',
-                'angularFileUpload': '../components/angular-file-upload/dist/angular-file-upload.min'
+                'angularFileUpload': '../components/angular-file-upload/dist/angular-file-upload.min',
+                'SimpleWebRTC': './libs/ng-simple-webrtc/ng-simple-webrtc'
             },
             // angular не поддерживает AMD из коробки, поэтому экспортируем перменную angular в глобальную область
             shim: {
@@ -133,6 +134,7 @@ gulp.task("js", () => {
                 },
                 'uiRouter' : ['angular'],
                 'angular-localForage' : ['angular','localforage'],
+                'SimpleWebRTC' : ['angular'],
                 'uiSocket':['angular'],
                 'uiStorage':['angular'],
                 "bstrap" : ['jquery'],
@@ -176,7 +178,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('start',(cb) => {    
-    runSequence(['js', 'js_copy', 'universal'], cb);
+    runSequence(['js_dev',/*'js', 'js_copy',*/ 'universal'], cb);
 });
 
 gulp.task('universal',(cb) => {
