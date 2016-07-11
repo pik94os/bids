@@ -11,6 +11,7 @@ _initiator.fillExportModels(_exports);
 module.exports.User = _exports.User;
 module.exports.Role = _exports.Role;
 module.exports.Auction = _exports.Auction;
+module.exports.AuctionUser = _exports.AuctionUser;
 module.exports.AuctionHouse = _exports.AuctionHouse;
 module.exports.Lot = _exports.Lot;
 module.exports.Bid = _exports.Bid;

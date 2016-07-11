@@ -44,6 +44,7 @@ class Initiator {
         this.Right = connection.define('right', RightMeta.attributes);
         this.Role = connection.define('role', RoleMeta.attributes, RoleMeta.options);
         this.RoleRight = connection.define('role_right', {});
+        this.AuctionUser = connection.define('auction_user', {});
         this.User = connection.define('users', UserMeta.attributes, UserMeta.options);
         this.AuctionHouse = connection.define('auction_houses', AuctionHouseMeta.attributes);
         this.Auction = connection.define('auction', AuctionMeta.attributes);
@@ -54,6 +55,8 @@ class Initiator {
         this.Role.hasMany(this.User);
         this.Role.belongsToMany(this.Right, {through: this.RoleRight});
         this.Right.belongsToMany(this.Role, {through: this.RoleRight});
+        this.Auction.belongsToMany(this.User, {through: this.AuctionUser});
+        this.User.belongsToMany(this.Auction, {through: this.AuctionUser});
         // this.Auction.belongsTo(this.User);
         this.User.hasMany(this.Auction);
         this.Auction.hasMany(this.Lot);
@@ -72,6 +75,7 @@ class Initiator {
         models.Role = this.Role;
         models.Right = this.Right;
         models.AuctionHouse = this.AuctionHouse;
+        models.AuctionUser = this.AuctionUser;
         models.Auction = this.Auction;
         models.Lot = this.Lot;
         models.LotPicture = this.LotPicture;
@@ -88,6 +92,8 @@ class Initiator {
                 return that.RoleRight.sync({force: false})
         }).then(function () {
             return that.Auction.sync({force: false})
+        }).then(function () {
+            return that.AuctionUser.sync({force: false})
         }).then(function () {
             return that.Lot.sync({force: false})
         }).then(function () {

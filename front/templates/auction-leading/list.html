@@ -212,7 +212,13 @@
                     </div>
                     <div class="pageAuctionLeading-right-center-right col-md-5">
                         <div class="pageAuctionLeading-right-center-right-camera">
-                            <img src="images/camera.png">
+                            <broadcaster
+                                    has-stream="hasStream"
+                                    room-name="roomName"
+                                    is-broadcasting="isBroadcasting"></broadcaster>
+
+                            <button ng-click="prepare()" >Включить камеру</button>
+                            <button ng-click="start()" >Начать трансляцию</button>
                         </div>
                         <div class="pageAuctionLeading-right-center-right-textTop">
                             <div class="pageAuctionLeading-right-center-right-textTop-in">

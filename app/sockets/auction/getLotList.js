@@ -14,16 +14,16 @@ module.exports = function(socket, data) {
         return
     }
     // если делать эту строку то назад возвращаются только ID лотов и на странице аукциона не будут выводиться описания лотов и тд:
-    Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
+    //Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
     // если раскомментировать эту строку то на странице аукциона будет выводиться вся информация о лоте но вся вестка поползет:
-    // Lot.findAll({where: {auctionId: data.auctionId}})
+     Lot.findAll({
+         where: {auctionId: data.auctionId},
+         include: [{model:LotPicture}]
+     })
         .then(function(lotList) {
-            LotPicture.findAll({where: {lotId: lotList.id}}).then(function (listPics) {
-                socket.emit('lotList', {
-                    'err': 0,
-                    lotList: lotList,
-                    listPics: listPics
-                }); 
+            socket.emit('lotList', {
+                'err': 0,
+                lotList: lotList
             });
             
         }).catch(function (err) {

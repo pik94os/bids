@@ -66,7 +66,7 @@ define(['./app'], function (app) {
             })
             //Комната торгов
             .state('room', {
-                url: '/room?countdown',
+                url: '/room?auctionId',
                 views:{
                     '': {
                         templateUrl: "/templates/room/list.html",
@@ -143,10 +143,11 @@ define(['./app'], function (app) {
 
             //Страница аукциона для ведущего
             .state('auction-leading', {
-                url: '/auction-leading',
+                url: '/auction-leading?auctionId',
                 views:{
                     '': {
-                        templateUrl: "/templates/auction-leading/list.html"
+                        templateUrl: "/templates/auction-leading/list.html",
+                        controller: 'AuctionLeading'
                     },
                     'header':{
                         templateUrl: "/templates/auction-leading/header.html"

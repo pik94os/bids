@@ -1,3 +1,4 @@
 define([
-    './GetStop'
+    './GetStop',
+    './dateTimeFilter'
 ], function () {});

@@ -1,7 +1,17 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('AuctionHeader',['$scope', '$stateParams', function($scope, $stateParams){
+    controllers.controller('AuctionHeader',['$scope', '$stateParams','ngSocket', function($scope, $stateParams,ngSocket){
         $scope.open = +$stateParams.auctionId?$stateParams.open:2;
+        ngSocket.emit('auction/getAuction', {id: +$stateParams.auctionId});
+        ngSocket.on('catchAuction', function (data) {
+            if(data.err) {
+                alert(data.message)
+            }
+            var d = (data.data.date.split('T')[0].split('-'));
+            $scope.date = d[2] + '.' + d[1] + '.' + d[0];
+            $scope.number = data.data.number;
+        });
+
     }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function($scope,$http,$rootScope,$stateParams,ngSocket,FileUploader){
         $scope.open = +$stateParams.auctionId?$stateParams.open:2;
         $scope.contactsShow= false;
@@ -18,10 +28,29 @@ define(['./module','jquery'],function(controllers,$){
         });
         ngSocket.on('lotList', function (data) {
             $scope.lotList = JSON.parse(JSON.stringify(data.lotList));
-            $scope.listPics = JSON.parse(JSON.stringify(data.listPics));
+            // $scope.listPics = JSON.parse(JSON.stringify(data.listPics));
             // $scope.lotList = data;
+            ngSocket.emit('auction/getAuction', {id: +$stateParams.auctionId});
+            console.log($scope.lotList);
         });
+        
+        // ngSocket.emit('auction/getPictureList', {
+        //     // auctionId: $stateParams.auctionId
+        // });
+        // ngSocket.on('pictureList', function (data) {
+        //     $scope.pictureList = data;
+        // });
 
+        ngSocket.on('catchAuction', function (data) {
+            if(data.err) {
+                alert(data.message)
+            }
+            var d = (data.data.date.split('T')[0].split('-'));
+            var t = (data.data.date.split('T')[1].split(':'));
+            $scope.date = d[2] + '.' + d[1] + '.' + d[0];
+            $scope.time = t[0]+ ':' + t[1];
+            $scope.number = data.data.number;
+        });
 // // импорт лотов из CSV
 // //         $scope.CSVParsedFile={};
 //         var uploader = $scope.uploader = new FileUploader({

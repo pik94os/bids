@@ -7,8 +7,8 @@
                     <img src="images/image-body-in.png">
                 </div>
                 <div class="auction-body">
-                    <p class="auction-body-header">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
-                    <p class="front-body-in-center-p2">Аукцион 1</p>
+                    <p class="auction-body-header">{{date}} в {{time}} | Москва | Гостинница Украина</p>
+                    <p class="front-body-in-center-p2">Аукцион {{number}}</p>
                     <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
                     <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
                 </div>
@@ -123,10 +123,14 @@
                             <div class="edit" ui-sref="lot({open:singleLot.sellingPrice?2:1, lotId:singleLot.id})"></div>
                             <div class="delete"></div>
                         </div>
+<!--{{lotList}}-->
+                        <div class="img222">
+                            <img src="images/lot-images/{{singleLot.lot_pictures[0].fileName}}">
 
-                        <div class="img222"><img src="images/image-body-in.png"></div>
+                        </div>
                         <div class="img222-under1">Лот {{singleLot.number}}</div>
-                        <div class="img222-under2">{{singleLot.description}}</div>
+                        <div class="img222-under2"></div>
+                        <!--<div class="img222-under2">{{singleLot.description}}</div>-->
                         <div class="img222-under3">Эстимейт</div>
                         <div class="img222-under41">{{singleLot.estimateFrom}} - {{singleLot.estimateTo}} р</div><div class="img222-under42"></div>
                         <div class="info" ng-if="singleLot.sellingPrice"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice}} Р</p></div>

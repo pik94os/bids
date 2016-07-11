@@ -2,7 +2,7 @@
  * Created by piligrim on 06.07.16.
  */
 'use strict';
-var Lot = require('../../models/').Lot;
+const Lot = require('../../models/').Lot;
 
 module.exports = function(socket, data) {
     if (!data.lotId) {

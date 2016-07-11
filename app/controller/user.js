@@ -1,15 +1,14 @@
 'use strict';
 
-var express = require('express');
-var crypto = require('crypto');
-var User = require('../models/').User;
-var Role = require('../models/').Role;
-var passport = require('passport');
-
+const express = require('express');
+const crypto = require('crypto');
+const User = require('../models/').User;
+const Role = require('../models/').Role;
+const passport = require('passport');
+const AuctionUser = require('../models/').AuctionUser;
 exports.login = function (req, res, next) {
     passport.authenticate('local',
         function (err, user, info) {
-            console.log(req.body);
             return err
                 ? next(err)
                 : user
@@ -32,6 +31,8 @@ exports.login = function (req, res, next) {
         }
     )(req, res, next);
 };
+
+
 
 // exports.login = function (req, res, next) {
 //     passport.authenticate('local',
@@ -56,36 +57,26 @@ exports.login = function (req, res, next) {
 
 module.exports.register = function (req, res, next) {
 
-    console.log(req.body);
-
-    let username = req.body.username;
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let patronymic = req.body.patronymic;
-    let email = req.body.email;
-    let phone = req.body.phone;
-    let confirmationCode = req.body.confirmationCode;
-    let password = req.body.password;
-    let acceptTerms = req.body.acceptTerms;
-    let receiveMessages = req.body.receiveMessages;
-    let roleId = req.body.roleId;
-
     User.create({
-        username: email,
-        firstName: firstName,
-        lastName: lastName,
-        patronymic: patronymic,
-        email: email,
-        phone: phone,
-        confirmationCode: confirmationCode,
-        password: password,
-        acceptTerms: acceptTerms,
-        receiveMessages: receiveMessages,
+        username: req.body.email.toUpperCase(),
+        firstName: req.body.firstName.toUpperCase(),
+        lastName: req.body.lastName.toUpperCase(),
+        patronymic: req.body.patronymic.toUpperCase(),
+        email: req.body.email.toUpperCase(),
+        phone: req.body.phone,
+        //confirmationCode: req.body.confirmationCode,
+        password: req.body.password,
+        acceptTerms: req.body.acceptTerms,
+        receiveMessages: req.body.receiveMessages,
         isArchive: false,
-        roleId: roleId
-    })
-        .then(function (user) {
-            req.logIn(user, function (err) {
+        roleId: req.body.roleId
+    }).then(function (user) {
+        let k = false;
+            k = AuctionUser.create({
+                userId: user.id,
+                auctionId: req.body.auctionId
+            });
+        req.logIn(user, function (err) {
                 return err
                     ? next(err)
                     : res.json({
@@ -97,6 +88,7 @@ module.exports.register = function (req, res, next) {
             });
         }).catch(function (err) {
         res.json({err: 1, errorDescription: err.message});
+        return k;
     })
 };
 

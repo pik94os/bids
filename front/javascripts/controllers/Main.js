@@ -34,11 +34,19 @@ define(['./module','jquery'],function(controllers,$){
         });
         $scope.regUserData = {};
         $scope.loginUserData = {};
+        $scope.selectedAuctionInMain = {
+            id: 0,
+            setId: function (id) {
+                this.id = id
+            },
+            number: null,
+            date: null
+        };
         $scope.createUser = function (role) {
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
             if (role == 3) roleOfNewUser = 3;
-            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.confirmationCode==123 && $scope.regUserData.acceptTerms == true){
+            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.acceptTerms == true) {
                 $http.post('/api/users/reg',{
                     username: $scope.regUserData.username,
                     firstName: $scope.regUserData.firstName,
@@ -50,7 +58,8 @@ define(['./module','jquery'],function(controllers,$){
                     password: $scope.regUserData.password,
                     acceptTerms: $scope.regUserData.acceptTerms,
                     receiveMessages: $scope.regUserData.receiveMessages,
-                    roleId: roleOfNewUser
+                    roleId: roleOfNewUser,
+                    auctionId: (+$scope.selectedAuctionInMain.id)
                 }, {}).then(function (result) {
                     window.location.reload();
                 })
@@ -60,7 +69,7 @@ define(['./module','jquery'],function(controllers,$){
 
         $scope.login = function () {
             $http.post('/api/users/login', {
-                username: $scope.loginUserData.username,
+                username: $scope.loginUserData.username.toUpperCase(),
                 password: $scope.loginUserData.password
             }, {}).then(function (result) {
                 window.location.reload();
@@ -257,13 +266,7 @@ define(['./module','jquery'],function(controllers,$){
         
         // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
-            text = '<p>Что толку в @@@твоем уме, если при этом ты @равнодушный и косный человек.</p><p>А если все зовут тебя @Дурнем, но при этом у тебя доброе и отзывчивое сердце, то Господь обязательно вознаградит тебя.</p><p>И золотым гусем, и @прекрасной королевной.</p>';
             var mas = [];
-
-            while (text.indexOf("@")+1) {
-                text = text.replace("@", "");
-            }
-
             while (text.indexOf("<p>")+1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
 

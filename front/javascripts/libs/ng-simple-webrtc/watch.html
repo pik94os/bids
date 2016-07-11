@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="node_modules/es5-shim/es5-shim.js"></script>
+  <script src="node_modules/angular/angular.js"></script>
+  <script src="lib/simple-webrtc.js"></script>
+  <script src="ng-simple-webrtc.js"></script>
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body ng-app="WatchApp">
+  <p>Simple Angular watcher via WebRTC</p>
+
+  <div id='ctrl' ng-controller="WatchAppController">
+
+    <h2>Join and watch a room</h2>
+
+    <input type="text" ng-model="roomName" placeholder="Join room with name" />
+
+    <watch-room
+      room-name="roomName"
+      joined-room="joinedRoom"
+      nick="userEmail"
+      muted="true"></watch-room>
+
+    <button ng-click="joinRoom()"
+      ng-disabled="!roomName || joinedRoom">Join room</button>
+
+    <button ng-click="leaveRoom()"
+      ng-disabled="!roomName || !joinedRoom">Leave room</button>
+
+    <p>Message <input type="text" ng-model="message" placeholder="Enter message" /> to peers
+    in the room <button ng-click="sendMessage()">Send</button>
+
+  </div>
+
+  <script src="node_modules/console-log-div/console-log-div.js"></script>
+
+  <script>
+    angular.module('WatchApp', ['SimpleWebRTC'])
+      .controller('WatchAppController', function ($scope) {
+        $scope.roomName = '';
+        $scope.joinedRoom = false;
+        $scope.message = 'watching the room';
+        $scope.userEmail = 'watcher@gmail.com';
+
+        $scope.joinRoom = function () {
+          $scope.$broadcast('joinRoom');
+        };
+        $scope.leaveRoom = function () {
+          $scope.$broadcast('leaveRoom');
+        };
+
+        // print broadcasted messages?
+        $scope.sendMessage = function sendMessage() {
+          $scope.$broadcast('messageAll', $scope.message);
+        };
+        $scope.$on('channelMessage', function (event, peer, message) {
+          console.log('message', message);
+        });
+      });
+  </script>
+
+</body>
+</html>
