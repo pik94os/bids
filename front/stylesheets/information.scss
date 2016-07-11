@@ -1,6 +1,6 @@
 .information {
   &-header {
-    height: 100px;
+    height: 130px;
     padding-top: 2px;
     text-align: center;
     h1 {
@@ -12,6 +12,12 @@
     }
   }
   &-list {
+
+	margin: -29px 0;
+    position: relative;
+
+    width: 100%;
+
     .gold {
       color: gold;
       display: inline;
@@ -19,3 +25,4 @@
   }
 
 }
+

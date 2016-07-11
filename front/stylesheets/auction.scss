@@ -5,7 +5,7 @@
 	height: 91px;
 	padding: 16px;
 	font: {
-		family: "Gambria";
+		family: "Cambria";
 	//	family: "Century Gothic";
 		weight: normal;
 		style: normal;
@@ -37,7 +37,7 @@
 }
 
 .auction-header-image {
-	background: rgba(0, 0, 0, 0) url("/images/background-header.png") no-repeat scroll 0 0 / 100% auto;
+	background: rgba(0, 0, 0, 0) url("/images/background-header.jpg") no-repeat scroll 0 0 / 100% auto;
 	height: 420px;
 	text-align: center;
 	&-top {
@@ -51,13 +51,13 @@
 	&-center {
 		margin-top: -30px;
 		color: #fff;
-		font-family: Gambria;
+		font-family: Cambria;
 		font-size: 24px;
 		text-transform: uppercase;
 	}
 	&-bottom {
 		color: #fff;
-		font-family: Gambria;
+		font-family: Cambria;
 		font-size: 30px;
 		text-transform: uppercase;
 	}
@@ -88,7 +88,7 @@
 			height: 51px;
 			left: 0px;
 			background: #262351;
-			padding: 10px 20px;
+			padding: 7px 20px;
 			color: #fff;
 			
 			&:hover {background-color: #c6c6ed;}
@@ -241,7 +241,7 @@
 		text-align: center;
 		margin: 15px 0px 10px 0px;
 		position: relative;
-		border: 1px solid #e0e0e0;
+		*border: 1px solid #e0e0e0;
 		background-color: white;
 		z-index:0;
 		box-shadow: 0 1px 2px;
@@ -315,7 +315,7 @@
 				bottom: 0;
 				margin: 0 auto;
 				margin: 0 0 0 -10px;
-				background-color:#4b5e72;
+				background-color:#0c111a;
 				color: #fff; //#8eaccb; #8eaccb;
 		        font-family: "Century Gothic";
 				font-color: #fff; //#8eaccb;
