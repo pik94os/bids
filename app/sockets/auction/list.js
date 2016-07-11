@@ -4,13 +4,14 @@
 'use strict';
 
 var Auction = require('../../models/').Auction;
-
+let Lot = require('../../models/').Lot;
 module.exports = function(socket, data) {
     let where;
     if(!data.public){
-        where = {userId: socket.request.user.id}
+        where = {userId: socket.request.user.id};
     }
-    Auction.findAll({where})
+    Auction.findAll({where,
+    include: Lot})
         .then(function(auctionList) {
             socket.emit('auctionList', {
                 'err': 0,

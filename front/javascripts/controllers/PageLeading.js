@@ -3,8 +3,51 @@
 
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('PageLeading',['$scope','$http', '$rootScope', '$stateParams', function($scope,$http,$rootScope,$stateParams){
+    controllers.controller('PageLeading',['$scope','$http', '$rootScope', '$stateParams','ngSocket','$interval', function($scope,$http,$rootScope,$stateParams,ngSocket,$interval){
 
+        ngSocket.emit('auction/list', {public: true});
+
+        ngSocket.on('auctionList', function (data) {
+            if(data.err) {
+                alert(data.message)
+            }
+            $scope.auctions = data.auctionList;
+
+            var date = new Date(data.auction.date);
+            $scope.countdown = (date.getTime() > Date.now())?1:2;
+        });
+        $scope.ch = 23;
+        $scope.min = 59;
+        $scope.sec = 59;
+        var stop = $interval(function() {
+            if(+$scope.ch >= 0 && +$scope.min >= 0 && +$scope.sec >= 0) {
+                if(+$scope.sec == 0 && $scope.min > 0) {
+                    $scope.min -= 1;
+                    $scope.sec = 59;
+                }
+                if(+$scope.min == 0 && $scope.ch > 0) {
+                    $scope.ch -= 1;
+                    $scope.min = 59;
+                }
+                if(+$scope.sec>0){
+                    $scope.sec -= 1;
+                }
+            }
+            if(+$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
+                $scope.stopFight();
+            }
+        }, 1000);
+
+        $scope.stopFight = function() {
+            if (angular.isDefined(stop)) {
+                $interval.cancel(stop);
+                stop = undefined;
+            }
+        };
+        $scope.$on('$destroy', function() {
+            $scope.stopFight();
+        });
+        
         $scope.countdown = $stateParams.countdown;
         $scope.popup = false;
         $scope.setPopup = function(index){
