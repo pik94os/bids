@@ -90,14 +90,17 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotSelected', function (data) {
-                $scope.lot = JSON.parse(JSON.stringify(data.lot));
-                $scope.lotId = $scope.lot.id;
-                $scope.isPlayOut = $scope.lot.isPlayOut;
-                $scope.open = ($scope.lot.isSold) ? 2 : 1;
-                $scope.bidPrice =  $scope.lot.estimateFrom;
-                initLotParams($scope, params, $scope.lot);
-                initStep();
-            });
+            $scope.lot = JSON.parse(JSON.stringify(data.lot));
+            $scope.lotId = $scope.lot.id;
+            $scope.descriptionArr = $scope.deleteTegP($scope.lot.description);
+            $scope.descriptionPrevArr = $scope.deleteTegP($scope.lot.descriptionPrev);
+            $scope.isPlayOut = $scope.lot.isPlayOut;
+            $scope.open = ($scope.lot.isSold) ? 2 : 1;
+            $scope.bidPrice =  $scope.lot.estimateFrom;
+            initLotParams($scope, params, $scope.lot);
+            initStep();
+            $scope.bidPrice += Number($scope.step);
+        });
         ngSocket.on('lotCreated', function (data) {
                 console.log(data);
                 ngSocket.emit('auction/getLot', {
