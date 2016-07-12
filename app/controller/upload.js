@@ -16,7 +16,7 @@ const LotPicture = require('../models/').LotPicture;
  * multiparty
  *https://www.npmjs.com/package/multiparty*/
 
-exports.lotPic = function (req, res, next) {
+exports.lotPic = function (req, res, socket, next) {
     // создаем форму
     var form = new multiparty.Form();
     //здесь будет храниться путь с загружаемому файлу, его тип и размер
@@ -41,7 +41,10 @@ exports.lotPic = function (req, res, next) {
         //если нет ошибок и все хорошо
         if(errors.length == 0) {
             //сообщаем что все хорошо
-            res.send({status: 'ok', text: 'Success'});
+            res.send({
+                status: 'ok', 
+                text: 'Success'
+            });
         }
         else {
             if(fs.existsSync(uploadFile.path)) {
@@ -83,7 +86,11 @@ exports.lotPic = function (req, res, next) {
                 where:{
                     originalName:part.filename
                 }
-            }).then();
+            }).then(function (result) {
+                socket.emit('pictureUpdatedReport', {
+                    pictureUpdatedName: result
+                });
+            });
             part.pipe(out);
         }
         else {
