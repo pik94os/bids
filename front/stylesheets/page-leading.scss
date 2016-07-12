@@ -49,6 +49,13 @@
         padding: 25px 0;
         width: 67px;
       }
+      &-div11 {
+        background: #efefef;
+        border-right: 3px solid #efefef;
+        float: left;
+        height: calc(100% - 67px);
+        width: 67px;
+      }
       &-div2 {
         float: left;
         height: 70px;
@@ -72,6 +79,28 @@
         width: 150px;
       }
     }
+    .color-background {
+      background: #efefef;
+      float: left;
+      height: 100%;
+      width: 67px;
+    }
+    .room-circle-bar-text-digit {
+      font-size: 22pt !important;
+    }
+    .room-circle-bar-text-text {
+      font-size: 8pt !important;
+    }
+    .room-circle-bar-text {
+      left: 15px !important;
+    }
+    .rom-container {
+      background: transparent;
+      width: 200px;
+    }
+    .room_container-for-circles {
+      margin: 5px !important;
+    }
   }
   .italic {
     font-style: italic;
@@ -79,32 +108,6 @@
   .uppercase {
     text-transform: uppercase;
   }
-  .color-background {
-    background: #efefef;
-    float: left;
-    height: 137px;
-    width: 67px;
-  }
 
-  .room-circle-bar-text-digit {
-    font-size: 22pt !important;
-  }
-
-  .room-circle-bar-text-text {
-    font-size: 8pt !important;
-  }
-
-  .room-circle-bar-text {
-    left: 15px !important;
-  }
-
-  .rom-container {
-    background: transparent;
-    width: 200px;
-  }
-
-  .room_container-for-circles {
-    margin: 5px !important;
-  }
 }
 

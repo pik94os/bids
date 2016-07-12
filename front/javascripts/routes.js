@@ -97,7 +97,7 @@ define(['./app'], function (app) {
             })
             //Страница ведущего
             .state('page-leading', {
-                url: '/page-leading?countdown',
+                url: '/page-leading',
                 views:{
                     '': {
                         templateUrl: "/templates/page-leading/list.html",

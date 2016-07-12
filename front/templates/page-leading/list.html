@@ -1,4 +1,4 @@
-    <div class="row-block">
+<div class="row-block">
     <div class="content-block">
         <!--//-->
 
@@ -24,11 +24,12 @@
             </div>
 
             <!--// 1-ая строка ниже-->
-            <div  class="page-leading-list-div active" ng-repeat="auction in auctions" ui-sref="auction-leading({auctionId: auction.id})">
+            <div class="page-leading-list-div" ng-class="{'active':showProgress(auction.date)}" ng-repeat="auction in auctions" ui-sref="auction-leading({auctionId: auction.id})">
                 <div class="color-background" >
                     <div class="page-leading-list-div-div1">
                         лого
                     </div>
+                    <div class="page-leading-list-div-div11"></div>
                 </div>
                 <div class="page-leading-list-div-div2">
                     Аукционный дом {{auction.name}}
@@ -40,19 +41,19 @@
                     {{auction.date | dateTimeFilter}}
                     <!--прогресс-бары-->
                     <div class="rom-container">
-                        <div ng-show="countdown==1">
+                        <div ng-show="showProgress(auction.date)">
                             <div class="room-list" ng-class="{'ll-open':open}">
                                 <!--прогресс бары-->
                                 <div class="progress-bar-circle-container">
                                     <div class="room_container-for-circles">
-                                        <round-progress class="room-circle-bar"
+                                        <round-progress cclass="room-circle-bar"
                                                         max="24"
-                                                        current="ch"
+                                                        current="ch[$index]"
                                                         color="#162346"
-                                                        bgcolor="#E2F3FB"
-                                                        radius="70"
+                                                        bgcolor="#b5d8ba"
+                                                        radius="35"
                                                         semi="false"
-                                                        stroke="7"
+                                                        stroke="3"
                                                         rounded="false"
                                                         clockwise="true"
                                                         responsive="false"
@@ -62,7 +63,7 @@
                                                         animation-delay="0">
                                         </round-progress>
                                         <div class="room-circle-bar-text">
-                                            <div class="room-circle-bar-text-digit">30</div>
+                                            <div class="room-circle-bar-text-digit">{{ch[$index]}}</div>
                                             <div class="room-circle-bar-text-text">ЧАСОВ</div>
                                         </div>
                                     </div>
@@ -70,7 +71,7 @@
                                     <div class="room_container-for-circles">
                                         <round-progress class="room-circle-bar"
                                                         max="60"
-                                                        current="35"
+                                                        current="min[$index]"
                                                         color="#162346"
                                                         bgcolor="#b5d8ba"
                                                         radius="35"
@@ -85,7 +86,7 @@
                                                         animation-delay="0">
                                         </round-progress>
                                         <div class="room-circle-bar-text">
-                                            <div class="room-circle-bar-text-digit">26</div>
+                                            <div class="room-circle-bar-text-digit">{{min[$index]}}</div>
                                             <div class="room-circle-bar-text-text">МИНУТ</div>
                                         </div>
                                     </div>
@@ -93,7 +94,7 @@
                                     <div class="room_container-for-circles">
                                         <round-progress class="room-circle-bar"
                                                         max="60"
-                                                        current="55"
+                                                        current="sec[$index]"
                                                         color="#162346"
                                                         bgcolor="#b5d8ba"
                                                         radius="35"
@@ -108,7 +109,7 @@
                                                         animation-delay="0">
                                         </round-progress>
                                         <div class="room-circle-bar-text">
-                                            <div class="room-circle-bar-text-digit">05</div>
+                                            <div class="room-circle-bar-text-digit">{{sec[$index]}}</div>
                                             <div class="room-circle-bar-text-text">СЕКУНД</div>
                                         </div>
                                     </div>
@@ -123,7 +124,8 @@
                 <div class="page-leading-list-div-div5">
                 </div>
             </div>
-                 </div>
+
+        </div>
         <!--//-->
     </div>
 </div>
