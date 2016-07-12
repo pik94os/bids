@@ -30,9 +30,9 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.on('auctionCreated', function (result) {
             if(result.err){
-                alert(data.message);
+                alert(result.message);
             }
-            $state.go('auction',{auctionId:1});
+            $state.go('auction',{auctionId:result.auction.id});
         });
 
 
