@@ -22,6 +22,7 @@ module.exports = function(socket, data) {
              isArchive:false,
              auctionId: data.auctionId
          },
+         order:[['number', 'ASC']],
          // include: [{model:LotPicture, where: {id: Sequelize.col('lot.titlePicId')}}]
          include: [{model:LotPicture}]
      })

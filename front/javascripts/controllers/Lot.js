@@ -3,7 +3,7 @@
  */
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('LotHeader', ['$scope', '$stateParams', 'ngSocket', function ($scope, $stateParams, ngSocket) {
+    controllers.controller('LotHeader', ['$state','$scope', '$stateParams', 'ngSocket', function ($state,$scope, $stateParams, ngSocket) {
         var lotArr = new Array();
         var currentId = 1;
         $scope.open = ($stateParams.lotId) ? 1 : 0;
@@ -19,8 +19,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotSelected', function (data) {
-            console.log(data)
-            $scope.lot = JSON.parse(JSON.stringify(data.lot))
+            console.log(data);
+            $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
             $scope.isPlayOut = $scope.lot.isPlayOut;
             $scope.open = ($scope.lot.isSold) ? 2 : 1;
@@ -33,25 +33,27 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.goToPrevLot = function(){
             if (currentId > 0)
                 currentId -= 1;
-                    ngSocket.emit('auction/getLot', {
-                        lotId: lotArr[currentId].id
-                    });
-        }
+            $state.go('lot', {
+                lotId: lotArr[currentId].id
+            });
+        };
 
         // переход на следующий лот
         $scope.goToNextLot = function(){
             if (currentId < lotArr.length - 1)
                 currentId += 1;
-                    ngSocket.emit('auction/getLot', {
+                    $state.go('lot', {
                          lotId: lotArr[currentId].id
                     });
         }
-    }]).controller('Lot', ['$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $http, $rootScope, $stateParams, ngSocket) {
+    }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket) {
         $scope.open = ($stateParams.lotId) ? 1 : 0;
         $scope.tab = $stateParams.tab;
         $scope.bidPrice = 0;
         $scope.step = 1;
         $scope.confirm = {err: null, message: null};
+        var a = $anchorScroll;
+        console.log(a);
         //инициализация параметров лота
         var params = ['description', 'sellingPrice', 'estimateFrom', 'estimateTo'];
             initLotParams($scope, params, initObjFromArr(params,["", 0, 0, 0]));
@@ -101,7 +103,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             initLotParams($scope, params, $scope.lot);
             initStep();
             $scope.bidPrice += Number($scope.step);
-            console.log(data);
         });
         ngSocket.on('lotCreated', function (data) {
                 ngSocket.emit('auction/getLot', {
@@ -122,19 +123,35 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         $scope.incrementBid = function () {
             $scope.bidPrice += Number($scope.step);
+
+            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+                $scope.minus = false;
+            } else {
+                $scope.minus = true;
+            }
         };
 
         $scope.decrementBid = function () {
             if ($scope.bidPrice > 0)
                 $scope.bidPrice -= Number($scope.step);
+
+            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+                $scope.minus = false;
+            } else {
+                $scope.minus = true;
+            }
         };
 
         $scope.formatBid = function () {
             var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
+            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+                $scope.minus = false;
+            } else {
+                $scope.minus = true;
+            }
         };
-
             function initStep(){
                 if ($scope.lot.estimateFrom <= 5){
                     $scope.step = 1;

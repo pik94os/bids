@@ -19,7 +19,7 @@
 					<!--div class="lot-pricediv1-11">Разместить максимальный бид</div-->
 					<div class="lot-pricediv1-2">
                         <input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
-                        <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
+                        <div class="lot-pricediv1-2-1" ng-click="decrementBid()" ng-show="minus"></div>
                         <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                     </div>
 					<div class="lot-pricediv1-3" ng-click="confirmLot()">{{ isPlayOut ? "Подтвердить" : "Заочный бид"}}</div>

@@ -129,7 +129,7 @@
             <div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="singleLot in lotList">
                 <div class="tab">
                     <div class="over">
-                        <div class="view" ui-sref="lot({open:singleLot.sellingPrice?2:1, lotId:singleLot.id})"></div>
+                        <div class="view" ui-sref="lot({open:singleLot.sellingPrice?2:1, lotId:singleLot.id})" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0;"></div>
                         <!--<div class="tofav"></div>-->
                         <div class="edit" ui-sref="lot({open:singleLot.sellingPrice?2:1, lotId:singleLot.id})"></div>
                         <div class="delete"></div>
