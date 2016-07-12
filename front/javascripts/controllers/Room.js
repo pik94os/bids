@@ -67,9 +67,11 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auctionDate = data.auction.date;
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
-                ngSocket.emit('auction/getLot', {
-                    lotId: $scope.auction_params.lots[currentId].id
-                });
+                if($scope.auction_params.lots[currentId]!=undefined && $scope.auction_params.lots[currentId].id!=undefined){
+                    ngSocket.emit('auction/getLot', {
+                        lotId: $scope.auction_params.lots[currentId].id
+                    });
+                }
             });
 
             ngSocket.on('lotSelected', function (data) {
@@ -145,7 +147,11 @@ define(['./module','jquery'],function(controllers,$){
                 razn -= $scope.min * 1000 * 60;
                 $scope.sec = Math.floor(razn  / 1000 );// вычисляем секунды
 
-                if(+$scope.ch >= 0 && +$scope.min >= 0 && +$scope.sec >= 0) {
+                if(+$scope.days >= 0 || +$scope.ch >= 0 || +$scope.min >= 0 || +$scope.sec >= 0) {
+                    if(+$scope.ch == 0 && $scope.days > 0) {
+                        $scope.days -= 1;
+                        $scope.ch = 23;
+                    }
                     if(+$scope.sec == 0 && $scope.min > 0) {
                         $scope.min -= 1;
                         $scope.sec = 59;
@@ -158,8 +164,7 @@ define(['./module','jquery'],function(controllers,$){
                         $scope.sec -= 1;
                     }
                 }
-
-                if(+$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
+                if(+$scope.days <= 0 && +$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
                     $scope.stopFight();
                 }
             }, 1000);

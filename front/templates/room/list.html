@@ -16,8 +16,29 @@
             <div class="progress-bar-circle-container" ng-hide="notDate">
                 <div class="room_container-for-circles">
                     <round-progress class="room-circle-bar"
+                                    max="99"
+                                    current="days"
+                                    color="#162346"
+                                    bgcolor="#E2F3FB"
+                                    radius="70"
+                                    semi="false"
+                                    stroke="7"
+                                    rounded="false"
+                                    clockwise="true"
+                                    responsive="false"
+                                    duration="800"
+                                    animation="easeInOutQuart"
+                                    offset="0"
+                                    animation-delay="0"></round-progress>
+                    <div class="room-circle-bar-text">
+                        <div class="room-circle-bar-text-digit">{{days}}</div>
+                        <div class="room-circle-bar-text-text">ДНЕЙ</div>
+                    </div>
+                </div>
+                <div class="room_container-for-circles">
+                    <round-progress class="room-circle-bar"
                                     max="24"
-                                    current="ch[$index]"
+                                    current="ch"
                                     color="#162346"
                                     bgcolor="#E2F3FB"
                                     radius="70"
