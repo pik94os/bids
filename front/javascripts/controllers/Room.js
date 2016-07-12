@@ -44,10 +44,10 @@ define(['./module','jquery'],function(controllers,$){
             $scope.bidPrice = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0]));
 
-            //init time params
-            $scope.time = 23;
-            $scope.min = 59;
-            $scope.sec = 59;
+            // //init time params
+            // $scope.time = 23;
+            // $scope.min = 59;
+            // $scope.sec = 59;
 
             ngSocket.on('room',function (data) {
                 var date;
@@ -64,7 +64,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.lots_isPlayOuted = data.auction.lots.map(function(e) { if(e.isPlayOut === true) return e });
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
                 console.log(($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100)
-
+                $scope.auctionDate = data.auction.date;
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
                 ngSocket.emit('auction/getLot', {
@@ -126,8 +126,25 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.confirm = data
             });
-
+            
+            var curDate = new Date();
+        $scope.showProgress = function (date) {
+            // 24 часа - 86400000 милисекунд
+            if(+(new Date(date)) - +curDate < 86400000) {
+                return true;
+            }
+        };
             var stop = $interval(function() {
+                var date = new Date($scope.auctionDate);
+                var razn = +date - +curDate;
+                $scope.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
+                razn -= $scope.days*1000*60*60*24;
+                $scope.ch  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
+                razn -= $scope.ch * 1000 * 60 * 60;
+                $scope.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
+                razn -= $scope.min * 1000 * 60;
+                $scope.sec = Math.floor(razn  / 1000 );// вычисляем секунды
+
                 if(+$scope.ch >= 0 && +$scope.min >= 0 && +$scope.sec >= 0) {
                     if(+$scope.sec == 0 && $scope.min > 0) {
                         $scope.min -= 1;
@@ -141,6 +158,7 @@ define(['./module','jquery'],function(controllers,$){
                         $scope.sec -= 1;
                     }
                 }
+
                 if(+$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
                     $scope.stopFight();
                 }
