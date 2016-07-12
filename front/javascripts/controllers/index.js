@@ -7,5 +7,6 @@ define([
     './Room',
     './Calendar',
     './AuctionLeading',
-    './PageLeading'
+    './PageLeading',
+    './Admin'
 ], function () {});

@@ -1,0 +1,264 @@
+
+.admin {
+  .pageAuctionLeading {
+    video{
+      width: 100%;
+      color: green;
+    }
+    &-left {
+      background: #131b2e;
+      color: white;
+      &-in {
+        padding: 15px;
+        &-title {
+          color: #3250ad;
+          font-size: 18px;
+          padding: 10px 0 0;
+        }
+        &-text {
+          padding: 17px 0;
+          width: 100%;
+          &-numberAndName {
+            float: left;
+            width: calc(100% - 20px);
+          }
+          &-circleColor {
+            float: left;
+            width: 20px;
+          }
+          .color-yellow {
+            color: yellow;
+            text-decoration: underline;
+          }
+          .color-red {
+            color: #535f7b;
+          }
+        }
+      }
+    }
+
+    &-right {
+      background: #efefef;
+      &-top {
+        &-left {
+          background: white;
+          //height: 112px;
+          padding: 5px 0 0 40px;
+          &-top {
+            color: #b90000;
+            font-size: 42px;
+            font-weight: bold;
+          }
+          &-bottom {
+            font-size: 23px;
+          }
+        }
+        &-right {
+          background: #f0c7c7;
+          //height: 112px;
+          text-align: center;
+          padding-top: 28px;
+          &-top {
+            font-size: 14px;
+            text-transform: uppercase;
+          }
+          &-bottom {
+            color: #b90000;
+            font: {
+              size: 30px;
+              weight: bold;
+            }
+          }
+        }
+      }
+      &-center {
+        //height: 460px;
+        &-left {
+          //height: 100%;
+          font-weight: bold;
+          padding: 23px;
+          &-top {
+            font-size: 20px;
+          }
+          &-undertop {
+            color: #b90000;
+            font-size: 18px;
+            padding-top: 20px;
+          }
+          &-bottom {
+            padding-top: 228px;
+          }
+        }
+        &-center {
+          //height: 100%;
+          font-weight: bold;
+          padding: 15px;
+          &-gallery {
+            @include clearfix;
+            .gallery-div {
+              border: 1px solid #a1a6a9;
+              float: left;
+              margin: 10px;
+              position: relative;
+              .check {
+                background: white;
+                border: 1px solid #515151;
+                height: 30px;
+                opacity: 0.5;
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                width: 30px;
+                img {
+                  opacity: 1;
+                  padding: 3px;
+                }
+              }
+              .noeye {
+                background: rgba(0, 0, 0, 0) url("/images/no-eye.png") no-repeat scroll 0 0;
+                height: 72px;
+                left: 15px;
+                position: absolute;
+                top: 48px;
+                width: 91px
+              }
+            }
+          }
+          &-bottom {
+            //padding-top: 390px;
+            &-time {
+              float: left;
+              width: 50%;
+            }
+            &-pause {
+              float: left;
+              padding: 0 0 0 85px;
+              width: 50%;
+            }
+          }
+        }
+        &-right {
+          //height: 100%;
+          padding: 15px;
+          &-camera {
+            //height: 160px;
+            text-align: center;
+          }
+          &-textTop {
+            //height: 140px;
+            &-in {
+              &-text {
+                float: left;
+                width: calc(100% - 100px);
+              }
+              &-time {
+                float: left;
+                width: 100px;
+              }
+            }
+          }
+          &-textBottom {
+            //height: 125px;
+            text-align: center;
+            .top {
+              color: #687983;
+              font-size: 20px;
+            }
+            .center {
+              font-size: 24px;
+            }
+            .bottom {
+              color: #b90000;
+              font-size: 20px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+      &-bottom {
+        &-left {
+          .black {
+            color: black;
+            display: inline;
+            font-weight: bold;
+            text-decoration: underline;
+          }
+          .red {
+            color: #b90000;
+            display: inline;
+          }
+          .red-underline {
+            color: #b90000;
+            display: inline;
+            text-decoration: underline;
+          }
+          &-chat {
+            &-text {
+              float: left;
+              width: calc(100% - 20px);
+            }
+            &-cross {
+              background: url("/images/cross-lead.png") no-repeat;
+              float: left;
+              //height: 20px;
+              width: 20px;
+            }
+          }
+        }
+        &-right {
+          div {
+            //height: 25px;
+            div {
+              float: left;
+              width: 20%;
+            }
+            .name {
+              width: 40%;
+            }
+          }
+          .grey {
+            color: grey;
+          }
+          .black {
+            color: black;
+            font-weight: bold;
+            // border-bottom: 1px solid black;
+          }
+          .green {
+            color: green;
+          }
+          .red {
+            color: red;
+          }
+        }
+      }
+    }
+    .color-red {
+      color: red;
+    }
+    .auction-button-sale {
+      color: #131b2e;
+      cursor: pointer;
+      margin-bottom: 10px;
+      padding: 3px 0;
+      text-align: center;
+      text-transform: uppercase;
+      margin-top: 10px;
+      background: green;
+      width: 50%;
+      float: left;
+    }
+    .auction-button-remove {
+      color: #131b2e;
+      cursor: pointer;
+      margin-bottom: 10px;
+      padding: 3px 0;
+      text-align: center;
+      text-transform: uppercase;
+      margin-top: 10px;
+      background: red;
+      width: 50%;
+      float: left;
+    }
+  }
+}
