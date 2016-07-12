@@ -15,7 +15,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
                 //console.log(data);
-            })
+            });
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
 
