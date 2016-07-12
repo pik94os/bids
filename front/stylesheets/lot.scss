@@ -437,6 +437,10 @@ height: 70px;
       top: 6px;
       display: none;
     }
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
     &:hover {
       .cclose {
         display: block;
@@ -466,6 +470,10 @@ height: 70px;
   .gallery {
     @include margin-horizontal(-5px);
     @include clearfix;
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
     .small-photo {
       position: relative;
       cursor: pointer;
@@ -537,7 +545,7 @@ height: 70px;
     }
   }
   &.ll-open {
-    .edit,.cclose,.lot-body-div-center-in-top.pad-icon{
+    .edit,.cclose,.lot-body-div-center-in-top.pad-icon, .add{
       display: none !important;
 
     }

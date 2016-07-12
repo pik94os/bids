@@ -90,6 +90,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotSelected', function (data) {
+            ngSocket.emit('auction/getPictureList', {lotId:data.lot.id});
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
             $scope.descriptionArr = $scope.deleteTegP($scope.lot.description);
@@ -100,29 +101,39 @@ define(['./module', 'jquery'], function (controllers, $) {
             initLotParams($scope, params, $scope.lot);
             initStep();
             $scope.bidPrice += Number($scope.step);
+            console.log(data);
         });
         ngSocket.on('lotCreated', function (data) {
-                console.log(data);
                 ngSocket.emit('auction/getLot', {
                     lotId: data.newLot.lot.id
             });
 
+        });
+        $scope.gallery = {};
+        ngSocket.on('pictureList', function (data) {
+            $scope.gallery = {};
+            data.pictureList.forEach(function (row) {
+                $scope.gallery[row.id]=row;
             });
-
+            $scope.bigPhoto=$scope.gallery[$scope.lot.titlePicId].fileName;
+        });
+        $scope.setBigPhoto=function (ph) {
+            $scope.bigPhoto=ph;
+        };
         $scope.incrementBid = function () {
             $scope.bidPrice += Number($scope.step);
-        }
+        };
 
         $scope.decrementBid = function () {
             if ($scope.bidPrice > 0)
                 $scope.bidPrice -= Number($scope.step);
-        }
+        };
 
         $scope.formatBid = function () {
             var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
-        }
+        };
 
             function initStep(){
                 if ($scope.lot.estimateFrom <= 5){
@@ -165,8 +176,15 @@ define(['./module', 'jquery'], function (controllers, $) {
                     $scope.step = 100000;
                 }
             }
-
-    }])
+        $scope.lastPhotos = function () {
+            var t = $('.gallery .small-photo:last-child');
+            t.detach().prependTo('.gallery');
+        };
+        $scope.firstPhotos = function () {
+            var t = $('.gallery .small-photo:first-child');
+            t.detach().appendTo('.gallery');
+        };
+    }]);
     function initLotParams(scope, params, values){
         params.forEach(function(item, i) {
               scope[item] = values[item]

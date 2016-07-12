@@ -37,19 +37,20 @@
 
             <div class="col col-sm-6">
                 <div class="big-photo">
+					<img ng-src="/images/lot-images/{{bigPhoto}}">
 					<div class="cclose"></div>
 					<div class="edit"></div>
 				</div>
 				<div class="big-photo-under">
-					<img class="li4077" src="images/arrow_galery_left.svg"><img class="li4077" src="images/arrow_galery_right.svg">
+					<img class="li4077" src="images/arrow_galery_left.svg" ng-click="lastPhotos()" ng-if="gallery.length>5"><img class="li4077" src="images/arrow_galery_right.svg" ng-click="firstPhotos()"  ng-if="gallery.length>5">
 				</div>
                 <div class="gallery">
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
+                    <div class="small-photo" ng-repeat ="img in gallery" ng-click="setBigPhoto(img.fileName)" ng-if="img.fileName">
+						<div class="cclose"></div>
+						<div>
+							<img ng-src="/images/lot-images/{{img.fileName}}">
+						</div>
+					</div>
                     <div class="add"><div><div></div></div></div>
                 </div>
 		    </div>
