@@ -8,6 +8,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         var currentId = 1;
         $scope.open = ($stateParams.lotId) ? 1 : 0;
 
+
+
         // получение одного лота по ID
         ngSocket.emit('auction/getLot', {
                 lotId: $stateParams.lotId
