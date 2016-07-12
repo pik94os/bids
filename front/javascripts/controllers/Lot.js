@@ -73,11 +73,10 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.confirmLot = function () {
             //$scope.userId = 1;
             //$scope.lotId = 1;
-            console.log($scope.lotId, $scope.bidPrice, $scope.userId);
+            console.log($scope.lotId, $scope.bidPrice);
                 ngSocket.emit('auction/confirmLot', {
                     lotId: $scope.lotId,
-                    bidPrice: $scope.bidPrice,
-                    userId: $scope.userId
+                    bidPrice: $scope.bidPrice
                 });
         };
 
@@ -88,7 +87,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
             }
             $scope.confirm = data
-            });
+        });
 
         ngSocket.on('lotSelected', function (data) {
                 $scope.lot = JSON.parse(JSON.stringify(data.lot));
