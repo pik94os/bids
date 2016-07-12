@@ -5,7 +5,7 @@
             <!--прогресс-бар наверху-->
             <div class="room-progress-bar-container">
                 <div class="progress-bar-line pull-left"></div>
-                <div class="room-text-in-bar-procents pull-right">0% ИЗ 379 ЛОТОВ | 00 : 00</div>
+                <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 00</div>
                 <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
             </div>
             <div class="room-auction-title">
@@ -110,7 +110,7 @@
                 <div>
                     <div class="room-progress-bar-container">
                         <div class="progress-bar-line pull-left"></div>
-                        <div class="room-text-in-bar-procents pull-right">0% ИЗ 379 ЛОТОВ | 00 : 00</div>
+                        <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 00</div>
                         <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
                     </div>
                 </div>
@@ -118,9 +118,9 @@
                 <div class="col-sm-6 left-column">
 
                     <div class="legend">
-                        <div class="col-sm-6 pull-left">Всего участников: <b>26</b></div>
-                        <div class="col-sm-3 pull-right">В зале: <b>15</b></div>
-                        <div class="col-sm-3 pull-right">Интернет: <b>9</b></div>
+                        <div class="col-sm-6 pull-left">Всего участников: <b>{{auction_params.users_length.internet_users + auction_params.users_length.hall_users}}</b></div>
+                        <div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div>
+                        <div class="col-sm-3 pull-right">Интернет: <b>{{auction_params.users_length.internet_users}}</b></div>
                     </div>
                     <!--карточки-->
                     <div class="row">
@@ -136,10 +136,10 @@
                                     <div class="popup-avatar"></div>
                                     <div class="popup-text">
                                         <div class="popup-text-name">
-                                            Dragon
+                                            {{auction_params.users[r-1].username}}
                                         </div>
 
-                                        № 37 <br>
+                                        № {{auction_params.users[r-1].number}} <br>
                                     </div>
                                     <div class="btn bg-primary popup-text-btn">Сообщение</div>
                                 </div>
@@ -170,7 +170,7 @@
                 <div class="right-column col-sm-6">
                     <div class="row">
                         <div class="room-small-books-container">
-                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png"></div>
+                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png" ng-click="goToPrevLot()"></div>
                             <div class="pull-left width100">
                                 <div class="page-numbers-single">149</div>
                                 <div class="room-small-photo">
@@ -201,7 +201,7 @@
                                     <div><img src="/images/FOR_DEV/sm_book.png"></div>
                                 </div>
                             </div>
-                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"></div>
+                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png" ng-click="goToNextLot()"></div>
                         </div>
                     </div>
 
@@ -214,6 +214,9 @@
                                     Древности Российского государства, изданные по высочайшему повелению. Рисованы
                                     академиком Ф. Солнцевым...
                                 </div>
+                                <!--<div class="description-the-book">
+                                    {{current_lot.description.slice(0,70)+'...'}}
+                                </div> -->
                                 <hr>
                                 <div class="room-large-book">
                                     <img src="/images/FOR_DEV/lg_book.png" width="200pt" ng-if="swap == false">
@@ -246,12 +249,14 @@
                             </div>
                         </div>
 
-                </div>
-
                 <div class="row">
-                    <div class="insert-your col-sm-12">СДЕЛАЙТЕ ШАГ \ ВПИШИТЕ СВОЙ</div>
-                    <div class="room-price do-rate col-sm-6">СДЕЛАТЬ СТАВКУ</div>
-                    <div class="room-price number-of-rate col-sm-6">6 900 000</div>
+
+                    <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
+                        <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
+                        <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
+                    </div>
+                    <div class="room-price do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
+                    <div class="room-price number-of-rate col-sm-6">{{current_lot.sellingPrice}}</div>
                 </div>
                 <div class="max-rate">
                     МАКСИМАЛЬНАЯ СТАВКА
