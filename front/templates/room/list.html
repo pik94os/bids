@@ -16,8 +16,8 @@
             <div class="progress-bar-circle-container" ng-hide="notDate">
                 <div class="room_container-for-circles">
                     <round-progress class="room-circle-bar"
-                                    max="24"
-                                    current="ch"
+                                    max="99"
+                                    current="timer.days"
                                     color="#162346"
                                     bgcolor="#E2F3FB"
                                     radius="70"
@@ -31,7 +31,28 @@
                                     offset="0"
                                     animation-delay="0"></round-progress>
                     <div class="room-circle-bar-text">
-                        <div class="room-circle-bar-text-digit">{{ch}}</div>
+                        <div class="room-circle-bar-text-digit">{{timer.days}}</div>
+                        <div class="room-circle-bar-text-text">ДНЕЙ</div>
+                    </div>
+                </div>
+                <div class="room_container-for-circles">
+                    <round-progress class="room-circle-bar"
+                                    max="24"
+                                    current="timer.ch"
+                                    color="#162346"
+                                    bgcolor="#E2F3FB"
+                                    radius="70"
+                                    semi="false"
+                                    stroke="7"
+                                    rounded="false"
+                                    clockwise="true"
+                                    responsive="false"
+                                    duration="800"
+                                    animation="easeInOutQuart"
+                                    offset="0"
+                                    animation-delay="0"></round-progress>
+                    <div class="room-circle-bar-text">
+                        <div class="room-circle-bar-text-digit">{{timer.ch}}</div>
                         <div class="room-circle-bar-text-text">ЧАСОВ</div>
                     </div>
                 </div>
@@ -39,7 +60,7 @@
                 <div class="room_container-for-circles">
                     <round-progress class="room-circle-bar"
                                     max="60"
-                                    current="min"
+                                    current="timer.min"
                                     color="#162346"
                                     bgcolor="#E2F3FB"
                                     radius="70"
@@ -53,7 +74,7 @@
                                     offset="0"
                                     animation-delay="0"></round-progress>
                     <div class="room-circle-bar-text">
-                        <div class="room-circle-bar-text-digit">{{min}}</div>
+                        <div class="room-circle-bar-text-digit">{{timer.min}}</div>
                         <div class="room-circle-bar-text-text">МИНУТ</div>
                     </div>
                 </div>
@@ -61,7 +82,7 @@
                 <div class="room_container-for-circles">
                     <round-progress class="room-circle-bar"
                                     max="60"
-                                    current="sec"
+                                    current="timer.sec"
                                     color="#162346"
                                     bgcolor="#E2F3FB"
                                     radius="70"
@@ -75,7 +96,7 @@
                                     offset="0"
                                     animation-delay="0"></round-progress>
                     <div class="room-circle-bar-text">
-                        <div class="room-circle-bar-text-digit">{{sec}}</div>
+                        <div class="room-circle-bar-text-digit">{{timer.sec}}</div>
                         <div class="room-circle-bar-text-text">СЕКУНД</div>
                     </div>
                 </div>

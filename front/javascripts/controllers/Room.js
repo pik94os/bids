@@ -44,10 +44,10 @@ define(['./module','jquery'],function(controllers,$){
             $scope.bidPrice = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0]));
 
-            //init time params
-            $scope.time = 23;
-            $scope.min = 59;
-            $scope.sec = 59;
+            // //init time params
+            // $scope.time = 23;
+            // $scope.timer.min = 59;
+            // $scope.timer.sec = 59;
 
             ngSocket.on('room',function (data) {
                 var date;
@@ -62,14 +62,69 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
                 $scope.auction_params.lots_isPlayOuted = data.auction.lots.map(function(e) { if(e.isPlayOut === true) return e });
+                if ($scope.auction_params.lots_length != 0)
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
                 console.log(($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100)
-
+                $scope.auctionDate = data.auction.date;
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
-                ngSocket.emit('auction/getLot', {
-                    lotId: $scope.auction_params.lots[currentId].id
+                if($scope.auction_params.lots[currentId]!=undefined && $scope.auction_params.lots[currentId].id!=undefined){
+                    ngSocket.emit('auction/getLot', {
+                        lotId: $scope.auction_params.lots[currentId].id
+                    });
+                }
+
+                var curDate = new Date();
+                $scope.showProgress = function (date) {
+                    // 24 часа - 86400000 милисекунд
+                    if(+(new Date(date)) - +curDate < 86400000) {
+                        return true;
+                    }
+                };
+                var date = new Date($scope.auctionDate);
+                var razn = +date - +curDate;
+                $scope.timer = {};
+                $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
+                razn -= $scope.timer.days*1000*60*60*24;
+                $scope.timer.ch  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
+                razn -= $scope.timer.ch * 1000 * 60 * 60;
+                $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
+                razn -= $scope.timer.min * 1000 * 60;
+                $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
+                console.log($scope.timer);
+
+                var stop = $interval(function() {
+                    if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
+                        if(+$scope.timer.ch == 0 && $scope.timer.days > 0) {
+                            $scope.timer.days -= 1;
+                            $scope.timer.ch = 23;
+                        }
+                        if(+$scope.timer.sec == 0 && $scope.timer.min > 0) {
+                            $scope.timer.min -= 1;
+                            $scope.timer.sec = 59;
+                        }
+                        if(+$scope.timer.min == 0 && $scope.timer.ch > 0) {
+                            $scope.timer.ch -= 1;
+                            $scope.timer.min = 59;
+                        }
+                        
+                    }
+                    if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
+                        $scope.stopFight();
+                    }
+                }, 1000);
+
+                $scope.stopFight = function() {
+                    if (angular.isDefined(stop)) {
+                        $interval.cancel(stop);
+                        stop = undefined;
+                    }
+                };
+                $scope.$on('$destroy', function() {
+                    $scope.stopFight();
                 });
+
+
             });
 
             ngSocket.on('lotSelected', function (data) {
@@ -127,21 +182,44 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.confirm = data
             });
 
+            var curDate = new Date();
+        $scope.showProgress = function (date) {
+            // 24 часа - 86400000 милисекунд
+            if(+(new Date(date)) - +curDate < 86400000) {
+                return true;
+            }
+        };
+        var date = new Date($scope.auctionDate);
+        var razn = +date - +curDate;
+        $scope.timer = {};
+        $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
+        razn -= $scope.timer.days*1000*60*60*24;
+        $scope.timer.ch  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
+        razn -= $scope.timer.ch * 1000 * 60 * 60;
+        $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
+        razn -= $scope.timer.min * 1000 * 60;
+        $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
+        console.log($scope.timer);
+
             var stop = $interval(function() {
-                if(+$scope.ch >= 0 && +$scope.min >= 0 && +$scope.sec >= 0) {
-                    if(+$scope.sec == 0 && $scope.min > 0) {
-                        $scope.min -= 1;
-                        $scope.sec = 59;
+                if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
+                    if(+$scope.timer.ch == 0 && $scope.timer.days > 0) {
+                        $scope.timer.days -= 1;
+                        $scope.timer.ch = 23;
                     }
-                    if(+$scope.min == 0 && $scope.ch > 0) {
-                        $scope.ch -= 1;
-                        $scope.min = 59;
+                    if(+$scope.timer.sec == 0 && $scope.timer.min > 0) {
+                        $scope.timer.min -= 1;
+                        $scope.timer.sec = 59;
                     }
-                    if(+$scope.sec > 0){
-                        $scope.sec -= 1;
+                    if(+$scope.timer.min == 0 && $scope.timer.ch > 0) {
+                        $scope.timer.ch -= 1;
+                        $scope.timer.min = 59;
+                    }
+                    if(+$scope.timer.sec > 0){
+                        $scope.timer.sec -= 1;
                     }
                 }
-                if(+$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
+                if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
                     $scope.stopFight();
                 }
             }, 1000);
