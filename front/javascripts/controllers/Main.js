@@ -202,6 +202,7 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('createCSVPicturesReport', function (result) {
             $scope.pictureRowAddedFromCSV = result;
             $scope.countReportPic++;
+            // $scope.countOfgalleryPicArr = result.countArr;
         });
 
         // загрузка картинок на сервер
@@ -247,7 +248,8 @@ define(['./module','jquery'],function(controllers,$){
         };
         lotPicUploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
-            alert('Файлы загружены');
+            // alert('Файлы загружены');
+            $scope.addedPic = response;
         };
         lotPicUploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -264,6 +266,10 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         console.info('lotPicUploader', lotPicUploader);
+
+        ngSocket.on('pictureUpdatedReport', function (result) {
+            $scope.pictureUpdatedName = result;
+        });
 
         // Проверка роли : от 1до4 и 5-ая роль
         $scope.goToPageHeader = function () {
