@@ -7,6 +7,32 @@ define(['./module','jquery'],function(controllers,$){
         $scope.setIsAD = function () {
             $scope.isAD=true;
         };
+        $scope.selectedAuctionInMain = {
+            id: 0,
+            setId: function (id) {
+                this.id = id
+            },
+            number: null,
+            date: null
+        };
+
+        $scope.regist = function (auctionId,auctionDate) {
+            if(+$scope.currentUserInfo.id){
+                ngSocket.emit('userAuction', {auctionId: +auctionId});
+                $scope.selectedAuctionInMain.date = auctionDate;
+                $scope.selectedAuctionInMain.id = auctionId;
+            }
+        };
+        ngSocket.on('auctionUserStop', function (data) {
+            $('#regUserAuctionStop').modal('show');
+        });
+
+        ngSocket.on('auctionUser', function (data) {
+            if(data.err){
+                alert(data.message)
+            }
+            $('#regUserAuction').modal('show');
+        });
         
         if($sessionStorage.auth){
             $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
@@ -34,29 +60,27 @@ define(['./module','jquery'],function(controllers,$){
         });
         $scope.regUserData = {};
         $scope.loginUserData = {};
-        $scope.selectedAuctionInMain = {
-            id: 0,
-            setId: function (id) {
-                this.id = id
-            },
-            number: null,
-            date: null
-        };
         $scope.createUser = function (role) {
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
             if (role == 3) roleOfNewUser = 3;
-            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.acceptTerms == true) {
+            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword
+                && $scope.regUserData.firstName
+                && $scope.regUserData.lastName
+                && $scope.regUserData.email
+                && $scope.regUserData.phone
+            ) {
                 $http.post('/api/users/reg',{
                     username: $scope.regUserData.username,
                     firstName: $scope.regUserData.firstName,
                     lastName: $scope.regUserData.lastName,
-                    patronymic: $scope.regUserData.patronymic,
+                    patronymic: $scope.regUserData.patronymic ? $scope.regUserData.patronymic : '',
                     email: $scope.regUserData.email,
                     phone: $scope.regUserData.phone,
-                    confirmationCode: $scope.regUserData.confirmationCode,
+                    // confirmationCode: $scope.regUserData.confirmationCode,
+                    confirmationCode: null,
                     password: $scope.regUserData.password,
-                    acceptTerms: $scope.regUserData.acceptTerms,
+                    acceptTerms: true,
                     receiveMessages: $scope.regUserData.receiveMessages,
                     roleId: roleOfNewUser,
                     auctionId: (+$scope.selectedAuctionInMain.id)
@@ -112,7 +136,7 @@ define(['./module','jquery'],function(controllers,$){
         });
 
         // CALLBACKS
-
+        $scope.CSVAdded = false;
         uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
@@ -121,6 +145,7 @@ define(['./module','jquery'],function(controllers,$){
         };
         uploader.onAfterAddingAll = function(addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
+            $scope.CSVAdded = true;
         };
         uploader.onBeforeUploadItem = function(item) {
             console.info('onBeforeUploadItem', item);
@@ -133,7 +158,7 @@ define(['./module','jquery'],function(controllers,$){
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
-            alert('Файл загружен');
+            // alert('Файл загружен');
             $scope.CSVParsedFile = response;
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
@@ -147,11 +172,14 @@ define(['./module','jquery'],function(controllers,$){
         };
         uploader.onCompleteAll = function() {
             console.info('onCompleteAll');
+            // alert('Файл загружен в базу');
         };
 
         console.info('uploader', uploader);
 
+        $scope.addLotBtn = true;
         $scope.createNewLotFromCSV = function () {
+            $scope.addLotBtn = false;
             var data = {
                 CSVParsedFile: $scope.CSVParsedFile,
                 auctionId: $stateParams.auctionId
@@ -159,10 +187,22 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('createNewLotFromCSV', data);
         };
 
+        // $scope.CSVAddedInBaseProgress = 0;
+        $scope.rowsCreated = 0;
         ngSocket.on('createCSVReport', function (result) {
             // $scope.countOfRenewedRows = result.renewedRows;
             // $scope.countOfCreatedRows = result.createdRows;
             // alert('Строки созданы');
+            $scope.fileAddedInBase=result;
+            $scope.rowsCreated++;
+        });
+        
+        // отчет о записях в базу картинок из CSV
+        $scope.countReportPic = 0;
+        ngSocket.on('createCSVPicturesReport', function (result) {
+            $scope.pictureRowAddedFromCSV = result;
+            $scope.countReportPic++;
+            // $scope.countOfgalleryPicArr = result.countArr;
         });
 
         // загрузка картинок на сервер
@@ -194,6 +234,8 @@ define(['./module','jquery'],function(controllers,$){
         };
         lotPicUploader.onAfterAddingAll = function(addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
+            $scope.picturesAdded = true;
+            $scope.CSVAddedInBase = false;
         };
         lotPicUploader.onBeforeUploadItem = function(item) {
             console.info('onBeforeUploadItem', item);
@@ -206,6 +248,9 @@ define(['./module','jquery'],function(controllers,$){
         };
         lotPicUploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+            // alert('Файлы загружены');
+            $scope.addedPic = response;
+            console.log('>>>>>>>>>>>');
         };
         lotPicUploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -218,10 +263,14 @@ define(['./module','jquery'],function(controllers,$){
         };
         lotPicUploader.onCompleteAll = function() {
             console.info('onCompleteAll');
-            alert('Файлы загружены');
+            // alert('Файлы загружены');
         };
 
         console.info('lotPicUploader', lotPicUploader);
+
+        ngSocket.on('pictureUpdatedReport', function (result) {
+            $scope.pictureUpdatedName = result;
+        });
 
         // Проверка роли : от 1до4 и 5-ая роль
         $scope.goToPageHeader = function () {
@@ -267,7 +316,7 @@ define(['./module','jquery'],function(controllers,$){
         // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
             var mas = [];
-            while (text.indexOf("<p>")+1) {
+            while (text!==undefined && text.indexOf("<p>")+1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
 
                 text = text.substring(text.indexOf("</p>") + 3, text.length);

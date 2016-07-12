@@ -1,52 +1,78 @@
 <div class="row-block">
     <div class="content-block">
-        <!--//-->
 
         <div class="page-leading-list uppercase">
 
-            <!--// 0-ая строка ниже-->
-            <div class="page-leading-list-div top">
-                <div class="page-leading-list-div-div1 color-efefef">
-
-                </div>
-                <div class="page-leading-list-div-div2">
-                    Наименование
-                </div>
-                <div class="page-leading-list-div-div3">
-                    Начало
-                </div>
-                <div class="page-leading-list-div-div4">
-                    Кол-во лотов
-                </div>
-                <div class="page-leading-list-div-div5">
-                    Участников
-                </div>
+            <div class="row">
+                <div class="hidden-xs col-sm-1"></div>
+                <div class="hidden-xs col-sm-4">Наименование</div>
+                <div class="hidden-xs col-sm-4">Начало</div>
+                <div class="hidden-xs col-sm-1">Кол-во лотов</div>
+                <div class="hidden-xs col-sm-2">Участников</div>
             </div>
 
-            <!--// 1-ая строка ниже-->
-            <div class="page-leading-list-div active">
-                <div class="color-background">
+            <div class="page-leading-list-div row" ng-class="{'active':showProgress(auction.date)}"
+                 ng-repeat="auction in auctions" ui-sref="auction-leading({auctionId: auction.id})">
+                <div class="col-xs-3 col-sm-1 color-background">
                     <div class="page-leading-list-div-div1">
                         лого
                     </div>
+                    <div class="page-leading-list-div-div11"></div>
                 </div>
-                <div class="page-leading-list-div-div2">
-                    Аукционный дом 1
-                    <div class="italic">
-                        Ценные книги и рукописи
+                <div class="col-xs-9 col-sm-4">
+                    <div class="page-leading-list-div-div2">
+                        Аукционный дом {{auction.name}}
+                        <div class="italic">
+                            Ценные книги и рукописи
+                        </div>
                     </div>
                 </div>
-                <div class="page-leading-list-div-div3">
-                    <!--прогресс-бары-->
-                    <div class="rom-container">
-                        <div ng-show="countdown==1">
+                <div class="col-xs-8 col-sm-4">
+
+                    <div class="page-leading-list-div-div3 row">
+
+                        <div ng-hide="showProgress(auction.date)" class="col-xs-12">
+                            {{auction.date | dateTimeFilter}}
+                        </div>
+
+                        <!--прогресс-бары-->
+
+                        <div class="col-xs-4" ng-show="showProgress(auction.date)">
                             <div class="room-list" ng-class="{'ll-open':open}">
-                                <!--прогресс бары-->
+                                <div class="progress-bar-circle-container">
+                                    <div class="room_container-for-circles">
+                                        <round-progress cclass="room-circle-bar"
+                                                        max="24"
+                                                        current="ch[$index]"
+                                                        color="#162346"
+                                                        bgcolor="#b5d8ba"
+                                                        radius="35"
+                                                        semi="false"
+                                                        stroke="3"
+                                                        rounded="false"
+                                                        clockwise="true"
+                                                        responsive="false"
+                                                        duration="800"
+                                                        animation="easeInOutQuart"
+                                                        offset="0"
+                                                        animation-delay="0">
+                                        </round-progress>
+                                        <div class="room-circle-bar-text">
+                                            <div class="room-circle-bar-text-digit">{{ch[$index]}}</div>
+                                            <div class="room-circle-bar-text-text">ЧАСОВ</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-4" ng-show="showProgress(auction.date)">
+                            <div class="room-list" ng-class="{'ll-open':open}">
                                 <div class="progress-bar-circle-container">
                                     <div class="room_container-for-circles">
                                         <round-progress class="room-circle-bar"
                                                         max="60"
-                                                        current="45"
+                                                        current="min[$index]"
                                                         color="#162346"
                                                         bgcolor="#b5d8ba"
                                                         radius="35"
@@ -61,38 +87,21 @@
                                                         animation-delay="0">
                                         </round-progress>
                                         <div class="room-circle-bar-text">
-                                            <div class="room-circle-bar-text-digit">30</div>
-                                            <div class="room-circle-bar-text-text">ЧАСОВ</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="room_container-for-circles">
-                                        <round-progress class="room-circle-bar"
-                                                        max="60"
-                                                        current="35"
-                                                        color="#162346"
-                                                        bgcolor="#b5d8ba"
-                                                        radius="35"
-                                                        semi="false"
-                                                        stroke="3"
-                                                        rounded="false"
-                                                        clockwise="true"
-                                                        responsive="false"
-                                                        duration="800"
-                                                        animation="easeInOutQuart"
-                                                        offset="0"
-                                                        animation-delay="0">
-                                        </round-progress>
-                                        <div class="room-circle-bar-text">
-                                            <div class="room-circle-bar-text-digit">26</div>
+                                            <div class="room-circle-bar-text-digit">{{min[$index]}}</div>
                                             <div class="room-circle-bar-text-text">МИНУТ</div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="col-xs-4" ng-show="showProgress(auction.date)">
+                            <div class="room-list" ng-class="{'ll-open':open}">
+                                <div class="progress-bar-circle-container">
                                     <div class="room_container-for-circles">
                                         <round-progress class="room-circle-bar"
                                                         max="60"
-                                                        current="55"
+                                                        current="sec[$index]"
                                                         color="#162346"
                                                         bgcolor="#b5d8ba"
                                                         radius="35"
@@ -107,74 +116,29 @@
                                                         animation-delay="0">
                                         </round-progress>
                                         <div class="room-circle-bar-text">
-                                            <div class="room-circle-bar-text-digit">05</div>
+                                            <div class="room-circle-bar-text-digit">{{sec[$index]}}</div>
                                             <div class="room-circle-bar-text-text">СЕКУНД</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="page-leading-list-div-div4">
-                    101
-                </div>
-                <div class="page-leading-list-div-div5">
-                    40
-                </div>
-            </div>
 
-            <!--// 2-я строка ниже-->
-            <div class="page-leading-list-div">
-                <div class="page-leading-list-div-div1">
-                    лого
-                </div>
-                <div class="page-leading-list-div-div2">
-                    Аукционный дом 1
-                    <div class="italic">
-                        Ценные книги и рукописи
                     </div>
-                </div>
-                <div class="page-leading-list-div-div3">
-                    01.01.2001 01:01
-                </div>
-                <div class="page-leading-list-div-div4">
-                    101
-                </div>
-                <div class="page-leading-list-div-div5">
-                    40
-                </div>
-            </div>
-            <!--// 3-я строка ниже-->
-            <div class="page-leading-list-div">
-                <div class="page-leading-list-div-div1">
-                    лого
-                </div>
-                <div class="page-leading-list-div-div2">
-                    Аукционный дом 1
-                    <div class="italic">
-                        Ценные книги и рукописи
-                    </div>
-                </div>
-                <div class="page-leading-list-div-div3">
-                    01.01.2001 01:01
-                </div>
-                <div class="page-leading-list-div-div4">
-                    101
-                </div>
-                <div class="page-leading-list-div-div5">
-                    40
-                </div>
-            </div>
-            <!--   -->
 
+                </div>
+                <div class="col-xs-2 col-sm-1">
+                    <div class="page-leading-list-div-div4">
+                        {{auction.lots.length}}
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2">
+                    <div class="page-leading-list-div-div5">
+                    </div>
+                </div>
+
+            </div>
         </div>
-
-
-
-
-
-        <!--//-->
     </div>
 </div>
 

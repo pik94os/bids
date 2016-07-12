@@ -7,7 +7,7 @@
   &-list {
     .active {
       background: #b5d8ba;
-      height: 140px;
+      //height: 140px;
       .page-leading-list-div-div1 {
         padding: 25px 0;
       }
@@ -15,7 +15,7 @@
         padding: 50px 0 50px 20px;
       }
       .page-leading-list-div-div3 {
-        margin: 0 75px 0 -75px;
+        //margin: 0 75px 0 -75px;
         padding: 30px 0 0;
       }
       .page-leading-list-div-div4 {
@@ -27,14 +27,14 @@
     }
     .top {
       background: #efefef;
-      height: 70px;
-      width: 100%;
+      //height: 70px;
+      //width: 100%;
       text-align: center;
     }
     &-div {
       border-top: 3px solid #efefef;
-      height: 70px;
-      width: 100%;
+      //height: 70px;
+      //width: 100%;
       background: #c4ddca;
       text-align: center;
       .color-efefef {
@@ -45,33 +45,73 @@
         border-right: 3px solid #efefef;
         color: white;
         float: left;
-        height: 67px;
+        //height: 67px;
         padding: 25px 0;
-        width: 67px;
+        //width: 67px;
+        width: 100%;
+
+      }
+      &-div11 {
+        background: #efefef;
+        border-right: 3px solid #efefef;
+        float: left;
+        //height: calc(100% - 67px);
+        //width: 67px;
+        padding: 35px 0;
       }
       &-div2 {
         float: left;
-        height: 70px;
+        //height: 70px;
         padding: 20px 0 20px 20px;
-        width: 430px;
+        //width: 430px;
         text-align: left;
       }
       &-div3 {
         float: left;
         padding: 25px 0;
-        width: 200px;
+        //width: 200px;
       }
       &-div4 {
         float: left;
         padding: 25px 0;
-        width: 150px;
+        //width: 150px;
       }
       &-div5 {
         float: left;
         padding: 25px 0;
-        width: 150px;
+        //width: 150px;
       }
     }
+    .color-background {
+      background: #efefef;
+      float: left;
+      padding: 0;
+      //height: 100%;
+      //width: 67px;
+    }
+    .room-circle-bar-text-digit {
+      font-size: 22pt !important;
+    }
+    .room-circle-bar-text-text {
+      font-size: 8pt !important;
+    }
+    .room-circle-bar-text {
+      left: 15px !important;
+      margin-top: -70px;
+    }
+    .rom-container {
+      background: transparent;
+      //width: 200px;
+    }
+    .rom-container .room_container-for-circles {
+      display: inline-block;
+      margin: 0px;
+      position: relative;
+    }
+
+    //.room_container-for-circles {
+    //  margin: 5px !important;
+    //}
   }
   .italic {
     font-style: italic;
@@ -79,32 +119,6 @@
   .uppercase {
     text-transform: uppercase;
   }
-  .color-background {
-    background: #efefef;
-    float: left;
-    height: 137px;
-    width: 67px;
-  }
 
-  .room-circle-bar-text-digit {
-    font-size: 22pt !important;
-  }
-
-  .room-circle-bar-text-text {
-    font-size: 8pt !important;
-  }
-
-  .room-circle-bar-text {
-    left: 15px !important;
-  }
-
-  .rom-container {
-    background: transparent;
-    width: 200px;
-  }
-
-  .room_container-for-circles {
-    margin: 5px !important;
-  }
 }
 

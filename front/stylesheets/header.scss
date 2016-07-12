@@ -1,6 +1,10 @@
+body {
+font-family: "Century Gothic";
+}
+
 header {
   a {
-	font-family: "Gambria";
+	font-family: "Cambria";
 	font-style: normal;
 	font-weight: normal;
     text-decoration: none;
@@ -47,7 +51,7 @@ header {
     }
 
     a {
-		font-family: "Gambria";
+		font-family: "Cambria";
 		font-style: normal;
 		font-weight: normal;
 
@@ -85,7 +89,7 @@ header {
             padding: 0;
           }
           .paddindRight10px {
-            margin-top: -2px;
+            margin-top: 7px;
             padding: 0 0 0 30px;
           }
           &:hover {
@@ -102,13 +106,13 @@ header {
         }
       }
       img, div {
-	    font-family: "Gambria";
+	    font-family: "Cambria";
 	    font-style: normal;
 	    font-weight: normal;
 	    font-size: 13px;
         float: left;
         padding: 0 3px 0 0;;
-        margin: 4px 3px 2px 3px;
+        margin: 1px 3px 2px 3px;
 
       }
       .div075 {
@@ -144,7 +148,7 @@ header {
 	position: relative;
     left: 0;
     background: {
-      image: url(/images/background-body.png);
+      image: url(/images/background-header.png);
       color: black;
     }
     .header-lk {
@@ -170,7 +174,7 @@ header {
         height: 222px;
       }
       &-info {
-        background: #0c111a;
+        *background: #0c111a;
         height: 145px;
         text-align: center;
         &-top {
@@ -179,7 +183,7 @@ header {
           font-size: 28px;
           font-weight: bold;
           text-transform: uppercase;
-          padding: 40px 0 0;
+          padding: 45px 0 0;
         }
         &-bottom {
           color: #d8a46a;
@@ -190,7 +194,7 @@ header {
 
     }
     .header-image {
-      background: url(/images/header-image.png) no-repeat;
+      background: url(/images/header-image.jpg) no-repeat;
       background-size: 100%;
       height: 420px;
       text-align: center;
@@ -209,7 +213,7 @@ header {
         }
       }
       &-bottom {
-		font-family: "Gambria";
+		font-family: "Cambria";
         text-transform: uppercase;
 		font-size: 24px;
         color: white;
@@ -218,7 +222,7 @@ header {
       }
 
       &-info {
-        background: #0c111a;
+        *background: #0c111a;
         height: 145px;
         text-align: center;
         &-top {
@@ -227,7 +231,7 @@ header {
 			font-size: 28px;
 			font-weight: bold;
 			text-transform: uppercase;
-			padding: 40px 0 0;
+			padding: 45px 0 0;
         }
         &-bottom {
 			color: #d8a46a;
@@ -252,7 +256,7 @@ header {
       list-style: none;
       cursor: pointer;
       a {
-	font-family: "Gambria";
+	font-family: "Cambria";
 	font-style: normal;
 	font-weight: normal;
         text-decoration: none;
@@ -350,10 +354,11 @@ header {
           color: #1a2d55;
         }
         &:hover {
-          background: #e6ecf4;
-          color: #00329a;
-          border-left: 1px solid #B7B7B7;
-          border-right: 1px solid #B7B7B7;
+          
+background:#f6f8fb;
+color:#1a2d55;
+border-left:1px solid #e5e5e5;
+border-right:1px solid #e5e5e5
         }
       }
     }
@@ -361,7 +366,7 @@ header {
       height: 100%;
       float: left;
       img {
-        margin-top: 20px;
+        margin-top: 15px;
       }
     }
     &_col-1 {

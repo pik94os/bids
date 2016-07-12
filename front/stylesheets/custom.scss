@@ -33,25 +33,25 @@
 }
 // ================================ с засечками =============================
 @font-face {
-    font-family: "Gambria";
+    font-family: "Cambria";
     src: 
-	local("Gambria"),  
+	local("Cambria"),  
 	url("/fonts/cambria.ttc") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
-    font-family: "Gambria";
+    font-family: "Cambria";
     src: 
-	local("Gambria"),  
+	local("Cambria"),  
 	url("/fonts/cambriab.ttf") format("truetype");
     font-weight: bold;
     font-style: normal;
 }
 @font-face {
-    font-family: "Gambria";
+    font-family: "Cambria";
     src: 
-	local("Gambria"),  
+	local("Cambria"),  
 	url("/fonts/cambriai.ttf") format("truetype");
     font-weight: normal;
     font-style: italic;
@@ -242,6 +242,7 @@ input,textarea,.btn,button,a,div{
 
     size: 18px;
     weight: 400;
+
   }
 }
 
@@ -250,6 +251,7 @@ input,textarea,.btn,button,a,div{
   margin: 5px 0 0 0;
   padding: 15px 0;
   border: 1px solid lightgray;
+  margin-bottom: 25px;
   &-img{
     @include square(191px);
     float: left;
@@ -273,10 +275,10 @@ input,textarea,.btn,button,a,div{
     cursor: pointer;
     background: #596273;
     &.active{
-      background: #132038;
+      background: #58595b;
     }
     &:hover {
-      background: #91aee2;
+      background: #132038;
     }
     padding: 3px 0;
   }

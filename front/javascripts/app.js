@@ -34,13 +34,6 @@ define([
     ]).run([
         '$rootScope', '$state', '$stateParams', '$sessionStorage', 'SessionService','ngSocket',
         function ($rootScope, $state, $stateParams, $sessionStorage, SessionService, ngSocket) {
-            navigator.mediaDevices.enumerateDevices()
-                .then(function(devices) {
-                    devices.forEach(function(device) {
-                        console.log(device.kind + ": " + device.label +
-                            " id = " + device.deviceId);
-                    });
-                });
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 

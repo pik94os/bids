@@ -97,7 +97,7 @@ define(['./app'], function (app) {
             })
             //Страница ведущего
             .state('page-leading', {
-                url: '/page-leading?countdown',
+                url: '/page-leading',
                 views:{
                     '': {
                         templateUrl: "/templates/page-leading/list.html",
@@ -143,7 +143,7 @@ define(['./app'], function (app) {
 
             //Страница аукциона для ведущего
             .state('auction-leading', {
-                url: '/auction-leading?auctionId',
+                url: '/auction-leading?auctionId?lotId',
                 views:{
                     '': {
                         templateUrl: "/templates/auction-leading/list.html",
@@ -178,6 +178,20 @@ define(['./app'], function (app) {
                     },
                     'header':{
                         templateUrl: "/templates/auctions/header.html"
+                    }
+                }
+            })
+
+            //Страница админ
+            .state('admin', {
+                url: '/admin',
+                views:{
+                    '': {
+                        templateUrl: "/templates/admin/list.html",
+                        controller: 'Admin'
+                    },
+                    'header':{
+                        templateUrl: "/templates/admin/header.html"
                     }
                 }
             })

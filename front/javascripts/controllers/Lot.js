@@ -3,11 +3,11 @@
  */
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('LotHeader', ['$scope', '$stateParams', 'ngSocket', function ($scope, $stateParams, ngSocket) {
+    controllers.controller('LotHeader', ['$state','$scope', '$stateParams', 'ngSocket', function ($state,$scope, $stateParams, ngSocket) {
         var lotArr = new Array();
         var currentId = 1;
         $scope.open = ($stateParams.lotId) ? 1 : 0;
-
+        
         // получение одного лота по ID
         ngSocket.emit('auction/getLot', {
                 lotId: $stateParams.lotId
@@ -19,8 +19,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotSelected', function (data) {
-            console.log(data)
-            $scope.lot = JSON.parse(JSON.stringify(data.lot))
+            console.log(data);
+            $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
             $scope.isPlayOut = $scope.lot.isPlayOut;
             $scope.open = ($scope.lot.isSold) ? 2 : 1;
@@ -33,20 +33,20 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.goToPrevLot = function(){
             if (currentId > 0)
                 currentId -= 1;
-                    ngSocket.emit('auction/getLot', {
-                        lotId: lotArr[currentId].id
-                    });
-        }
+            $state.go('lot', {
+                lotId: lotArr[currentId].id
+            });
+        };
 
         // переход на следующий лот
         $scope.goToNextLot = function(){
             if (currentId < lotArr.length - 1)
                 currentId += 1;
-                    ngSocket.emit('auction/getLot', {
+                    $state.go('lot', {
                          lotId: lotArr[currentId].id
                     });
         }
-    }]).controller('Lot', ['$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $http, $rootScope, $stateParams, ngSocket) {
+    }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket) {
         $scope.open = ($stateParams.lotId) ? 1 : 0;
         $scope.tab = $stateParams.tab;
         $scope.bidPrice = 0;
@@ -90,37 +90,66 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotSelected', function (data) {
-                $scope.lot = JSON.parse(JSON.stringify(data.lot));
-                $scope.lotId = $scope.lot.id;
-                $scope.isPlayOut = $scope.lot.isPlayOut;
-                $scope.open = ($scope.lot.isSold) ? 2 : 1;
-                $scope.bidPrice =  $scope.lot.estimateFrom;
-                initLotParams($scope, params, $scope.lot);
-                initStep();
-            });
+            ngSocket.emit('auction/getPictureList', {lotId:data.lot.id});
+            $scope.lot = JSON.parse(JSON.stringify(data.lot));
+            $scope.lotId = $scope.lot.id;
+            $scope.descriptionArr = $scope.deleteTegP($scope.lot.description);
+            $scope.descriptionPrevArr = $scope.deleteTegP($scope.lot.descriptionPrev);
+            $scope.isPlayOut = $scope.lot.isPlayOut;
+            $scope.open = ($scope.lot.isSold) ? 2 : 1;
+            $scope.bidPrice =  $scope.lot.estimateFrom;
+            initLotParams($scope, params, $scope.lot);
+            initStep();
+            $scope.bidPrice += Number($scope.step);
+        });
         ngSocket.on('lotCreated', function (data) {
-                console.log(data);
                 ngSocket.emit('auction/getLot', {
                     lotId: data.newLot.lot.id
             });
 
+        });
+        $scope.gallery = {};
+        ngSocket.on('pictureList', function (data) {
+            $scope.gallery = {};
+            data.pictureList.forEach(function (row) {
+                $scope.gallery[row.id]=row;
             });
-
+            $scope.bigPhoto=$scope.gallery[$scope.lot.titlePicId].fileName;
+        });
+        $scope.setBigPhoto=function (ph) {
+            $scope.bigPhoto=ph;
+        };
         $scope.incrementBid = function () {
             $scope.bidPrice += Number($scope.step);
-        }
+
+            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+                $scope.minus = false;
+            } else {
+                $scope.minus = true;
+            }
+        };
 
         $scope.decrementBid = function () {
             if ($scope.bidPrice > 0)
                 $scope.bidPrice -= Number($scope.step);
-        }
+
+            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+                $scope.minus = false;
+            } else {
+                $scope.minus = true;
+            }
+        };
 
         $scope.formatBid = function () {
             var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
-        }
-
+            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+                $scope.minus = false;
+            } else {
+                $scope.minus = true;
+            }
+        };
             function initStep(){
                 if ($scope.lot.estimateFrom <= 5){
                     $scope.step = 1;
@@ -162,8 +191,15 @@ define(['./module', 'jquery'], function (controllers, $) {
                     $scope.step = 100000;
                 }
             }
-
-    }])
+        $scope.lastPhotos = function () {
+            var t = $('.gallery .small-photo:last-child');
+            t.detach().prependTo('.gallery');
+        };
+        $scope.firstPhotos = function () {
+            var t = $('.gallery .small-photo:first-child');
+            t.detach().appendTo('.gallery');
+        };
+    }]);
     function initLotParams(scope, params, values){
         params.forEach(function(item, i) {
               scope[item] = values[item]

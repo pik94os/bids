@@ -1,14 +1,16 @@
 .abous-us {
   &-header {
-    height: 146px;
+    height: 110px;
     padding-top: 2px;
     text-align: center;
     h1 {
       color: white;
+	font-family: Cambria;
     }
     div {
       color: #c59662;
       font-size: 18px;
+margin-top: -10px;
     }
   }
   &-list {

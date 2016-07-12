@@ -41,7 +41,11 @@ exports.lotPic = function (req, res, next) {
         //если нет ошибок и все хорошо
         if(errors.length == 0) {
             //сообщаем что все хорошо
-            res.send({status: 'ok', text: 'Success'});
+            res.send({
+                status: 'ok', 
+                text: 'Success',
+                uploadFile: uploadFile
+            });
         }
         else {
             if(fs.existsSync(uploadFile.path)) {
@@ -61,7 +65,7 @@ exports.lotPic = function (req, res, next) {
         uploadFile.type = part.headers['content-type'];
         //путь для сохранения файла
         var fileName = Date.now() + '.jpg';
-        uploadFile.path = './front/images/lot-images/' + fileName;
+        uploadFile.path = './public/images/lot-images/' + fileName;
 
         //проверяем размер файла, он не должен быть больше максимального размера
         // if(uploadFile.size > maxSize) {
@@ -83,7 +87,12 @@ exports.lotPic = function (req, res, next) {
                 where:{
                     originalName:part.filename
                 }
-            }).then();
+            })
+            //     .then(function (result) {
+            //     socket.emit('pictureUpdatedReport', {
+            //         pictureUpdatedName: result
+            //     });
+            // });
             part.pipe(out);
         }
         else {

@@ -15,7 +15,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
                 //console.log(data);
-            })
+            });
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
 
@@ -44,10 +44,10 @@ define(['./module','jquery'],function(controllers,$){
             $scope.bidPrice = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0]));
 
-            //init time params
-            $scope.time = 23;
-            $scope.min = 59;
-            $scope.sec = 59;
+            // //init time params
+            // $scope.time = 23;
+            // $scope.min = 59;
+            // $scope.sec = 59;
 
             ngSocket.on('room',function (data) {
                 var date;
@@ -65,12 +65,14 @@ define(['./module','jquery'],function(controllers,$){
                 if ($scope.auction_params.lots_length != 0)
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
                 console.log(($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100)
-
+                $scope.auctionDate = data.auction.date;
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
-                ngSocket.emit('auction/getLot', {
-                    lotId: $scope.auction_params.lots[currentId].id
-                });
+                if($scope.auction_params.lots[currentId]!=undefined && $scope.auction_params.lots[currentId].id!=undefined){
+                    ngSocket.emit('auction/getLot', {
+                        lotId: $scope.auction_params.lots[currentId].id
+                    });
+                }
             });
 
             ngSocket.on('lotSelected', function (data) {
@@ -127,9 +129,30 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.confirm = data
             });
-
+            
+            var curDate = new Date();
+        $scope.showProgress = function (date) {
+            // 24 часа - 86400000 милисекунд
+            if(+(new Date(date)) - +curDate < 86400000) {
+                return true;
+            }
+        };
             var stop = $interval(function() {
-                if(+$scope.ch >= 0 && +$scope.min >= 0 && +$scope.sec >= 0) {
+                var date = new Date($scope.auctionDate);
+                var razn = +date - +curDate;
+                $scope.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
+                razn -= $scope.days*1000*60*60*24;
+                $scope.ch  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
+                razn -= $scope.ch * 1000 * 60 * 60;
+                $scope.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
+                razn -= $scope.min * 1000 * 60;
+                $scope.sec = Math.floor(razn  / 1000 );// вычисляем секунды
+
+                if(+$scope.days >= 0 || +$scope.ch >= 0 || +$scope.min >= 0 || +$scope.sec >= 0) {
+                    if(+$scope.ch == 0 && $scope.days > 0) {
+                        $scope.days -= 1;
+                        $scope.ch = 23;
+                    }
                     if(+$scope.sec == 0 && $scope.min > 0) {
                         $scope.min -= 1;
                         $scope.sec = 59;
@@ -142,7 +165,7 @@ define(['./module','jquery'],function(controllers,$){
                         $scope.sec -= 1;
                     }
                 }
-                if(+$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
+                if(+$scope.days <= 0 && +$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
                     $scope.stopFight();
                 }
             }, 1000);
@@ -198,10 +221,15 @@ define(['./module','jquery'],function(controllers,$){
             setTimeout(function () {
                 $scope.joinRoom();
             },2000);
-        }])
+        $scope.swap = false;
+        $scope.popo = function () {$scope.swap = !$scope.swap;}
+
+    }])
             function initLotParams(scope, params, values){
-                params.forEach(function(item, i) {
-                    scope[item] = values[item]
+                params.forEach(function(item, i){
+                    if(values[item]!=undefined){
+                        scope[item] = values[item]
+                    }
                 });
             }
             function initObjFromArr(params, arr){
