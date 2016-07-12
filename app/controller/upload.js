@@ -16,7 +16,7 @@ const LotPicture = require('../models/').LotPicture;
  * multiparty
  *https://www.npmjs.com/package/multiparty*/
 
-exports.lotPic = function (req, res, socket, next) {
+exports.lotPic = function (req, res, next) {
     // создаем форму
     var form = new multiparty.Form();
     //здесь будет храниться путь с загружаемому файлу, его тип и размер
