@@ -64,17 +64,23 @@ define(['./module','jquery'],function(controllers,$){
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
             if (role == 3) roleOfNewUser = 3;
-            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword && $scope.regUserData.acceptTerms == true) {
+            if ($scope.regUserData.password == $scope.regUserData.confirmationPassword
+                && $scope.regUserData.firstName
+                && $scope.regUserData.lastName
+                && $scope.regUserData.email
+                && $scope.regUserData.phone
+            ) {
                 $http.post('/api/users/reg',{
                     username: $scope.regUserData.username,
                     firstName: $scope.regUserData.firstName,
                     lastName: $scope.regUserData.lastName,
-                    patronymic: $scope.regUserData.patronymic,
+                    patronymic: $scope.regUserData.patronymic ? $scope.regUserData.patronymic : '',
                     email: $scope.regUserData.email,
                     phone: $scope.regUserData.phone,
-                    confirmationCode: $scope.regUserData.confirmationCode,
+                    // confirmationCode: $scope.regUserData.confirmationCode,
+                    confirmationCode: null,
                     password: $scope.regUserData.password,
-                    acceptTerms: $scope.regUserData.acceptTerms,
+                    acceptTerms: true,
                     receiveMessages: $scope.regUserData.receiveMessages,
                     roleId: roleOfNewUser,
                     auctionId: (+$scope.selectedAuctionInMain.id)
@@ -130,7 +136,7 @@ define(['./module','jquery'],function(controllers,$){
         });
 
         // CALLBACKS
-
+        $scope.CSVAdded = false;
         uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
@@ -139,6 +145,7 @@ define(['./module','jquery'],function(controllers,$){
         };
         uploader.onAfterAddingAll = function(addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
+            $scope.CSVAdded = true;
         };
         uploader.onBeforeUploadItem = function(item) {
             console.info('onBeforeUploadItem', item);
@@ -151,7 +158,7 @@ define(['./module','jquery'],function(controllers,$){
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
-            alert('Файл загружен');
+            // alert('Файл загружен');
             $scope.CSVParsedFile = response;
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
@@ -165,12 +172,14 @@ define(['./module','jquery'],function(controllers,$){
         };
         uploader.onCompleteAll = function() {
             console.info('onCompleteAll');
-            alert('Файл загружен в базу');
+            // alert('Файл загружен в базу');
         };
 
         console.info('uploader', uploader);
 
+        $scope.addLotBtn = true;
         $scope.createNewLotFromCSV = function () {
+            $scope.addLotBtn = false;
             var data = {
                 CSVParsedFile: $scope.CSVParsedFile,
                 auctionId: $stateParams.auctionId
@@ -178,10 +187,21 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('createNewLotFromCSV', data);
         };
 
+        // $scope.CSVAddedInBaseProgress = 0;
+        $scope.rowsCreated = 0;
         ngSocket.on('createCSVReport', function (result) {
             // $scope.countOfRenewedRows = result.renewedRows;
             // $scope.countOfCreatedRows = result.createdRows;
             // alert('Строки созданы');
+            $scope.fileAddedInBase=result;
+            $scope.rowsCreated++;
+        });
+        
+        // отчет о записях в базу картинок из CSV
+        $scope.countReportPic = 0;
+        ngSocket.on('createCSVPicturesReport', function (result) {
+            $scope.pictureRowAddedFromCSV = result;
+            $scope.countReportPic++;
         });
 
         // загрузка картинок на сервер
@@ -213,6 +233,8 @@ define(['./module','jquery'],function(controllers,$){
         };
         lotPicUploader.onAfterAddingAll = function(addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
+            $scope.picturesAdded = true;
+            $scope.CSVAddedInBase = false;
         };
         lotPicUploader.onBeforeUploadItem = function(item) {
             console.info('onBeforeUploadItem', item);
