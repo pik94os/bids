@@ -46,8 +46,8 @@ define(['./module','jquery'],function(controllers,$){
 
             // //init time params
             // $scope.time = 23;
-            // $scope.min = 59;
-            // $scope.sec = 59;
+            // $scope.timer.min = 59;
+            // $scope.timer.sec = 59;
 
             ngSocket.on('room',function (data) {
                 var date;
@@ -72,6 +72,58 @@ define(['./module','jquery'],function(controllers,$){
                         lotId: $scope.auction_params.lots[currentId].id
                     });
                 }
+
+                var curDate = new Date();
+                $scope.showProgress = function (date) {
+                    // 24 часа - 86400000 милисекунд
+                    if(+(new Date(date)) - +curDate < 86400000) {
+                        return true;
+                    }
+                };
+                var date = new Date($scope.auctionDate);
+                var razn = +date - +curDate;
+                $scope.timer = {};
+                $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
+                razn -= $scope.timer.days*1000*60*60*24;
+                $scope.timer.ch  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
+                razn -= $scope.timer.ch * 1000 * 60 * 60;
+                $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
+                razn -= $scope.timer.min * 1000 * 60;
+                $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
+                console.log($scope.timer);
+
+                var stop = $interval(function() {
+                    if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
+                        if(+$scope.timer.ch == 0 && $scope.timer.days > 0) {
+                            $scope.timer.days -= 1;
+                            $scope.timer.ch = 23;
+                        }
+                        if(+$scope.timer.sec == 0 && $scope.timer.min > 0) {
+                            $scope.timer.min -= 1;
+                            $scope.timer.sec = 59;
+                        }
+                        if(+$scope.timer.min == 0 && $scope.timer.ch > 0) {
+                            $scope.timer.ch -= 1;
+                            $scope.timer.min = 59;
+                        }
+                        
+                    }
+                    if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
+                        $scope.stopFight();
+                    }
+                }, 1000);
+
+                $scope.stopFight = function() {
+                    if (angular.isDefined(stop)) {
+                        $interval.cancel(stop);
+                        stop = undefined;
+                    }
+                };
+                $scope.$on('$destroy', function() {
+                    $scope.stopFight();
+                });
+
+
             });
 
             ngSocket.on('lotSelected', function (data) {
@@ -128,7 +180,7 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.confirm = data
             });
-            
+
             var curDate = new Date();
         $scope.showProgress = function (date) {
             // 24 часа - 86400000 милисекунд
@@ -136,35 +188,37 @@ define(['./module','jquery'],function(controllers,$){
                 return true;
             }
         };
-            var stop = $interval(function() {
-                var date = new Date($scope.auctionDate);
-                var razn = +date - +curDate;
-                $scope.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
-                razn -= $scope.days*1000*60*60*24;
-                $scope.ch  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
-                razn -= $scope.ch * 1000 * 60 * 60;
-                $scope.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
-                razn -= $scope.min * 1000 * 60;
-                $scope.sec = Math.floor(razn  / 1000 );// вычисляем секунды
+        var date = new Date($scope.auctionDate);
+        var razn = +date - +curDate;
+        $scope.timer = {};
+        $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
+        razn -= $scope.timer.days*1000*60*60*24;
+        $scope.timer.ch  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
+        razn -= $scope.timer.ch * 1000 * 60 * 60;
+        $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
+        razn -= $scope.timer.min * 1000 * 60;
+        $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
+        console.log($scope.timer);
 
-                if(+$scope.days >= 0 || +$scope.ch >= 0 || +$scope.min >= 0 || +$scope.sec >= 0) {
-                    if(+$scope.ch == 0 && $scope.days > 0) {
-                        $scope.days -= 1;
-                        $scope.ch = 23;
+            var stop = $interval(function() {
+                if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
+                    if(+$scope.timer.ch == 0 && $scope.timer.days > 0) {
+                        $scope.timer.days -= 1;
+                        $scope.timer.ch = 23;
                     }
-                    if(+$scope.sec == 0 && $scope.min > 0) {
-                        $scope.min -= 1;
-                        $scope.sec = 59;
+                    if(+$scope.timer.sec == 0 && $scope.timer.min > 0) {
+                        $scope.timer.min -= 1;
+                        $scope.timer.sec = 59;
                     }
-                    if(+$scope.min == 0 && $scope.ch > 0) {
-                        $scope.ch -= 1;
-                        $scope.min = 59;
+                    if(+$scope.timer.min == 0 && $scope.timer.ch > 0) {
+                        $scope.timer.ch -= 1;
+                        $scope.timer.min = 59;
                     }
-                    if(+$scope.sec > 0){
-                        $scope.sec -= 1;
+                    if(+$scope.timer.sec > 0){
+                        $scope.timer.sec -= 1;
                     }
                 }
-                if(+$scope.days <= 0 && +$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
+                if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
                     $scope.stopFight();
                 }
             }, 1000);
