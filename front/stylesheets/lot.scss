@@ -291,8 +291,8 @@
   .lot-title {
     position: relative;
     width: 100%;
-    min-height: 80px;
-    padding: 10px 5px;
+    *min-height: 80px;
+    padding: 10px 10px 20px 10px;
     background: white;
     .edit {
       @extend %edit;
