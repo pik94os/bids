@@ -140,8 +140,8 @@
                         <div ng-if="singleLot.titlePicId" ng-repeat="titlepic in singleLot.lot_pictures">
                             <div ng-if="singleLot.titlePicId === titlepic.id">
                                 <!--find: {{titlepic}}-->
-                                <img ng-if="titlepic.fileName" ng-src="images/lot-images/{{titlepic.fileName}}">
-                                <img ng-if="!titlepic.fileName" ng-src="images/no-photo.jpg">
+                                <img ng-if="titlepic.fileName" ng-src="/images/lot-images/{{titlepic.fileName}}">
+                                <img ng-if="!titlepic.fileName" ng-src="/images/no-photo.jpg">
                             </div>
                         </div>
                         <div ng-if="!singleLot.titlePicId">

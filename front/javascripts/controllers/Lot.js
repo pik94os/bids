@@ -7,9 +7,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         var lotArr = new Array();
         var currentId = 1;
         $scope.open = ($stateParams.lotId) ? 1 : 0;
-
-
-
+        
         // получение одного лота по ID
         ngSocket.emit('auction/getLot', {
                 lotId: $stateParams.lotId
@@ -54,8 +52,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.bidPrice = 0;
         $scope.step = 1;
         $scope.confirm = {err: null, message: null};
-        var a = $anchorScroll;
-        console.log(a);
         //инициализация параметров лота
         var params = ['description', 'sellingPrice', 'estimateFrom', 'estimateTo'];
             initLotParams($scope, params, initObjFromArr(params,["", 0, 0, 0]));

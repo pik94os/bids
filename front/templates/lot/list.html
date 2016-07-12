@@ -37,7 +37,8 @@
 
             <div class="col col-sm-6">
                 <div class="big-photo">
-					<img ng-src="/images/lot-images/{{bigPhoto}}">
+					<img ng-src="/images/lot-images/{{bigPhoto}}" ng-if="bigPhoto">
+					<img ng-src="/images/no-photo.jpg" ng-if="!bigPhoto" class="big-photo_no-photo">
 					<div class="cclose"></div>
 					<div class="edit"></div>
 				</div>
