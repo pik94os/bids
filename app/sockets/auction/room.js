@@ -19,7 +19,7 @@ module.exports = function(socket, data) {
         },
             {
              model: User,
-             attributes: ["id"]
+             attributes: ["id", "username"]
             }
         ]
     })
