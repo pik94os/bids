@@ -202,8 +202,10 @@ define(['./module','jquery'],function(controllers,$){
 
     }])
             function initLotParams(scope, params, values){
-                params.forEach(function(item, i) {
-                    scope[item] = values[item]
+                params.forEach(function(item, i){
+                    if(values[item]!=undefined){
+                        scope[item] = values[item]
+                    }
                 });
             }
             function initObjFromArr(params, arr){
