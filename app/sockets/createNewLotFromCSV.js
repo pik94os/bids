@@ -119,7 +119,8 @@ module.exports = function (socket, data) {
 
                 Lot.create(_lotData).then(function (lot) {
                     socket.emit('createCSVReport', {
-                        'err': 0
+                        'err': 0,
+                        newLot: lot
                         // newUser: {
                         //     userId : user.id,
                         //     username: user.username
@@ -158,6 +159,10 @@ module.exports = function (socket, data) {
                                     originalName: nextPicName,
                                     lotId: parseInt(row.id),
                                     isArchive: false
+                                }).then(function (result) {
+                                    socket.emit('createCSVPicturesReport',
+                                        {pictureRow: result}
+                                    );
                                 });
                             }
                         });

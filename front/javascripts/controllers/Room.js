@@ -197,7 +197,10 @@ define(['./module','jquery'],function(controllers,$){
             setTimeout(function () {
                 $scope.joinRoom();
             },2000);
-        }])
+        $scope.swap = false;
+        $scope.popo = function () {$scope.swap = !$scope.swap;}
+
+    }])
             function initLotParams(scope, params, values){
                 params.forEach(function(item, i) {
                     scope[item] = values[item]

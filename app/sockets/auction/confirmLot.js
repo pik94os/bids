@@ -16,6 +16,13 @@ module.exports = function(socket, data) {
     }
     const user = socket.request.user;
 
+    if(!socket.request.user.logged_in){
+        socket.emit('lotConfirmed',
+            {err: 1, message: 'Пройдите регистрацию и сделайте ставку'}
+        );
+        return
+    }
+
     findLot(data.lotId, function(err, lot){
         if (err) return emitError(socket, err);
         if (err) return emitError(socket, err);

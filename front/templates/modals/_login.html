@@ -47,9 +47,9 @@
                         <div class="col col-md-6"><label class="custom-input" ng-class=""><div ng-show="regUserData.confirmationPassword != regUserData.password">NO</div><input placeholder="Подтвердите пароль" type="password" ng-model="regUserData.confirmationPassword"></label></div>
                     </div>
                     <div class="modal-body-in-right-form-reg-bottom">
-                        <div class="checkbox">
-                            <input type="checkbox" id="remember_me1" ng-model="regUserData.acceptTerms"><label for="remember_me1">Я принимаю условия</label>
-                        </div>
+                        <!--<div class="checkbox">-->
+                            <!--<input type="checkbox" id="remember_me1" ng-model="regUserData.acceptTerms"><label for="remember_me1">Я принимаю условия</label>-->
+                        <!--</div>-->
                         <div class="checkbox">
                             <input type="checkbox" id="remember_me2" ng-model="regUserData.receiveMessages"><label for="remember_me2">Я хочу получать сообщения от art-bid</label>
                         </div>
@@ -58,7 +58,8 @@
                 </form>
 
                 <div id="div-text">
-                    Регистрируясь на art-bid, вы сможете:
+
+                    Регистрируясь на ART-BID, вы сможете:
                     <ul>
                         <li>Иметь доступ к отчетаи о состоянии
                         <li>Смотреть Live Аукционы
@@ -67,6 +68,7 @@
                         <li>Отслеживать продажи
                         <li>Получать Рекомендации
                     </ul>
+                    Нажимая на кнопку "Создать учетную запись" вы соглашаетесь с условиями предоставления услуг!<br><br>
                 </div>
 
             </div>
@@ -100,7 +102,8 @@
                     <!--</div>-->
                 <!--</div>-->
             <!--</div>-->
-            <div class="custom-btn-lg btn-block" data-dismiss="modal" ng-click="createUser(tRole)" ng-show="tRole">
+            <!--<div class="custom-btn-lg btn-block" data-dismiss="modal" ng-click="createUser(tRole)" ng-show="tRole">-->
+            <div class="custom-btn-lg btn-block" ng-click="createUser(tRole)" ng-show="tRole">
                 Создать учетную запись
             </div>
         </div>

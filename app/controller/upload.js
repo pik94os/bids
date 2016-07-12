@@ -61,7 +61,7 @@ exports.lotPic = function (req, res, next) {
         uploadFile.type = part.headers['content-type'];
         //путь для сохранения файла
         var fileName = Date.now() + '.jpg';
-        uploadFile.path = './front/images/lot-images/' + fileName;
+        uploadFile.path = './public/images/lot-images/' + fileName;
 
         //проверяем размер файла, он не должен быть больше максимального размера
         // if(uploadFile.size > maxSize) {

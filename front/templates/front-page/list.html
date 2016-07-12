@@ -119,12 +119,13 @@
     <div class="auctions-list collapse in">
         <div class="auction row" ng-repeat="auction in auctionList">
             <div>
-                <div class="col-md-9" ui-sref="room({auctionId:auction.id})">
+                <!--<div class="col-md-9" ui-sref="room({auctionId:auction.id})">-->
+                <div class="col-md-9">
                     <div class="auction-img">
                         <img src="images/image-body-in.png">
                     </div>
                     <div class="auction-body">
-                        <p class="auction-body-header">{{myDate(auction.date)}} | Москва | Гостинница Украина</p>
+                        <p class="auction-body-header">{{myDate(auction.date)}} | Москва | Online</p>
                         <p class="front-body-in-center-p2">Аукцион {{auction.number}}</p>
                         <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
                         <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
@@ -133,7 +134,7 @@
                 <div class="col-md-3">
                     <div class="row" >
                         <div class="col-xs-4 col-md-12"><!-- $('#regUserAuction').modal('show'); -->
-                            <div class="auction-button active" ng-show="notRegistr" ng-click="regist(auction.id)">Регистрация</div>
+                            <div class="auction-button active" ng-show="notRegistr" ng-click="regist(auction.id,myDate(auction.date))">Регистрация</div>
                             <div class="auction-button active" ng-hide="notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#reg-for-the-auction">Регистрация</div>
                         </div>
                         <div class="col-xs-4 col-md-12"><div class="auction-button" ui-sref="auction({open:1,auctionId:auction.id})">Просмотр каталога</div></div>

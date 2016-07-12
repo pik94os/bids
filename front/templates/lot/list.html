@@ -6,27 +6,28 @@
             <div class=" col col-sm-6">
                 <div class="lot-title">
 					<div class="edit"></div>
-                    <div><textarea class="lot-description-input" ng-model="description" ng-readonly="{{open != 0}}">{{description}}</textarea></div>
+                    <div ng-if="open==0"><textarea class="lot-description-input" ng-model="description">{{description}}</textarea></div>
+                    <div ng-model="description"><p ng-repeat="str in descriptionPrevArr">{{str}}</p></div>
 				</div>
                 <div class="lot-prisesale">Цена продажи: {{sellingPrice}}</div>
-				<div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="estimateFrom" value="{{estimateFrom}}" ng-readonly="{{open != 0}}"/> - <input class="lot-priceinput" ng-model="estimateTo" value="{{estimateTo}}" ng-readonly="{{open != 0}}"/><div class="edit"></div></div>
+				<div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="estimateFrom" value="{{estimateFrom}}" ng-readonly="{{open != 0}}"/> - <input class="lot-priceinput" ng-model="estimateTo" value="{{estimateTo}}" ng-readonly="{{open != 0}}"/><div class="edit"></div> Руб.</div>
                 <div class="lot-estimate">Эстимэйт: {{estimateFrom}} - {{estimateTo}} <div class="edit"></div></div>
                 <div class="lot-price">Цена продажи: <input class="lot-priceinput" ng-model="sellingPrice" value="{{sellingPrice}}" ng-readonly="{{open != 0}}"/><div class="edit"></div></div>
 
 				<div class="lot-price1">Разыигрывается сейчас<br>{{sellingPrice}} руб</div>
 				<div class="lot-pricediv1">
-					<div class="lot-pricediv1-11">Разместить максимальный бид</div>
+					<!--div class="lot-pricediv1-11">Разместить максимальный бид</div-->
 					<div class="lot-pricediv1-2">
                         <input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
                         <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
                         <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                     </div>
 					<div class="lot-pricediv1-3" ng-click="confirmLot()">{{ isPlayOut ? "Подтвердить" : "Заочный бид"}}</div>
-					<div class="lot-pricediv1-4">Таблица шагов</div>
-					<div class="lot-pricediv1-5"><div class="div032"></div><div class="div033">Включить напоминание</div></div>
+					<!--div class="lot-pricediv1-4">Таблица шагов</div-->
+					<!--div class="lot-pricediv1-5"><div class="div032"></div><div class="div033">Включить напоминание</div></div-->
 					<div class="lot-pricediv1-6">
-						<div class="lot-pricediv1-6-1"><div class="div034"></div><div class="div035"></div></div>
-						<div class="lot-pricediv1-6-2">Условия продажи</div>
+						<div class="lot-pricediv1-6-1"><!--div class="div034"></div--><div class="div035"></div></div>
+						<!--div class="lot-pricediv1-6-2">Условия продажи</div-->
 					</div>
 				</div>
 
@@ -36,19 +37,20 @@
 
             <div class="col col-sm-6">
                 <div class="big-photo">
+					<img ng-src="/images/lot-images/{{bigPhoto}}">
 					<div class="cclose"></div>
 					<div class="edit"></div>
 				</div>
 				<div class="big-photo-under">
-					<img class="li4077" src="images/arrow_galery_left.svg"><img class="li4077" src="images/arrow_galery_right.svg">
+					<img class="li4077" src="images/arrow_galery_left.svg" ng-click="lastPhotos()" ng-if="gallery.length>5"><img class="li4077" src="images/arrow_galery_right.svg" ng-click="firstPhotos()"  ng-if="gallery.length>5">
 				</div>
                 <div class="gallery">
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
-                    <div class="small-photo"><div class="cclose"></div><div></div></div>
+                    <div class="small-photo" ng-repeat ="img in gallery" ng-click="setBigPhoto(img.fileName)" ng-if="img.fileName">
+						<div class="cclose"></div>
+						<div>
+							<img ng-src="/images/lot-images/{{img.fileName}}">
+						</div>
+					</div>
                     <div class="add"><div><div></div></div></div>
                 </div>
 		    </div>
@@ -75,8 +77,8 @@
 					<div class="title">
 						<ul class="nav">
 							<li class="li406" ng-class="{'active':!tab}" ui-sref="{tab:''}">ОПИСАНИЕ</li>
-							<li class="li406" ng-class="{'active':tab==='historyofauctions'}" ui-sref="{tab:'historyofauctions'}">ИСТРОРИЯ ТОРГОВ</li>
-							<li class="li406" ng-class="{'active':tab==='reviews'}" ui-sref="{tab:'reviews'}">ОТЗЫВЫ</li>
+							<!--li class="li406" ng-class="{'active':tab==='historyofauctions'}" ui-sref="{tab:'historyofauctions'}">ИСТРОРИЯ ТОРГОВ</li-->
+							<!--li class="li406" ng-class="{'active':tab==='reviews'}" ui-sref="{tab:'reviews'}">ОТЗЫВЫ</li-->
 						</ul>
 					</div>
 				</div>

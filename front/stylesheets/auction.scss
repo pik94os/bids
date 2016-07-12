@@ -5,7 +5,7 @@
 	height: 91px;
 	padding: 16px;
 	font: {
-		family: "Gambria";
+		family: "Cambria";
 	//	family: "Century Gothic";
 		weight: normal;
 		style: normal;
@@ -37,7 +37,9 @@
 }
 
 .auction-header-image {
-	background: rgba(0, 0, 0, 0) url("/images/background-header.png") no-repeat scroll 0 0 / 100% auto;
+	*background: rgba(0, 0, 0, 0) url("/images/background-header.jpg") no-repeat scroll 0 0 / 100% auto;
+	background: rgba(0, 0, 0, 0) url("/images/bg_auction.jpg") no-repeat scroll 0 0 / 100% auto;
+
 	height: 420px;
 	text-align: center;
 	&-top {
@@ -51,13 +53,13 @@
 	&-center {
 		margin-top: -30px;
 		color: #fff;
-		font-family: Gambria;
+		font-family: Cambria;
 		font-size: 24px;
 		text-transform: uppercase;
 	}
 	&-bottom {
 		color: #fff;
-		font-family: Gambria;
+		font-family: Cambria;
 		font-size: 30px;
 		text-transform: uppercase;
 	}
@@ -88,10 +90,10 @@
 			height: 51px;
 			left: 0px;
 			background: #262351;
-			padding: 10px 20px;
+			padding: 7px 20px;
 			color: #fff;
 			
-			&:hover {background-color: #c6c6ed;}
+			&:hover {background-color: #132038;}
 
 			li{
 				text-align: center;
@@ -210,6 +212,7 @@
 			border-bottom: 2px solid black;
 			background: white;
 			position: relative;
+			margin-top: 20px;
 		}
 		&-bottom{
 			@extend .c-panel;
@@ -241,7 +244,7 @@
 		text-align: center;
 		margin: 15px 0px 10px 0px;
 		position: relative;
-		border: 1px solid #e0e0e0;
+		*border: 1px solid #e0e0e0;
 		background-color: white;
 		z-index:0;
 		box-shadow: 0 1px 2px;
@@ -251,7 +254,7 @@
 			width: 100%;
 			height: 100%;
 			//background-color: #8eaccb;
-			background-color: rgba(0,0,255, .3);
+			background-color: rgba(66, 77, 176, .7);
 			z-index:2;
 			display: none;
 			margin: -10px 0 0 -10px;
@@ -315,7 +318,7 @@
 				bottom: 0;
 				margin: 0 auto;
 				margin: 0 0 0 -10px;
-				background-color:#4b5e72;
+				background-color:#0c111a;
 				color: #fff; //#8eaccb; #8eaccb;
 		        font-family: "Century Gothic";
 				font-color: #fff; //#8eaccb;
@@ -344,12 +347,12 @@
 			height: 158px;
 			text-align: left;
 			img {
-				height: 100%;
+				height: 158px;
 				width: 100%;
 			}
-			&:after {
+			&.molot:after {
 				content: url('/images/ICONS_svg/molotok.svg');
-				margin: 0 0 0 -50px;
+				margin: -150px 0 0 150px;
 				position: absolute;
 			}
 		}
@@ -357,18 +360,25 @@
 		.img222-under1 {
 			text-align: left;
 			text-transform: uppercase;
+		color: #0d395f;
+   		 font-size: 18px;
 		}
 
 		.img222-under2 {
 			text-align: left;
 			color: #132038;
-			padding: 10px 0;
+			padding: 0px 0;
+			&.descPr{
+				height: 80px;
+				overflow: hidden;
+			}
 		}
 
 		.img222-under3 {
 			text-align: left;
 			color: #aaaaaa;
-			font-weight: bold;
+			*font-weight: bold;
+			    font-size: 10px;
 		}
 
 		.img222-under41 {

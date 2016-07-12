@@ -143,7 +143,7 @@ define(['./app'], function (app) {
 
             //Страница аукциона для ведущего
             .state('auction-leading', {
-                url: '/auction-leading?auctionId',
+                url: '/auction-leading?auctionId?lotId',
                 views:{
                     '': {
                         templateUrl: "/templates/auction-leading/list.html",

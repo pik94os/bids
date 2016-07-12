@@ -1,49 +1,43 @@
-<modal title="Импорт лотов из файла" id="import-CSV" width="lg">
-    <div class="custom-title-block">
-        <div class="custom-title-block-h1">Импорт лотов из CSV</div>
+<modal title="Загрузка файлов" id="import-CSV" width="lg">
+    <!--<div class="custom-title-block">-->
+        <!--<div class="custom-title-block-h1">Импорт лотов из CSV</div>-->
+    <!--</div>-->
+    <br>
+    <div class="row">
+        <input id="selectCSV" type="file" nv-file-select="" uploader="uploader" name="CSVfile" ng-hide="true"/>
+        <div class="button custom-title-block col-sm-offset-4 col-sm-4" onclick="$('#selectCSV').click()" ng-show="!CSVAdded">Выбрать CSV</div>
+
+        <div class="button btn-danger custom-title-block col-sm-offset-4 col-sm-4" ng-click="createNewLotFromCSV()" ng-show="CSVAdded && addLotBtn">Добавить лоты</div>
+    </div>
+
+    <div class="row">
+        <input id="selectPhoto" type="file" nv-file-select="" uploader="lotPicUploader" multiple name="PhotoFiles" ng-hide="true"/>
+        <div class="button custom-title-block col-sm-offset-4 col-sm-4" onclick="$('#selectPhoto').click()" ng-show="!picturesAdded">Выбрать фотографии</div>
+
+        <!--<div class="progress" style="">-->
+        <!--<div class="progress-bar" role="progressbar" ng-style="{ 'width': lotPicUploader.progress + '%' }"></div>-->
+        <!--</div>-->
+
+        <div class="button btn-danger custom-title-block col-sm-offset-4 col-sm-4" ng-click="lotPicUploader.uploadAll()" ng-disabled="!lotPicUploader.getNotUploadedItems().length" ng-show="picturesAdded">
+            Добавить фотографии
+        </div>
+    </div>
+
+<hr>
+    <div class="row">
+        <div class=" col-sm-offset-3 col-sm-8" ng-show="fileAddedInBase">
+            <!--Сохраняю лоты в базу:<br>-->
+            <!--{{fileAddedInBase}}-->
+            Сохраняю в базу лот №: {{fileAddedInBase.newLot.number}}, всего сохранено {{rowsCreated}} записей из {{CSVParsedFile.length}} <br>
+            Обновляю связь лота {{pictureRowAddedFromCSV.pictureRow.lotId}} с картинкой: {{pictureRowAddedFromCSV.pictureRow.originalName}}. {{countReportPic}} из {{CSVParsedFile.length}}
+        </div>
     </div>
     <br>
-    <input id="selectCSV" type="file" nv-file-select="" uploader="uploader" name="CSVfile" ng-hide="true"/>
-    <div class="button btn-primary" onclick="$('#selectCSV').click()">Загрузить CSV</div>
-
-    <div class="button btn-danger" ng-click="createNewLotFromCSV()" ng-show="CSVParsedFile">Импорт CSV</div>
+    <div class="row">
+        <div class=" col-sm-offset-3 col-sm-8" ng-show="picAddedInBase">
+            <!--Сохраняю фотографии на сервер:<br>-->
+            Записываю фотографию к лоту №:  <br>
+        </div>
+    </div>
     <br>
-    <input id="selectPhoto" type="file" nv-file-select="" uploader="lotPicUploader" multiple name="PhotoFiles" ng-hide="true"/>
-    <div class="button btn-primary" onclick="$('#selectPhoto').click()" ng-show="CSVParsedFile">Загрузить фотографии</div>
-
-    <button type="button" class="btn btn-success btn-s" ng-click="lotPicUploader.uploadAll()" ng-disabled="!lotPicUploader.getNotUploadedItems().length">
-        <span class="glyphicon glyphicon-upload"></span> Upload all
-    </button>
-    <!--<div class="button btn-danger" ng-click="importImages()" ng-show="CSVParsedFile">Импорт фотографий</div>-->
-
-    <!--['auctionName', 'id', 'lotNumber', 'description', 'estimate', 'sellingPrice', 'year', 'titlePic', 'gallery']-->
-
-<div ng-show="CSVParsedFile">
-    {{CSVParsedFile}}
-    <!--<table>-->
-        <!--<tr>-->
-            <!--<td></td>-->
-            <!--<td><b>ФИО:</b></td>-->
-            <!--<td><b>Логин:</b></td>-->
-            <!--<td><b>Пароль:</b></td>-->
-            <!--<td><b>Телефон:</b></td>-->
-            <!--<td><b>e-mail:</b></td>-->
-        <!--</tr>-->
-        <!--<tr>-->
-        <!--<td>В файле записей: {{CSVParsedFile.length}} | Обработано: {{CSVParsedFile.length}}</td>-->
-        <!--</tr>-->
-        <!--<tr ng-repeat="oneRowFromCSV in CSVParsedFile">-->
-            <!--<td>{{$index+1}}</td>-->
-            <!--<td>{{oneRowFromCSV.auctionName}}</td>-->
-            <!--<td>{{oneRowFromCSV.id}}</td>-->
-            <!--<td>{{oneRowFromCSV.lotNumber}}</td>-->
-            <!--<td height="100px" overflow ="hidden">{{oneRowFromCSV.description}}</td>-->
-            <!--<td>{{oneRowFromCSV.estimate}}</td>-->
-            <!--<td>{{oneRowFromCSV.sellingPrice}}</td>-->
-            <!--<td>{{oneRowFromCSV.year}}</td>-->
-            <!--<td>{{oneRowFromCSV.titlePic}}</td>-->
-            <!--<td>{{oneRowFromCSV.gallery}}</td>-->
-        <!--</tr>-->
-    <!--</table>-->
-</div>
 </modal>
