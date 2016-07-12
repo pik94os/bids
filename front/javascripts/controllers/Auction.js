@@ -22,6 +22,10 @@ define(['./module','jquery'],function(controllers,$){
             $scope.contactsShow= false;
         };
 
+        if(+$scope.currentUserInfo.id){
+            $scope.notRegistr = true;
+        }
+
         // получение списка лотов выбранного аукциона
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId
@@ -45,6 +49,7 @@ define(['./module','jquery'],function(controllers,$){
             if(data.err) {
                 alert(data.message)
             }
+            $scope.auction = JSON.parse(JSON.stringify(data.data));
             var d = (data.data.date.split('T')[0].split('-'));
             var t = (data.data.date.split('T')[1].split(':'));
             $scope.date = d[2] + '.' + d[1] + '.' + d[0];

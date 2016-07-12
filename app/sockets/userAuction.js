@@ -6,17 +6,28 @@
 const AuctionUser = require('../models/').AuctionUser;
 
 module.exports = function (socket, data) {
-    if(!data.userId) {
+    if(!data.auctionId) {
         socket.emit('auctionUser', {
             err: 1,
-            message: 'not userId'
+            message: 'not auctionId'
         });
         return
     }
-    AuctionUser.create({
-        userId: data.userId,
-        auctionId: data.auctionId
-    }).then(()=>{
-        socket.emit('auctionUser',{});
-    })
+    AuctionUser.find({
+        where:{
+            userId: socket.request.user.id,
+            auctionId: data.auctionId,
+        }    
+    }).then((info)=>{
+        if(info){
+            return socket.emit('auctionUserStop',{info});
+        }
+        return AuctionUser.create({
+            userId: socket.request.user.id,
+            auctionId: data.auctionId
+        }).then(()=>{
+            socket.emit('auctionUser',{err:0,info});
+        })
+    });
+
 };

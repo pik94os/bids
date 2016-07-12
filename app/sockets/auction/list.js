@@ -6,7 +6,9 @@
 var Auction = require('../../models/').Auction;
 let Lot = require('../../models/').Lot;
 module.exports = function(socket, data) {
-    let where;
+    let where = {
+        isArchive : false
+    };
     if(!data.public){
         where = {userId: socket.request.user.id};
     }

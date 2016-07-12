@@ -40,12 +40,12 @@
 
   .info-top {
     // от верха хэдера до верха шрифта-26, до низа шрифта 44
-    font-family: "Gambria";
+    font-family: "Cambria";
     font-weight: normal;
     font-style: normal;
-    padding: 17px 5px 0px 5px;
+    padding: 15px 5px 10px 5px;
     color: #758899;
-    font-size: 24px;
+    font-size: 15px;
   }
   .info-bottom {
     // от верха хэдера до верха шрифта-48, до низа шрифта 67
@@ -154,7 +154,7 @@
   min-height: 70px;
   background-color: #fff;
   margin: 0px 10px 10px 0;
-  padding: 10px 5px;
+  padding: 20px;
   width: 100%;
   border-bottom: 4px solid #bbb;
 
@@ -197,7 +197,7 @@
     // это адаптивка
 
     > div {
-      margin-bottom: 4px;
+      margin-bottom: 20px;
     }
 
     .txt-edit-parent {
@@ -392,6 +392,10 @@
     width: 100%;
     overflow:auto;
     resize: none;
+    padding: 10px;
+height: 70px;
+    *overflow: hidden;
+
   }
   .lot-price {
     position: relative;
@@ -433,6 +437,10 @@
       top: 6px;
       display: none;
     }
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
     &:hover {
       .cclose {
         display: block;
@@ -462,6 +470,10 @@
   .gallery {
     @include margin-horizontal(-5px);
     @include clearfix;
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
     .small-photo {
       position: relative;
       cursor: pointer;
@@ -533,7 +545,7 @@
     }
   }
   &.ll-open {
-    .edit,.cclose,.lot-body-div-center-in-top.pad-icon{
+    .edit,.cclose,.lot-body-div-center-in-top.pad-icon, .add{
       display: none !important;
 
     }

@@ -7,6 +7,32 @@ define(['./module','jquery'],function(controllers,$){
         $scope.setIsAD = function () {
             $scope.isAD=true;
         };
+        $scope.selectedAuctionInMain = {
+            id: 0,
+            setId: function (id) {
+                this.id = id
+            },
+            number: null,
+            date: null
+        };
+
+        $scope.regist = function (auctionId,auctionDate) {
+            if(+$scope.currentUserInfo.id){
+                ngSocket.emit('userAuction', {auctionId: +auctionId});
+                $scope.selectedAuctionInMain.date = auctionDate;
+                $scope.selectedAuctionInMain.id = auctionId;
+            }
+        };
+        ngSocket.on('auctionUserStop', function (data) {
+            $('#regUserAuctionStop').modal('show');
+        });
+
+        ngSocket.on('auctionUser', function (data) {
+            if(data.err){
+                alert(data.message)
+            }
+            $('#regUserAuction').modal('show');
+        });
         
         if($sessionStorage.auth){
             $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
@@ -34,14 +60,6 @@ define(['./module','jquery'],function(controllers,$){
         });
         $scope.regUserData = {};
         $scope.loginUserData = {};
-        $scope.selectedAuctionInMain = {
-            id: 0,
-            setId: function (id) {
-                this.id = id
-            },
-            number: null,
-            date: null
-        };
         $scope.createUser = function (role) {
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
@@ -291,7 +309,7 @@ define(['./module','jquery'],function(controllers,$){
         // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
             var mas = [];
-            while (text.indexOf("<p>")+1) {
+            while (text!==undefined && text.indexOf("<p>")+1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
 
                 text = text.substring(text.indexOf("</p>") + 3, text.length);

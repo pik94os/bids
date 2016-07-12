@@ -3,7 +3,7 @@ content {
   display: block;
   background: #efefef;
   .content-list{
-    $filter-info-height:100px;
+    $filter-info-height:110px;
     $filter-height:$filter-info-height + 30px; /* + filter-country*/
     $filter-margin-top:-15px;
     height: 100%;
@@ -27,7 +27,8 @@ content {
 		&-cl1 {
 		  margin: -6px 0 0;
 		  .block-h2 {
-		    padding: 29px 0 0 27px;
+		    *padding: 29px 0 0 27px;
+			padding: 45px 0 0 27px;
 		    text-transform: uppercase;
 		    font-size: 25px;
 		  }
@@ -150,16 +151,18 @@ content {
 		  padding: 7px;
 		}
 		&-p2 {
-		  margin-top: 20px;	  
+		  margin-top:0px;
+		  color:#7f7d7c;
+		  text-transform:uppercase;	  
 		}
 		&-p3 {
-		  margin-top: 2px;
+		  margin-top: -10px;
 		  color: #0d395f;
 		  font-size: 22px;
 		  text-transform: uppercase;
 		}
 		&-p4 {
-		  margin-top: 5px;
+		  margin-top: -5px;
 		}
 	  }
 	  &-right {
