@@ -5,7 +5,7 @@
             <!--прогресс-бар наверху-->
             <div class="room-progress-bar-container">
                 <div class="progress-bar-line pull-left"></div>
-                <div class="room-text-in-bar-procents pull-right">48% ИЗ 379 ЛОТОВ | 00 : 57</div>
+                <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 57</div>
                 <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
             </div>
             <div class="room-auction-title">
@@ -110,7 +110,7 @@
                 <div>
                     <div class="room-progress-bar-container">
                         <div class="progress-bar-line pull-left"></div>
-                        <div class="room-text-in-bar-procents pull-right">48% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 57</div>
+                        <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 57</div>
                         <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
                     </div>
                 </div>
@@ -136,10 +136,10 @@
                                     <div class="popup-avatar"></div>
                                     <div class="popup-text">
                                         <div class="popup-text-name">
-                                            Dragon
+                                            {{auction_params.users[r-1].username}}
                                         </div>
 
-                                        № 37 <br>
+                                        № {{auction_params.users[r-1].number}} <br>
                                     </div>
                                     <div class="btn bg-primary popup-text-btn">Сообщение</div>
                                 </div>
@@ -170,7 +170,7 @@
                 <div class="right-column col-sm-6">
                     <div class="row">
                         <div class="room-small-books-container">
-                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png"></div>
+                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png" ng-click="goToPrevLot()"></div>
                             <div class="pull-left width100">
                                 <div class="page-numbers-single">149</div>
                                 <div class="room-small-photo">
@@ -201,7 +201,7 @@
                                     <div><img src="/images/FOR_DEV/sm_book.png"></div>
                                 </div>
                             </div>
-                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"></div>
+                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png" ng-click="goToNextLot()"></div>
                         </div>
                     </div>
 
