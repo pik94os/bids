@@ -38,7 +38,9 @@
                     </div>
                 </div>
                 <div class="page-leading-list-div-div3">
-                    {{auction.date | dateTimeFilter}}
+                    <div ng-show="showProgress(auction.date)">
+                        {{auction.date | dateTimeFilter}}
+                    </div>
                     <!--прогресс-бары-->
                     <div class="rom-container">
                         <div ng-show="showProgress(auction.date)">
