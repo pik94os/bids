@@ -43,7 +43,8 @@ exports.lotPic = function (req, res, next) {
             //сообщаем что все хорошо
             res.send({
                 status: 'ok', 
-                text: 'Success'
+                text: 'Success',
+                uploadFile: uploadFile
             });
         }
         else {
@@ -86,11 +87,12 @@ exports.lotPic = function (req, res, next) {
                 where:{
                     originalName:part.filename
                 }
-            }).then(function (result) {
-                socket.emit('pictureUpdatedReport', {
-                    pictureUpdatedName: result
-                });
-            });
+            })
+            //     .then(function (result) {
+            //     socket.emit('pictureUpdatedReport', {
+            //         pictureUpdatedName: result
+            //     });
+            // });
             part.pipe(out);
         }
         else {

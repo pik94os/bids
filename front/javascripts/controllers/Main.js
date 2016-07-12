@@ -250,6 +250,7 @@ define(['./module','jquery'],function(controllers,$){
             console.info('onSuccessItem', fileItem, response, status, headers);
             // alert('Файлы загружены');
             $scope.addedPic = response;
+            console.log('>>>>>>>>>>>');
         };
         lotPicUploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -262,7 +263,7 @@ define(['./module','jquery'],function(controllers,$){
         };
         lotPicUploader.onCompleteAll = function() {
             console.info('onCompleteAll');
-            alert('Файлы загружены');
+            // alert('Файлы загружены');
         };
 
         console.info('lotPicUploader', lotPicUploader);
