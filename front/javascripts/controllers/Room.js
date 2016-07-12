@@ -14,6 +14,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.countdown = (date.getTime() > Date.now()) ? 1 : 2;
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
+                $scope.auction_id = data.auction.id;
                 //console.log(data);
             });
         ngSocket.on('lotSelected', function (data) {
