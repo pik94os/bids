@@ -40,7 +40,7 @@
     </div>
     <div class="row">
         <div class="button btn-danger custom-title-block col-sm-offset-4 col-sm-4" ng-click="lotPicUploader.uploadAll()"
-             ng-disabled="!lotPicUploader.getNotUploadedItems().length" ng-show="picturesAdded">
+             ng-disabled="!lotPicUploader.getNotUploadedItems().length" ng-show="picturesAdded && !addedPic">
             Добавить фотографии
         </div>
     </div>
@@ -49,9 +49,10 @@
     <div class="row">
         <div class=" col-sm-offset-3 col-sm-8" ng-show="addedPic">
             <!--Сохраняю фотографии на сервер:<br>-->
-            {{addedPic}}
-            {{pictureUpdatedName}}
-            Записываю фотографию к лоту №: <br>
+            <!--{{pictureUpdatedName}}-->
+            Записываю файл: {{addedPic.uploadFile.path}}
+            <br>
+            <br>
         </div>
     </div>
 </modal>

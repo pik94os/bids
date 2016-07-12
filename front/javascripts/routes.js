@@ -182,6 +182,20 @@ define(['./app'], function (app) {
                 }
             })
 
+            //Страница админ
+            .state('admin', {
+                url: '/admin',
+                views:{
+                    '': {
+                        templateUrl: "/templates/admin/list.html",
+                        controller: 'Admin'
+                    },
+                    'header':{
+                        templateUrl: "/templates/admin/header.html"
+                    }
+                }
+            })
+
             //Ошибка 404
             .state('err_404', {
                 url: "/err404",
