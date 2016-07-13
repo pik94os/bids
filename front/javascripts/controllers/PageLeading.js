@@ -18,14 +18,14 @@ define(['./module','jquery'],function(controllers,$){
             var curDate = new Date();
             $scope.showProgress = function (date) {
                 // 24 часа - 86400000 милисекунд
-                if(+(new Date(date)) - +curDate < 86400000) {
+                if(+((new Date(date)) - curDate) > 0 && +(new Date(date)) - curDate < 86400000) {
                     return true;
                 }
             };
             $scope.auctions.forEach(function(auction,index){
                 var date = new Date(auction.date);
                 var razn = +date - +curDate;
-                if ( razn < 86400000 ) {
+                if ( razn > 86400000 ) {
                     $scope.ch[index]  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
                     $scope.min[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 )) / 1000 / 60);// вычисляем минуты
                     $scope.sec[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 ) - ( $scope.min[index] * 1000 * 60 )) / 1000 );// вычисляем секунды

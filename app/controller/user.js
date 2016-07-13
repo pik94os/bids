@@ -69,7 +69,8 @@ module.exports.register = function (req, res, next) {
         acceptTerms: req.body.acceptTerms,
         receiveMessages: req.body.receiveMessages,
         isArchive: false,
-        roleId: req.body.roleId
+        // roleId: req.body.roleId <---этот человек адекватен????
+        roleId: 4
     }).then(function (user) {
         let k = false;
             k = AuctionUser.create({
