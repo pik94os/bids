@@ -64,10 +64,10 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
-
+                console.log(data);
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
-                $scope.auction_params.lot_pictures = data.lotPictures;
+                $scope.auction_params.lot_pictures = data.lotPictures.slice(0,5);
                 data.auction.lots.map(function(e) { if (e.isPlayOut == true) {return  $scope.auction_params.lots_isPlayOuted.push(e)} });
                 if ($scope.auction_params.lots_length != 0)
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
