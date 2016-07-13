@@ -3,6 +3,7 @@
  */
 'use strict';
 const Lot = require('../../models/').Lot;
+const LotPicture = require('../../models').LotPicture;
 
 module.exports = function(socket, data) {
     if (!data.lotId) {
@@ -14,13 +15,20 @@ module.exports = function(socket, data) {
 
     Lot.findById(data.lotId)
         .then(function(lot) {
-            socket.emit('lotSelected', {
-                'err': 0,
-                lot: lot
-            });
+            LotPicture.findAll({
+                where:{
+                    lotId : data.lotId
+                }
+            }).then(function(lotPictures){
+                    socket.emit('lotSelected', {
+                        'err': 0,
+                        lot: lot,
+                        lotPictures: lotPictures
+                    });
+            })
         }).catch(function (err) {
-            socket.emit('lotSelected',
-            {err: 1, message: err.message}
-        );
-    })
+                socket.emit('lotSelected',
+                    {err: 1, message: err.message}
+                );
+            })
 };
