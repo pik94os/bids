@@ -22,7 +22,7 @@ module.exports = function (socket, data) {
                 isSold:data.isSold,
                 isClean: data.isClean
             });
-
+            console.log('dasdasda');
         }).catch((err)=> {
             socket.emit('lotUpdate', {
                 err: 1,
