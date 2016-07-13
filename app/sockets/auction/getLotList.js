@@ -20,7 +20,8 @@ module.exports = function(socket, data) {
      Lot.findAll({
          where: {
              isArchive:false,
-             auctionId: data.auctionId
+             auctionId: data.auctionId,
+             isSold: false
          },
          order:[['number', 'ASC']],
          // include: [{model:LotPicture, where: {id: Sequelize.col('lot.titlePicId')}}]

@@ -82,12 +82,12 @@ exports.lotPic = function (req, res, next) {
             var out = fs.createWriteStream(uploadFile.path);
             LotPicture.update({
                 //fileName:fileName
-                fileName
+                fileName: fileName
             },{
                 where:{
                     originalName:part.filename
                 }
-            })
+            });
             //     .then(function (result) {
             //     socket.emit('pictureUpdatedReport', {
             //         pictureUpdatedName: result
@@ -95,11 +95,11 @@ exports.lotPic = function (req, res, next) {
             // });
             part.pipe(out);
         }
-        else {
-            //пропускаем
-            //вообще здесь нужно как-то остановить загрузку и перейти к onclose
-            part.resume();
-        }
+        // else {
+        //     //пропускаем
+        //     //вообще здесь нужно как-то остановить загрузку и перейти к onclose
+        //     part.resume();
+        // }
     });
 
     // парсим форму

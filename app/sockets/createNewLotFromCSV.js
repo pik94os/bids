@@ -8,6 +8,8 @@ const LotPicture = require('../models/').LotPicture;
 
 module.exports = function (socket, data) {
 
+    let promiseArrayForCSSNew = [];
+
     data.CSVParsedFile.forEach(function (row) {
 
         Lot.findById(row.id).then(function (result) {
@@ -42,38 +44,44 @@ module.exports = function (socket, data) {
                 // if (row.titlePic) {
                 //     result.year = +row.year;
                 // }
-                result.save().then(function () {
+                result.save()
+                    
+                    .then(function () {
                     // добавление картинок
+                    
+                    if (row.titlePic){
+                        // if (){
+                        //
+                        // }
+                        LotPicture.update({
+                            originalName : row.titlePic
+                        },{
+                            where: {id: row.id}
+                        })
+                    }
 
-                    // if (row.titlePic){
-                    //     // if (){
-                    //     //
-                    //     // }
-                    //     LotPicture.update({
-                    //         originalName : row.titlePic
-                    //     },{
-                    //         where: {lotId: row.id}
-                    //     })
-                    // }
-                    //
-                    // // парсинг и добавление в галерею
-                    // if (row.gallery){
-                    //     let galleryPicOriginalNameArr = row.gallery.split(';');
-                    //     galleryPicOriginalNameArr.forEach(function (nextPicName) {
-                    //         if (nextPicName) {
-                    //             LotPicture.create({
-                    //                 originalName: nextPicName,
-                    //                 lotId: parseInt(row.id),
-                    //                 isArchive: false
-                    //             });
-                    //             LotPicture.update({
-                    //                 titlePicId : createdRow.id
-                    //             },{
-                    //                 where: {id: createdRow.lotId}
-                    //             })
-                    //         }
-                    //     });
-                    // }
+                    // парсинг и добавление в галерею
+                    if (row.gallery){
+                        let galleryPicOriginalNameArr = row.gallery.split(';');
+                        galleryPicOriginalNameArr.forEach(function (nextPicName) {
+                            if (nextPicName) {
+                                LotPicture.update({
+                                    originalName : nextPicName
+                                },{
+                                    where: {originalName: nextPicName}
+                                })
+                                    .then(function (updated) {
+                                   if (!updated) {
+                                       LotPicture.create({
+                                           originalName: nextPicName,
+                                           lotId: parseInt(row.id),
+                                           isArchive: false
+                                       });
+                                   }
+                                });
+                            }
+                        });
+                    }
                 });
             }
 
@@ -130,7 +138,7 @@ module.exports = function (socket, data) {
                     socket.emit('createCSVReport',
                         {err: 1, message: err.message}
                     );
-                }).then(function () {
+                }).then(function (lotCreated) {
                     // добавление картинок
                     // добавление титульной картинки
                     if (row.titlePic) {
@@ -141,7 +149,8 @@ module.exports = function (socket, data) {
                             isArchive: false
                         };
 
-                        LotPicture.create(createTitlePic).then(function (createdRow) {
+                        LotPicture.create(createTitlePic)
+                            .then(function (createdRow) {
                             Lot.update({
                                 titlePicId: createdRow.id
                             }, {
@@ -156,16 +165,36 @@ module.exports = function (socket, data) {
                         // let countOfgalleryPic = galleryPicOriginalNameArr.length;
                         galleryPicOriginalNameArr.forEach(function (nextPicName) {
                             if (nextPicName) {
-                                LotPicture.create({
-                                    originalName: nextPicName,
-                                    lotId: parseInt(row.id),
-                                    isArchive: false
-                                }).then(function (result) {
-                                    socket.emit('createCSVPicturesReport', {
-                                        pictureRow: result
-                                        // , countArr: countOfgalleryPic
-                                        }
-                                    );
+                                // LotPicture.create({
+                                //     originalName: nextPicName,
+                                //     lotId: parseInt(row.id),
+                                //     isArchive: false
+                                // }).then(function (result) {
+                                //     socket.emit('createCSVPicturesReport', {
+                                //             pictureRow: result
+                                //         }
+                                //     );
+                                // });
+                                LotPicture.count(
+                                    {
+                                        where: ['"lot_picture"."originalName" = ?', nextPicName]
+                                    }
+                                )
+                                // LotPicture.findOne({where: {originalName: nextPicName}})
+                                    .then(function (count) {
+                                    console.log('>>>>>>>>>>>>>>>>>>>> '+count);
+                                    if(+count === 0){
+                                        return LotPicture.create({
+                                            originalName: nextPicName,
+                                            lotId: parseInt(row.id),
+                                            isArchive: false
+                                        }).then(function (result) {
+                                            socket.emit('createCSVPicturesReport', {
+                                                    pictureRow: result
+                                                }
+                                            );
+                                        });
+                                    }
                                 });
                             }
                         });

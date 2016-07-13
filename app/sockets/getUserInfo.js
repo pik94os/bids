@@ -14,7 +14,7 @@ module.exports = function(socket,data) {
             password: socket.request.user.password,
             firstName: socket.request.user.firstName,
             lastName: socket.request.user.lastName,
-            patronymic: socket.request.user.lastName,
+            patronymic: socket.request.user.patronymic,
             email: socket.request.user.email,
             phone: socket.request.user.phone,
             confirmationCode: socket.request.user.confirmationCode,
