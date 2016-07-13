@@ -275,12 +275,12 @@
 
                 <div class="row">
 
-                    <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
+                    <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="current_lot.sellingPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
                         <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
                         <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                     </div>
                     <div class="room-price do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
-                    <div class="room-price number-of-rate col-sm-6">{{current_lot.sellingPrice}}</div>
+                    <div class="room-price number-of-rate col-sm-6" ng-init="current_lot.sellingPrice = (current_lot.sellingPrice>bidPrice?current_lot.sellingPrice:bidPrice)">{{current_lot.sellingPrice}}</div>
                 </div>
                 <div class="max-rate">
                     МАКСИМАЛЬНАЯ СТАВКА
