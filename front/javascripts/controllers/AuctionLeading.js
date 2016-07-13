@@ -36,10 +36,11 @@ define(['./module','jquery'],function(controllers,$){
         });
 
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
-        $scope.sold = function (isSold) {
+        $scope.sold = function (isSold, isClean) {
             ngSocket.emit('auction/updateLot', {
                 lotId: +$scope.lotId,
                 isSold: isSold,
+                isClean: isClean,
                 auctionId: $stateParams.auctionId
             });
             ngSocket.emit('auction/getLotList', {
