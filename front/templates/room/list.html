@@ -193,10 +193,10 @@
                         <div class="room-small-books-container">
                             <div class="room-arrow_left"><img src="../../images/arrow-left-b.png" ng-click="goToPrevLot()"></div>
                             <div emit-last-repeater-element class="pull-left width100"
-                                 ng-repeat="r in auction_params.lot_pictures">
+                                 ng-repeat="r in auction_params.lot_pictures" ui-sref="lot({lotId:r.lotId})">
                                 <div class="page-numbers-single">{{auction_params.lots[r].number}}</div>
                                 <div class="room-small-photo">
-                                    <div><img src="/images/FOR_DEV/{{r.fileName}}"></div>
+                                    <div><img src="/images/lot-images/{{r.fileName}}"></div>
                                 </div>
                             </div>
                             <!--<div class="pull-left width100">
