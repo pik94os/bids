@@ -191,14 +191,14 @@
                 <div class="right-column col-sm-6">
                     <div class="row">
                         <div class="room-small-books-container">
-                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png" ng-click="goToPrevLot()"></div>
-                            <div emit-last-repeater-element class="pull-left width100"
-                                 ng-repeat="r in auction_params.lot_pictures" ui-sref="lot({lotId:r.lotId})">
+                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png" Ang-click="goToPrevLot()"></div>
+                            <a emit-last-repeater-element class="pull-left width100"
+                                 ng-repeat="r in auction_params.lot_pictures" ui-sref="lot({lotId:r.lotId})" target="_blank">
                                 <div class="page-numbers-single">{{auction_params.lots[r].number}}</div>
                                 <div class="room-small-photo">
                                     <div><img src="/images/lot-images/{{r.fileName}}"></div>
                                 </div>
-                            </div>
+                            </a>
                             <!--<div class="pull-left width100">
                                 <div class="page-numbers-single">149</div>
                                 <div class="room-small-photo">
@@ -229,7 +229,7 @@
                                     <div><img src="/images/FOR_DEV/sm_book.png"></div>
                                 </div>
                             </div>-->
-                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png" ng-click="goToNextLot()"></div>
+                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png" Ang-click="goToNextLot()"></div>
                         </div>
                     </div>
 
