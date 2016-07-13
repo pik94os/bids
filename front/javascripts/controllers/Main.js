@@ -276,6 +276,8 @@ define(['./module','jquery'],function(controllers,$){
         $scope.goToPageHeader = function () {
             if ( $scope.currentUserInfo.roleId === 5 ) {
                 $state.go('page-leading');
+            } if ( $scope.currentUserInfo.roleId === 2 ) {
+                $state.go('admin');
             } else {
                 $state.go('lk');
             }
