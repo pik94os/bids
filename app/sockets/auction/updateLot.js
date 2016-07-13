@@ -11,7 +11,7 @@ module.exports = function (socket, data) {
         where:{id: data.lotId}
     }).then((result)=> {
             result.isSold = data.isSold;
-            result.isClean = data.isClean;
+            result.isCl = data.isCl;
         return result.save().then((data)=> {
             socket.emit('lotUpdate', {
                 err: 0,
@@ -20,7 +20,7 @@ module.exports = function (socket, data) {
                 socket.to('auction:'+(+data.auctionId)).emit('isSoldAndIsClean', {
                 lotId: data.lotId,
                 isSold:data.isSold,
-                isClean: data.isClean
+                isCl: data.isCl
             });
             console.log('dasdasda');
         }).catch((err)=> {
