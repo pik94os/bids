@@ -16,9 +16,7 @@ define(['./module','jquery'],function(controllers,$){
             auctionId: $stateParams.auctionId
         });
 
-        ngSocket.on('isSoldAndIsClean', function (data) {
-            console.log('dasdasd');
-        });
+
         ngSocket.on('lotList', function (data) {
             $scope.lotList = data.lotList[0];
             $scope.descriptionPrevArr = $scope.deleteTegP(data.lotList[0].descriptionPrev);
@@ -26,18 +24,26 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lotId = data.lotList[0].id;
         });
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
+
+        ngSocket.emit('auction/getLotList', {
+            auctionId: $stateParams.auctionId
+        });
+        ngSocket.on('isSoldAndIsClean', function (data) {
+            console.log(data);
+        });
         ngSocket.on('catchAuction', function (data) {
-            ngSocket.emit('auction/getLotList', {
-                auctionId: $stateParams.auctionId
-            });
-            ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
 
         });
 
-        $scope.sold = function (isSold) {
+        ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
+        $scope.sold = function (isSold, isClean) {
             ngSocket.emit('auction/updateLot', {
                 lotId: +$scope.lotId,
                 isSold: isSold,
+                isClean: isClean,
+                auctionId: $stateParams.auctionId
+            });
+            ngSocket.emit('auction/getLotList', {
                 auctionId: $stateParams.auctionId
             });
         };

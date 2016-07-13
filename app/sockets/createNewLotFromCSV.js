@@ -45,50 +45,62 @@ module.exports = function (socket, data) {
                 //     result.year = +row.year;
                 // }
                 result.save()
-                    
-                    .then(function () {
-                    // добавление картинок
-                    
-                    if (row.titlePic){
-                        // if (){
-                        //
-                        // }
-                        LotPicture.update({
-                            originalName : row.titlePic
-                        },{
-                            where: {id: row.id}
-                        })
-                    }
 
-                    // парсинг и добавление в галерею
-                    if (row.gallery){
-                        let galleryPicOriginalNameArr = row.gallery.split(';');
-                        galleryPicOriginalNameArr.forEach(function (nextPicName) {
-                            if (nextPicName) {
-                                LotPicture.update({
-                                    originalName : nextPicName
-                                },{
-                                    where: {originalName: nextPicName}
-                                })
-                                    .then(function (updated) {
-                                   if (!updated) {
-                                       LotPicture.create({
-                                           originalName: nextPicName,
-                                           lotId: parseInt(row.id),
-                                           isArchive: false
-                                       });
-                                   }
-                                });
-                            }
-                        });
-                    }
-                });
+                    .then(function () {
+                        // добавление картинок
+
+                        if (row.titlePic) {
+                            LotPicture.update({
+                                originalName: row.titlePic
+                            }, {
+                                where: {id: result.number}
+                            })
+                        }
+
+                        // парсинг и добавление в галерею
+                        if (row.gallery) {
+                            let galleryPicOriginalNameArr = row.gallery.split(';');
+                            galleryPicOriginalNameArr.forEach(function (nextPicName) {
+                                console.log('>>>>>>>>>>>'+nextPicName);
+                                if (nextPicName) {
+                                    LotPicture.findOne({where: {originalName: nextPicName}}).then(function (res) {
+                                        if (!res){
+                                            LotPicture.create({
+                                                originalName: nextPicName,
+                                                lotId: parseInt(row.id),
+                                                isArchive: false
+                                            }).then(function (result) {
+                                                socket.emit('createCSVPicturesReport', {
+                                                        pictureRow: result
+                                                    }
+                                                );
+                                            });
+                                        }
+                                    });
+                                    // LotPicture.update({
+                                    //     originalName: nextPicName
+                                    // }, {
+                                    //     where: {originalName: result.originalName}
+                                    // })
+                                    //     .then(function (updated) {
+                                    //         if (!updated) {
+                                    //             LotPicture.create({
+                                    //                 originalName: nextPicName,
+                                    //                 lotId: parseInt(row.id),
+                                    //                 isArchive: false
+                                    //             });
+                                    //         }
+                                    //     });
+                                }
+                            });
+                        }
+                    });
             }
 
             // если лот не существует
             if (!result) {
                 let _lotData = {
-                    id: null,
+                    // id: null,
                     number: null,
                     description: null,
                     estimateFrom: null,
@@ -151,12 +163,12 @@ module.exports = function (socket, data) {
 
                         LotPicture.create(createTitlePic)
                             .then(function (createdRow) {
-                            Lot.update({
-                                titlePicId: createdRow.id
-                            }, {
-                                where: {id: createdRow.lotId}
-                            })
-                        });
+                                Lot.update({
+                                    titlePicId: createdRow.id
+                                }, {
+                                    where: {id: createdRow.lotId}
+                                })
+                            });
 
                     }
                     // парсинг и добавление в галерею
@@ -182,20 +194,20 @@ module.exports = function (socket, data) {
                                 )
                                 // LotPicture.findOne({where: {originalName: nextPicName}})
                                     .then(function (count) {
-                                    console.log('>>>>>>>>>>>>>>>>>>>> '+count);
-                                    if(+count === 0){
-                                        return LotPicture.create({
-                                            originalName: nextPicName,
-                                            lotId: parseInt(row.id),
-                                            isArchive: false
-                                        }).then(function (result) {
-                                            socket.emit('createCSVPicturesReport', {
-                                                    pictureRow: result
-                                                }
-                                            );
-                                        });
-                                    }
-                                });
+                                        console.log('>>>>>>>>>>>>>>>>>>>> ' + count);
+                                        if (+count === 0) {
+                                            return LotPicture.create({
+                                                originalName: nextPicName,
+                                                lotId: parseInt(row.id),
+                                                isArchive: false
+                                            }).then(function (result) {
+                                                socket.emit('createCSVPicturesReport', {
+                                                        pictureRow: result
+                                                    }
+                                                );
+                                            });
+                                        }
+                                    });
                             }
                         });
                     }
