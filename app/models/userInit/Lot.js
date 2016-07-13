@@ -21,7 +21,7 @@ var attributes = {
     year: {type: Sequelize.INTEGER, defaultValue: null},
     isArchive: {type: Sequelize.BOOLEAN, defaultValue: false},
     isSold: {type: Sequelize.BOOLEAN, defaultValue: false},
-    isClean: {type: Sequelize.BOOLEAN, defaultValue: false},
+    isCl: {type: Sequelize.BOOLEAN, defaultValue: false},
     titlePicId: {type: Sequelize.INTEGER,  defaultValue: null},
     isPlayOut: {type: Sequelize.BOOLEAN, defaultValue: false}
 };
