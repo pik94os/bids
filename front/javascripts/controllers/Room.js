@@ -35,18 +35,19 @@ define(['./module','jquery'],function(controllers,$){
                     lots: [],
                     lots_isPlayOuted: [],
                     lots_isPlayOutedPercent: 0,
+                    lot_pictures: [],
                     progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
                 };
 
             //init lot params
-            var params = ['id', 'description', 'sellingPrice', 'estimateFrom', 'estimateTo'];
+            var params = ['id', 'description', 'sellingPrice', 'estimateFrom', 'estimateTo', 'titlePicId'];
             var currentId = 0;
             $scope.current_lot =
                 {
                     step : 1
                 };
             $scope.bidPrice = 0;
-            initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0]));
+            initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
 
             // //init time params
             // $scope.time = 23;
@@ -66,12 +67,12 @@ define(['./module','jquery'],function(controllers,$){
 
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
-                $scope.auction_params.lots_isPlayOuted = data.auction.lots.map(function(e) { if (e.isPlayOut == 12) {return e} });
+                $scope.auction_params.lot_pictures = data.lotPictures;
+                data.auction.lots.map(function(e) { if (e.isPlayOut == true) {return  $scope.auction_params.lots_isPlayOuted.push(e)} });
                 if ($scope.auction_params.lots_length != 0)
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
                 console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
 
-                console.log(data.auction);
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
                 $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
@@ -136,10 +137,10 @@ define(['./module','jquery'],function(controllers,$){
             });
 
             ngSocket.on('lotSelected', function (data) {
-                console.log(data.lot);
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 $scope.bidPrice = data.lot.estimateFrom;
+                $scope.current_lot.lotPictures = data.lotPictures;
             });
 
             $scope.incrementBid = function () {
