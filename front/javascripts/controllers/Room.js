@@ -77,6 +77,7 @@ define(['./module','jquery'],function(controllers,$){
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
+                if($scope.auction_params.lots[currentId]!=undefined && $scope.auction_params.lots[currentId].id!=undefined){
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
