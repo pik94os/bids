@@ -32,7 +32,8 @@ define(['./module','jquery'],function(controllers,$){
                     lots_length:  0,
                     lots: [],
                     lots_isPlayOuted: [],
-                    lots_isPlayOutedPercent: 0
+                    lots_isPlayOutedPercent: 0,
+                    progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
                 };
             //init lot params
             var params = ['id', 'description', 'sellingPrice', 'estimateFrom', 'estimateTo'];
@@ -57,7 +58,7 @@ define(['./module','jquery'],function(controllers,$){
                 date = new Date(data.auction.date);
                 $scope.countdown = (date.getTime() > Date.now()) ? 1 : 2;
                 $scope.auction_params.users = data.auction.users;
-                console.log(data.auction.users)
+                console.log(data.auction)
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
@@ -66,16 +67,18 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
                 console.log(($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100)
                 $scope.auctionDate = data.auction.date;
+                //инициализируем прогрес бар
+                $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
-                if($scope.auction_params.lots[currentId]!=undefined && $scope.auction_params.lots[currentId].id!=undefined){
+
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
-                }
             });
 
             ngSocket.on('lotSelected', function (data) {
+                console.log(data.lot);
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 $scope.bidPrice = data.lot.estimateFrom;

@@ -4,8 +4,13 @@
         <div class="room-list" ng-class="{'ll-open':open}">
             <!--прогресс-бар наверху-->
             <div class="room-progress-bar-container">
-                <div class="progress-bar-line pull-left"></div>
-                <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 00</div>
+                <div  ng-style="{'border-width': '0 1px 0 1px',
+      'border-style': 'solid',
+      'margin-top': '3px',
+      'height': '40%',
+      'width': '100%',
+      'background-color': '#0d395f'}"></div>
+                <div class="room-text-in-bar-procents pull-right" >{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 00</div>
                 <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
             </div>
             <div class="room-auction-title">
@@ -130,7 +135,7 @@
                 <!--прогресс-бар наверху-->
                 <div>
                     <div class="room-progress-bar-container">
-                        <div class="progress-bar-line pull-left"></div>
+                        <div ng-class="['progress-bar-line', 'pull-left']" ng-style="auction_params.progress_bar_class"></div>
                         <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 00</div>
                         <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
                     </div>
@@ -232,12 +237,8 @@
 
                             <div class="col-xs-8 blue-border-right">
                                 <div class="description-the-book">
-                                    Древности Российского государства, изданные по высочайшему повелению. Рисованы
-                                    академиком Ф. Солнцевым...
-                                </div>
-                                <!--<div class="description-the-book">
                                     {{current_lot.description.slice(0,70)+'...'}}
-                                </div> -->
+                                </div>
                                 <hr>
                                 <div class="room-large-book">
                                     <img src="/images/FOR_DEV/lg_book.png" width="200pt" ng-if="swap == false">
