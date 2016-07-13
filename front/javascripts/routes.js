@@ -184,7 +184,7 @@ define(['./app'], function (app) {
 
             //Страница админ
             .state('admin', {
-                url: '/admin',
+                url: '/admin?tab',
                 views:{
                     '': {
                         templateUrl: "/templates/admin/list.html",
