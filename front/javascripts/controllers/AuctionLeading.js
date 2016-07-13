@@ -11,7 +11,7 @@ define(['./module','jquery'],function(controllers,$){
         $scope.start = function start() {
             $scope.$broadcast('start');
         };
-        
+
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId
         });
@@ -27,7 +27,11 @@ define(['./module','jquery'],function(controllers,$){
         });
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
         ngSocket.on('catchAuction', function (data) {
-            console.log(data);
+            ngSocket.emit('auction/getLotList', {
+                auctionId: $stateParams.auctionId
+            });
+            ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
+
         });
 
         $scope.sold = function (isSold) {
