@@ -30,11 +30,14 @@ define(['./module','jquery'],function(controllers,$){
                         hall_users: 0
                     },
                     users: [],
+                    users_number: ["1"],
                     lots_length:  0,
                     lots: [],
                     lots_isPlayOuted: [],
-                    lots_isPlayOutedPercent: 0
+                    lots_isPlayOutedPercent: 0,
+                    progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
                 };
+
             //init lot params
             var params = ['id', 'description', 'sellingPrice', 'estimateFrom', 'estimateTo'];
             var currentId = 0;
@@ -58,15 +61,20 @@ define(['./module','jquery'],function(controllers,$){
                 date = new Date(data.auction.date);
                 $scope.countdown = (date.getTime() > Date.now()) ? 1 : 2;
                 $scope.auction_params.users = data.auction.users;
-                console.log(data.auction.users)
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
+                $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
+
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
                 $scope.auction_params.lots_isPlayOuted = data.auction.lots.map(function(e) { if(e.isPlayOut === true) return e });
                 if ($scope.auction_params.lots_length != 0)
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
                 console.log(($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100)
+
                 $scope.auctionDate = data.auction.date;
+                //инициализируем прогрес бар
+                $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
+
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
                 if($scope.auction_params.lots[currentId]!=undefined && $scope.auction_params.lots[currentId].id!=undefined){
@@ -129,6 +137,7 @@ define(['./module','jquery'],function(controllers,$){
             });
 
             ngSocket.on('lotSelected', function (data) {
+                console.log(data.lot);
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 $scope.bidPrice = data.lot.estimateFrom;
@@ -259,12 +268,13 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 }
             }
-            $scope.$on('LastRepeaterElement', function(){
+            /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
             });
             $(window).resize( function(){
                 moveToTheRigh();
-            });
+            });*/
+            
             $scope.roomName = $stateParams.auctionId;
             $scope.joinedRoom = false;
             $scope.joinRoom = function () {

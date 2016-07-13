@@ -100,7 +100,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.bidPrice =  $scope.lot.estimateFrom;
             initLotParams($scope, params, $scope.lot);
             initStep();
-            $scope.bidPrice += Number($scope.step);
         });
         ngSocket.on('lotCreated', function (data) {
                 ngSocket.emit('auction/getLot', {
@@ -122,7 +121,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.incrementBid = function () {
             $scope.bidPrice += Number($scope.step);
 
-            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+            if($scope.bidPrice <(+$scope.lot.estimateFrom + $scope.step)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;
@@ -133,7 +132,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             if ($scope.bidPrice > 0)
                 $scope.bidPrice -= Number($scope.step);
 
-            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+            if($scope.bidPrice <(+$scope.lot.estimateFrom + $scope.step)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;
@@ -144,7 +143,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
-            if($scope.bidPrice <=(+$scope.lot.estimateFrom + $scope.step)) {
+            if($scope.bidPrice <(+$scope.lot.estimateFrom + $scope.step)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;

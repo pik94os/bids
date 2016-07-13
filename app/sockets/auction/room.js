@@ -19,7 +19,8 @@ module.exports = function(socket, data) {
         },
             {
              model: User,
-             attributes: ["id", "username"]
+             attributes: ["id", "username"],
+             order: '"id" DESC'
             }
         ]
     })

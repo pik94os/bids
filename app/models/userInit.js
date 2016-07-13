@@ -11,6 +11,7 @@ var UserMeta = require('./userInit/User.js'),
     LotMeta = require('./userInit/Lot'),
     LotPictureMeta = require('./userInit/LotPicture'),
     BidMeta = require('./userInit/Bid'),
+    AuctionUserMeta = require('./userInit/AuctionUser'),
     connection = require('../sequelize.js');
 
 class Initiator {
