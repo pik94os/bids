@@ -66,22 +66,21 @@ define(['./module','jquery'],function(controllers,$){
 
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
-                $scope.auction_params.lots_isPlayOuted = data.auction.lots.map(function(e) { if(e.isPlayOut === true) return e });
+                $scope.auction_params.lots_isPlayOuted = data.auction.lots.map(function(e) { if (e.isPlayOut == 12) {return e} });
                 if ($scope.auction_params.lots_length != 0)
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
-                console.log(($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100)
+                console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
 
+                console.log(data.auction);
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
                 $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
-                if($scope.auction_params.lots[currentId]!=undefined && $scope.auction_params.lots[currentId].id!=undefined){
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
-                }
 
                 var curDate = new Date();
                 $scope.showProgress = function (date) {
