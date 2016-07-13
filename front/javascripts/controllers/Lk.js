@@ -3,7 +3,7 @@
  */
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('Lk', ['$scope', '$state', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $state, $rootScope, $stateParams, ngSocket) {
+    controllers.controller('Lk', ['$scope','$sessionStorage', '$state', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $sessionStorage, $state, $rootScope, $stateParams, ngSocket) {
         $scope.tab = $stateParams.tab;
         
         $scope.tempUserInfo = JSON.parse(JSON.stringify($scope.currentUserInfo));
@@ -53,6 +53,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
         });
 
-        
+        $scope.getSingleAuctionForEdit = function (data) {
+            $sessionStorage.auctionIdForEdit = data.id;
+        }
     }])
 });
