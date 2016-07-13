@@ -1,7 +1,6 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionLeading',['$state','$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($state,$scope,$http,$rootScope,$stateParams, ngSocket){
-        var currentId = 1;
         $scope.hasStream = true;
         $scope.roomName =  $stateParams.auctionId;
         $scope.isBroadcasting = '';
@@ -16,33 +15,45 @@ define(['./module','jquery'],function(controllers,$){
             auctionId: $stateParams.auctionId
         });
 
-        ngSocket.on('isSoldAndIsClean', function (data) {
-            console.log('dasdasd');
-        });
         ngSocket.on('lotList', function (data) {
             $scope.lotList = data.lotList[0];
-            $scope.descriptionPrevArr = $scope.deleteTegP(data.lotList[0].descriptionPrev);
+            if(data.lotList[0].descriptionPrev !== null) {
+                $scope.descriptionPrevArr = $scope.deleteTegP(data.lotList[0].descriptionPrev);
+            }
             $scope.lotImage = data.lotList[0].lot_pictures;
             $scope.lotId = data.lotList[0].id;
+            ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
         });
+
+        ngSocket.on('room', function (auction) {
+            $scope.users = auction.auction.users;
+        });
+
+
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
+
+
         ngSocket.on('catchAuction', function (data) {
-            ngSocket.emit('auction/getLotList', {
-                auctionId: $stateParams.auctionId
-            });
-            ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
+            if(data.err) {
+                alert(data.message);
+            }
 
+            if(new Date(data.data.date) <= new Date()) {$scope.startAuction = true}
         });
-
-        $scope.sold = function (isSold) {
+        $scope.sold = function (isSold, isClean) {
             ngSocket.emit('auction/updateLot', {
                 lotId: +$scope.lotId,
                 isSold: isSold,
+                isCl: isClean,
+                auctionId: $stateParams.auctionId
+            });
+            ngSocket.emit('auction/getLotList', {
                 auctionId: $stateParams.auctionId
             });
         };
+        ngSocket.on('auctionState', function (data) {
 
-
+        });
         
         // вычисление шага для цены продажи (не доделано)
         // function calcStep(price){
