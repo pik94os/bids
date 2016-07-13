@@ -217,7 +217,7 @@ define(['./module','jquery'],function(controllers,$){
             $(window).resize( function(){
                 moveToTheRigh();
             });*/
-            
+
             $scope.roomName = $stateParams.auctionId;
             $scope.joinedRoom = false;
             $scope.joinRoom = function () {
