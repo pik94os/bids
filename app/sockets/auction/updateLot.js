@@ -11,18 +11,22 @@ module.exports = function (socket, data) {
         where:{id: data.lotId}
     }).then((result)=> {
             result.isSold = data.isSold;
-            result.isClean = data.isClean;
+            result.isCl = data.isCl;
         return result.save().then((data)=> {
             socket.emit('lotUpdate', {
                 err: 0,
                 data: data
             });
-                socket.to('auction:'+(+data.auctionId)).emit('isSoldAndIsClean', {
+            socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
+                lotId: data.id,
+                isSold: data.isSold,
+                isCl: data.isCl
+            });
+            socket.emit('auctionState', {
                 lotId: data.lotId,
                 isSold:data.isSold,
-                isClean: data.isClean
+                isCl: data.isCl
             });
-            console.log('dasdasda');
         }).catch((err)=> {
             socket.emit('lotUpdate', {
                 err: 1,

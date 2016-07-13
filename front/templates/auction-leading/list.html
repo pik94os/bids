@@ -7,46 +7,15 @@
                     <div class="pageAuctionLeading-left-in-title">
                         Сеть
                     </div>
-                    <div class="pageAuctionLeading-left-in-text">
+                    <div class="pageAuctionLeading-left-in-text" ng-repeat="user in users">
                         <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№60</b> Апрелев С.М.
+                            <b>№{{user.id}}</b> {{user.firstName}} {{user.lastName}} {{user.patronymic}}
                         </div>
                         <div class="pageAuctionLeading-left-in-text-circleColor">
                             <img src="images/circle-green.png">
                         </div>
                     </div>
-                    <div class="pageAuctionLeading-left-in-text">
-                        <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№389</b> Ведерникова Г.И.
-                        </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
-                            <img src="images/circle-green.png">
-                        </div>
-                    </div>
-                    <div class="pageAuctionLeading-left-in-text">
-                        <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№236</b> Порной У.Е.
-                        </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
-                            <img src="images/circle-green.png">
-                        </div>
-                    </div>
-                    <div class="pageAuctionLeading-left-in-text">
-                        <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№40</b> Пономарев И.Г.
-                        </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
-                            <img src="images/circle-green.png">
-                        </div>
-                    </div>
-                    <div class="pageAuctionLeading-left-in-text">
-                        <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№61</b> Зведущая И.М.
-                        </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
-                            <img src="images/circle-green.png">
-                        </div>
-                    </div>
+
                 </div>
                 <!--<div class="pageAuctionLeading-left-in">-->
                 <!--<div class="pageAuctionLeading-left-in-title">-->
@@ -122,8 +91,8 @@
             <div class="pageAuctionLeading-right col-xs-9">
                 <div>
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
-                    <div class="auction-button-sale" ng-click="sold(true,isClean)">Лот продан</div>
-                    <div class="auction-button-remove" ng-click="sold(isSold, true)">Снять лот</div>
+                    <div class="auction-button-sale" ng-click="sold(true,isClean)" ng-show="startAuction">Лот продан</div>
+                    <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="startAuction">Снять лот</div>
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">

@@ -171,7 +171,7 @@ define(['./module','jquery'],function(controllers,$){
                 ngSocket.emit('auction/getLot', {
                     lotId: $scope.auction_params.lots[currentId].id
                 });
-            }
+            };
 
             // переход на следующий лот
             $scope.goToNextLot = function(){
@@ -180,7 +180,7 @@ define(['./module','jquery'],function(controllers,$){
                 ngSocket.emit('auction/getLot', {
                     lotId: $scope.auction_params.lots[currentId].id
                 });
-            }
+            };
 
             ngSocket.on('lotConfirmed', function (data) {
                 console.log(data);
@@ -267,6 +267,14 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 }
             }
+
+        //ngSocket.emit('getAuction', {id: $stateParams.auctionId});
+
+        ngSocket.on('auctionState', function (data) {
+            ngSocket.emit('auction/getLot', {
+                lotId: +data.lotId + 1
+            });
+        });
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
             });

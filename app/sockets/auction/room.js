@@ -11,24 +11,30 @@ module.exports = function(socket, data) {
         );
         return
     }
-
-    Auction.findById(data.id, {
+    let attributes = [];
+        if(data.userAuction) {
+            attributes = ["firstName", "lastName", "patronymic",'id']
+        } else {
+            attributes = ["id", "username"]
+        }
+    Auction.findById(data.id,{
         include:[{
             model: Lot,
-            attributes: ["id", "isPlayOut", "isSold"]
+            attributes: ["id", "isPlayOut", "isSold"],
+            order: '"number" ASC'
         },
             {
              model: User,
-             attributes: ["id", "username"],
+             attributes: attributes,
              order: '"id" DESC'
             }
         ]
-    })
-        .then(function(auction) {
+    }).then(function(auction) {
             socket.emit('room', {
                  err: 0,
                  auction: auction
             });
+        socket.join('auction:' + data.id);
         }).catch(function (err) {
         socket.emit('room',
             {err: 1, message: err.message}
