@@ -330,14 +330,21 @@ define(['./module','jquery'],function(controllers,$){
         // удаление <p></p> из текста и удаление @ кон
 
         // получение аукциона для модального окна редактирования аукциона
-        ngSocket.emit('auction/getAuction', {id: +$sessionStorage.auctionIdForEdit});
+        if(+$sessionStorage.auctionIdForEdit){
+            ngSocket.emit('auction/getAuction', {id: +$sessionStorage.auctionIdForEdit});
+        }
         ngSocket.on('catchAuction', function (data) {
+            if(data.err) {
+                alert(data.message);
+            }
             $scope.auctionForEdit = data.data;
             $sessionStorage.auctionIdForEdit = false;
 
             $scope.newAuction.nameAuction = data.data.name;
             $scope.newAuction.numberAuction = data.data.number;
-            $scope.newAuction.date = data.data.number.date.toDateString();
+            if(data.data.number.date){
+                $scope.newAuction.date = data.data.number.date.toDateString();
+            }
         });
     }])
 });

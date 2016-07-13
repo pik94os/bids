@@ -17,12 +17,16 @@ module.exports = function (socket, data) {
                 err: 0,
                 data: data
             });
-                socket.to('auction:'+(+data.auctionId)).emit('isSoldAndIsClean', {
+            socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
+                lotId: data.id,
+                isSold: data.isSold,
+                isCl: data.isCl
+            });
+            socket.emit('auctionState', {
                 lotId: data.lotId,
                 isSold:data.isSold,
                 isCl: data.isCl
             });
-            console.log('dasdasda');
         }).catch((err)=> {
             socket.emit('lotUpdate', {
                 err: 1,
