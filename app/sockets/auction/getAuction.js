@@ -18,6 +18,8 @@ module.exports = function (socket, data) {
             err: 0,
             data: data
         });
+        console.log('dadadasdasdasdasdasd');
+        socket.join('auction:' + data.id);
     }).catch((err)=>{
         socket.emit('catchAuction', {
             err: 1,

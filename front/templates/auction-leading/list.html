@@ -122,18 +122,16 @@
             <div class="pageAuctionLeading-right col-xs-9">
                 <div>
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
-                    <div class="auction-button-sale">Лот продан</div>
+                    <div class="auction-button-sale" ng-click="sold(true)">Лот продан</div>
                     <div class="auction-button-remove">Снять лот</div>
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
                         <div class="pageAuctionLeading-right-top-left-top">
                             <!--40 000 000 руб-->
-                            {{lot.sellingPrice.toLocaleString()}}
+                                {{lotList.estimateFrom + ' - ' + lotList.estimateTo}}
                         </div>
-                        <div class="pageAuctionLeading-right-top-left-bottom">
-                            №36 Аргосян С.Е.
-                        </div>
+
                     </div>
                     <div class="pageAuctionLeading-right-top-right col-md-4">
                         <div class="pageAuctionLeading-right-top-right-top">
@@ -149,69 +147,43 @@
                 <div class="pageAuctionLeading-right-center row">
                     <div class="pageAuctionLeading-right-center-left col-md-2">
                         <div class="pageAuctionLeading-right-center-left-top">
-                            Лот {{lot.number}}
+                            Лот № {{lotList.number}}
                         </div>
                         <div class="pageAuctionLeading-right-center-left-undertop">
-                            Библия на старославянском языке
+                            <p ng-repeat="str in descriptionPrevArr">{{str}}</p>
                         </div>
                         <div class="pageAuctionLeading-right-center-left-bottom">
-                            <div>
-                                <!--150 000 000 руб-->
-                                {{lot.estimateTo.toLocaleString()}}
-                            </div>
-                            <div>
-                                <img src="images/triangle-red-up.png">
-                            </div>
-                            <div>
-                                <!--30 000 000 руб-->
-                                {{lot.estimateFrom.toLocaleString()}}
-                            </div>
+                            <!--<div>-->
+                                <!--&lt;!&ndash;150 000 000 руб&ndash;&gt;-->
+                                <!--{{lot.estimateTo.toLocaleString()}}-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<img src="images/triangle-red-up.png">-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--&lt;!&ndash;30 000 000 руб&ndash;&gt;-->
+                                <!--{{lotList.estimateFrom}}-->
+                            <!--</div>-->
                         </div>
                     </div>
                     <div class="pageAuctionLeading-right-center-center col-md-5">
                         <div class="pageAuctionLeading-right-center-center-gallery">
-                            <div class="gallery-div">
-                                <img src="images/image-book.png">
+                            <div class="gallery-div" ng-repeat="img in lotImage" ng-if="img.fileName !== null">
+                                <img src="images/lot-images/{{img.fileName}}" style="width: 100px;height: 132px;">
                                 <div class="check">
                                     <img src="images/OK-green.png">
                                 </div>
-                            </div>
-                            <div class="gallery-div">
-                                <img src="images/image-book.png">
-                                <div class="check">
-                                    <img src="images/OK-green.png">
-                                </div>
-                            </div>
-                            <div class="gallery-div">
-                                <img src="images/image-book.png">
-                                <div class="check">
-                                </div>
-                                <div class="noeye">
-                                </div>
-                            </div>
-                            <div class="gallery-div">
-                                <img src="images/image-book.png">
-                                <div class="check">
-                                </div>
-                                <div class="noeye">
-                                </div>
-                            </div>
-                            <div class="gallery-div">
-                                <img src="images/image-book.png">
-                                <div class="check">
-                                    <img src="images/OK-green.png">
-                                </div>
-                            </div>
                         </div>
+                            </div>
                         <div class="pageAuctionLeading-right-center-center-bottom">
-                            <div class="pageAuctionLeading-right-center-center-bottom-time">
-                                0:08 мин
-                            </div>
-                            <div class="pageAuctionLeading-right-center-center-bottom-pause">
-                                <img src="images/previous.png">
-                                <img src="images/stop.png">
-                                <img src="images/next.png">
-                            </div>
+                            <!--<div class="pageAuctionLeading-right-center-center-bottom-time">-->
+                                <!--0:08 мин-->
+                            <!--</div>-->
+                            <!--<div class="pageAuctionLeading-right-center-center-bottom-pause">-->
+                                <!--<img src="images/previous.png">-->
+                                <!--<img src="images/stop.png">-->
+                                <!--<img src="images/next.png">-->
+                            <!--</div>-->
                         </div>
                     </div>
                     <div class="pageAuctionLeading-right-center-right col-md-5">

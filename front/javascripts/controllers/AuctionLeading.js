@@ -1,6 +1,7 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('AuctionLeading',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($scope,$http,$rootScope,$stateParams, ngSocket){
+    controllers.controller('AuctionLeading',['$state','$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($state,$scope,$http,$rootScope,$stateParams, ngSocket){
+        var currentId = 1;
         $scope.hasStream = true;
         $scope.roomName =  $stateParams.auctionId;
         $scope.isBroadcasting = '';
@@ -10,22 +11,35 @@ define(['./module','jquery'],function(controllers,$){
         $scope.start = function start() {
             $scope.$broadcast('start');
         };
-
-        // получение одного лота по ID
-        ngSocket.emit('auction/getLot', {
-            lotId: $stateParams.lotId
+        
+        ngSocket.emit('auction/getLotList', {
+            auctionId: $stateParams.auctionId
         });
-        ngSocket.on('lotSelected', function (data) {
-            console.log(data)
-            $scope.lot = JSON.parse(JSON.stringify(data.lot))
-            $scope.lotId = $scope.lot.id;
-            $scope.isPlayOut = $scope.lot.isPlayOut;
-            $scope.open = ($scope.lot.isSold) ? 2 : 1;
-            ngSocket.emit('auction/getLotList', {
-                auctionId: $scope.lot.auctionId
+
+        ngSocket.on('isSoldAndIsClean', function (data) {
+            console.log('dasdasd');
+        });
+        ngSocket.on('lotList', function (data) {
+            $scope.lotList = data.lotList[0];
+            $scope.descriptionPrevArr = $scope.deleteTegP(data.lotList[0].descriptionPrev);
+            $scope.lotImage = data.lotList[0].lot_pictures;
+            $scope.lotId = data.lotList[0].id;
+        });
+        ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
+        ngSocket.on('catchAuction', function (data) {
+            console.log(data);
+        });
+
+        $scope.sold = function (isSold) {
+            ngSocket.emit('auction/updateLot', {
+                lotId: +$scope.lotId,
+                isSold: isSold,
+                auctionId: $stateParams.auctionId
             });
-        });
+        };
 
+
+        
         // вычисление шага для цены продажи (не доделано)
         // function calcStep(price){
         //     var step = 1;
