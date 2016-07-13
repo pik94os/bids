@@ -27,8 +27,6 @@ module.exports = function(socket, data) {
             user.firstName = data.firstName;
             user.lastName = data.lastName;
             user.patronymic = data.patronymic;
-            console.log ( user.patronymic );
-            console.log ( data.patronymic );
             user.email = data.email;
             user.phone = data.phone;
             user.confirmationCode = data.confirmationCode;
