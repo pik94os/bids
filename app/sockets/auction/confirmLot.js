@@ -70,8 +70,8 @@ module.exports = function(socket, data) {
         var step = calcStep(estimateFrom);
         if (Number(bid) - Number(estimateFrom) < 0)
             return cb({message: "Бид ниже минимальной цены"});
-        if (Number(bid) - Number(estimateFrom) < step)
-            return cb({message: "Бид ниже минимального шага"});
+        // if (Number(bid) - Number(estimateFrom) < step)
+        //     return cb({message: "Бид ниже минимального шага"});
         if (Number(bid) - Number(currentPrice) < step)
             return cb({message: "Бид ниже текущей цены"});
         return cb (null);
