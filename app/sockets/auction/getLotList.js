@@ -21,7 +21,8 @@ module.exports = function(socket, data) {
          where: {
              isArchive:false,
              auctionId: data.auctionId,
-             isSold: false
+             isSold: false,
+             isClean: false
          },
          order:[['number', 'ASC']],
          // include: [{model:LotPicture, where: {id: Sequelize.col('lot.titlePicId')}}]
