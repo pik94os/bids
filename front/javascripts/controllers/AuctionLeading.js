@@ -37,8 +37,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lotImage = lot.lot_pictures;
             $scope.lotId = lot.id;
             ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
-
-
+            
         }
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);

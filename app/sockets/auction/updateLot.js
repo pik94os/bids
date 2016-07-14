@@ -30,12 +30,11 @@ module.exports = function (socket, data) {
                 return lot.save(lot).then((a)=>{
                     console.log(a);
                     socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
-                        lotId: lot.id,
+                        lot: lot,
                         isSold: data.isSold,
                         isCl: data.isCl
                     });
                     socket.emit('auctionState', {
-                        lotId: data.lotId,
                         lot:lot,
                         isSold:data.isSold,
                         isCl: data.isCl
