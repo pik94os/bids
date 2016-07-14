@@ -189,9 +189,9 @@ define(['./module','jquery'],function(controllers,$){
                  var idPic = $scope.auction_params.lot_pictures.map(function(e) { return e.id; }).indexOf(id);
                  return $scope.auction_params.lot_pictures[idPic];
             }
+
             $scope.getUserNumber = function (id) {
                 var userNum = $scope.auction_params.users.map(function(e) { return e.id; }).indexOf(id)+1;
-                console.log('userNum', userNum)
                 return userNum;
             }
 
