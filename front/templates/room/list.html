@@ -154,8 +154,8 @@
                             <div emit-last-repeater-element class="lot-table"
                                  ng-repeat="r in auction_params.users_number"
                                  ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,
-            'lot-table-press-inet':r===5, 'lot-table-press-zal':r===6,
-            'lot-table-stavka':r===7, 'lot-table-user':r===8}"
+            'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,
+            'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].creatorId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"
                                  ng-click='setPopup($index)'>
                                 <!--<div class="popup-window" ng-show="popup===$index">
                                     <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
@@ -205,7 +205,9 @@
                                    ng-repeat="r in auction_params.lots" ui-sref="lot({lotId:r.id})" target="_blank">
                                     <div class="page-numbers-single">{{auction_params.lots[$index].number}}</div>
                                     <div class="room-small-photo">
-                                        <div><img src="/images/lot-images/{{getPicById(r.titlePicId).fileName}}"></div>
+                                        <div><img
+                                                ng-src="/images/lot-images/{{getPicById(r.titlePicId).fileName || 'no-photo.jpg'}}">
+                                        </div>
                                     </div>
                                 </a>
                             </div>
@@ -303,7 +305,7 @@
                                     <div ng-class="{'classForVideo-small':aaa,'classForVideo-big':!aaa}">
                                         <!--<img src="/images/FOR_DEV/video.png">-->
                                         <div class="room-large-book">
-                                            <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}">
+                                            <img ng-src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName || 'no-photo.jpg'}}">
                                         </div>
                                     </div>
                                     <div ng-class="{'classForVideo-big':aaa,'classForVideo-small':!aaa}">

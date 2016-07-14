@@ -36,6 +36,7 @@ define(['./module','jquery'],function(controllers,$){
                     },
                     users: [],
                     users_number: ["1"],
+                    current_user: null,
                     lots_length:  0,
                     lots: [],
                     lots_isPlayOuted: [],
@@ -82,12 +83,13 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
+                $scope.auction_params.current_user = data.authUser;
+
+                //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
-
                 if (data.lotPictures != undefined)
                     $scope.auction_params.lot_pictures = data.lotPictures;
-
 
                 //находим количество пройденных лотов
                 data.auction.lots.map(function (e) {
@@ -105,7 +107,7 @@ define(['./module','jquery'],function(controllers,$){
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
-                if($scope.auction_params.lots[currentId]!==undefined){
+                if ($scope.auction_params.lots[currentId] !== undefined) {
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
@@ -193,9 +195,10 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.bidPrice -= Number($scope.current_lot.step);
             }
 
+
         $scope.getPicById = function (id) {
             var idPic = $scope.auction_params.lot_pictures.map(function (e) {
-                return e.id;
+                    return e.id;
             }).indexOf(id);
             return $scope.auction_params.lot_pictures[idPic];
         }
@@ -203,11 +206,11 @@ define(['./module','jquery'],function(controllers,$){
             var userNum = $scope.auction_params.users.map(function (e) {
                     return e.id;
                 }).indexOf(id) + 1;
-            console.log('userNum', userNum)
             return userNum;
         }
 
         //форматирование цены
+
             $scope.formatBid = function () {
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
@@ -247,7 +250,14 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
                     $scope.current_lot.sellingPrice = data.bid.price;
-                    $scope.bidPrice += calcStep($scope.current_lot.sellingPrice)
+                    $scope.bidPrice += calcStep($scope.current_lot.sellingPrice);
+                    $scope.timeoutBidUser = true;
+                    setTimeout(function () {
+                        $scope.timeoutBidUser = false
+                    }, 3000);
+                    ngSocket.emit('auction/getLot', {
+                        lotId: $scope.auction_params.lots[currentId].id
+                    });
                 }
                 $scope.confirm = data
             });

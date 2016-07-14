@@ -12,6 +12,8 @@ module.exports = function(socket, data) {
         );
         return
     }
+    const user = socket.request.user;
+
     let attributes = [];
         if(data.userAuction) {
             attributes = ["firstName", "lastName", "patronymic", "id"]
@@ -37,7 +39,8 @@ module.exports = function(socket, data) {
                 socket.emit('room', {
                     err: 0,
                     auction: auction,
-                    lotPictures: LotPictures
+                    lotPictures: LotPictures,
+                    authUser: user.userId
                 });
             });
         socket.join('auction:' + data.id);
