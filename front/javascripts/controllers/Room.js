@@ -77,8 +77,6 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
-                console.log(data);
-
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
 
@@ -126,7 +124,6 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
                 razn -= $scope.timer.min * 1000 * 60;
                 $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
-                console.log($scope.timer);
 
                 var stop = $interval(function() {
                     if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
@@ -167,9 +164,11 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
                 {
-                    $scope.bidPrice = $scope.current_lot.sellingPrice
-                }else {
+                    $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep($scope.current_lot.sellingPrice)
+                } else {
                     $scope.bidPrice = data.lot.estimateFrom;
+                    $scope.current_lot.sellingPrice = data.lot.estimateFrom + calcStep($scope.current_lot.sellingPrice);
+                    $scope.$apply();
                 }
                 $scope.current_lot.lot_pictures = data.lotPictures;
                 $scope.current_lot.bids = data.bids;
@@ -243,6 +242,7 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
                     $scope.current_lot.sellingPrice = data.bid.price;
+                    $scope.bidPrice += calcStep($scope.current_lot.sellingPrice)
                 }
                 $scope.confirm = data
             });
@@ -264,7 +264,6 @@ define(['./module','jquery'],function(controllers,$){
         $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
         razn -= $scope.timer.min * 1000 * 60;
         $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
-        console.log($scope.timer);
 
             var stop = $interval(function() {
                 if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
@@ -323,7 +322,6 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 }
             }
-
         //ngSocket.emit('getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('auctionState', function (data) {
@@ -339,7 +337,6 @@ define(['./module','jquery'],function(controllers,$){
             });*/
 
         $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
-        ;
             $scope.joinedRoom = false;
             $scope.joinRoom = function () {
                 $scope.$broadcast('joinRoom');
