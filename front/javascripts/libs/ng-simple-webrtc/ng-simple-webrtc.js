@@ -39,7 +39,7 @@
                 receiveMedia: { // FIXME: remove old chrome <= 37 constraints format
                   mandatory: {
                     OfferToReceiveAudio: true,
-                      OfferToReceiveVideo: true
+                    OfferToReceiveVideo: true
                   }
                 }
               };
@@ -103,7 +103,7 @@
               // so, skip manual addition to dom
               if (Array.isArray($scope.videoList)) {
                 video.isRemote = true;
-                $scope.videoList.push(video);
+                //$scope.videoList.push(video);
                 $scope.joinedRoom = true;
                 $scope.$apply();
                 return;
@@ -267,7 +267,7 @@
                 video.src = window.URL.createObjectURL(stream);
                 video.play();
                 video.isRemote = false;
-                $scope.videoList.push(video);
+                //$scope.videoList.push(video);
               }
 
               $scope.hasStream = true;

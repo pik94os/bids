@@ -1,27 +1,34 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionLeading',['$state','$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($state,$scope,$http,$rootScope,$stateParams, ngSocket){
+        $scope.numberLot = null;
+        $scope.cleanLot = true;
         $scope.hasStream = true;
-        $scope.roomName =  $stateParams.auctionId;
+        $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
         $scope.isBroadcasting = '';
         $scope.prepare = function prepare() {
             $scope.$broadcast('prepare');
         };
+        
         $scope.start = function start() {
             $scope.$broadcast('start');
             ngSocket.emit('auction/startAuction', {id: $scope.lotId});
         };
         $scope.reloadPage = function reloadPage() {
-            window.location.reload()
+            window.location.reload();
         };
 
-        ngSocket.on('auctionStart', function (data) {
-            console.log(data);
-        });
-        
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId,
             lot: true
+        });
+        $scope.soldLot = false;
+
+        ngSocket.on('lotConfirmed', function (data) {
+            if(data.err) {
+                alert(data.message);
+            }
+            $scope.soldLot = true;
         });
         ngSocket.on('catchAuction', function (data) {
             if(data.err) {
@@ -36,17 +43,18 @@ define(['./module','jquery'],function(controllers,$){
                 });
             }
         });
-
         function setLotInfo(lot) {
             $scope.lotList = lot;
             if(lot.descriptionPrev !== null) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
             }
+            $scope.soldLot = lot.sellingPrice ? true : false;
             $scope.lotImage = lot.lot_pictures;
             $scope.lotId = lot.id;
-            ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
-            
         }
+
+        ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
+
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);
         });
@@ -56,19 +64,28 @@ define(['./module','jquery'],function(controllers,$){
             $scope.users = auction.auction.users;
         });
 
-
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
+
         $scope.sold = function (isSold, isClean) {
-                ngSocket.emit('auction/updateLot', {
+            $scope.cleanLot = false;
+            ngSocket.emit('auction/updateLot', {
                     lotId: +$scope.lotId,
                     isSold: isSold,
                     isCl: isClean,
                     auctionId: $stateParams.auctionId
                 });
         };
+
         ngSocket.on('auctionState', function (data) {
             setLotInfo(data.lot);
+            $scope.soldLot = data.lot.sellingPrice ? true : false;
+            setTimeout(function () {
+                $scope.cleanLot = true;
+                 $scope.$apply();
+            }, 1000);
+            console.log(data);
         });
+
 
         // вычисление шага для цены продажи (не доделано)
         // function calcStep(price){

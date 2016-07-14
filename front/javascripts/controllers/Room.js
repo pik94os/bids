@@ -44,15 +44,28 @@ define(['./module','jquery'],function(controllers,$){
             var currentId = 0;
             $scope.current_lot =
                 {
-                    step : 1
+                    step: 1,
+                    bids: []
                 };
             $scope.bidPrice = 0;
+        $scope.current_lot.currentPic = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
 
-            // //init time params
-            // $scope.time = 23;
-            // $scope.timer.min = 59;
-            // $scope.timer.sec = 59;
+        $interval(function () {
+            if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
+                $scope.current_lot.currentPic += 1;
+            if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
+                $scope.current_lot.currentPic = 0
+        }, 5000);
+
+        $scope.lastPhotos = function () {
+            var t = $('.gallery-carousel .pull-left:last-child');
+            t.detach().prependTo('.gallery-carousel');
+        };
+        $scope.firstPhotos = function () {
+            var t = $('.gallery-carousel .pull-left:first-child');
+            t.detach().appendTo('.gallery-carousel');
+        };
 
             ngSocket.on('room',function (data) {
                 var date;
@@ -64,13 +77,21 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
-                console.log(data);
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
-                $scope.auction_params.lot_pictures = data.lotPictures.slice(0,5);
-                data.auction.lots.map(function(e) { if (e.isPlayOut == true) {return  $scope.auction_params.lots_isPlayOuted.push(e)} });
+
+                if (data.lotPictures != undefined)
+                    $scope.auction_params.lot_pictures = data.lotPictures;
+
+
+                //находим количество пройденных лотов
+                data.auction.lots.map(function (e) {
+                    if (e.isSold == true) {
+                        return $scope.auction_params.lots_isPlayOuted.push(e)
+                    }
+                });
                 if ($scope.auction_params.lots_length != 0)
-                $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
+                    $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
                 console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
 
                 $scope.auctionDate = data.auction.date;
@@ -83,6 +104,8 @@ define(['./module','jquery'],function(controllers,$){
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
+                } else {
+                    console.log('lot[' + currentId + '] not found!');
                 }
                 var curDate = new Date();
                 $scope.showProgress = function (date) {
@@ -101,7 +124,6 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
                 razn -= $scope.timer.min * 1000 * 60;
                 $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
-                console.log($scope.timer);
 
                 var stop = $interval(function() {
                     if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
@@ -142,12 +164,22 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
                 {
-                    $scope.bidPrice = $scope.current_lot.sellingPrice
-                }else {
-                    $scope.bidPrice = data.lot.estimateFrom;
+                    $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep(data.lot.estimateFrom)
+                } else {
+                    $scope.bidPrice = data.lot.estimateFrom + calcStep(data.lot.estimateFrom);
+                    $scope.current_lot.sellingPrice = data.lot.estimateFrom;
+                    $scope.$apply();
                 }
-                $scope.current_lot.lotPictures = data.lotPictures;
+                console.log(data.lot.estimateFrom);
+                $scope.current_lot.lot_pictures = data.lotPictures;
+                $scope.current_lot.bids = data.bids;
+                console.log($scope.current_lot);
             });
+
+        $scope.maxEstimate = function () {
+            $scope.bidPrice = $scope.current_lot.estimateTo;
+        }
+
             $scope.incrementBid = function () {
                 $scope.bidPrice += Number($scope.current_lot.step);
             }
@@ -157,13 +189,28 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.bidPrice -= Number($scope.current_lot.step);
             }
 
+        $scope.getPicById = function (id) {
+            var idPic = $scope.auction_params.lot_pictures.map(function (e) {
+                return e.id;
+            }).indexOf(id);
+            return $scope.auction_params.lot_pictures[idPic];
+        }
+        $scope.getUserNumber = function (id) {
+            var userNum = $scope.auction_params.users.map(function (e) {
+                    return e.id;
+                }).indexOf(id) + 1;
+            console.log('userNum', userNum)
+            return userNum;
+        }
+
+        //форматирование цены
             $scope.formatBid = function () {
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
                 
             }
-
+        //подтвердить лот
             $scope.confirmLot = function () {
                 ngSocket.emit('auction/confirmLot', {
                     lotId: $scope.current_lot.id,
@@ -189,13 +236,14 @@ define(['./module','jquery'],function(controllers,$){
                 });
             };
 
-        
-            ngSocket.on('lotConfirmed', function (data) {
+
+        ngSocket.on('lotConfirmed', function (data) {
                 console.log(data);
                 if (data.err == 0){
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
                     $scope.current_lot.sellingPrice = data.bid.price;
+                    $scope.bidPrice += calcStep($scope.current_lot.sellingPrice)
                 }
                 $scope.confirm = data
             });
@@ -275,7 +323,6 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 }
             }
-
         //ngSocket.emit('getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('auctionState', function (data) {
@@ -290,7 +337,7 @@ define(['./module','jquery'],function(controllers,$){
                 moveToTheRigh();
             });*/
 
-            $scope.roomName = $stateParams.auctionId;
+        $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
             $scope.joinedRoom = false;
             $scope.joinRoom = function () {
                 $scope.$broadcast('joinRoom');
@@ -303,8 +350,18 @@ define(['./module','jquery'],function(controllers,$){
             },2000);
         $scope.swap = false;
         $scope.popo = function () {$scope.swap = !$scope.swap;}
+        
+        $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
+            var video = $("#remotes video")[0];
+            if (video.muted) {
+                video.muted = false;
+            } else {
+                video.muted = true;
+            }
+        }
 
-    }])
+
+    }]);
             function initLotParams(scope, params, values){
                 params.forEach(function(item, i){
                     if(values[item]!=undefined){
@@ -325,40 +382,43 @@ define(['./module','jquery'],function(controllers,$){
                     step = 1;
                 }
                 if (5 < price &&  price <= 50){
-                    step = 10;
+                    step = 5;
                 }
                 if (50 < price && price <= 200){
-                    step = 20;
+                    step = 10;
                 }
                 if (200 < price && price <= 500){
-                    step = 50;
+                    step = 20;
                 }
                 if (500 < price && price <= 1000){
+                    step = 50;
+                }
+                if (1000 < price && price <= 2000) {
                     step = 100;
                 }
                 if (2000 < price && price <= 5000){
-                    step = 500;
+                    step = 200;
                 }
                 if (5000 < price && price <= 10000){
-                    step = 1000;
+                    step = 500;
                 }
                 if (10000 < price && price <= 20000){
-                    step = 2000;
+                    step = 1000;
                 }
                 if (20000 < price && price <= 50000){
-                    step = 5000;
+                    step = 2000;
                 }
                 if (50000 < price && price <= 100000){
-                    step = 10000;
+                    step = 5000;
                 }
                 if (100000 < price && price <= 200000){
-                    step = 20000;
+                    step = 10000;
                 }
                 if (200000 < price && price <= 500000){
-                    step = 50000;
+                    step = 20000;
                 }
                 if (500000 < price && price <= 1000000){
-                    step = 100000;
+                    step = 50000;
                 }
                 return step;
             }
