@@ -47,12 +47,21 @@ define(['./module','jquery'],function(controllers,$){
                     step : 1
                 };
             $scope.bidPrice = 0;
+            $scope.current_lot.currentPic = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
+
+            $interval(function(){
+                if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
+                    $scope.current_lot.currentPic += 1;
+                if ($scope.current_lot.currentPic > 0)
+                    $scope.current_lot.currentPic -= 1
+            }, 5000);
 
             // //init time params
             // $scope.time = 23;
             // $scope.timer.min = 59;
             // $scope.timer.sec = 59;
+
 
             ngSocket.on('room',function (data) {
                 var date;
@@ -65,10 +74,12 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
                 console.log(data);
+
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
                 $scope.auction_params.lot_pictures = data.lotPictures.slice(0,5);
-                data.auction.lots.map(function(e) { if (e.isPlayOut == true) {return  $scope.auction_params.lots_isPlayOuted.push(e)} });
+
+                data.auction.lots.map(function(e) { if (e.isSold == true) {return  $scope.auction_params.lots_isPlayOuted.push(e)} });
                 if ($scope.auction_params.lots_length != 0)
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
                 console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
@@ -141,6 +152,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 $scope.bidPrice = data.lot.estimateFrom;
                 $scope.current_lot.lotPictures = data.lotPictures;
+                console.log($scope.current_lot);
             });
 
             $scope.incrementBid = function () {
@@ -328,6 +340,9 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 if (500 < price && price <= 1000){
                     step = 100;
+                }
+                if (1000 < price && price <= 2000){
+                    step = 200;
                 }
                 if (2000 < price && price <= 5000){
                     step = 500;

@@ -32,6 +32,7 @@ module.exports = function(socket, data) {
                     if (err) return emitError(socket, err);
                 Bid.create({price: data.bidPrice, lotId: lot.id, creatorId: user.id})
                     .then(function (bid){
+                        Lot.
                         socket.emit('lotConfirmed',
                             {err: 0, bid: bid});
                     }).catch(function (err) {
@@ -93,6 +94,9 @@ module.exports = function(socket, data) {
         }
         if (500 < price && price <= 1000){
             step = 100;
+        }
+        if (1000 < price && price <= 2000){
+            step = 200;
         }
         if (2000 < price && price <= 5000){
             step = 500;
