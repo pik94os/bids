@@ -7,11 +7,10 @@ define(['./module', 'jquery'], function (controllers, $) {
         var lotArr = new Array();
         var currentId = 1;
         $scope.open = ($stateParams.lotId) ? 1 : 0;
-        
-        // получение одного лота по ID
-        ngSocket.emit('auction/getLot', {
-                lotId: $stateParams.lotId
-            });
+                ngSocket.emit('auction/getLot', {
+                    lotId: $stateParams.lotId
+                });
+
         // получение списка айдишников лотов
         ngSocket.on('lotList', function (data) {
             lotArr = data.lotList;
@@ -25,7 +24,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.isPlayOut = $scope.lot.isPlayOut;
             $scope.open = ($scope.lot.isSold) ? 2 : 1;
             ngSocket.emit('auction/getLotList', {
-                auctionId: $scope.lot.auctionId
+                auctionId: $scope.lot.auctionId,
+                selectLot: true
             });
         });
 

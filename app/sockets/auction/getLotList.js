@@ -18,22 +18,31 @@ module.exports = function(socket, data) {
     // если делать эту строку то назад возвращаются только ID лотов и на странице аукциона не будут выводиться описания лотов и тд:
     //Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
     // если раскомментировать эту строку то на странице аукциона будет выводиться вся информация о лоте но вся вестка поползет:
-    let where = data.lot ? {isSold: false, isCl: false, isArchive:false, auctionId: data.auctionId} : {isArchive:false, auctionId: data.auctionId};
+    let where = data.lot ? {isSold: false, isCl: false, isArchive:false, auctionId: data.auctionId} : {isArchive:false, id: data.lotId};
     if(data.numberLot !== undefined && data.numberLot) {
         where = {
-            //id: +data.lotId,
             auctionId: data.auctionId,
             isCl: true,
             isArchive: false,
             number: +data.numberLot
         }
     }
-    Lot.findAll({
-         where,
-         order:[['number', 'ASC']],
-         // include: [{model:LotPicture, where: {id: Sequelize.col('lot.titlePicId')}}]
-         include: [{model:LotPicture}]
-     })
+    let select = {
+        where,
+        order:[['number', 'ASC']],
+        // include: [{model:LotPicture, where: {id: Sequelize.col('lot.titlePicId')}}]
+        include: [{model:LotPicture}]
+    };
+    if(data.selectLot){
+        console.log(data.selectLot);
+        select = {
+            order:[['number', 'ASC']],
+            where: {isArchive:false, auctionId: data.auctionId},
+            attributes: ['id']
+        }
+    }
+    
+    Lot.findAll(select)
         .then(function(lotList) {
             socket.emit('lotList', {
                 'err': 0,

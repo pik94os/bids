@@ -22,7 +22,12 @@ define(['./module','jquery'],function(controllers,$){
 
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
-            //init auction params
+
+        $scope.changeClassVideoWindow = function () {
+            $scope.aaa = !$scope.aaa;
+        };
+
+        //init auction params
             $scope.auction_params =
                 {
                     users_length: {
@@ -139,7 +144,7 @@ define(['./module','jquery'],function(controllers,$){
                             $scope.timer.ch -= 1;
                             $scope.timer.min = 59;
                         }
-                        
+
                     }
                     if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
                         $scope.stopFight();
@@ -177,7 +182,7 @@ define(['./module','jquery'],function(controllers,$){
         $scope.maxEstimate = function () {
             $scope.bidPrice = $scope.current_lot.estimateTo;
         }
-        
+
 
             $scope.incrementBid = function () {
                 $scope.bidPrice += Number($scope.current_lot.step);
@@ -207,7 +212,7 @@ define(['./module','jquery'],function(controllers,$){
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
-                
+
             }
         //подтвердить лот
             $scope.confirmLot = function () {
@@ -348,8 +353,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.joinRoom();
             },2000);
         $scope.swap = false;
-        $scope.popo = function () {$scope.swap = !$scope.swap;}
-        
+
         $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
             var video = $("#remotes video")[0];
             if (video.muted) {
