@@ -17,13 +17,9 @@ module.exports = function(socket, data) {
     // если делать эту строку то назад возвращаются только ID лотов и на странице аукциона не будут выводиться описания лотов и тд:
     //Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
     // если раскомментировать эту строку то на странице аукциона будет выводиться вся информация о лоте но вся вестка поползет:
-     Lot.findAll({
-         where: {
-             isArchive:false,
-             auctionId: data.auctionId,
-             isSold: false,
-             isCl: false
-         },
+    let where = data.lot ? {isSold: false, isCl: false, isArchive:false, auctionId: data.auctionId} : {isArchive:false, auctionId: data.auctionId};
+    Lot.findAll({
+         where,
          order:[['number', 'ASC']],
          // include: [{model:LotPicture, where: {id: Sequelize.col('lot.titlePicId')}}]
          include: [{model:LotPicture}]

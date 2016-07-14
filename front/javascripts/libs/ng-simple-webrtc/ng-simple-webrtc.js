@@ -38,7 +38,7 @@
                 nick: $scope.nick,
                 receiveMedia: { // FIXME: remove old chrome <= 37 constraints format
                   mandatory: {
-                      OfferToReceiveAudio: false,
+                    OfferToReceiveAudio: true,
                       OfferToReceiveVideo: true
                   }
                 }
@@ -200,12 +200,12 @@
               debug: false,
               nick: $scope.nick,
               media: {
-                audio: false,
+                audio: true,
                 video: true
               },
               receiveMedia: { // FIXME: remove old chrome <= 37 constraints format
                 mandatory: {
-                    OfferToReceiveAudio: false,
+                  OfferToReceiveAudio: true,
                     OfferToReceiveVideo: false
                 }
               }
