@@ -25,10 +25,10 @@ module.exports = function(socket, data) {
         },
             {
              model: User,
-             attributes: attributes
+                attributes: attributes
             }
         ],
-        order:[
+        order: [
             [Lot, 'number', 'ASC'],
             [User, 'id', 'ASC']
         ]

@@ -14,18 +14,18 @@ module.exports = function (socket, data) {
         return
     }
     AuctionUser.findAll({
-        where:{
+        where: {
             auctionId: data.auctionId
         }
-    }).then(function(info){
-            createAuctionUser(info.length+1);
+    }).then(function (info) {
+        createAuctionUser(info.length + 1);
     }).catch(function (err) {
-            socket.emit('auctionUserStop',
-                {err: 1, message: err.message}
-            );
-        });
+        socket.emit('auctionUserStop',
+            {err: 1, message: err.message}
+        );
+    });
 
-    function createAuctionUser(number){
+    function createAuctionUser(number) {
             AuctionUser.find({
                 where:{
                     userId: socket.request.user.id,

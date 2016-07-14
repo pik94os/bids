@@ -44,28 +44,28 @@ define(['./module','jquery'],function(controllers,$){
             var currentId = 0;
             $scope.current_lot =
                 {
-                    step : 1,
+                    step: 1,
                     bids: []
                 };
             $scope.bidPrice = 0;
-            $scope.current_lot.currentPic = 0;
+        $scope.current_lot.currentPic = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
 
-            $interval(function(){
-                if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
-                    $scope.current_lot.currentPic += 1;
-                if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
-                    $scope.current_lot.currentPic = 0
-            }, 5000);
+        $interval(function () {
+            if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
+                $scope.current_lot.currentPic += 1;
+            if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
+                $scope.current_lot.currentPic = 0
+        }, 5000);
 
-            $scope.lastPhotos = function () {
-                var t = $('.gallery-carousel .pull-left:last-child');
-                t.detach().prependTo('.gallery-carousel');
-            };
-            $scope.firstPhotos = function () {
-                var t = $('.gallery-carousel .pull-left:first-child');
-                t.detach().appendTo('.gallery-carousel');
-            };
+        $scope.lastPhotos = function () {
+            var t = $('.gallery-carousel .pull-left:last-child');
+            t.detach().prependTo('.gallery-carousel');
+        };
+        $scope.firstPhotos = function () {
+            var t = $('.gallery-carousel .pull-left:first-child');
+            t.detach().appendTo('.gallery-carousel');
+        };
 
             ngSocket.on('room',function (data) {
                 var date;
@@ -83,7 +83,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.lots = data.auction.lots;
 
                 if (data.lotPictures != undefined)
-                $scope.auction_params.lot_pictures = data.lotPictures;
+                    $scope.auction_params.lot_pictures = data.lotPictures;
 
 
                 //находим количество пройденных лотов
@@ -176,9 +176,9 @@ define(['./module','jquery'],function(controllers,$){
                 console.log($scope.current_lot);
             });
 
-            $scope.maxEstimate = function () {
-                $scope.bidPrice = $scope.current_lot.estimateTo;
-            }
+        $scope.maxEstimate = function () {
+            $scope.bidPrice = $scope.current_lot.estimateTo;
+        }
 
             $scope.incrementBid = function () {
                 $scope.bidPrice += Number($scope.current_lot.step);
@@ -189,24 +189,28 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.bidPrice -= Number($scope.current_lot.step);
             }
 
-            $scope.getPicById = function (id) {
-                 var idPic = $scope.auction_params.lot_pictures.map(function(e) { return e.id; }).indexOf(id);
-                 return $scope.auction_params.lot_pictures[idPic];
-            }
-            $scope.getUserNumber = function (id) {
-                var userNum = $scope.auction_params.users.map(function(e) { return e.id; }).indexOf(id)+1;
-                console.log('userNum', userNum)
-                return userNum;
-            }
+        $scope.getPicById = function (id) {
+            var idPic = $scope.auction_params.lot_pictures.map(function (e) {
+                return e.id;
+            }).indexOf(id);
+            return $scope.auction_params.lot_pictures[idPic];
+        }
+        $scope.getUserNumber = function (id) {
+            var userNum = $scope.auction_params.users.map(function (e) {
+                    return e.id;
+                }).indexOf(id) + 1;
+            console.log('userNum', userNum)
+            return userNum;
+        }
 
-            //форматирование цены
+        //форматирование цены
             $scope.formatBid = function () {
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
                 
             }
-            //подтвердить лот
+        //подтвердить лот
             $scope.confirmLot = function () {
                 ngSocket.emit('auction/confirmLot', {
                     lotId: $scope.current_lot.id,
@@ -233,7 +237,7 @@ define(['./module','jquery'],function(controllers,$){
             };
 
 
-            ngSocket.on('lotConfirmed', function (data) {
+        ngSocket.on('lotConfirmed', function (data) {
                 console.log(data);
                 if (data.err == 0){
                     $scope.confirm = data;
