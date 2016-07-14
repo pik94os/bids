@@ -97,8 +97,8 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 });
                 if ($scope.auction_params.lots_length != 0)
-                $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
-                    console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
+                    $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
+                console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
 
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
