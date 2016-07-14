@@ -170,10 +170,8 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.current_lot.sellingPrice = data.lot.estimateFrom;
                     $scope.$apply();
                 }
-                console.log(data.lot.estimateFrom);
                 $scope.current_lot.lot_pictures = data.lotPictures;
                 $scope.current_lot.bids = data.bids;
-                console.log($scope.current_lot);
             });
 
         $scope.maxEstimate = function () {

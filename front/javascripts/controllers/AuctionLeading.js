@@ -1,7 +1,7 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionLeading',['$state','$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($state,$scope,$http,$rootScope,$stateParams, ngSocket){
-        $scope.numberLot = null;
+        $scope.numberLot = "";
         $scope.cleanLot = true;
         $scope.hasStream = true;
         $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
@@ -9,7 +9,24 @@ define(['./module','jquery'],function(controllers,$){
         $scope.prepare = function prepare() {
             $scope.$broadcast('prepare');
         };
-        
+        $scope.sendFilter = function (e) {
+            if (e.keyCode === 13) {
+                ngSocket.emit('auction/getLotList', {
+                    auctionId: $stateParams.auctionId,
+                    numberLot: +$scope.numberLot,
+                    lotId: $scope.lotId
+                });
+                $scope.numberLot = "";
+                setTimeout(function () {
+                    ngSocket.emit('auction/updateLot', {
+                        lotId: +$scope.lotId,
+                        isPlayOut: true,
+                        isCl: false
+                    });
+                }, 1000);
+
+            }
+        };
         $scope.start = function start() {
             $scope.$broadcast('start');
             ngSocket.emit('auction/startAuction', {id: $scope.lotId});
@@ -58,12 +75,18 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);
         });
-
-
         ngSocket.on('room', function (auction) {
             $scope.users = auction.auction.users;
         });
 
+
+        $scope.getUserNumber = function (id) {
+            var userNum = $scope.users.map(function (e) {
+                    return e.id;
+                }).indexOf(id) + 1;
+            return userNum;
+        };
+        
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
 
         $scope.sold = function (isSold, isClean) {

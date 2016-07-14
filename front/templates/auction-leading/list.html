@@ -9,7 +9,7 @@
                     </div>
                     <div class="pageAuctionLeading-left-in-text" ng-repeat="user in users">
                         <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№{{user.id}}</b> {{user.firstName}} {{user.lastName}} {{user.patronymic}}
+                            <b>№{{getUserNumber(user.id)}}</b> {{user.firstName}} {{user.lastName}} {{user.patronymic}}
                         </div>
                         <div class="pageAuctionLeading-left-in-text-circleColor">
                             <img src="images/circle-green.png">
@@ -105,7 +105,7 @@
                     <div class="pageAuctionLeading-right-top-right col-md-4">
                         <div class="pageAuctionLeading-right-top-right-top">
                             Следующий бид!
-                            <input type="text" ng-model="numberLot" class="form-control">
+                            <input type="text" ng-model="numberLot" ng-keyup="sendFilter($event)" class="form-control">
                         </div>
                         <div class="pageAuctionLeading-right-top-right-bottom">
                             <!--40 000 100-->
@@ -115,7 +115,7 @@
                 </div>
                 <!--{{lot}}-->
                 <div class="pageAuctionLeading-right-center row">
-                    <div class="pageAuctionLeading-right-center-left col-md-2">
+                    <div class="pageAuctionLeading-right-center-left col-md-4">
                         <div class="pageAuctionLeading-right-center-left-top">
                             Лот № {{lotList.number}}
                         </div>
@@ -136,7 +136,7 @@
                             <!--</div>-->
                         </div>
                     </div>
-                    <div class="pageAuctionLeading-right-center-center col-md-5">
+                    <div class="pageAuctionLeading-right-center-center col-md-4">
                         <div class="pageAuctionLeading-right-center-center-gallery">
                             <div class="gallery-div" ng-repeat="img in lotImage" ng-if="img.fileName !== null">
                                 <img src="images/lot-images/{{img.fileName}}" style="width: 100px;height: 132px;">
@@ -156,7 +156,7 @@
                             <!--</div>-->
                         </div>
                     </div>
-                    <div class="pageAuctionLeading-right-center-right col-md-5">
+                    <div class="pageAuctionLeading-right-center-right col-md-4">
                         <div class="pageAuctionLeading-right-center-right-camera">
                             <broadcaster
                                     has-stream="hasStream"
