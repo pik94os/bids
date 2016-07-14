@@ -285,7 +285,7 @@ define(['./module','jquery'],function(controllers,$){
 
         ngSocket.on('auctionState', function (data) {
             ngSocket.emit('auction/getLot', {
-                lotId: +data.lotId + 1
+                lotId: +data.lotId
             });
         });
             /*$scope.$on('LastRepeaterElement', function(){

@@ -17,15 +17,24 @@ module.exports = function (socket, data) {
                 err: 0,
                 data: data
             });
-            socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
-                lotId: data.id,
-                isSold: data.isSold,
-                isCl: data.isCl
-            });
             socket.emit('auctionState', {
                 lotId: data.lotId,
                 isSold:data.isSold,
                 isCl: data.isCl
+            });
+            return Lot.findOne({
+                where: {
+                    isSold: false,
+                    isCl: false
+                },
+                order: [['id', 'ASC']]
+            }).then((lot)=>{
+                console.log(lot);
+                socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
+                    lotId: lot.id,
+                    isSold: data.isSold,
+                    isCl: data.isCl
+                });
             });
         }).catch((err)=> {
             socket.emit('lotUpdate', {
