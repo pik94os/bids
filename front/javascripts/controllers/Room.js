@@ -164,12 +164,13 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
                 {
-                    $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep($scope.current_lot.sellingPrice)
+                    $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep(data.lot.estimateFrom)
                 } else {
-                    $scope.bidPrice = data.lot.estimateFrom;
-                    $scope.current_lot.sellingPrice = data.lot.estimateFrom + calcStep($scope.current_lot.sellingPrice);
+                    $scope.bidPrice = data.lot.estimateFrom + calcStep(data.lot.estimateFrom);
+                    $scope.current_lot.sellingPrice = data.lot.estimateFrom;
                     $scope.$apply();
                 }
+                console.log(data.lot.estimateFrom);
                 $scope.current_lot.lot_pictures = data.lotPictures;
                 $scope.current_lot.bids = data.bids;
                 console.log($scope.current_lot);
