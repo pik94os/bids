@@ -29,12 +29,20 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         ngSocket.on('auctionCreated', function (result) {
+
             if(result.err){
                 alert(result.message);
             }
             $state.go('auction',{auctionId:result.auction.id});
         });
 
+        ngSocket.on('auctionEdited', function (result) {
+           
+            if(result.err){
+                alert(result.message);
+            }
+            $state.go('auction',{auctionId:result.auction.id});
+        });
 
         // редактирование пользователя
         $scope.editUser = function () {
@@ -53,8 +61,5 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
         });
 
-        $scope.getSingleAuctionForEdit = function (data) {
-            $sessionStorage.auctionIdForEdit = data.id;
-        }
     }])
 });
