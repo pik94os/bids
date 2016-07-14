@@ -5,7 +5,7 @@
 'use strict';
 
 const Lot = require('../../models').Lot;
-
+const LotPicture = require('../../models').LotPicture;
 module.exports = function (socket, data) {
     Lot.findOne({
         where:{id: data.lotId}
@@ -24,11 +24,13 @@ module.exports = function (socket, data) {
                     isCl: false,
                     auctionId: +data.auctionId
                 },
+                include: [LotPicture],
                 order: [['id', 'ASC']]
             }).then((lot)=>{
                 lot.isPlayOut = true;
                 return lot.save(lot).then(()=>{
                     socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
+                        lot:lot,
                         lotId: lot.id,
                         isSold: data.isSold,
                         isCl: data.isCl

@@ -20,22 +20,25 @@ module.exports = function(socket, data) {
                     lotId : data.lotId
                 }
             }).then(function(lotPictures){
-                    Bid.findAll({
-                        where:{
-                            lotId: lot.id
-                        },
-                        order: [
-                            ['price', 'DESC']
-                        ]
-                    }).then(function(bids){
-                            socket.emit('lotSelected', {
-                                'err': 0,
-                                lot: lot,
-                                lotPictures: lotPictures,
-                                bids: bids
-                            });
+                Bid.findAll({
+                    where: {
+                        lotId: lot.id
+                    },
+                    order: [
+                        ['price', 'DESC']
+                    ]
+                }).then(function (bids) {
+                    if(!lot.sellingPrice){
+                        lot.sellingPrice = lot.estimateFrom;
+                    }
+                    socket.emit('lotSelected', {
+                        'err': 0,
+                        lot: lot,
+                        lotPictures: lotPictures,
+                        bids: bids
+                    });
 
-                        })
+                })
             })
         }).catch(function (err) {
                 socket.emit('lotSelected',

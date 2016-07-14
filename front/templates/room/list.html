@@ -5,7 +5,7 @@
             <!--прогресс-бар наверху-->
             <div class="room-progress-bar-container">
                 <div ng-class="['progress-bar-line', 'pull-left']" ng-style="auction_params.progress_bar_class"></div>
-                <div class="room-text-in-bar-procents pull-right" >0% ИЗ 0 ЛОТОВ | 00 : 00</div>
+                <div class="room-text-in-bar-procents pull-right">0% ИЗ 0 ЛОТОВ | 00 : 00</div>
                 <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
             </div>
             <div class="room-auction-title">
@@ -103,21 +103,21 @@
 
             </div>
             <!--<div class="input-group room-input-group-p1">-->
-                <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
-                            <!--<span class="input-group-btn">-->
-                                <!--<button class="btn room-buttons" type="submit">ОТПРАВИТЬ</button>-->
-                            <!--</span>-->
+            <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
+            <!--<span class="input-group-btn">-->
+            <!--<button class="btn room-buttons" type="submit">ОТПРАВИТЬ</button>-->
+            <!--</span>-->
             <!--</div>-->
             <!--<div class="room-chat">-->
-                <!--<div>#39: Как мало сегодня книг</div>-->
-                <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                <!--<div>#Администратор: Ставку вернули.</div>-->
-                <!--<div>#39: Как мало сегодня книг</div>-->
-                <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                <!--<div>#Администратор: Ставку вернули.</div>-->
-                <!--<div>#39: Как мало сегодня книг</div>-->
-                <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                <!--<div>#Администратор: Ставку вернули.</div>-->
+            <!--<div>#39: Как мало сегодня книг</div>-->
+            <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
+            <!--<div>#Администратор: Ставку вернули.</div>-->
+            <!--<div>#39: Как мало сегодня книг</div>-->
+            <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
+            <!--<div>#Администратор: Ставку вернули.</div>-->
+            <!--<div>#39: Как мало сегодня книг</div>-->
+            <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
+            <!--<div>#Администратор: Ставку вернули.</div>-->
             <!--</div>-->
             <br>
         </div>
@@ -130,8 +130,11 @@
                 <!--прогресс-бар наверху-->
                 <div>
                     <div class="room-progress-bar-container">
-                        <div ng-class="['progress-bar-line', 'pull-left']" ng-style="auction_params.progress_bar_class"></div>
-                        <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | 00 : 00</div>
+                        <div ng-class="['progress-bar-line', 'pull-left']"
+                             ng-style="auction_params.progress_bar_class"></div>
+                        <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ
+                            {{auction_params.lots_length}} ЛОТОВ | 00 : 00
+                        </div>
                         <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
                     </div>
                 </div>
@@ -139,9 +142,11 @@
                 <div class="col-sm-6 left-column">
 
                     <div class="legend">
-                        <div class="col-sm-6 pull-left">Всего участников: <b>{{auction_params.users_length.internet_users + auction_params.users_length.hall_users}}</b></div>
+                        <div class="col-sm-6 pull-left">Всего участников: <b>{{auction_params.users_length.internet_users
+                            + auction_params.users_length.hall_users}}</b></div>
                         <div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div>
-                        <div class="col-sm-3 pull-right">Интернет: <b>{{auction_params.users_length.internet_users}}</b></div>
+                        <div class="col-sm-3 pull-right">Интернет: <b>{{auction_params.users_length.internet_users}}</b>
+                        </div>
                     </div>
                     <!--карточки-->
                     <div class="row">
@@ -169,21 +174,21 @@
                         </div>
                     </div>
                     <!--<div class="input-group room-input-group">-->
-                        <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
-                            <!--<span class="input-group-btn">-->
-                                <!--<button class="btn room-buttons" type="submit">ОТПРАВИТЬ</button>-->
-                            <!--</span>-->
+                    <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
+                    <!--<span class="input-group-btn">-->
+                    <!--<button class="btn room-buttons" type="submit">ОТПРАВИТЬ</button>-->
+                    <!--</span>-->
                     <!--</div>-->
                     <!--<div class="room-chat">-->
-                        <!--<div>#39: Как мало сегодня книг</div>-->
-                        <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                        <!--<div>#Администратор: Ставку вернули.</div>-->
-                        <!--<div>#39: Как мало сегодня книг</div>-->
-                        <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                        <!--<div>#Администратор: Ставку вернули.</div>-->
-                        <!--<div>#39: Как мало сегодня книг</div>-->
-                        <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                        <!--<div>#Администратор: Ставку вернули.</div>-->
+                    <!--<div>#39: Как мало сегодня книг</div>-->
+                    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
+                    <!--<div>#Администратор: Ставку вернули.</div>-->
+                    <!--<div>#39: Как мало сегодня книг</div>-->
+                    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
+                    <!--<div>#Администратор: Ставку вернули.</div>-->
+                    <!--<div>#39: Как мало сегодня книг</div>-->
+                    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
+                    <!--<div>#Администратор: Ставку вернули.</div>-->
                     <!--</div>-->
                 </div>
 
@@ -191,11 +196,13 @@
                 <div class="right-column col-sm-6">
                     <div class="row">
                         <div class="room-small-books-container">
-                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png" ng-click="lastPhotos()"></div>
-                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png" ng-click="firstPhotos()"></div>
-                            <div class="gallery-carousel" >
+                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png"
+                                                              ng-click="lastPhotos()"></div>
+                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"
+                                                               ng-click="firstPhotos()"></div>
+                            <div class="gallery-carousel">
                                 <a emit-last-repeater-element class="pull-left width100"
-                                     ng-repeat="r in auction_params.lots" ui-sref="lot({lotId:r.id})" target="_blank">
+                                   ng-repeat="r in auction_params.lots" ui-sref="lot({lotId:r.id})" target="_blank">
                                     <div class="page-numbers-single">{{auction_params.lots[$index].number}}</div>
                                     <div class="room-small-photo">
                                         <div><img src="/images/lot-images/{{getPicById(r.titlePicId).fileName}}"></div>
@@ -246,8 +253,9 @@
                                 </div>
                                 <hr>
                                 <div class="room-large-book">
-                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}" width="200pt" ng-if="swap == false">
-                                    <img src="/images/lot-images/video.png" width="260pt" ng-if = "swap == true">
+                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
+                                         width="200pt" ng-if="swap == false">
+                                    <img src="/images/lot-images/video.png" width="260pt" ng-if="swap == true">
                                 </div>
                             </div>
                             <div class="col-xs-4">
@@ -261,36 +269,45 @@
                                 <div class="rate-from-inet">
                                     <span>СТАВКА</span>
                                     <div class="rate-from-inet-sec-row">ИЗ ИНТЕРНЕТА</div>
-                                    <div class="rate-from-inet-third-row">ОТ #{{ getUserNumber(current_lot.bids[0].creatorId) }}</div>
+                                    <div class="rate-from-inet-third-row">ОТ #{{
+                                        getUserNumber(current_lot.bids[0].creatorId) }}
+                                    </div>
                                 </div>
-                                <div class="dollar-arrows"></div>
+                                <!--<div class="dollar-arrows"></div>-->
                                 <div class="video-container">
                                     <button class="btn swap-btn" ng-click="popo()" style="margin-left: -35px"></button>
-                                    <button class="btn sound-btn" style="margin-left: -35px; margin-top: 50px"></button>
+                                    <button class="btn sound-btn" ng-click="soundOnOff()"
+                                            style="margin-left: -35px; margin-top: 50px">
+                                    </button>
                                     <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
-                                    <watch-room room-name="roomName" joined-room="joinedRoom" max-num-peers=1000></watch-room>
-                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}" height="70pt" ng-if="swap == true">
-                                    <img src="/images/FOR_DEV/video.png" width="130pt" ng-if = "swap == false">
-                                </div>
+                                    <watch-room room-name="roomName" joined-room="joinedRoom"
+                                                max-num-peers=1000></watch-room>
+                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
+                                         height="70pt" ng-if="swap == true">
+                                    <!--<img src="/images/FOR_DEV/video.png" width="130pt" ng-if = "swap == false">-->
                                 </div>
                             </div>
                         </div>
-
-                <div class="row">
-
-                    <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
-                        <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
-                        <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                     </div>
-                    <div class="room-price do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
-                    <div class="room-price number-of-rate col-sm-6">{{bidPrice}}</div>
-                </div>
-                <div class="max-rate" ng-click="maxEstimate()">
-                    <a>МАКСИМАЛЬНАЯ СТАВКА</a>
+
+                    <div class="row">
+
+                        <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice"
+                                                                  placeholder="Сделайте шаг / впишите свой"
+                                                                  value="{{bidPrice}}" ng-change="formatBid()">
+                            <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
+                            <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
+                        </div>
+                        <div class="room-price do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
+                        <div class="room-price number-of-rate col-sm-6">{{bidPrice}}</div>
+                    </div>
+                    <div class="max-rate" ng-click="maxEstimate()">
+                        <a>МАКСИМАЛЬНАЯ СТАВКА</a>
+                    </div>
+
                 </div>
             </div>
         </div>
+        <br>
     </div>
-    <br>
-</div>
 </div>

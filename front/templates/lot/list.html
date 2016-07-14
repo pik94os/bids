@@ -11,16 +11,19 @@
 				</div>
                 <div class="lot-prisesale">Цена продажи: {{sellingPrice}}</div>
 				<div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="estimateFrom" value="{{estimateFrom}}" ng-readonly="{{open != 0}}"/> - <input class="lot-priceinput" ng-model="estimateTo" value="{{estimateTo}}" ng-readonly="{{open != 0}}"/><div class="edit"></div> Руб.</div>
-                <div class="lot-estimate">Эстимэйт: {{estimateFrom}} - {{estimateTo}} <div class="edit"></div></div>
+
+				<div class="lot-estimate">Эстимэйт: {{estimateFrom}} - {{estimateTo}} <div class="edit"></div></div>
+
                 <div class="lot-price">Цена продажи: <input class="lot-priceinput" ng-model="sellingPrice" value="{{sellingPrice}}" ng-readonly="{{open != 0}}"/><div class="edit"></div></div>
 
 				<div class="lot-price1">Разыигрывается сейчас<br>{{sellingPrice}} руб</div>
 				<div class="lot-pricediv1">
 					<!--div class="lot-pricediv1-11">Разместить максимальный бид</div-->
+					<div class="max-rate" ng-click="maxEstimate2()"><a href="#">Разместить максимальный бид</a></div>
 					<div class="lot-pricediv1-2">
                         <input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
-                        <div class="lot-pricediv1-2-1" ng-click="decrementBid()" ng-show="minus"></div>
                         <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
+						<div class="lot-pricediv1-2-1" ng-click="decrementBid()" ng-show="minus"></div>
                     </div>
 					<div class="lot-pricediv1-3" ng-click="confirmLot()">{{ isPlayOut ? "Подтвердить" : "Заочный бид"}}</div>
 					<!--div class="lot-pricediv1-4">Таблица шагов</div-->

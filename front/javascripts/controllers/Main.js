@@ -18,6 +18,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         $scope.regist = function (auctionId, auctionDate) {
+            $scope.hideRegButton = true;
             if (+$scope.currentUserInfo.id) {
                 ngSocket.emit('userAuction', {auctionId: +auctionId});
                 $scope.selectedAuctionInMain.date = auctionDate;
