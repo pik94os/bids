@@ -47,12 +47,29 @@ define(['./module','jquery'],function(controllers,$){
                     step : 1
                 };
             $scope.bidPrice = 0;
+            $scope.current_lot.currentPic = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
 
+            $interval(function(){
+                if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
+                    $scope.current_lot.currentPic += 1;
+                if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
+                    $scope.current_lot.currentPic = 0
+            }, 5000);
+
+            $scope.lastPhotos = function () {
+                var t = $('.gallery-carousel .pull-left:last-child');
+                t.detach().prependTo('.gallery-carousel');
+            };
+            $scope.firstPhotos = function () {
+                var t = $('.gallery-carousel .pull-left:first-child');
+                t.detach().appendTo('.gallery-carousel');
+            };
             // //init time params
             // $scope.time = 23;
             // $scope.timer.min = 59;
             // $scope.timer.sec = 59;
+
 
             ngSocket.on('room',function (data) {
                 var date;
@@ -64,14 +81,20 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
-                console.log(data);
+                     console.log(data);
+
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
-                $scope.auction_params.lot_pictures = data.lotPictures.slice(0,5);
-                data.auction.lots.map(function(e) { if (e.isPlayOut == true) {return  $scope.auction_params.lots_isPlayOuted.push(e)} });
+
+                if (data.lotPictures != undefined)
+                $scope.auction_params.lot_pictures = data.lotPictures;
+
+
+                //находим количество пройденных лотов
+                data.auction.lots.map(function(e) { if (e.isSold == true) {return  $scope.auction_params.lots_isPlayOuted.push(e)} });
                 if ($scope.auction_params.lots_length != 0)
                 $scope.auction_params.lots_isPlayOutedPercent = ($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100;
-                console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
+                    console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
 
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
@@ -83,6 +106,8 @@ define(['./module','jquery'],function(controllers,$){
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
+                }else{
+                    console.log('lot['+currentId+'] not found!');
                 }
                 var curDate = new Date();
                 $scope.showProgress = function (date) {
@@ -146,7 +171,7 @@ define(['./module','jquery'],function(controllers,$){
                 }else {
                     $scope.bidPrice = data.lot.estimateFrom;
                 }
-                $scope.current_lot.lotPictures = data.lotPictures;
+                $scope.current_lot.lot_pictures = data.lotPictures;
             });
             $scope.incrementBid = function () {
                 $scope.bidPrice += Number($scope.current_lot.step);
@@ -217,6 +242,7 @@ define(['./module','jquery'],function(controllers,$){
         $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
         razn -= $scope.timer.min * 1000 * 60;
         $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
+        console.log($scope.timer);
 
             var stop = $interval(function() {
                 if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
@@ -335,6 +361,9 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 if (500 < price && price <= 1000){
                     step = 100;
+                }
+                if (1000 < price && price <= 2000){
+                    step = 200;
                 }
                 if (2000 < price && price <= 5000){
                     step = 500;
