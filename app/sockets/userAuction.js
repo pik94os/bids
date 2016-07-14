@@ -13,6 +13,19 @@ module.exports = function (socket, data) {
         });
         return
     }
+    AuctionUser.findAll({
+        where: {
+            auctionId: data.auctionId
+        }
+    }).then(function (info) {
+        createAuctionUser(info.length + 1);
+    }).catch(function (err) {
+        socket.emit('auctionUserStop',
+            {err: 1, message: err.message}
+        );
+    });
+
+    function createAuctionUser(number) {
             AuctionUser.find({
                 where:{
                     userId: socket.request.user.id,
@@ -25,9 +38,11 @@ module.exports = function (socket, data) {
             return AuctionUser.create({
                 userId: socket.request.user.id,
                 auctionId: data.auctionId
+                //number: number
             }).then(() => {
                 socket.emit('auctionUser',{err:0,info});
             })
             });
+    }
 
 };

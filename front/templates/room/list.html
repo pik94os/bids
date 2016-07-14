@@ -164,7 +164,7 @@
                                     </div>
                                     <div class="btn bg-primary popup-text-btn">Сообщение</div>
                                 </div>-->
-                                <div class="num-on-table">{{r}}</div>
+                                <div class="num-on-table">{{$index+1}}</div>
                             </div>
                         </div>
                     </div>
@@ -192,15 +192,18 @@
                     <div class="row">
                         <div class="room-small-books-container">
                             <div class="room-arrow_left"><img src="../../images/arrow-left-b.png"
-                                                              Ang-click="goToPrevLot()"></div>
-                            <a emit-last-repeater-element class="pull-left width100"
-                               ng-repeat="r in auction_params.lot_pictures" ui-sref="lot({lotId:r.lotId})"
-                               target="_blank">
-                                <div class="page-numbers-single">{{auction_params.lots[r].number}}</div>
-                                <div class="room-small-photo">
-                                    <div><img src="/images/lot-images/{{r.fileName}}"></div>
-                                </div>
-                            </a>
+                                                              ng-click="lastPhotos()"></div>
+                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"
+                                                               ng-click="firstPhotos()"></div>
+                            <div class="gallery-carousel">
+                                <a emit-last-repeater-element class="pull-left width100"
+                                   ng-repeat="r in auction_params.lots" ui-sref="lot({lotId:r.id})" target="_blank">
+                                    <div class="page-numbers-single">{{auction_params.lots[$index].number}}</div>
+                                    <div class="room-small-photo">
+                                        <div><img src="/images/lot-images/{{getPicById(r.titlePicId).fileName}}"></div>
+                                    </div>
+                                </a>
+                            </div>
                             <!--<div class="pull-left width100">
                                 <div class="page-numbers-single">149</div>
                                 <div class="room-small-photo">
@@ -231,8 +234,7 @@
                                     <div><img src="/images/FOR_DEV/sm_book.png"></div>
                                 </div>
                             </div>-->
-                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"
-                                                               Ang-click="goToNextLot()"></div>
+
                         </div>
                     </div>
 
@@ -246,7 +248,7 @@
                                 </div>
                                 <hr>
                                 <div class="room-large-book">
-                                    <img src="/images/lot-images/{{current_lot.lotPictures[current_lot.titlePicId].fileName}}"
+                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
                                          width="200pt" ng-if="swap == false">
                                     <img src="/images/lot-images/video.png" width="260pt" ng-if="swap == true">
                                 </div>
@@ -262,16 +264,21 @@
                                 <div class="rate-from-inet">
                                     <span>СТАВКА</span>
                                     <div class="rate-from-inet-sec-row">ИЗ ИНТЕРНЕТА</div>
-                                    <div class="rate-from-inet-third-row">ОТ #14</div>
+                                    <div class="rate-from-inet-third-row">ОТ #{{
+                                        getUserNumber(current_lot.bids[0].creatorId) }}
+                                    </div>
                                 </div>
                                 <div class="dollar-arrows"></div>
                                 <div class="video-container">
                                     <button class="btn swap-btn" ng-click="popo()" style="margin-left: -35px"></button>
-                                    <button class="btn sound-btn" style="margin-left: -35px; margin-top: 50px"></button>
+                                    <button class="btn sound-btn" ng-click="soundOnOff()"
+                                            style="margin-left: -35px; margin-top: 50px">
+                                    </button>
+                                    sourceId-{{sourceId}}
                                     <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
                                     <watch-room room-name="roomName" joined-room="joinedRoom"
                                                 max-num-peers=1000></watch-room>
-                                    <img src="/images/lot-images/{{current_lot.lotPictures[current_lot.titlePicId].fileName}}"
+                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
                                          height="70pt" ng-if="swap == true">
                                     <img src="/images/FOR_DEV/video.png" width="130pt" ng-if = "swap == false">
                                 </div>
@@ -286,10 +293,10 @@
                         <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                     </div>
                     <div class="room-price do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
-                    <div class="room-price number-of-rate col-sm-6">{{current_lot.sellingPrice}}</div>
+                    <div class="room-price number-of-rate col-sm-6">{{bidPrice}}</div>
                 </div>
-                <div class="max-rate">
-                    МАКСИМАЛЬНАЯ СТАВКА
+                    <div class="max-rate" ng-click="maxEstimate()">
+                        <a>МАКСИМАЛЬНАЯ СТАВКА</a>
                 </div>
             </div>
         </div>
