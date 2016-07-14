@@ -209,7 +209,6 @@ define(['./module','jquery'],function(controllers,$){
         $scope.timer.min = Math.floor(razn / 1000 / 60);// вычисляем минуты
         razn -= $scope.timer.min * 1000 * 60;
         $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
-        console.log($scope.timer);
 
             var stop = $interval(function() {
                 if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
