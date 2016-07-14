@@ -149,50 +149,54 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.minus = true;
             }
         };
-            function initStep(){
-                if ($scope.lot.estimateFrom <= 5){
-                    $scope.step = 1;
-                }
-                if (5 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 50){
-                    $scope.step = 10;
-                }
-                if (50 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 200){
-                    $scope.step = 20;
-                }
-                if (200 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 500){
-                    $scope.step = 50;
-                }
-                if (500 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 1000){
-                    $scope.step = 100;
-                }
-                if (1000 < $scope.lot.estimateFrom && $scope.lot.estimateFrom <= 2000) {
-                    $scope.step = 200;
-                }
-                if (2000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 5000){
-                    $scope.step = 500;
-                }
-                if (5000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 10000){
-                    $scope.step = 1000;
-                }
-                if (10000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 20000){
-                    $scope.step = 2000;
-                }
-                if (20000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 50000){
-                    $scope.step = 5000;
-                }
-                if (50000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 100000){
-                    $scope.step = 10000;
-                }
-                if (100000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 200000){
-                    $scope.step = 20000;
-                }
-                if (200000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 500000){
-                    $scope.step = 50000;
-                }
-                if (500000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 1000000){
-                    $scope.step = 100000;
-                }
+
+        function initStep() {
+            var price = $scope.lot.estimateFrom;
+            var step = 1;
+            if (price <= 5) {
+                step = 1;
             }
+            if (5 < price && price <= 50) {
+                step = 5;
+            }
+            if (50 < price && price <= 200) {
+                step = 10;
+            }
+            if (200 < price && price <= 500) {
+                step = 20;
+            }
+            if (500 < price && price <= 1000) {
+                step = 50;
+            }
+            if (1000 < price && price <= 2000) {
+                step = 100;
+            }
+            if (2000 < price && price <= 5000) {
+                step = 200;
+            }
+            if (5000 < price && price <= 10000) {
+                step = 500;
+            }
+            if (10000 < price && price <= 20000) {
+                step = 1000;
+            }
+            if (20000 < price && price <= 50000) {
+                step = 2000;
+            }
+            if (50000 < price && price <= 100000) {
+                step = 5000;
+            }
+            if (100000 < price && price <= 200000) {
+                step = 10000;
+            }
+            if (200000 < price && price <= 500000) {
+                step = 20000;
+            }
+            if (500000 < price && price <= 1000000) {
+                step = 50000;
+            }
+            $scope.step = step;
+        }
         $scope.lastPhotos = function () {
             var t = $('.gallery .small-photo:last-child');
             t.detach().prependTo('.gallery');
