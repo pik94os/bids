@@ -248,6 +248,8 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
                     $scope.current_lot.sellingPrice = data.bid.price;
                     $scope.bidPrice += calcStep($scope.current_lot.sellingPrice);
+                    $scope.timeoutBidUser = true;
+                    setTimeout(function(){$scope.timeoutBidUser = false}, 3000);
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
