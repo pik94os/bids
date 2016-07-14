@@ -320,7 +320,8 @@ define(['./module','jquery'],function(controllers,$){
                 moveToTheRigh();
             });*/
 
-            $scope.roomName = $stateParams.auctionId;
+        $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
+        ;
             $scope.joinedRoom = false;
             $scope.joinRoom = function () {
                 $scope.$broadcast('joinRoom');

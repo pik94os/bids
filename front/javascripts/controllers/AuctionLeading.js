@@ -2,7 +2,7 @@ define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionLeading',['$state','$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($state,$scope,$http,$rootScope,$stateParams, ngSocket){
         $scope.hasStream = true;
-        $scope.roomName =  $stateParams.auctionId;
+        $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
         $scope.isBroadcasting = '';
         $scope.prepare = function prepare() {
             $scope.$broadcast('prepare');
