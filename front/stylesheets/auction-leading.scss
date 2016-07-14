@@ -6,6 +6,7 @@
   &-left {
     background: #131b2e;
     color: white;
+    width: 280px;
     &-in {
       padding: 15px;
       &-title {
@@ -55,7 +56,10 @@
         background: #f0c7c7;
         //height: 112px;
         text-align: center;
-        padding-top: 28px;
+        
+        padding-top: 24px;
+        height: 63px;
+
         &-top {
           font-size: 14px;
           text-transform: uppercase;
@@ -75,8 +79,10 @@
         //height: 100%;
         font-weight: bold;
         padding: 23px;
+	
+width: 310px;
         &-top {
-          font-size: 20px;
+          font-size: 40px;
         }
         &-undertop {
           color: #b90000;
@@ -91,6 +97,9 @@
         //height: 100%;
         font-weight: bold;
         padding: 15px;
+
+	width: 279px;
+
         &-gallery {
           @include clearfix;
           .gallery-div {
@@ -138,6 +147,8 @@
       &-right {
         //height: 100%;
         padding: 15px;
+
+	width: 450px;
         &-camera {
           //height: 160px;
           text-align: center;
@@ -235,7 +246,7 @@
     color: red;
   }
   .auction-button-sale {
-    color: #131b2e;
+ 
     cursor: pointer;
     margin-bottom: 10px;
     padding: 3px 0;
@@ -245,9 +256,13 @@
     background: green;
     width: 50%;
     float: left;
+        color: #fcf8e3;
+    height: 60px;
+    padding-top: 7px;
+    font-size: 32px;
+
   }
   .auction-button-remove {
-    color: #131b2e;
     cursor: pointer;
     margin-bottom: 10px;
     padding: 3px 0;
@@ -257,5 +272,13 @@
     background: red;
     width: 50%;
     float: left;
+    color: #fcf8e3;
+    height: 60px;
+    padding-top: 7px;
+    font-size: 32px;
   }
+}
+
+button {
+    margin: 10px;
 }
