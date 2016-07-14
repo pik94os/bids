@@ -179,6 +179,7 @@ define(['./module','jquery'],function(controllers,$){
         $scope.maxEstimate = function () {
             $scope.bidPrice = $scope.current_lot.estimateTo;
         }
+        
 
             $scope.incrementBid = function () {
                 $scope.bidPrice += Number($scope.current_lot.step);

@@ -205,6 +205,11 @@ define(['./module', 'jquery'], function (controllers, $) {
             var t = $('.gallery .small-photo:first-child');
             t.detach().appendTo('.gallery');
         };
+
+        $scope.maxEstimate2 = function () {
+            $scope.bidPrice = $scope.estimateTo;
+        };
+
     }]);
     function initLotParams(scope, params, values){
         params.forEach(function(item, i) {
