@@ -10,6 +10,9 @@ define(['./module','jquery'],function(controllers,$){
         $scope.start = function start() {
             $scope.$broadcast('start');
         };
+        $scope.reloadPage = function reloadPage() {
+            window.location.reload()
+        };
 
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId,
