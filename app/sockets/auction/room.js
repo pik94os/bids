@@ -4,6 +4,7 @@ const Lot = require('../../models/').Lot;
 const LotPicture = require('../../models/').LotPicture;
 const User = require('../../models/').User;
 
+
 module.exports = function(socket, data) {
     if (!data.id) {
         socket.emit('room',
@@ -20,14 +21,16 @@ module.exports = function(socket, data) {
     Auction.findById(data.id,{
         include:[{
             model: Lot,
-            attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number"],
-            order: '"number" ASC'
+            attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number"]
         },
             {
              model: User,
-             attributes: attributes,
-             order: '"id" DESC'
+             attributes: attributes
             }
+        ],
+        order:[
+            [Lot, 'number', 'ASC'],
+            [User, 'id', 'ASC']
         ]
     }).then(function(auction) {
             getPicturesTitle(auction.lots, function(err, LotPictures){
