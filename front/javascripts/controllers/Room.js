@@ -333,8 +333,18 @@ define(['./module','jquery'],function(controllers,$){
             },2000);
         $scope.swap = false;
         $scope.popo = function () {$scope.swap = !$scope.swap;}
+        
+        $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
+            var video = $("#remotes video")[0];
+            if (video.muted) {
+                video.muted = false;
+            } else {
+                video.muted = true;
+            }
+        }
 
-    }])
+
+    }]);
             function initLotParams(scope, params, values){
                 params.forEach(function(item, i){
                     if(values[item]!=undefined){

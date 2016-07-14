@@ -12,13 +12,9 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/startAuction', {id: $scope.lotId});
         };
         $scope.reloadPage = function reloadPage() {
-            window.location.reload()
+            window.location.reload();
         };
 
-        ngSocket.on('auctionStart', function (data) {
-            console.log(data);
-        });
-        
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId,
             lot: true
