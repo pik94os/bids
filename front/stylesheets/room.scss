@@ -353,6 +353,11 @@
         display: none;
       }
     }
+    .gallery-carousel {
+      width: auto;
+      height: 115px;
+      overflow: hidden;
+    }
     .gallery {
       @include margin-horizontal(-5px);
       @include clearfix;
@@ -514,7 +519,7 @@
       margin-right: -10px;
     }
     .page-numbers-single {
-      width: 67pt;
+      width: 57pt;
       text-align: center;
       padding-bottom: 10px;
       margin: 2pt;
@@ -680,6 +685,7 @@
       padding-top: 12px;
       white-space: nowrap;
       font-weight: bold;
+      cursor: pointer;
     }
     .number-of-rate {
       border-width: 0 0 0 1px;

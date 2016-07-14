@@ -27,8 +27,7 @@ module.exports = function (socket, data) {
                 order: [['id', 'ASC']]
             }).then((lot)=>{
                 lot.isPlayOut = true;
-                return lot.save(lot).then((a)=>{
-                    console.log(a);
+                return lot.save(lot).then(()=>{
                     socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
                         lotId: lot.id,
                         isSold: data.isSold,

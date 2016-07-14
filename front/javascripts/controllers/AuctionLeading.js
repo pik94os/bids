@@ -2,16 +2,17 @@ define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionLeading',['$state','$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($state,$scope,$http,$rootScope,$stateParams, ngSocket){
         $scope.hasStream = true;
-        $scope.roomName =  $stateParams.auctionId;
+        $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
         $scope.isBroadcasting = '';
         $scope.prepare = function prepare() {
             $scope.$broadcast('prepare');
         };
         $scope.start = function start() {
             $scope.$broadcast('start');
+            ngSocket.emit('auction/startAuction', {id: $scope.lotId});
         };
         $scope.reloadPage = function reloadPage() {
-            window.location.reload()
+            window.location.reload();
         };
 
         ngSocket.emit('auction/getLotList', {
@@ -23,19 +24,19 @@ define(['./module','jquery'],function(controllers,$){
                 alert(data.message);
             }
             $scope.dateAuction = data.data.date;
-            if(new Date(data.data.date) <= new Date()) {$scope.startAuction = true}
+            if(new Date(data.data.date) <= new Date()) {
+                $scope.startAuction = true;
+                ngSocket.emit('auction/updateLot', {
+                    lotId: +$scope.lotId,
+                    isPlayOut: true
+                });
+            }
         });
+
         function setLotInfo(lot) {
             $scope.lotList = lot;
             if(lot.descriptionPrev !== null) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
-            }
-            if(new Date($scope.dateAuction) <= new Date()) {
-                ngSocket.emit('auction/updateLot', {
-                    isPlayOut: true,
-                    isSold: false,
-                    isCl: false
-                });
             }
             $scope.lotImage = lot.lot_pictures;
             $scope.lotId = lot.id;
@@ -45,7 +46,6 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);
         });
-
 
 
         ngSocket.on('room', function (auction) {
