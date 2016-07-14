@@ -20,7 +20,7 @@ module.exports = function(socket, data) {
     Auction.findById(data.id,{
         include:[{
             model: Lot,
-            attributes: ["id", "isPlayOut", "isSold", "titlePicId"],
+            attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number"],
             order: '"number" ASC'
         },
             {
