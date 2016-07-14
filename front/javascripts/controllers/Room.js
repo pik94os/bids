@@ -20,7 +20,7 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
 
-        });$scope.current_lot
+        });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
             //init auction params
             $scope.auction_params =
@@ -102,10 +102,13 @@ define(['./module','jquery'],function(controllers,$){
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
+                if($scope.auction_params.lots[currentId]!==undefined){
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
-
+                }else{
+                    console.log('lot['+currentId+'] not found!');
+                }
                 var curDate = new Date();
                 $scope.showProgress = function (date) {
                     // 24 часа - 86400000 милисекунд
@@ -162,11 +165,14 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.on('lotSelected', function (data) {
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
-                $scope.bidPrice = data.lot.estimateFrom;
+                if($scope.bidPrice < $scope.current_lot.sellingPrice)
+                {
+                    $scope.bidPrice = $scope.current_lot.sellingPrice
+                }else {
+                    $scope.bidPrice = data.lot.estimateFrom;
+                }
                 $scope.current_lot.lot_pictures = data.lotPictures;
-                console.log($scope.current_lot);
             });
-
             $scope.incrementBid = function () {
                 $scope.bidPrice += Number($scope.current_lot.step);
             }
@@ -180,6 +186,7 @@ define(['./module','jquery'],function(controllers,$){
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
+                
             }
 
             $scope.confirmLot = function () {
@@ -207,11 +214,13 @@ define(['./module','jquery'],function(controllers,$){
                 });
             };
 
+        
             ngSocket.on('lotConfirmed', function (data) {
                 console.log(data);
                 if (data.err == 0){
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
+                    $scope.current_lot.sellingPrice = data.bid.price;
                 }
                 $scope.confirm = data
             });

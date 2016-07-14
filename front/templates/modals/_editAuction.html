@@ -1,0 +1,43 @@
+<modal title="Редактирование аукциона" id="edit-auction" width="lg">
+    <div class="row row-1">
+        <div class="col-sm-12">
+            <!--<div class="custom-input-lg" contenteditable="true" ng-model="nameAuction">Название аукциона</div>-->
+            <input class="custom-input" contenteditable="true" placeholder="Название аукциона" type="text" ng-model="editedAuction.nameAuction">
+        </div>
+        <div class="col-sm-4"><input class="custom-input" placeholder="Номер аукциона" type="text" ng-model="editedAuction.numberAuction"></div>
+    </div>
+    <br class="hidden-xs"/>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row row-1">
+                <div class="col-sm-12">Дата проведения</div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Число" type="text" ng-model="editedAuction.date[0]"></div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Месяц" type="text" ng-model="editedAuction.date[1]"></div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Год" type="text" ng-model="editedAuction.date[2]"></div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="row row-1">
+                <div class="col-sm-12">Время проведения</div>
+                <div class="col-sm-6"><input class="custom-input" placeholder="Час" type="text" ng-model="editedAuction.date[3]"></div>
+                <div class="col-sm-6"><input class="custom-input" placeholder="Минуты" type="text" ng-model="editedAuction.date[4]"></div>
+            </div>
+        </div>
+    </div>
+    <br class="hidden-xs"/>
+    <div class="row row-1">
+        <div class="col-sm-12">Место проведения</div>
+        <div class="col-sm-12"><input class="custom-input" placeholder="Место проведения" type="text" ng-model="editedAuction.placeAuction"></div>
+    </div>
+    <div class="row">
+        <div class="checkbox">
+            <input type="checkbox" id="create-auction-checkbox">
+            <label for="create-auction-checkbox">Я принимаю условия и согласен к обработке данных</label>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-sm-9"><div class="custom-btn"  data-dismiss="modal" ui-sref="auction" ng-click="editAuction()">Сохранить и перейти к наполнению лотов</div></div>
+        <div class="col-sm-3"><div class="custom-btn-default"  data-dismiss="modal">Отмена</div></div>
+    </div>
+</modal>
