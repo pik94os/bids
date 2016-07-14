@@ -252,11 +252,24 @@
                                     {{current_lot.description.slice(0,70)+'...'}}
                                 </div>
                                 <hr>
-                                <div class="room-large-book">
-                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
-                                         width="200pt" ng-if="swap == false">
-                                    <img src="/images/lot-images/video.png" width="260pt" ng-if="swap == true">
-                                </div>
+                                <!--<div class="room-large-book">-->
+                                    <!--<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"-->
+                                         <!--width="200pt" ng-hide="swap">-->
+
+                                    <!--<div ng-hide="swap">-->
+                                        <!--<img src="/images/FOR_DEV/video.png" width="200pt">-->
+                                    <!--</div>-->
+
+                                    <!--<div ng-hide="swap">-->
+                                        <!--<img src="/images/FOR_DEV/video.png">-->
+                                        <!--&lt;!&ndash;<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"&ndash;&gt;-->
+                                        <!--&lt;!&ndash;width="200pt" ng-hide="swap">&ndash;&gt;-->
+                                    <!--</div>-->
+
+
+                                    <!--<img src="/images/FOR_DEV/video.png" width="200pt" ng-if="swap == true">-->
+                                    <!--<img src="/images/FOR_DEV/video.png" width="260pt" ng-if="swap == false">-->
+                                <!--</div>-->
                             </div>
                             <div class="col-xs-4">
                                 <div class="description-the-book">
@@ -275,39 +288,53 @@
                                 </div>
                                 <!--<div class="dollar-arrows"></div>-->
                                 <div class="video-container">
-                                    <button class="btn swap-btn" ng-click="popo()" style="margin-left: -35px"></button>
+                                    <button class="btn swap-btn" ng-click="changeClassVideoWindow()"
+                                            style="margin-left: -35px"></button>
                                     <button class="btn sound-btn" ng-click="soundOnOff()"
                                             style="margin-left: -35px; margin-top: 50px">
                                     </button>
                                     <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
-                                    <watch-room room-name="roomName" joined-room="joinedRoom"
-                                                max-num-peers=1000></watch-room>
-                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
-                                         height="70pt" ng-if="swap == true">
-                                    <!--<img src="/images/FOR_DEV/video.png" width="130pt" ng-if = "swap == false">-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row">
+                                    <!--<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"-->
+                                     <!--height="70pt" ng-if="swap == true">-->
 
-                        <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice"
-                                                                  placeholder="Сделайте шаг / впишите свой"
-                                                                  value="{{bidPrice}}" ng-change="formatBid()">
-                            <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
-                            <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
-                        </div>
-                        <div class="room-price do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
-                        <div class="room-price number-of-rate col-sm-6">{{bidPrice}}</div>
-                    </div>
-                    <div class="max-rate" ng-click="maxEstimate()">
-                        <a>МАКСИМАЛЬНАЯ СТАВКА</a>
-                    </div>
 
-                </div>
-            </div>
-        </div>
-        <br>
-    </div>
+
+                                    <div ng-class="{'classForVideo-small':aaa,'classForVideo-big':!aaa}">
+                                        <!--<img src="/images/FOR_DEV/video.png">-->
+                                        <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}">
+                                    </div>
+                                    <div ng-class="{'classForVideo-big':aaa,'classForVideo-small':!aaa}">
+                                       <watch-room room-name="roomName"
+                                                   joined-room="joinedRoom"
+                                                   max-num-peers="1000">
+                                       </watch-room>
+                                    </div>
+
+
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+                   <div class="row">
+
+                       <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice"
+                                                                 placeholder="Сделайте шаг / впишите свой"
+                                                                 value="{{bidPrice}}" ng-change="formatBid()">
+                           <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
+                           <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
+                       </div>
+                       <div class="room-price do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
+                       <div class="room-price number-of-rate col-sm-6">{{bidPrice}}</div>
+                   </div>
+                   <div class="max-rate" ng-click="maxEstimate()">
+                       <a>МАКСИМАЛЬНАЯ СТАВКА</a>
+                   </div>
+
+               </div>
+           </div>
+       </div>
+       <br>
+   </div>
 </div>

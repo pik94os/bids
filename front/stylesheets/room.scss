@@ -660,6 +660,7 @@
       border-width: 0 4px 0 0;
       border-style: solid;
       border-color: #e2f3fb;
+      height: calc(100% - 10px);
     }
     .description-the-book {
       background: white;
@@ -762,4 +763,19 @@
       width: 100%;
     }
   }
+  .classForVideo {
+    &-small {
+      height: 106px;
+      padding-top: 20px;
+      width: 130px;
+    }
+    &-big {
+      bottom: -37px;
+      height: 220px;
+      position: absolute;
+      right: 180px;
+      width: 285px;
+    }
+  }
 }
+
