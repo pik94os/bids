@@ -36,7 +36,7 @@ module.exports = function(socket, data) {
                     auction: auction,
                     lotPictures: LotPictures
                 });
-            })
+            });
         socket.join('auction:' + data.id);
         }).catch(function (err) {
         socket.emit('room',
