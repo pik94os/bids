@@ -125,7 +125,8 @@
                         <img src="images/image-body-in.png">
                     </div>
                     <div class="auction-body">
-                        <p class="auction-body-header">{{myDate(auction.date)}} | Москва | Online</p>
+                        <p class="auction-body-header">{{auction.date | dateTimeFilter}} | Москва | Online</p>
+                        <!--<p class="auction-body-header">{{myDate(auction.date)}} | Москва | Online</p>-->
                         <p class="front-body-in-center-p2">Аукцион {{auction.number}}</p>
                         <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
                         <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
