@@ -165,7 +165,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 if (500 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 1000){
                     $scope.step = 100;
                 }
-                if (1000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 2000){
+                if (1000 < $scope.lot.estimateFrom && $scope.lot.estimateFrom <= 2000) {
                     $scope.step = 200;
                 }
                 if (2000 < $scope.lot.estimateFrom &&  $scope.lot.estimateFrom <= 5000){

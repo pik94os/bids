@@ -99,7 +99,7 @@ module.exports = function(socket, data) {
         if (500 < price && price <= 1000){
             step = 100;
         }
-        if (1000 < price && price <= 2000){
+        if (1000 < price && price <= 2000) {
             step = 200;
         }
         if (2000 < price && price <= 5000){
