@@ -256,7 +256,9 @@
                             <div class="col-xs-4">
                                 <div class="description-the-book">
                                     <div class="recommended-price">ПРЕДЛОЖЕННАЯ ЦЕНА</div>
-                                    <div class="recommended-price-number">{{current_lot.sellingPrice}}</div>
+                                    <div class="recommended-price-number">{{+current_lot.sellingPrice | toLocaleString}}
+                                        Р.
+                                    </div>
                                     <br>
 
                                 </div>
