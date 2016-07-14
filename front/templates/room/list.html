@@ -270,7 +270,10 @@
                                 <div class="dollar-arrows"></div>
                                 <div class="video-container">
                                     <button class="btn swap-btn" ng-click="popo()" style="margin-left: -35px"></button>
-                                    <button class="btn sound-btn" style="margin-left: -35px; margin-top: 50px"></button>
+                                    <button class="btn sound-btn" ng-click="soundOnOff()"
+                                            style="margin-left: -35px; margin-top: 50px">
+                                    </button>
+                                    sourceId-{{sourceId}}
                                     <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
                                     <watch-room room-name="roomName" joined-room="joinedRoom"
                                                 max-num-peers=1000></watch-room>
