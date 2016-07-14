@@ -155,7 +155,7 @@
                                  ng-repeat="r in auction_params.users_number"
                                  ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,
             'lot-table-press-inet':r===5, 'lot-table-press-zal':r===6,
-            'lot-table-stavka':r===7, 'lot-table-user':r===8}"
+            'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].creatorId), 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"
                                  ng-click='setPopup($index)'>
                                 <!--<div class="popup-window" ng-show="popup===$index">
                                     <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
