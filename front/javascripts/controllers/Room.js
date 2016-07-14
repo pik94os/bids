@@ -79,10 +79,11 @@ define(['./module','jquery'],function(controllers,$){
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
+                if($scope.auction_params.lots[currentId]!==undefined){
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
-
+                }
                 var curDate = new Date();
                 $scope.showProgress = function (date) {
                     // 24 часа - 86400000 милисекунд
