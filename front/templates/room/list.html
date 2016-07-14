@@ -205,7 +205,7 @@
                                    ng-repeat="r in auction_params.lots" ui-sref="lot({lotId:r.id})" target="_blank">
                                     <div class="page-numbers-single">{{auction_params.lots[$index].number}}</div>
                                     <div class="room-small-photo">
-                                        <div><img src="/images/lot-images/{{getPicById(r.titlePicId).fileName}}" onerror="this.onerror=null;this.src='/images/lot-images/no-photo.jpg'"></div>
+                                        <div><img ng-src="/images/lot-images/{{getPicById(r.titlePicId).fileName}}" err-src='/images/lot-images/no-photo.jpg'></div>
                                     </div>
                                 </a>
                             </div>
@@ -253,8 +253,8 @@
                                 </div>
                                 <hr>
                                 <div class="room-large-book">
-                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
-                                         width="200pt" ng-if="swap == false" onerror="this.onerror=null;this.src='/images/lot-images/no-photo.jpg';">
+                                    <img mg-src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
+                                         width="200pt" ng-if="swap == false" err-src='/images/lot-images/no-photo.jpg'>
                                     <img src="/images/lot-images/video.png" width="260pt" ng-if="swap == true">
                                 </div>
                             </div>
@@ -282,8 +282,8 @@
                                     <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
                                     <watch-room room-name="roomName" joined-room="joinedRoom"
                                                 max-num-peers=1000></watch-room>
-                                    <img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
-                                         height="70pt" ng-if="swap == true" onerror="this.onerror=null;this.src='/images/lot-images/no-photo.jpg'">
+                                    <img ng-src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"
+                                         height="70pt" ng-if="swap == true" err-src='/images/lot-images/no-photo.jpg'>
                                     <!--<img src="/images/FOR_DEV/video.png" width="130pt" ng-if = "swap == false">-->
                                 </div>
                             </div>
