@@ -9,11 +9,16 @@ define(['./module','jquery'],function(controllers,$){
         };
         $scope.start = function start() {
             $scope.$broadcast('start');
+            ngSocket.emit('auction/startAuction', {id: $scope.lotId});
         };
         $scope.reloadPage = function reloadPage() {
             window.location.reload()
         };
 
+        ngSocket.on('auctionStart', function (data) {
+            console.log(data);
+        });
+        
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId,
             lot: true
@@ -23,19 +28,19 @@ define(['./module','jquery'],function(controllers,$){
                 alert(data.message);
             }
             $scope.dateAuction = data.data.date;
-            if(new Date(data.data.date) <= new Date()) {$scope.startAuction = true}
+            if(new Date(data.data.date) <= new Date()) {
+                $scope.startAuction = true;
+                ngSocket.emit('auction/updateLot', {
+                    lotId: +$scope.lotId,
+                    isPlayOut: true
+                });
+            }
         });
+
         function setLotInfo(lot) {
             $scope.lotList = lot;
             if(lot.descriptionPrev !== null) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
-            }
-            if(new Date($scope.dateAuction) <= new Date()) {
-                ngSocket.emit('auction/updateLot', {
-                    isPlayOut: true,
-                    isSold: false,
-                    isCl: false
-                });
             }
             $scope.lotImage = lot.lot_pictures;
             $scope.lotId = lot.id;
@@ -45,7 +50,6 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);
         });
-
 
 
         ngSocket.on('room', function (auction) {

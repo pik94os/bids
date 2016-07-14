@@ -140,10 +140,14 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.on('lotSelected', function (data) {
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
-                $scope.bidPrice = data.lot.estimateFrom;
+                if($scope.bidPrice < $scope.current_lot.sellingPrice)
+                {
+                    $scope.bidPrice = $scope.current_lot.sellingPrice
+                }else {
+                    $scope.bidPrice = data.lot.estimateFrom;
+                }
                 $scope.current_lot.lotPictures = data.lotPictures;
             });
-
             $scope.incrementBid = function () {
                 $scope.bidPrice += Number($scope.current_lot.step);
             }
@@ -157,6 +161,7 @@ define(['./module','jquery'],function(controllers,$){
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
+                
             }
 
             $scope.confirmLot = function () {
@@ -184,11 +189,13 @@ define(['./module','jquery'],function(controllers,$){
                 });
             };
 
+        
             ngSocket.on('lotConfirmed', function (data) {
                 console.log(data);
                 if (data.err == 0){
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
+                    $scope.current_lot.sellingPrice = data.bid.price;
                 }
                 $scope.confirm = data
             });

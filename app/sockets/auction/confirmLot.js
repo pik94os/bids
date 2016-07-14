@@ -14,6 +14,7 @@ module.exports = function(socket, data) {
         );
         return
     }
+
     const user = socket.request.user;
 
     if(!socket.request.user.logged_in){
@@ -32,14 +33,18 @@ module.exports = function(socket, data) {
                     if (err) return emitError(socket, err);
                 Bid.create({price: data.bidPrice, lotId: lot.id, creatorId: user.id})
                     .then(function (bid){
-                        socket.emit('lotConfirmed',
-                            {err: 0, bid: bid});
+                        lot.sellingPrice=data.bidPrice;
+                        return lot.save().then(function (lot) {
+                            socket.emit('lotConfirmed',
+                                {err: 0, bid: bid});
+                            socket.to('auction:'+(+lot.auctionId)).emit('lotConfirmed', {err: 0, bid: bid});
+                        });
                     }).catch(function (err) {
                         return emitError(socket, err);
                     })
                 })
             })
-    })
+    });
 
     function findLot(lotId, cb){
         Lot.findById(lotId)
