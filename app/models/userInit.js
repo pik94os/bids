@@ -34,7 +34,8 @@ class Initiator {
                 AuctionHouse: that.AuctionHouse,
                 Lot: that.Lot,
                 LotPicture: that.LotPicture,
-                Bid: that.Bid
+                Bid: that.Bid,
+                AuctionUser: that.AuctionUser
             }
         }).catch(function (err) {
             console.error(err.message)
@@ -46,6 +47,7 @@ class Initiator {
         this.Role = connection.define('role', RoleMeta.attributes, RoleMeta.options);
         this.RoleRight = connection.define('role_right', {});
         this.AuctionUser = connection.define('auction_user', {});
+        // this.AuctionUser = connection.define('auction_user', AuctionUserMeta.attributes);
         this.User = connection.define('users', UserMeta.attributes, UserMeta.options);
         this.AuctionHouse = connection.define('auction_houses', AuctionHouseMeta.attributes);
         this.Auction = connection.define('auction', AuctionMeta.attributes);
