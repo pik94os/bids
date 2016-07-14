@@ -126,6 +126,8 @@ module.exports = function(socket, data) {
         }
         if (500000 < price && price <= 1000000){
             step = 50000;
+        } else {
+            step = 100000;
         }
         return step;
     }
