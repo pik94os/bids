@@ -21,8 +21,6 @@ module.exports = function(socket, data) {
         userId: +data.userId,
         isArchive: false
     };
-
-
         if (data.editId){
             Auction.update(
                 auctionData

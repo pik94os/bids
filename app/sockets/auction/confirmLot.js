@@ -39,7 +39,11 @@ module.exports = function(socket, data) {
                         return lot.save().then(function (lot) {
                             socket.emit('lotConfirmed',
                                 {err: 0, bid: bid});
-                            socket.to('auction:'+(+lot.auctionId)).emit('lotConfirmed', {err: 0, bid: bid});
+                            socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
+                                err: 0,
+                                bid: bid,
+                                userName: socket.request.user
+                            });
                         });
                     }).catch(function (err) {
                         return emitError(socket, err);
