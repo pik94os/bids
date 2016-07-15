@@ -187,10 +187,11 @@ define(['./module','jquery'],function(controllers,$){
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
                 {
                     $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep(data.lot.estimateFrom)
+                    //$scope.$apply();
                 } else {
                     $scope.bidPrice = data.lot.estimateFrom + calcStep(data.lot.estimateFrom);
                     $scope.current_lot.sellingPrice = data.lot.estimateFrom;
-                    $scope.$apply();
+                    //$scope.$apply();
                 }
                 $scope.current_lot.lot_pictures = data.lotPictures;
                 $scope.current_lot.bids = data.bids;
