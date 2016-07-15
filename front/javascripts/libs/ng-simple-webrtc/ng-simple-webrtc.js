@@ -68,7 +68,6 @@
               }
 
               $scope.$emit('joinedRoom', name);
-
               webrtc.on('channelMessage', function (peer, message) {
                 console.log('received channel message "%s" from peer "%s"',
                   message, peer.nick || peer.id);
