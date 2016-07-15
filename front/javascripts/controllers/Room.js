@@ -11,9 +11,9 @@ define(['./module','jquery'],function(controllers,$){
                     return console.log(data);
                 }
                 // var date = new Date(data.auction.date);
-                ngSocket.on('countDown', function () {
-                    $scope.countdown = 3
-                });
+                // ngSocket.on('countDown', function () {
+                //     $scope.countdown = 3
+                // });
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
@@ -185,15 +185,18 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.on('lotSelected', function (data) {
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
+                console.log(+calcStep(+$scope.current_lot.sellingPrice), +$scope.current_lot.sellingPrice);
+                //$scope.bidPrice = +data.lot.estimateFrom + calcStep(+data.lot.estimateFrom);
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
                 {
-                    $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep(data.lot.estimateFrom)
-                    //$scope.$apply();
+                    $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
+                    $scope.$apply();
                 } else {
-                    $scope.bidPrice = data.lot.estimateFrom + calcStep(data.lot.estimateFrom);
-                    $scope.current_lot.sellingPrice = data.lot.estimateFrom;
-                    //$scope.$apply();
+                    $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
+                    $scope.$apply();
+
                 }
+                //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
                 $scope.current_lot.lot_pictures = data.lotPictures;
                 $scope.current_lot.bids = data.bids;
             });
@@ -264,11 +267,14 @@ define(['./module','jquery'],function(controllers,$){
 
 
         ngSocket.on('lotConfirmed', function (data) {
-                if (data.err == 0){
+            if (data.err) {
+                alert(data.message);
+            }
+            if (data.err == 0) {
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
                     $scope.current_lot.sellingPrice = data.bid.price;
-                    $scope.bidPrice += calcStep($scope.current_lot.sellingPrice);
+                $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep($scope.current_lot.sellingPrice);
                     $scope.timeoutBidUser = true;
                     setTimeout(function () {
                         $scope.timeoutBidUser = false
@@ -355,7 +361,8 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 }
             }
-        //ngSocket.emit('getAuction', {id: $stateParams.auctionId});
+
+        ngSocket.emit('getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('auctionState', function (data) {
             ngSocket.emit('auction/getLot', {
@@ -411,50 +418,49 @@ define(['./module','jquery'],function(controllers,$){
             function calcStep(price){
                 var step = 1;
                 if (price <= 5){
-                    step = 1;
+                    return step = 1;
                 }
-                if (5 < price &&  price <= 50){
-                    step = 5;
+                if (5 < price && price <= 50) {
+                    return step = 5;
                 }
                 if (50 < price && price <= 200){
-                    step = 10;
+                    return step = 10;
                 }
                 if (200 < price && price <= 500){
-                    step = 20;
+                    return step = 20;
                 }
                 if (500 < price && price <= 1000){
-                    step = 50;
+                    return step = 50;
                 }
                 if (1000 < price && price <= 2000) {
-                    step = 100;
+                    return step = 100;
                 }
                 if (2000 < price && price <= 5000){
-                    step = 200;
+                    return step = 200;
                 }
                 if (5000 < price && price <= 10000){
-                    step = 500;
+                    return step = 500;
                 }
                 if (10000 < price && price <= 20000){
-                    step = 1000;
+                    return step = 1000;
                 }
                 if (20000 < price && price <= 50000){
-                    step = 2000;
+                    return step = 2000;
                 }
                 if (50000 < price && price <= 100000){
-                    step = 5000;
+                    return step = 5000;
                 }
                 if (100000 < price && price <= 200000){
-                    step = 10000;
+                    return step = 10000;
                 }
                 if (200000 < price && price <= 500000){
-                    step = 20000;
+                    return step = 20000;
                 }
                 if (500000 < price && price <= 1000000){
-                    step = 50000;
+                    return step = 50000;
                 } else {
-                    step = 100000;
+                    step = 10000;
                 }
                 return step;
             }
-
 });
