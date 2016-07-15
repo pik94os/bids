@@ -33,7 +33,7 @@ module.exports = function(socket, data) {
                     if (err) return emitError(socket, err);
                 Bid.create({price: data.bidPrice, lotId: lot.id, creatorId: user.id})
                     .then(function (bid){
-                        lot.sellingPrice=data.bidPrice;
+                        lot.sellingPrice = data.bidPrice;
                         return lot.save().then(function (lot) {
                             socket.emit('lotConfirmed',
                                 {err: 0, bid: bid});
