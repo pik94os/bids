@@ -30,12 +30,34 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId
         });
+        $scope.lotList = [];
         ngSocket.on('lotList', function (data) {
             $scope.lotList = JSON.parse(JSON.stringify(data.lotList));
             // $scope.listPics = JSON.parse(JSON.stringify(data.listPics));
             // $scope.lotList = data.lotList;
             ngSocket.emit('auction/getAuction', {id: +$stateParams.auctionId});
             // console.log('>>>>>>>>>>>'+data);
+        });
+
+
+        ngSocket.on('auctionState', function (data) {
+            console.log(data);
+            if ($scope.lotList.length) {
+                $scope.lotList.forEach(function (cLot) {
+                    if (+cLot.id === +data.lotId) {
+                        cLot.isPlayOut = true;
+                    } else {
+                        cLot.isPlayOut = false;
+                    }
+                    if (+cLot.id === +data.oldLotId) {
+                        cLot.isSold = +data.isSold;
+                        cLot.isCl = +data.isCl;
+                        cLot.sellingPrice = data.lot.sellingPrice;
+                    }
+
+                });
+                $scope.$apply();
+            }
         });
         
         // ngSocket.emit('auction/getPictureList', {

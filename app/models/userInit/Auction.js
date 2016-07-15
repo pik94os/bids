@@ -11,6 +11,7 @@ var attributes = {
     },
     number: {type: Sequelize.INTEGER},
     date: {type: Sequelize.DATE},
+    start: {type: Sequelize.DATE},
     isArchive: {type: Sequelize.BOOLEAN}
 };
 

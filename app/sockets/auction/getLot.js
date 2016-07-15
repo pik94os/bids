@@ -28,6 +28,9 @@ module.exports = function(socket, data) {
                         ['price', 'DESC']
                     ]
                 }).then(function (bids) {
+                    if(!lot.sellingPrice){
+                        lot.sellingPrice = lot.estimateFrom;
+                    }
                     socket.emit('lotSelected', {
                         'err': 0,
                         lot: lot,
