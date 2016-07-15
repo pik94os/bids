@@ -11,9 +11,9 @@ define(['./module','jquery'],function(controllers,$){
                     return console.log(data);
                 }
                 var date = new Date(data.auction.date);
-                ngSocket.on('countDown', function () {
-                    $scope.countdown = 3
-                });
+                // ngSocket.on('countDown', function () {
+                //     $scope.countdown = 3
+                // });
                 //$scope.countdown = (data.auction.start) ? 2 : 1;
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
