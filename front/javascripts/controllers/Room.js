@@ -270,13 +270,9 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.current_lot.sellingPrice = data.bid.price;
                     $scope.bidPrice += calcStep($scope.current_lot.sellingPrice);
                     $scope.timeoutBidUser = true;
-<<<<<<< HEAD
-                    setTimeout(function(){$scope.timeoutBidUser = false}, 3000);
-=======
                     setTimeout(function () {
                         $scope.timeoutBidUser = false
                     }, 3000);
->>>>>>> origin/dev
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
