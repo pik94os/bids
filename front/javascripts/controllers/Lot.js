@@ -22,7 +22,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
             $scope.isPlayOut = $scope.lot.isPlayOut;
-            $scope.open = ($scope.lot.isSold) ? 2 : 1;
+            $scope.open = ($scope.lot.isSold||$scope.lot.isCl) ? 2 : 1;
             ngSocket.emit('auction/getLotList', {
                 auctionId: $scope.lot.auctionId,
                 selectLot: true
@@ -96,7 +96,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.descriptionArr = $scope.deleteTegP($scope.lot.description);
             $scope.descriptionPrevArr = $scope.deleteTegP($scope.lot.descriptionPrev);
             $scope.isPlayOut = $scope.lot.isPlayOut;
-            $scope.open = ($scope.lot.isSold) ? 2 : 1;
+            $scope.open = ($scope.lot.isSold||$scope.lot.isCl) ? 2 : 1;
             $scope.bidPrice =  $scope.lot.estimateFrom;
             initLotParams($scope, params, $scope.lot);
             initStep();
