@@ -218,57 +218,72 @@
                         </div>
                     </div>
                 </div>
+
+                <!--чат-->
+
                 <div class="pageAuctionLeading-right-bottom row">
                     <div class="pageAuctionLeading-right-bottom-left col-md-7">
-                        <input placeholder="> Апрелев: Конечно. Какой ?" size="70">
+                        <input size="70" ng-model="chatMessage">
+                        <div class="button btn-primary" ng-click="pasteChatMessage(chatMessage)">отправить</div>
+                        <div>
+
+                        </div>
+
                         <div class="pageAuctionLeading-right-bottom-left-chat">
                             <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="black">Апрелев</div> > <div class="black">все</div> : Можно вопрос?
+                                <!--<div class="black">Апрелев</div> > <div class="black">все</div> : Можно вопрос?-->
+                                <div ng-repeat="chatMessage in chatMessagesArr">
+                                    <div class="black">{{chatMessage.userId}}</div> <!--&gt; <div class="black">все</div>--> :
+                                    {{chatMessage.message}}
+                                </div>
+
                             </div>
+
                             <div class="pageAuctionLeading-right-bottom-left-chat-cross">
 
                             </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="red-underline">Админ</div> > <div class="black">все</div> : <div class="red">Вопрос закрыт</div>
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
 
-                            </div>
                         </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="red-underline">Админ</div> > <div class="black">Аргосян</div> : <div class="red">Если купите, мы в доле ;)</div>
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
+                        <!--<div class="pageAuctionLeading-right-bottom-left-chat">-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-text">-->
+                                <!--<div class="red-underline">Админ</div> > <div class="black">все</div> : <div class="red">Вопрос закрыт</div>-->
+                            <!--</div>-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-cross">-->
 
-                            </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="black">Аргосян</div> > <div class="black">Админ</div> : Я малость очкую...
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="pageAuctionLeading-right-bottom-left-chat">-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-text">-->
+                                <!--<div class="red-underline">Админ</div> > <div class="black">Аргосян</div> : <div class="red">Если купите, мы в доле ;)</div>-->
+                            <!--</div>-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-cross">-->
 
-                            </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="black">Порной</div> > <div class="black">все</div> : Ну ну, покажи нам, что ты умеешь )))
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="pageAuctionLeading-right-bottom-left-chat">-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-text">-->
+                                <!--<div class="black">Аргосян</div> > <div class="black">Админ</div> : Я малость очкую...-->
+                            <!--</div>-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-cross">-->
 
-                            </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="black">Аргосян</div> > <div class="black">все</div> : Вы все тут слабаки!
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="pageAuctionLeading-right-bottom-left-chat">-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-text">-->
+                                <!--<div class="black">Порной</div> > <div class="black">все</div> : Ну ну, покажи нам, что ты умеешь )))-->
+                            <!--</div>-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-cross">-->
 
-                            </div>
-                        </div>
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="pageAuctionLeading-right-bottom-left-chat">-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-text">-->
+                                <!--<div class="black">Аргосян</div> > <div class="black">все</div> : Вы все тут слабаки!-->
+                            <!--</div>-->
+                            <!--<div class="pageAuctionLeading-right-bottom-left-chat-cross">-->
+
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                     <div class="pageAuctionLeading-right-bottom-right col-md-5">
                         <div class="grey">

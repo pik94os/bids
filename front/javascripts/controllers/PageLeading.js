@@ -121,5 +121,15 @@ define(['./module','jquery'],function(controllers,$){
             moveToTheRigh();
         });        
 
+        // // функционал чата на странице ведущего (почему то не работает из этого контроллера)
+        // $scope.pasteChatMessage = function (chatMessage) {
+        //     console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
+        //     ngSocket.emit('auction/pasteChatMessage', {
+        //         // userId: 2,
+        //         chatMessage: 'dsadasdasd'
+        //     });
+        // }
+        
+        
     }])
 });

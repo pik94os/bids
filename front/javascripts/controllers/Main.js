@@ -375,5 +375,26 @@ define(['./module', 'jquery'], function (controllers, $) {
             return mas;
         };
         // удаление <p></p> из текста и удаление @ кон
+
+
+        // функционал чата на странице ведущего
+        $scope.pasteChatMessage = function (chatMessage) {
+
+            ngSocket.emit('auction/pasteChatMessage', {
+                userId: +$scope.currentUserInfo.id,
+                auctionId: +$stateParams.auctionId,
+                chatMessage: chatMessage
+            });
+            // $scope.chatMessage = null;
+        };
+
+        ngSocket.emit('auction/getChatMessages', {
+            auctionId: 39
+        });
+        ngSocket.on('chatMessagesList', function (result) {
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
+            $scope.chatMessagesArr = result.chatMessagesList;
+            $scope.$apply();
+        });
     }])
 });

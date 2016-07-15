@@ -51,7 +51,10 @@ module.exports = function(io,passportSocketIo) {
             {event:'userAuction', access:0, comment: "регистрация пользователя для аукциона"},
             //лоты
             {event:'auction/updateLot', access:0, comment: "обновление лотов"},
-            {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"}
+            {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"},
+            // чат
+            {event:'auction/pasteChatMessage', access:0, comment: "добавление сообщений в чат"},
+            {event:'auction/getChatMessages', access:0, comment: "получение сообщений из чата определенного аукциона"}
         ];
 
         //цикл проходит по всем элементам массива возвращая нужное событие
