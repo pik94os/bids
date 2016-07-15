@@ -5,6 +5,7 @@
 const Lot = require('../../models/').Lot;
 const User = require('../../models/').User;
 const Bid = require('../../models/').Bid;
+const Auction = require('../../models/').Auction;
 
 
 module.exports = function(socket, data) {
@@ -26,14 +27,15 @@ module.exports = function(socket, data) {
 
     findLot(data.lotId, function(err, lot){
         if (err) return emitError(socket, err);
-        if (err) return emitError(socket, err);
             findUser(user.id, function (err, user){
                 if (err) return emitError(socket, err);
                 checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, function(err){
                     if (err) return emitError(socket, err);
                 Bid.create({price: data.bidPrice, lotId: lot.id, creatorId: user.id})
                     .then(function (bid){
-                        lot.sellingPrice = data.bidPrice;
+                        if (lot.isPlayOut) {
+                            lot.sellingPrice = data.bidPrice;
+                        }
                         return lot.save().then(function (lot) {
                             socket.emit('lotConfirmed',
                                 {err: 0, bid: bid});
@@ -47,8 +49,13 @@ module.exports = function(socket, data) {
     });
 
     function findLot(lotId, cb){
-        Lot.findById(lotId)
+        Lot.findById(lotId, {
+            include: [{model: Auction, attributes: ['id', 'start']}]
+        })
             .then(function(lot) {
+                if (lot.auction.start && !lot.isPlayOut) {
+                    return cb({message: "Аукцион начат, но лот ещё не разыгрывается"});
+                }
                 return cb(null, lot);
             })
             .catch(function (err) {

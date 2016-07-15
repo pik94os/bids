@@ -137,7 +137,7 @@
                         <div class="delete"></div>
                     </div>
 
-                    <div class="img222" ng-class="{'molot':singleLot.sellingPrice && !singleLot.isSold}">
+                    <div class="img222" ng-class="{'molot':singleLot.isPlayOut}">
                         <!--{{singleLot.lot_pictures.originalName}}-->
                         <div ng-if="singleLot.titlePicId" ng-repeat="titlepic in singleLot.lot_pictures">
                             <div ng-if="singleLot.titlePicId === titlepic.id">
@@ -160,7 +160,9 @@
                     <div class="img222-under2 descPr">{{singleLot.descriptionPrev | htmlToPlaintext}}</div>
                     <div class="img222-under3">Эстимейт</div>
                     <div class="img222-under41">{{singleLot.estimateFrom.toLocaleString()}} - {{singleLot.estimateTo.toLocaleString()}} р</div><div class="img222-under42"></div>
-                    <div class="info" ng-if="singleLot.sellingPrice.toLocaleString()"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice.toLocaleString()}} Р</p></div>
+                    <div class="info" ng-if="singleLot.isSold"><p class="top">Продано за</p>
+                        <p class="bottom">{{singleLot.sellingPrice.toLocaleString()}} Р</p></div>
+                    <div class="info" ng-if="singleLot.isCl"><p class="top">лот снят</div>
                 </div>
             </div>
         </div>

@@ -7,11 +7,10 @@ define(['./module', 'jquery'], function (controllers, $) {
         var lotArr = new Array();
         var currentId = 1;
         $scope.open = ($stateParams.lotId) ? 1 : 0;
-        
-        // получение одного лота по ID
-        ngSocket.emit('auction/getLot', {
-                lotId: $stateParams.lotId
-            });
+                ngSocket.emit('auction/getLot', {
+                    lotId: $stateParams.lotId
+                });
+
         // получение списка айдишников лотов
         ngSocket.on('lotList', function (data) {
             lotArr = data.lotList;
@@ -23,9 +22,10 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
             $scope.isPlayOut = $scope.lot.isPlayOut;
-            $scope.open = ($scope.lot.isSold) ? 2 : 1;
+            $scope.open = ($scope.lot.isSold||$scope.lot.isCl) ? 2 : 1;
             ngSocket.emit('auction/getLotList', {
-                auctionId: $scope.lot.auctionId
+                auctionId: $scope.lot.auctionId,
+                selectLot: true
             });
         });
 
@@ -71,14 +71,15 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         // подтверждение бида
         $scope.confirmLot = function () {
-            //$scope.userId = 1;
-            //$scope.lotId = 1;
-            console.log($scope.lotId, $scope.bidPrice);
-                ngSocket.emit('auction/confirmLot', {
-                    lotId: $scope.lotId,
-                    bidPrice: $scope.bidPrice
-                });
+            ngSocket.emit('auction/confirmLot', {
+                lotId: $scope.lotId,
+                bidPrice: $scope.bidPrice
+            });
         };
+
+        ngSocket.on('auctionState', function (data) {
+            console.log(data);
+        });
 
         ngSocket.on('lotConfirmed', function (data) {
            console.log(data);
@@ -96,7 +97,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.descriptionArr = $scope.deleteTegP($scope.lot.description);
             $scope.descriptionPrevArr = $scope.deleteTegP($scope.lot.descriptionPrev);
             $scope.isPlayOut = $scope.lot.isPlayOut;
-            $scope.open = ($scope.lot.isSold) ? 2 : 1;
+            $scope.open = ($scope.lot.isSold||$scope.lot.isCl) ? 2 : 1;
             $scope.bidPrice =  $scope.lot.estimateFrom;
             initLotParams($scope, params, $scope.lot);
             initStep();
@@ -211,7 +212,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.maxEstimate2 = function () {
             $scope.bidPrice = $scope.estimateTo;
         };
-
     }]);
     function initLotParams(scope, params, values){
         params.forEach(function(item, i) {

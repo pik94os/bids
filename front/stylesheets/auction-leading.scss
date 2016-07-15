@@ -1,5 +1,9 @@
-
 .pageAuctionLeading {
+  p {
+    font-family: "Bookman", Georgia, "Times New Roman", serif;
+    color: black;
+    font-size: 28px;
+  }
   video{
     width: 100%;
   }
@@ -58,7 +62,7 @@
         text-align: center;
         
         padding-top: 24px;
-        height: 63px;
+        height: 85px;
 
         &-top {
           font-size: 14px;
@@ -148,7 +152,7 @@ width: 310px;
         //height: 100%;
         padding: 15px;
 
-	width: 450px;
+	//width: 450px;
         &-camera {
           //height: 160px;
           text-align: center;

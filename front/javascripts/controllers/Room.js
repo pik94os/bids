@@ -10,8 +10,11 @@ define(['./module','jquery'],function(controllers,$){
                 if(data.err){
                     return console.log(data);
                 }
-                var date = new Date(data.auction.date);
-                $scope.countdown = (date.getTime() > Date.now()) ? 1 : 2;
+                // var date = new Date(data.auction.date);
+                ngSocket.on('countDown', function () {
+                    $scope.countdown = 3
+                });
+                $scope.countdown = (data.auction.start) ? 2 : 1;
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
                 $scope.auction_id = data.auction.id;
@@ -21,8 +24,17 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lot_number = data.lot.number;
 
         });
+
+        ngSocket.on('auctionRun', function () {
+            $scope.countdown =  2;
+        });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
-            //init auction params
+
+        $scope.changeClassVideoWindow = function () {
+            $scope.aaa = !$scope.aaa;
+        };
+
+        //init auction params
             $scope.auction_params =
                 {
                     users_length: {
@@ -68,13 +80,17 @@ define(['./module','jquery'],function(controllers,$){
             t.detach().appendTo('.gallery-carousel');
         };
 
+
+        ngSocket.on('auctionRun', function () {
+            $scope.countdown =  2;
+        });
             ngSocket.on('room',function (data) {
                 var date;
                 if (data.err)
                     return console.log(data);
 
                 date = new Date(data.auction.date);
-                $scope.countdown = (date.getTime() > Date.now()) ? 1 : 2;
+                $scope.countdown = (data.auction.start) ? 2 : 1;
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
@@ -94,15 +110,14 @@ define(['./module','jquery'],function(controllers,$){
                 });
                 if ($scope.auction_params.lots_length != 0)
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
-                console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
-
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
                 $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
-                if ($scope.auction_params.lots[currentId] !== undefined){
+
+                if ($scope.auction_params.lots[currentId] !== undefined) {
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
@@ -127,26 +142,32 @@ define(['./module','jquery'],function(controllers,$){
                 razn -= $scope.timer.min * 1000 * 60;
                 $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
 
-                var stop = $interval(function() {
-                    if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
-                        if(+$scope.timer.ch == 0 && $scope.timer.days > 0) {
-                            $scope.timer.days -= 1;
-                            $scope.timer.ch = 23;
+                var stop;
+
+                if(date.getTime() > Date.now()){
+                    stop = $interval(function() {
+                        if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
+                            if(+$scope.timer.ch == 0 && $scope.timer.days > 0) {
+                                $scope.timer.days -= 1;
+                                $scope.timer.ch = 23;
+                            }
+                            if(+$scope.timer.sec == 0 && $scope.timer.min > 0) {
+                                $scope.timer.min -= 1;
+                                $scope.timer.sec = 59;
+                            }
+                            if(+$scope.timer.min == 0 && $scope.timer.ch > 0) {
+                                $scope.timer.ch -= 1;
+                                $scope.timer.min = 59;
+                            }
+
                         }
-                        if(+$scope.timer.sec == 0 && $scope.timer.min > 0) {
-                            $scope.timer.min -= 1;
-                            $scope.timer.sec = 59;
+                        if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
+                            $scope.stopFight();
                         }
-                        if(+$scope.timer.min == 0 && $scope.timer.ch > 0) {
-                            $scope.timer.ch -= 1;
-                            $scope.timer.min = 59;
-                        }
-                        
-                    }
-                    if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
-                        $scope.stopFight();
-                    }
-                }, 1000);
+                    }, 1000);
+                }else{
+                    $scope.timer.ch = $scope.timer.days = $scope.timer.min = $scope.timer.sec = 0;
+                }
 
                 $scope.stopFight = function() {
                     if (angular.isDefined(stop)) {
@@ -167,21 +188,21 @@ define(['./module','jquery'],function(controllers,$){
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
                 {
                     $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep(data.lot.estimateFrom)
+                    //$scope.$apply();
                 } else {
                     $scope.bidPrice = data.lot.estimateFrom + calcStep(data.lot.estimateFrom);
                     $scope.current_lot.sellingPrice = data.lot.estimateFrom;
-                    $scope.$apply();
+                    //$scope.$apply();
                 }
-                console.log(data.lot.estimateFrom);
                 $scope.current_lot.lot_pictures = data.lotPictures;
                 $scope.current_lot.bids = data.bids;
-                console.log($scope.current_lot);
             });
 
-            $scope.maxEstimate = function () {
-                $scope.bidPrice = $scope.current_lot.estimateTo;
-            }
-        
+
+        $scope.maxEstimate = function () {
+            $scope.bidPrice = $scope.current_lot.estimateTo;
+        }
+
 
             $scope.incrementBid = function () {
                 $scope.bidPrice += Number($scope.current_lot.step);
@@ -193,18 +214,19 @@ define(['./module','jquery'],function(controllers,$){
             }
 
 
-            $scope.getPicById = function (id) {
-                var idPic = $scope.auction_params.lot_pictures.map(function (e) {
+
+        $scope.getPicById = function (id) {
+            var idPic = $scope.auction_params.lot_pictures.map(function (e) {
                     return e.id;
-                }).indexOf(id);
-                return $scope.auction_params.lot_pictures[idPic];
-            }
-            $scope.getUserNumber = function (id) {
-                var userNum = $scope.auction_params.users.map(function (e) {
-                        return e.id;
-                    }).indexOf(id) + 1;
-                return userNum;
-            }
+            }).indexOf(id);
+            return $scope.auction_params.lot_pictures[idPic];
+        }
+        $scope.getUserNumber = function (id) {
+            var userNum = $scope.auction_params.users.map(function (e) {
+                    return e.id;
+                }).indexOf(id) + 1;
+            return userNum;
+        }
 
         //форматирование цены
 
@@ -212,7 +234,7 @@ define(['./module','jquery'],function(controllers,$){
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
-                
+
             }
         //подтвердить лот
             $scope.confirmLot = function () {
@@ -242,14 +264,19 @@ define(['./module','jquery'],function(controllers,$){
 
 
         ngSocket.on('lotConfirmed', function (data) {
-                console.log(data);
                 if (data.err == 0){
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
                     $scope.current_lot.sellingPrice = data.bid.price;
                     $scope.bidPrice += calcStep($scope.current_lot.sellingPrice);
                     $scope.timeoutBidUser = true;
+<<<<<<< HEAD
                     setTimeout(function(){$scope.timeoutBidUser = false}, 3000);
+=======
+                    setTimeout(function () {
+                        $scope.timeoutBidUser = false
+                    }, 3000);
+>>>>>>> origin/dev
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
@@ -338,6 +365,7 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
+            //console.log(data);
         });
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
@@ -358,8 +386,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.joinRoom();
             },2000);
         $scope.swap = false;
-        $scope.popo = function () {$scope.swap = !$scope.swap;}
-        
+
         $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
             var video = $("#remotes video")[0];
             if (video.muted) {
