@@ -32,6 +32,7 @@ module.exports = function (socket, data) {
                     socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
                         lot:lot,
                         lotId: lot.id,
+                        oldLotId: result.id,
                         isSold: data.isSold,
                         isCl: data.isCl
                     });

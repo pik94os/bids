@@ -14,11 +14,15 @@ module.exports = function(socket, data) {
         );
         return
     }
-
     // если делать эту строку то назад возвращаются только ID лотов и на странице аукциона не будут выводиться описания лотов и тд:
     //Lot.findAll({attributes: ['id'],where: {auctionId: data.auctionId}})
     // если раскомментировать эту строку то на странице аукциона будет выводиться вся информация о лоте но вся вестка поползет:
-    let where = data.lot ? {isSold: false, isCl: false, isArchive:false, auctionId: data.auctionId} : {isArchive:false, id: data.lotId};
+    let where = data.lot ? {
+        isSold: false,
+        isCl: false,
+        isArchive: false,
+        auctionId: data.auctionId
+    } : {auctionId: data.auctionId};
     if(data.numberLot !== undefined && data.numberLot) {
         where = {
             auctionId: data.auctionId,
@@ -48,7 +52,18 @@ module.exports = function(socket, data) {
                 'err': 0,
                 lotList: lotList
             });
-            
+            return Lot.count({
+                where: {
+                    auctionId: data.auctionId,
+                    isCl: false,
+                    isSold: false
+                }
+            }).then((count)=> {
+                console.log(count);
+                if (!count) {
+                    socket.emit('countDown', {});
+                }
+            })
         }).catch(function (err) {
         socket.emit('lotList',
             {err: 1, message: err.message}

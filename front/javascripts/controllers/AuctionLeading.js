@@ -100,8 +100,17 @@ define(['./module','jquery'],function(controllers,$){
                 });
         };
 
+        ngSocket.on('lotConfirmed', function (data) {
+            $scope.price = data.bid.price;
+            $scope.userNumber = data.bid.creatorId;
+            console.log(data);
+        });
+
+
+
         ngSocket.on('auctionState', function (data) {
             setLotInfo(data.lot);
+            console.log(data);
             $scope.soldLot = data.lot.sellingPrice ? true : false;
             setTimeout(function () {
                 $scope.cleanLot = true;

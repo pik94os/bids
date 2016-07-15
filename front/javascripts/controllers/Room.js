@@ -11,6 +11,9 @@ define(['./module','jquery'],function(controllers,$){
                     return console.log(data);
                 }
                 // var date = new Date(data.auction.date);
+                ngSocket.on('countDown', function () {
+                    $scope.countdown = 3
+                });
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
@@ -24,7 +27,6 @@ define(['./module','jquery'],function(controllers,$){
 
         ngSocket.on('auctionRun', function () {
             $scope.countdown =  2;
-            console.log('dasdasd');
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
 
@@ -258,7 +260,6 @@ define(['./module','jquery'],function(controllers,$){
 
 
         ngSocket.on('lotConfirmed', function (data) {
-                console.log(data);
                 if (data.err == 0){
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
@@ -356,6 +357,7 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
+            //console.log(data);
         });
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();

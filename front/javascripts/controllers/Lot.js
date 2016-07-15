@@ -71,14 +71,15 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         // подтверждение бида
         $scope.confirmLot = function () {
-            //$scope.userId = 1;
-            //$scope.lotId = 1;
-            console.log($scope.lotId, $scope.bidPrice);
-                ngSocket.emit('auction/confirmLot', {
-                    lotId: $scope.lotId,
-                    bidPrice: $scope.bidPrice
-                });
+            ngSocket.emit('auction/confirmLot', {
+                lotId: $scope.lotId,
+                bidPrice: $scope.bidPrice
+            });
         };
+
+        ngSocket.on('auctionState', function (data) {
+            console.log(data);
+        });
 
         ngSocket.on('lotConfirmed', function (data) {
            console.log(data);
@@ -211,7 +212,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.maxEstimate2 = function () {
             $scope.bidPrice = $scope.estimateTo;
         };
-
     }]);
     function initLotParams(scope, params, values){
         params.forEach(function(item, i) {

@@ -97,8 +97,10 @@
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
                         <div class="pageAuctionLeading-right-top-left-top">
-                            <!--40 000 000 руб-->
-                                {{lotList.estimateFrom + ' - ' + lotList.estimateTo}}
+                            {{price.toLocaleString() + 'руб'}}
+                            <p>{{'№' + getUserNumber(userNumber)}} Аргосян С.Е.</p>
+                            <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->
+                            <!--{{lotList.estimateFrom + ' - ' + lotList.estimateTo}}-->
                         </div>
 
                     </div>
@@ -211,8 +213,8 @@
                         <!--</div>-->
                         <div class="pageAuctionLeading-right-center-right-textBottom">
                             <div class="top">Зал</div>
-                            <div class="center"><b>№36</b> Аргосян С.Е.</div>
-                            <div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>
+                            <div class="center"><b>{{'№' + getUserNumber(userNumber)}}</b> Аргосян С.Е.</div>
+                            <div class="bottom">{{price.toLocaleString() + 'руб'}}</div>
                         </div>
                     </div>
                 </div>
