@@ -28,8 +28,9 @@ define(['./module','jquery'],function(controllers,$){
             }
         };
         $scope.start = function start() {
+            ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
             $scope.$broadcast('start');
-            ngSocket.emit('auction/startAuction', {id: $scope.lotId});
+            console.log(+$scope.lotId);
         };
         $scope.reloadPage = function reloadPage() {
             window.location.reload();
@@ -106,7 +107,6 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.cleanLot = true;
                  $scope.$apply();
             }, 1000);
-            console.log(data);
         });
 
 

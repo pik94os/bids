@@ -10,8 +10,8 @@ define(['./module','jquery'],function(controllers,$){
                 if(data.err){
                     return console.log(data);
                 }
-                var date = new Date(data.auction.date);
-                $scope.countdown = (date.getTime() > Date.now()) ? 1 : 2;
+                // var date = new Date(data.auction.date);
+                $scope.countdown = (data.auction.start) ? 2 : 1;
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
                 $scope.auction_id = data.auction.id;
@@ -20,6 +20,11 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
 
+        });
+
+        ngSocket.on('auctionRun', function () {
+            $scope.countdown =  2;
+            console.log('dasdasd');
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
 
@@ -73,13 +78,17 @@ define(['./module','jquery'],function(controllers,$){
             t.detach().appendTo('.gallery-carousel');
         };
 
+
+        ngSocket.on('auctionRun', function () {
+            $scope.countdown =  2;
+        });
             ngSocket.on('room',function (data) {
                 var date;
                 if (data.err)
                     return console.log(data);
 
                 date = new Date(data.auction.date);
-                $scope.countdown = (date.getTime() > Date.now()) ? 1 : 2;
+                $scope.countdown = (data.auction.start) ? 2 : 1;
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
@@ -99,8 +108,6 @@ define(['./module','jquery'],function(controllers,$){
                 });
                 if ($scope.auction_params.lots_length != 0)
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
-                console.log($scope.auction_params.lots_isPlayOuted, $scope.auction_params.lots_length)
-
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
                 $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
@@ -132,26 +139,32 @@ define(['./module','jquery'],function(controllers,$){
                 razn -= $scope.timer.min * 1000 * 60;
                 $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
 
-                var stop = $interval(function() {
-                    if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
-                        if(+$scope.timer.ch == 0 && $scope.timer.days > 0) {
-                            $scope.timer.days -= 1;
-                            $scope.timer.ch = 23;
-                        }
-                        if(+$scope.timer.sec == 0 && $scope.timer.min > 0) {
-                            $scope.timer.min -= 1;
-                            $scope.timer.sec = 59;
-                        }
-                        if(+$scope.timer.min == 0 && $scope.timer.ch > 0) {
-                            $scope.timer.ch -= 1;
-                            $scope.timer.min = 59;
-                        }
+                var stop;
 
-                    }
-                    if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
-                        $scope.stopFight();
-                    }
-                }, 1000);
+                if(date.getTime() > Date.now()){
+                    stop = $interval(function() {
+                        if(+$scope.timer.days >= 0 || +$scope.timer.ch >= 0 || +$scope.timer.min >= 0 || +$scope.timer.sec >= 0) {
+                            if(+$scope.timer.ch == 0 && $scope.timer.days > 0) {
+                                $scope.timer.days -= 1;
+                                $scope.timer.ch = 23;
+                            }
+                            if(+$scope.timer.sec == 0 && $scope.timer.min > 0) {
+                                $scope.timer.min -= 1;
+                                $scope.timer.sec = 59;
+                            }
+                            if(+$scope.timer.min == 0 && $scope.timer.ch > 0) {
+                                $scope.timer.ch -= 1;
+                                $scope.timer.min = 59;
+                            }
+
+                        }
+                        if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
+                            $scope.stopFight();
+                        }
+                    }, 1000);
+                }else{
+                    $scope.timer.ch = $scope.timer.days = $scope.timer.min = $scope.timer.sec = 0;
+                }
 
                 $scope.stopFight = function() {
                     if (angular.isDefined(stop)) {
