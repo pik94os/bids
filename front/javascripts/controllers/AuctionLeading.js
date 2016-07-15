@@ -46,6 +46,7 @@ define(['./module','jquery'],function(controllers,$){
             if(data.err) {
                 alert(data.message);
             }
+            console.log(data);
             $scope.soldLot = true;
         });
         ngSocket.on('catchAuction', function (data) {
@@ -77,7 +78,7 @@ define(['./module','jquery'],function(controllers,$){
             setLotInfo(data.lotList[0]);
         });
         ngSocket.on('room', function (auction) {
-            $scope.users = auction.auction.users;
+            $scope.users = auction.auction.users !== undefined;
         });
 
 
@@ -87,7 +88,7 @@ define(['./module','jquery'],function(controllers,$){
                 }).indexOf(id) + 1;
             return userNum;
         };
-        
+
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
 
         $scope.sold = function (isSold, isClean) {
@@ -103,14 +104,13 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('lotConfirmed', function (data) {
             $scope.price = data.bid.price;
             $scope.userNumber = data.bid.creatorId;
-            console.log(data);
+            $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
         });
 
 
 
         ngSocket.on('auctionState', function (data) {
             setLotInfo(data.lot);
-            console.log(data);
             $scope.soldLot = data.lot.sellingPrice ? true : false;
             setTimeout(function () {
                 $scope.cleanLot = true;

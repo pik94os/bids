@@ -98,7 +98,7 @@
                     <div class="pageAuctionLeading-right-top-left col-md-8">
                         <div class="pageAuctionLeading-right-top-left-top">
                             {{price.toLocaleString() + 'руб'}}
-                            <p>{{'№' + getUserNumber(userNumber)}} Аргосян С.Е.</p>
+                            <p>{{'№' + userNumber}} {{userData}}</p>
                             <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->
                             <!--{{lotList.estimateFrom + ' - ' + lotList.estimateTo}}-->
                         </div>
@@ -213,7 +213,7 @@
                         <!--</div>-->
                         <div class="pageAuctionLeading-right-center-right-textBottom">
                             <div class="top">Зал</div>
-                            <div class="center"><b>{{'№' + getUserNumber(userNumber)}}</b> Аргосян С.Е.</div>
+                            <div class="center"><b>{{'№' + userNumber}}</b><br>{{userData}}</div>
                             <div class="bottom">{{price.toLocaleString() + 'руб'}}</div>
                         </div>
                     </div>

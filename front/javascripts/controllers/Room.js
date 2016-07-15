@@ -10,15 +10,14 @@ define(['./module','jquery'],function(controllers,$){
                 if(data.err){
                     return console.log(data);
                 }
-                // var date = new Date(data.auction.date);
-                // ngSocket.on('countDown', function () {
-                //     $scope.countdown = 3
-                // });
-                $scope.countdown = (data.auction.start) ? 2 : 1;
+                var date = new Date(data.auction.date);
+                ngSocket.on('countDown', function () {
+                    $scope.countdown = 3
+                });
+                //$scope.countdown = (data.auction.start) ? 2 : 1;
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
                 $scope.auction_id = data.auction.id;
-                //console.log(data);
             });
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
