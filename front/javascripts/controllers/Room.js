@@ -181,10 +181,10 @@ define(['./module','jquery'],function(controllers,$){
             });
 
             ngSocket.on('lotSelected', function (data) {
+
                 initLotParams($scope.current_lot, params, data.lot);
-                $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
-                console.log(+calcStep(+$scope.current_lot.sellingPrice), +$scope.current_lot.sellingPrice);
-                //$scope.bidPrice = +data.lot.estimateFrom + calcStep(+data.lot.estimateFrom);
+                $scope.current_lot.step = data.lot.sellingPrice !== undefined ? calcStep(data.lot.sellingPrice) : +data.lot.estimateFrom;
+                $scope.bidPrice = +data.lot.estimateFrom + calcStep(+data.lot.estimateFrom);
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
                 {
                     $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
@@ -263,6 +263,7 @@ define(['./module','jquery'],function(controllers,$){
 
 
         ngSocket.on('lotConfirmed', function (data) {
+
             if (data.err) {
                 alert(data.message);
             }
@@ -275,9 +276,11 @@ define(['./module','jquery'],function(controllers,$){
                     setTimeout(function () {
                         $scope.timeoutBidUser = false
                     }, 3000);
+                $scope.$apply();
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
                     });
+                console.log($scope.auction_params.lots[currentId].id);
                 }
                 $scope.confirm = data
             });
@@ -361,6 +364,7 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.emit('getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('auctionState', function (data) {
+            window.location.reload();
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });

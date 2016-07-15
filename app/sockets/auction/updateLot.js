@@ -30,13 +30,15 @@ module.exports = function (socket, data) {
                 lot.isPlayOut = true;
                 return lot.save(lot).then(()=>{
                     socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
-                        lot:lot,
+                        lot: lot,
                         lotId: lot.id,
                         oldLotId: result.id,
                         isSold: data.isSold,
                         isCl: data.isCl
                     });
                     socket.emit('auctionState', {
+                        oldLotId: result.id,
+                        lotId: lot.id,
                         lot:lot,
                         isSold:data.isSold,
                         isCl: data.isCl
