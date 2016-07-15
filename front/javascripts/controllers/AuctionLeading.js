@@ -46,7 +46,6 @@ define(['./module','jquery'],function(controllers,$){
             if(data.err) {
                 alert(data.message);
             }
-            console.log(data);
             $scope.soldLot = true;
         });
         ngSocket.on('catchAuction', function (data) {
@@ -78,7 +77,7 @@ define(['./module','jquery'],function(controllers,$){
             setLotInfo(data.lotList[0]);
         });
         ngSocket.on('room', function (auction) {
-            $scope.users = auction.auction.users !== undefined;
+            $scope.users = auction.auction.users;
         });
 
 
