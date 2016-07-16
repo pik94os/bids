@@ -437,6 +437,7 @@
       background: #a6b5bc;
       color: #121a3e;
       height: 43px;
+      margin: 0;
       > div {
         margin-bottom: 10px;
       }
@@ -486,6 +487,9 @@
       margin-top: 10px;
       font-size: 12pt;
       padding: 10px;
+      max-height: 240px;
+      overflow: hidden;
+      overflow-y: auto;
     }
 
     .insert-your {
@@ -537,6 +541,7 @@
     .room-container-with-circles {
       margin-bottom: 40px;
       margin-left: 25px;
+      min-height: 415px;
       padding-top: 30px;
       .lot-table {
         float: left;

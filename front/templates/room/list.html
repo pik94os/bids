@@ -175,41 +175,32 @@
 
                     </div>
 
-                    <div>
-                        <input class="form-control" id="write-message" ng-model="chat.message"
+                    <div class="input-group room-input-group">
+                        <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
+                        <input class="form-control room-message-form"
+                               type="text"
+                               placeholder="СООБЩЕНИЕ"
+                               id="write-message"
+                               ng-model="chat.message"
                                ng-keyup="chat.keyUp($event)">
-                        <div class="button btn-primary" ng-click="chat.addMessage()">отправить</div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <!--<div class="black">Апрелев</div> > <div class="black">все</div> : Можно вопрос?-->
-                                <div ng-repeat="chatMessage in chat.messages">
-                                    <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
-                                        <!--{{chatMessage.user.patronymic}}--></div>
-                                    <!--&gt; <div class="black">все</div>--> :
-                                    {{chatMessage.message}}
-                                </div>
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
+                        <span class="input-group-btn">
+                            <button class="btn room-buttons"
+                                    type="submit"
+                                    ng-click="chat.addMessage()">
+                                ОТПРАВИТЬ
+                            </button>
+                        </span>
+                    </div>
+                    <div class="room-chat">
+                        <div ng-repeat="chatMessage in chat.messages">
+                            <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
+                                <!--{{chatMessage.user.patronymic}}-->
+                                : {{chatMessage.message}}
+                                <!--&gt; <div class="black">все</div>-->
                             </div>
                         </div>
                     </div>
-                    <!--<div class="input-group room-input-group">-->
-                    <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
-                    <!--<span class="input-group-btn">-->
-                    <!--<button class="btn room-buttons" type="submit">ОТПРАВИТЬ</button>-->
-                    <!--</span>-->
-                    <!--</div>-->
-                    <!--<div class="room-chat">-->
-                    <!--<div>#39: Как мало сегодня книг</div>-->
-                    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                    <!--<div>#Администратор: Ставку вернули.</div>-->
-                    <!--<div>#39: Как мало сегодня книг</div>-->
-                    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                    <!--<div>#Администратор: Ставку вернули.</div>-->
-                    <!--<div>#39: Как мало сегодня книг</div>-->
-                    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-                    <!--<div>#Администратор: Ставку вернули.</div>-->
-                    <!--</div>-->
+
                 </div>
 
                 <!--правая колонка-->
