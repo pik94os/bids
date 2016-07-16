@@ -107,18 +107,21 @@
                     <div class="pageAuctionLeading-right-top-right col-md-4">
                         <div class="pageAuctionLeading-right-top-right-top">
                             Следующий бид!
-                            <div>
-                                {{(priceNext).toLocaleString()}} руб
-                            </div>
-
                             <input type="text" ng-model="numberLot" ng-keyup="sendFilter($event)" class="form-control">
                         </div>
                         <div class="pageAuctionLeading-right-top-right-bottom">
                             <!--40 000 100-->
                             {{(lot.sellingPrice+calcStep(lot.sellingPrice)).toLocaleString()}}
                         </div>
+                        <br>
+                        <div ng-hide="auctionOn">
+                        <label for="date" class=""> Дата начала аукциона</label>
+                        <input type="text" ng-model="dateStart" class="form-control" id="date">
+                        <button ng-click="dateStartAuction()">Сохранить</button>
+                        </div>
                     </div>
                 </div>
+                <br><br><br>
                 <!--{{lot}}-->
                 <div class="pageAuctionLeading-right-center row">
                     <div class="pageAuctionLeading-right-center-left col-md-4">
@@ -174,7 +177,7 @@
                             <button ng-click="reloadPage()">Остановить трансляцию / Перезагрузить страницу</button>
                         </div>
                         <!--<div class="pageAuctionLeading-right-center-right-textTop">-->
-                        <!--<div class="pageAuctionLeading-right-center-right-textTop-in">-->
+                        <!--<div class="pageAuctionLeading-right-center-right-textTop-in">  -->
                         <!--<div class="pageAuctionLeading-right-center-right-textTop-in-text">-->
                         <!--<b>№60</b> Апрелев С.М.-->
                         <!--</div>-->

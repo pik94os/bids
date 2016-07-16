@@ -47,7 +47,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                     });
         }
     }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket) {
-        
         $scope.open = ($stateParams.lotId) ? 1 : 0;
         $scope.tab = $stateParams.tab;
         $scope.bidPrice = 0;
@@ -70,22 +69,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                     titlePicId: $stateParams.titlePicId
                 });
         };
-        
-        // создание нового лота вручную (верхнее не работает)
-        $scope.createNewLot = function () {
-            ngSocket.emit('auction/createLot', {
-                number: $scope.newLotNumber,
-                descriptionPrev: $scope.newLotDescriptionPrev,
-                description: $scope.newLotDescription,
-                estimateFrom: $scope.newLotEstimateFrom,
-                estimateTo: $scope.newLotEstimateTo,
-                sellingPrice: $scope.newLotSellingPrice,
-                auctionId: $stateParams.auctionId,
-                year: $scope.newLotYear,
-                titlePicId: 123
-            });
-        };
-        
         // подтверждение бида
         $scope.confirmLot = function () {
             ngSocket.emit('auction/confirmLot', {
@@ -120,14 +103,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             initStep();
         });
         ngSocket.on('lotCreated', function (data) {
-            if (data.lotExist){
-                $scope.lotExist = data.lotExist;
-                // alert('Лот с номером ' + data.lotExist + ' уже существует');
-            }
-            if (data.newLot){
-                $scope.newLotSaved = true;
-                // alert('Лот успешно сохранен в базу');
-            }
                 ngSocket.emit('auction/getLot', {
                     lotId: data.newLot.lot.id
             });

@@ -474,12 +474,6 @@
       background-image: url(/images/ICONS_svg/sound.svg);
       border-radius: 100%;
     }
-    .sound-on {
-      opacity: 1;
-    }
-    .sound-off {
-      opacity: 0.5;
-    }
 
     .room-message-form {
       border-radius: 0px;
@@ -547,7 +541,7 @@
     .room-container-with-circles {
       margin-bottom: 40px;
       margin-left: 25px;
-      //min-height: 415px;
+      min-height: 415px;
       padding-top: 30px;
       .lot-table {
         float: left;
@@ -692,12 +686,7 @@
       color: white;
       //padding: 5px 0px 0px 20px; // левый отступ - 20px\
       margin-top: 10px;
-      &:hover {
-        background: #117400;
-      }
-      &:active {
-        background: #115200;
-      }
+
     }
     .display-table {
       display: table;
@@ -806,17 +795,6 @@
         position: absolute;
       }
     }
-  }
-  .a000001 {
-    background-color: transparent;
-    border: 1px solid #289be5;
-    border-radius: 50%;
-    content: "";
-    cursor: pointer;
-    height: 29px;
-    margin: 9px 0 0 -5px;
-    position: absolute;
-    width: 29px;
   }
 }
 

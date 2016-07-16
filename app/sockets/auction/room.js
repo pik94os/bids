@@ -40,8 +40,7 @@ module.exports = function(socket, data) {
                     err: 0,
                     auction: auction,
                     lotPictures: LotPictures,
-                    authUser: user.userId,
-                    currentUser: socket.request.user
+                    authUser: user.userId
                 });
             });
         socket.join('auction:' + data.id);
