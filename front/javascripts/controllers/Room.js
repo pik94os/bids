@@ -387,8 +387,11 @@ define(['./module','jquery'],function(controllers,$){
             var video = $("#remotes video")[0];
             if (video.muted) {
                 video.muted = false;
+                console.log('Sound off');
+                
             } else {
                 video.muted = true;
+                console.log('Sound on');
             }
         }
 

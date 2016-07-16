@@ -541,7 +541,7 @@
     .room-container-with-circles {
       margin-bottom: 40px;
       margin-left: 25px;
-      min-height: 415px;
+      //min-height: 415px;
       padding-top: 30px;
       .lot-table {
         float: left;
@@ -686,7 +686,12 @@
       color: white;
       //padding: 5px 0px 0px 20px; // левый отступ - 20px\
       margin-top: 10px;
-
+      &:hover {
+        background: #117400;
+      }
+      &:active {
+        background: #115200;
+      }
     }
     .display-table {
       display: table;

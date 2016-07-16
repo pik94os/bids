@@ -420,6 +420,14 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.on('chatMessagesList', function (result) {
             $scope.chatMessagesArr = result.resp;
+
         });
+
+        $rootScope.$on('$viewContentLoaded', function () {
+            if ($scope.$state.current.name === 'auction-leading') {
+                $scope.hideHeaderAuctionLeading = true;
+            }
+        });
+
     }])
 });
