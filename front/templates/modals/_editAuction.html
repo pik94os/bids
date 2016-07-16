@@ -36,8 +36,14 @@
         </div>
     </div>
     <br/>
-    <div class="row">
-        <div class="col-sm-9"><div class="custom-btn"  data-dismiss="modal" ui-sref="auction" ng-click="editAuction()">Сохранить и перейти к наполнению лотов</div></div>
+    <div class="row"  ng-hide="$stateParams.auctionId">
+        <!--для модального окна редактирования аукциона выванного на странице просмотра списка аукционов-->
+        <div class="col-sm-9"><div class="custom-btn"  data-dismiss="modal" ui-sref="auction" ng-click="editAuction(false, auctionIdForEdit.id)">Сохранить и перейти к наполнению лотов</div></div>
+        <div class="col-sm-3"><div class="custom-btn-default"  data-dismiss="modal">Отмена</div></div>
+    </div>
+    <div class="row" ng-show="$stateParams.auctionId">
+        <!--для модального окна редактирования аукциона выванного по нажатию на шестеренку-->
+        <div class="col-sm-9"><div class="custom-btn"  data-dismiss="modal" ui-sref="auction" ng-click="editAuction(false, $stateParams.auctionId)">Сохранить и перейти к наполнению лотов</div></div>
         <div class="col-sm-3"><div class="custom-btn-default"  data-dismiss="modal">Отмена</div></div>
     </div>
 </modal>

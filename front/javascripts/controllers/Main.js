@@ -117,15 +117,17 @@ define(['./module', 'jquery'], function (controllers, $) {
             });
         };
 
-        // создание аукциона
+        // редактирование аукциона
         $scope.newAuction = {};
-        $scope.editAuction = function () {
+        $scope.editAuction = function (param, auctionId) {
             ngSocket.emit('auction/create', {
                 name: $scope.editedAuction.nameAuction,
                 number: $scope.editedAuction.numberAuction,
                 date: $scope.editedAuction.date,
                 userId: $scope.currentUserInfo.id,
-                editId: +$scope.auctionIdForEdit.id
+                editId: auctionId,
+                // editId: +$scope.auctionIdForEdit.id,
+                isDelete: param
             });
         };
 
@@ -416,13 +418,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
         });
 
-        // ngSocket.emit('auction/getChatMessages', {
-        //     auctionId: 39
-        // });
         ngSocket.on('chatMessagesList', function (result) {
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
             $scope.chatMessagesArr = result.resp;
-            // $scope.$apply();
         });
     }])
 });

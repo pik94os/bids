@@ -8,7 +8,7 @@ module.exports = function (socket, data) {
     if (data.userId){
         AuctionUser.findAll({
             where:{
-                userId : data.userId
+                userId : data.userId,
             }
         }).then(function(result){
             socket.emit('catchUserAuction', {
