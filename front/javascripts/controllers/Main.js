@@ -376,25 +376,53 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         // удаление <p></p> из текста и удаление @ кон
 
-
         // функционал чата на странице ведущего
-        $scope.pasteChatMessage = function (chatMessage) {
+        // socket.join('lesson:' + +$stateParams.auctionId);
+        
+        $scope.chat = {};
+        $scope.chat.message = '';
+        $scope.chat.messages = [];
 
-            ngSocket.emit('auction/pasteChatMessage', {
-                userId: +$scope.currentUserInfo.id,
-                auctionId: +$stateParams.auctionId,
-                chatMessage: chatMessage
-            });
-            // $scope.chatMessage = null;
+        $scope.chat.keyUp = function (e) {
+            if (e.keyCode === 13) {
+                if ($scope.chat.message) {
+                    $scope.chat.addMessage();
+                    return null;
+                }
+                $scope.chat.message = '';
+            }
         };
 
-        ngSocket.emit('auction/getChatMessages', {
-            auctionId: 39
+        $scope.chat.addMessage = function () {
+            if ($scope.chat.message) {
+                ngSocket.emit('auction/pasteChatMessage', {
+                    userId: +$scope.currentUserInfo.id,
+                    auctionId: +$stateParams.auctionId,
+                    chatMessage: $scope.chat.message
+                });
+            }
+            $scope.chat.message = '';
+        };
+
+        ngSocket.on('catchMessageRow', function (result) {
+            if (!result.err) {
+                // $scope.chat.messages.push({time: new Date(result.time), text:result.message, username:result.userId});
+                // if ($scope.chat.messages[$scope.chat.messages.length - 1].createdAt !== result.message.createdAt) {
+                $scope.chat.messages.push({
+                    createdAt: result.message.createdAt,
+                    message: result.message.message,
+                    user: result.user
+                });
+            }
         });
+
+        // ngSocket.emit('auction/getChatMessages', {
+        //     auctionId: 39
+        // });
         ngSocket.on('chatMessagesList', function (result) {
             console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
-            $scope.chatMessagesArr = result.chatMessagesList;
-            $scope.$apply();
+            $scope.chatMessagesArr = result.resp;
+            // $scope.$apply();
         });
     }])
 });

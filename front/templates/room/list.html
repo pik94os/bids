@@ -172,6 +172,26 @@
                                 <div class="num-on-table">{{$index+1}}</div>
                             </div>
                         </div>
+
+                    </div>
+
+                    <div>
+                        <input class="form-control" id="write-message" ng-model="chat.message"
+                               ng-keyup="chat.keyUp($event)">
+                        <!--<div class="button btn-primary" ng-click="pasteChatMessage(chatMessage)">отправить</div>-->
+                        <div class="pageAuctionLeading-right-bottom-left-chat">
+                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
+                                <!--<div class="black">Апрелев</div> > <div class="black">все</div> : Можно вопрос?-->
+                                <div ng-repeat="chatMessage in chat.messages">
+                                    <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
+                                        <!--{{chatMessage.user.patronymic}}--></div>
+                                    <!--&gt; <div class="black">все</div>--> :
+                                    {{chatMessage.message}}
+                                </div>
+                            </div>
+                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
+                            </div>
+                        </div>
                     </div>
                     <!--<div class="input-group room-input-group">-->
                     <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
@@ -258,19 +278,19 @@
                                 <!--<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"-->
                                 <!--width="200pt" ng-hide="swap">-->
 
-                                    <!--<div ng-hide="swap">-->
-                                        <!--<img src="/images/FOR_DEV/video.png" width="200pt">-->
-                                    <!--</div>-->
+                                <!--<div ng-hide="swap">-->
+                                <!--<img src="/images/FOR_DEV/video.png" width="200pt">-->
+                                <!--</div>-->
 
-                                    <!--<div ng-hide="swap">-->
-                                        <!--<img src="/images/FOR_DEV/video.png">-->
-                                        <!--&lt;!&ndash;<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"&ndash;&gt;-->
-                                        <!--&lt;!&ndash;width="200pt" ng-hide="swap">&ndash;&gt;-->
-                                    <!--</div>-->
+                                <!--<div ng-hide="swap">-->
+                                <!--<img src="/images/FOR_DEV/video.png">-->
+                                <!--&lt;!&ndash;<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"&ndash;&gt;-->
+                                <!--&lt;!&ndash;width="200pt" ng-hide="swap">&ndash;&gt;-->
+                                <!--</div>-->
 
 
-                                    <!--<img src="/images/FOR_DEV/video.png" width="200pt" ng-if="swap == true">-->
-                                    <!--<img src="/images/FOR_DEV/video.png" width="260pt" ng-if="swap == false">-->
+                                <!--<img src="/images/FOR_DEV/video.png" width="200pt" ng-if="swap == true">-->
+                                <!--<img src="/images/FOR_DEV/video.png" width="260pt" ng-if="swap == false">-->
                                 <!--</div>-->
                             </div>
                             <div class="col-xs-4">
@@ -299,8 +319,7 @@
                                     <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
 
                                     <!--<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"-->
-                                     <!--height="70pt" ng-if="swap == true">-->
-
+                                    <!--height="70pt" ng-if="swap == true">-->
 
 
                                     <div ng-class="{'classForVideo-small':aaa,'classForVideo-big':!aaa}">
@@ -310,19 +329,19 @@
                                         </div>
                                     </div>
                                     <div ng-class="{'classForVideo-big':aaa,'classForVideo-small':!aaa}">
-                                       <watch-room room-name="roomName"
-                                                   joined-room="joinedRoom"
-                                                   max-num-peers="1000">
-                                       </watch-room>
+                                        <watch-room room-name="roomName"
+                                                    joined-room="joinedRoom"
+                                                    max-num-peers="1000">
+                                        </watch-room>
                                     </div>
 
 
-                               </div>
-                           </div>
-                       </div>
-                   </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                   <div class="row">
+                    <div class="row">
 
                         <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice"
                                                                   placeholder="Сделайте шаг / впишите свой"

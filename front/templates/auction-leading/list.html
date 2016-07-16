@@ -223,26 +223,19 @@
 
                 <div class="pageAuctionLeading-right-bottom row">
                     <div class="pageAuctionLeading-right-bottom-left col-md-7">
-                        <input size="70" ng-model="chatMessage">
-                        <div class="button btn-primary" ng-click="pasteChatMessage(chatMessage)">отправить</div>
-                        <div>
-
-                        </div>
-
+                        <!--<input size="70" ng-model="chatMessage">-->
+                        <input class="form-control" id="write-message" ng-model="chat.message" ng-keyup="chat.keyUp($event)"></input>
+                        <!--<div class="button btn-primary" ng-click="pasteChatMessage(chatMessage)">отправить</div>-->
                         <div class="pageAuctionLeading-right-bottom-left-chat">
                             <div class="pageAuctionLeading-right-bottom-left-chat-text">
                                 <!--<div class="black">Апрелев</div> > <div class="black">все</div> : Можно вопрос?-->
-                                <div ng-repeat="chatMessage in chatMessagesArr">
-                                    <div class="black">{{chatMessage.userId}}</div> <!--&gt; <div class="black">все</div>--> :
+                                <div ng-repeat="chatMessage in chat.messages">
+                                    <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}} <!--{{chatMessage.user.patronymic}}--></div> <!--&gt; <div class="black">все</div>--> :
                                     {{chatMessage.message}}
                                 </div>
-
                             </div>
-
                             <div class="pageAuctionLeading-right-bottom-left-chat-cross">
-
                             </div>
-
                         </div>
                         <!--<div class="pageAuctionLeading-right-bottom-left-chat">-->
                             <!--<div class="pageAuctionLeading-right-bottom-left-chat-text">-->

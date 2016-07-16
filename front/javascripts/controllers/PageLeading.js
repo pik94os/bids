@@ -130,6 +130,5 @@ define(['./module','jquery'],function(controllers,$){
         //     });
         // }
         
-        
     }])
 });
