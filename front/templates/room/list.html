@@ -290,14 +290,13 @@
                                     <div class="recommended-price-number">{{+current_lot.sellingPrice | toLocaleString}}
                                     </div>
                                     <br>
-
                                 </div>
                                 <hr>
-                                <div class="rate-from-inet">
+                                <div class="rate-from-inet" ng-if="userNumber">
                                     <span>СТАВКА</span>
                                     <div class="rate-from-inet-sec-row">ИЗ ИНТЕРНЕТА</div>
                                     <div class="rate-from-inet-third-row">ОТ #
-                                        {{getUserNumber(current_lot.bids[0].creatorId)}}
+                                        {{userNumber}}
                                     </div>
                                 </div>
                                 <!--<div class="dollar-arrows"></div>-->
@@ -325,7 +324,6 @@
                                                     max-num-peers="1000">
                                         </watch-room>
                                     </div>
-
 
                                 </div>
                             </div>

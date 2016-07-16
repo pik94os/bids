@@ -21,7 +21,6 @@ define(['./module','jquery'],function(controllers,$){
             });
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
-
         });
 
         ngSocket.on('auctionRun', function () {
@@ -266,6 +265,7 @@ define(['./module','jquery'],function(controllers,$){
             if (data.err) {
                 alert(data.message);
             }
+            $scope.userNumber = data.bid.creatorId;
             if (data.err == 0) {
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
@@ -361,6 +361,7 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
+            $scope.userNumber = '';
         });
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
