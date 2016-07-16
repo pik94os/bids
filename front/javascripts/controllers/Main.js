@@ -410,7 +410,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (!result.err) {
                 // $scope.chat.messages.push({time: new Date(result.time), text:result.message, username:result.userId});
                 // if ($scope.chat.messages[$scope.chat.messages.length - 1].createdAt !== result.message.createdAt) {
-                $scope.chat.messages.push({
+                $scope.chat.messages.unshift({
                     createdAt: result.message.createdAt,
                     message: result.message.message,
                     user: result.user
