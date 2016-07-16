@@ -151,12 +151,22 @@
                     <!--карточки-->
                     <div class="row">
                         <div class="room-container-with-circles">
+
+
+
+                            <tr ng-repeat="v in testVar">
+                                <td ng-repeat="v1 in v" ng-click="transferDate(v1.name)" ng-class="{'today':v1.current}">{{v1.name}}</td>
+                            </tr>
+
+
+
                             <div emit-last-repeater-element class="lot-table"
                                  ng-repeat="r in auction_params.users_number"
                                  ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,
             'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,
             'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].creatorId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"
-                                 ng-click='setPopup($index)'>
+                                 ng-click='setPopup($index)'
+                                 ng-class="{'lot-table-press-zal':r.auction.lots.currentUser}">
                                 <!--<div class="popup-window" ng-show="popup===$index">
                                     <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
                                     <div class="popup-avatar"></div>
@@ -169,8 +179,12 @@
                                     </div>
                                     <div class="btn bg-primary popup-text-btn">Сообщение</div>
                                 </div>-->
+                                <!--{{auction_params.users[r-1].id}}-->
                                 <div class="num-on-table">{{$index+1}}</div>
                             </div>
+                            <br>
+                            <!--{{currentUser.id}}-->
+
                         </div>
 
                     </div>

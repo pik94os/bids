@@ -69,6 +69,9 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.current_lot.currentPic = 0
         }, 5000);
 
+
+
+
         $scope.lastPhotos = function () {
             var t = $('.gallery-carousel .pull-left:last-child');
             t.detach().prependTo('.gallery-carousel');
@@ -83,6 +86,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countdown =  2;
         });
             ngSocket.on('room',function (data) {
+                $scope.currentUser = data.currentUser;
                 var date;
                 if (data.err)
                     return console.log(data);
@@ -93,6 +97,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
                 $scope.auction_params.current_user = data.authUser;
+                
 
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
@@ -178,6 +183,8 @@ define(['./module','jquery'],function(controllers,$){
 
 
             });
+
+
 
             ngSocket.on('lotSelected', function (data) {
                 initLotParams($scope.current_lot, params, data.lot);
@@ -393,70 +400,69 @@ define(['./module','jquery'],function(controllers,$){
                 video.muted = true;
                 console.log('Sound on');
             }
-        }
-
+        };
 
     }]);
-            function initLotParams(scope, params, values){
-                params.forEach(function(item, i){
-                    if(values[item]!=undefined){
-                        scope[item] = values[item]
-                    }
-                });
+        function initLotParams(scope, params, values){
+            params.forEach(function(item, i){
+                if(values[item]!=undefined){
+                    scope[item] = values[item]
+                }
+            });
+        }
+        function initObjFromArr(params, arr){
+            var obj = new Object();
+            params.forEach(function(item, i) {
+                obj[item] = arr[i]
+            });
+            return obj;
+        }
+        function calcStep(price){
+            var step = 1;
+            if (price <= 5){
+                return step = 1;
             }
-            function initObjFromArr(params, arr){
-                var obj = new Object();
-                params.forEach(function(item, i) {
-                    obj[item] = arr[i]
-                });
-                return obj;
+            if (5 < price && price <= 50) {
+                return step = 5;
             }
-            function calcStep(price){
-                var step = 1;
-                if (price <= 5){
-                    return step = 1;
-                }
-                if (5 < price && price <= 50) {
-                    return step = 5;
-                }
-                if (50 < price && price <= 200){
-                    return step = 10;
-                }
-                if (200 < price && price <= 500){
-                    return step = 20;
-                }
-                if (500 < price && price <= 1000){
-                    return step = 50;
-                }
-                if (1000 < price && price <= 2000) {
-                    return step = 100;
-                }
-                if (2000 < price && price <= 5000){
-                    return step = 200;
-                }
-                if (5000 < price && price <= 10000){
-                    return step = 500;
-                }
-                if (10000 < price && price <= 20000){
-                    return step = 1000;
-                }
-                if (20000 < price && price <= 50000){
-                    return step = 2000;
-                }
-                if (50000 < price && price <= 100000){
-                    return step = 5000;
-                }
-                if (100000 < price && price <= 200000){
-                    return step = 10000;
-                }
-                if (200000 < price && price <= 500000){
-                    return step = 20000;
-                }
-                if (500000 < price && price <= 1000000){
-                    return step = 50000;
-                } else {
-                    step = 10000;
-                }
-                return step;
+            if (50 < price && price <= 200){
+                return step = 10;
             }
+            if (200 < price && price <= 500){
+                return step = 20;
+            }
+            if (500 < price && price <= 1000){
+                return step = 50;
+            }
+            if (1000 < price && price <= 2000) {
+                return step = 100;
+            }
+            if (2000 < price && price <= 5000){
+                return step = 200;
+            }
+            if (5000 < price && price <= 10000){
+                return step = 500;
+            }
+            if (10000 < price && price <= 20000){
+                return step = 1000;
+            }
+            if (20000 < price && price <= 50000){
+                return step = 2000;
+            }
+            if (50000 < price && price <= 100000){
+                return step = 5000;
+            }
+            if (100000 < price && price <= 200000){
+                return step = 10000;
+            }
+            if (200000 < price && price <= 500000){
+                return step = 20000;
+            }
+            if (500000 < price && price <= 1000000){
+                return step = 50000;
+            } else {
+                step = 10000;
+            }
+            return step;
+        }
 });
