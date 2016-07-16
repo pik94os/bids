@@ -68,11 +68,14 @@ class Initiator {
         this.Auction.hasMany(this.Lot);
         this.Lot.belongsTo(this.Auction);
         this.Lot.hasMany(this.LotPicture);
-        this.Bid.belongsTo(this.Lot, {as: "lot"});
-        this.Bid.belongsTo(this.User, {as: "creator"});
+        this.Bid.belongsTo(this.Lot);
+        this.Lot.hasMany(this.Bid);
+        this.User.hasMany(this.Bid);
+        this.Bid.belongsTo(this.User);
        // this.Notification.belongsTo(this.Lot, {as: "lot"});
        // this.Notification.belongsTo(this.User, {as: "users"});
         this.Chat.belongsTo(this.User);
+
 
         this.roles = {};
         this.rights = {};

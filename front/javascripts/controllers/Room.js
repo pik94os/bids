@@ -263,7 +263,7 @@ define(['./module','jquery'],function(controllers,$){
             if (data.err) {
                 alert(data.message);
             }
-            $scope.userNumber = data.bid.creatorId;
+            $scope.userNumber = data.bid.userId;
             if (data.err == 0) {
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';

@@ -3,8 +3,9 @@
  */
 'use strict';
 
-var Bid = require('../../models/').Bid;
-
+const Bid = require('../../models/').Bid;
+const User = require('../../models').User;
+const Lot = require('../../models').Lot;
 module.exports = function(socket, data) {
     if (!data.auctionId) {
         socket.emit('bidList',
@@ -14,9 +15,11 @@ module.exports = function(socket, data) {
     }
     let where = {isArchive: false};
     let select = {where};
-
+    let include = [{model: User, attributes: ['id', 'firstName', 'lastName', 'patronymic']},
+        {model: Lot}];
     Bid.findAll({
-        select
+        select,
+        include
     }).then((bid)=>{
         socket.emit('bidList', {
             bids: bid

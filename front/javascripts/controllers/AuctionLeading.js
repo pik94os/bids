@@ -104,11 +104,11 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         ngSocket.on('lotConfirmed', function (data) {
+            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId});
             $scope.price = data.bid.price;
-            $scope.userNumber = data.bid.creatorId;
+            $scope.userNumber = data.bid.userId;
             $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
         });
-
         $scope.dateStartAuction = function () {
             var date_arr_new = $scope.dateStart.split('.');
             $scope.date = date_arr_new[2] + '-' + date_arr_new[1] + '-' + date_arr_new[0] + 'T00:00:00';
@@ -116,12 +116,19 @@ define(['./module','jquery'],function(controllers,$){
                 date: $scope.date,
                 id: +$stateParams.auctionId
             });
-            console.log($scope.date);
             $scope.dateStart = '';
         };
 
-        ngSocket.emit();
-        
+        ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId});
+
+        ngSocket.on('bidList', function (bid) {
+            if(bid.err) {
+                alert(bid.message);
+            }
+            $scope.bids = bid.bids;
+            console.log(bid);
+        });
+
         ngSocket.on('auctionState', function (data) {
             console.log(data);
             setLotInfo(data.lot);
