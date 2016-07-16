@@ -229,6 +229,12 @@
   .room-large-book {
     text-align: center;
     align: center;
+    width: 100%;
+    height: 100%;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
 
   .room-container-books {
@@ -352,6 +358,11 @@
         right: 6px;
         display: none;
       }
+    }
+    .gallery-carousel {
+      width: auto;
+      height: 115px;
+      overflow: hidden;
     }
     .gallery {
       @include margin-horizontal(-5px);
@@ -514,7 +525,7 @@
       margin-right: -10px;
     }
     .page-numbers-single {
-      width: 67pt;
+      width: 57pt;
       text-align: center;
       padding-bottom: 10px;
       margin: 2pt;
@@ -655,6 +666,7 @@
       border-width: 0 4px 0 0;
       border-style: solid;
       border-color: #e2f3fb;
+      height: calc(100% - 10px);
     }
     .description-the-book {
       background: white;
@@ -680,6 +692,7 @@
       padding-top: 12px;
       white-space: nowrap;
       font-weight: bold;
+      cursor: pointer;
     }
     .number-of-rate {
       border-width: 0 0 0 1px;
@@ -695,6 +708,7 @@
       text-align: center;
       font-size: 8pt;
       color: #212947;
+      cursor: pointer;
     }
     .recommended-price {
       opacity: 0.5;
@@ -755,4 +769,27 @@
       width: 100%;
     }
   }
+  .classForVideo {
+    &-small {
+      height: 106px;
+      padding-top: 20px;
+      width: 130px;
+      video {
+        height: 106px;
+        position: absolute;
+        width: 130px;
+      }
+    }
+    &-big {
+      bottom: -37px;
+      height: 220px;
+      position: absolute;
+      right: 180px;
+      width: 285px;
+      video {
+        position: absolute;
+      }
+    }
+  }
 }
+

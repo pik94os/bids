@@ -19,6 +19,31 @@ define(['./module','jquery'],function(controllers,$){
             };
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
         });
-            
+        
+        $scope.hidedBtns = [];
+        $scope.hideBtnSet = function (id) {
+            $scope.hidedBtns.push(id);
+        };
+
+        // $scope.hideBtnSet = function (id) {
+        //     $scope.buttonHide = true;
+        //     setTimeout (function () {
+        //         $scope.buttonHide = false;
+        //         $scope.indexBtn = id;
+        //         $scope.$apply();
+        //     },2000);
+        //
+        //     console.log('>>>>>>>>>>>>>>>>>'+id)
+        // };
+
+        // ngSocket.emit('user/getUserAuction', {
+        //     userId: $scope.currentUserInfo.id
+        // });
+        // ngSocket.on('catchUserAuction', function (data) {
+        //     // console.log('>>>>>>>>>>>>>>>>>>>>>>>');
+        //     // console.log(data);
+        //     $scope.userAuction = data.userAuction;
+        // });
+
     }])
 });

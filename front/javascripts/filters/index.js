@@ -1,5 +1,6 @@
 define([
     './GetStop',
     './htmlToPlaintext',
-    './dateTimeFilter'
+    './dateTimeFilter',
+    './toLocaleString'
 ], function () {});

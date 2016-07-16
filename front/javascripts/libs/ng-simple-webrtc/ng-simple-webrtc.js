@@ -38,8 +38,8 @@
                 nick: $scope.nick,
                 receiveMedia: { // FIXME: remove old chrome <= 37 constraints format
                   mandatory: {
-                      OfferToReceiveAudio: false,
-                      OfferToReceiveVideo: true
+                    OfferToReceiveAudio: true,
+                    OfferToReceiveVideo: true
                   }
                 }
               };
@@ -68,7 +68,6 @@
               }
 
               $scope.$emit('joinedRoom', name);
-
               webrtc.on('channelMessage', function (peer, message) {
                 console.log('received channel message "%s" from peer "%s"',
                   message, peer.nick || peer.id);
@@ -103,7 +102,7 @@
               // so, skip manual addition to dom
               if (Array.isArray($scope.videoList)) {
                 video.isRemote = true;
-                $scope.videoList.push(video);
+                //$scope.videoList.push(video);
                 $scope.joinedRoom = true;
                 $scope.$apply();
                 return;
@@ -200,12 +199,12 @@
               debug: false,
               nick: $scope.nick,
               media: {
-                audio: false,
+                audio: true,
                 video: true
               },
               receiveMedia: { // FIXME: remove old chrome <= 37 constraints format
                 mandatory: {
-                    OfferToReceiveAudio: false,
+                  OfferToReceiveAudio: true,
                     OfferToReceiveVideo: false
                 }
               }
@@ -267,7 +266,7 @@
                 video.src = window.URL.createObjectURL(stream);
                 video.play();
                 video.isRemote = false;
-                $scope.videoList.push(video);
+                //$scope.videoList.push(video);
               }
 
               $scope.hasStream = true;

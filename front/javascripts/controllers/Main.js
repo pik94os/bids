@@ -1,11 +1,12 @@
-define(['./module','jquery'],function(controllers,$){
+define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
 
-    controllers.controller('Main',['$sessionStorage','$scope','$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader){
-        ngSocket.emit ('getUserInfo', {});
+    controllers.controller('Main', ['$sessionStorage', '$scope', '$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function ($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader) {
+
+        ngSocket.emit('getUserInfo', {});
         $scope.isAD = true;
         $scope.setIsAD = function () {
-            $scope.isAD=true;
+            $scope.isAD = true;
         };
         $scope.selectedAuctionInMain = {
             id: 0,
@@ -16,8 +17,9 @@ define(['./module','jquery'],function(controllers,$){
             date: null
         };
 
-        $scope.regist = function (auctionId,auctionDate) {
-            if(+$scope.currentUserInfo.id){
+        $scope.regist = function (auctionId, auctionDate) {
+            $scope.hideRegButton = true;
+            if (+$scope.currentUserInfo.id) {
                 ngSocket.emit('userAuction', {auctionId: +auctionId});
                 $scope.selectedAuctionInMain.date = auctionDate;
                 $scope.selectedAuctionInMain.id = auctionId;
@@ -28,34 +30,34 @@ define(['./module','jquery'],function(controllers,$){
         });
 
         ngSocket.on('auctionUser', function (data) {
-            if(data.err){
+            if (data.err) {
                 alert(data.message)
             }
             $('#regUserAuction').modal('show');
         });
-        
-        if($sessionStorage.auth){
-            $scope.currentUserInfo=JSON.parse(JSON.stringify($sessionStorage.auth));
-        }        
+
+        if ($sessionStorage.auth) {
+            $scope.currentUserInfo = JSON.parse(JSON.stringify($sessionStorage.auth));
+        }
         ngSocket.on('userInfo', function (data) {
-            if(data.err!=undefined && data.err==0){
+            if (data.err != undefined && data.err == 0) {
                 $scope.currentUserInfo = JSON.parse(JSON.stringify(data.doc));
-            }else{
+            } else {
                 $scope.auth = null;
                 $scope.currentUserInfo.id = null;
             }
         });
 
-        $rootScope.$on('$viewContentLoaded',function(){
-            $('content').css('min-height',($(window).height() - $('header').height() - $('footer').height())+'px');
+        $rootScope.$on('$viewContentLoaded', function () {
+            $('content').css('min-height', ($(window).height() - $('header').height() - $('footer').height()) + 'px');
         });
 
-        $rootScope.$on('$stateChangeStart', function(event, toState){
-           if(toState.data!=undefined && toState.data.noAD){
-               $scope.isAD = false;
-           }else{
-               $scope.isAD = true;
-           }
+        $rootScope.$on('$stateChangeStart', function (event, toState) {
+            if (toState.data != undefined && toState.data.noAD) {
+                $scope.isAD = false;
+            } else {
+                $scope.isAD = true;
+            }
 
         });
         $scope.regUserData = {};
@@ -70,7 +72,7 @@ define(['./module','jquery'],function(controllers,$){
                 && $scope.regUserData.email
                 && $scope.regUserData.phone
             ) {
-                $http.post('/api/users/reg',{
+                $http.post('/api/users/reg', {
                     username: $scope.regUserData.username,
                     firstName: $scope.regUserData.firstName,
                     lastName: $scope.regUserData.lastName,
@@ -100,9 +102,7 @@ define(['./module','jquery'],function(controllers,$){
             })
         };
         $scope.logout = function () {
-            $http.get('/api/users/logout', {
-
-            }, {}).then(function (result) {
+            $http.get('/api/users/logout', {}, {}).then(function (result) {
                 window.location.reload();
             })
         };
@@ -112,13 +112,59 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/create', {
                 name: $scope.newAuction.nameAuction,
                 number: $scope.newAuction.numberAuction,
-                date:  $scope.newAuction.date,
+                date: $scope.newAuction.date,
                 userId: $scope.currentUserInfo.id
             });
         };
 
+        // создание аукциона
+        $scope.newAuction = {};
+        $scope.editAuction = function () {
+            ngSocket.emit('auction/create', {
+                name: $scope.editedAuction.nameAuction,
+                number: $scope.editedAuction.numberAuction,
+                date: $scope.editedAuction.date,
+                userId: $scope.currentUserInfo.id,
+                editId: +$scope.auctionIdForEdit.id
+            });
+        };
+
+        $scope.auctionIdForEdit = {};
+        $scope.getAuctionForEdit = function (data) {
+            $scope.auctionIdForEdit.id = +data;
+            if ($scope.auctionIdForEdit.id){
+                // получение аукциона для модального окна редактирования аукциона
+                ngSocket.emit('auction/getAuction', {id: $scope.auctionIdForEdit.id});
+                $scope.$apply();
+            }
+        };
+        ngSocket.on('catchAuction', function (data) {
+            $scope.auctionForEdit = data;
+
+            if ($scope.auctionForEdit){
+                $scope.editedAuction = {
+                    nameAuction: $scope.auctionForEdit.data.name,
+                    numberAuction: $scope.auctionForEdit.data.number,
+                    placeAuction: $scope.auctionForEdit.data.place
+                };
+                $scope.editedAuction.date = [
+                    +$scope.auctionForEdit.data.date.split('T')[0].split('-')[2],
+                    +$scope.auctionForEdit.data.date.split('T')[0].split('-')[1],
+                    +$scope.auctionForEdit.data.date.split('T')[0].split('-')[0],
+                    +$scope.auctionForEdit.data.date.split('T')[1].split(':')[0],
+                    +$scope.auctionForEdit.data.date.split('T')[1].split(':')[1]
+                ];
+            }
+        });
+
+        // $scope.clearAuction = function () {
+        //     $('#create-auction input[type=text]').each(function () {
+        //         $(this).val('');
+        //     })
+        // };
+
         // импорт лотов из CSV
-        $scope.CSVParsedFile={};
+        $scope.CSVParsedFile = {};
         var uploader = $scope.uploader = new FileUploader({
             url: '/api/upload/lotCSV',
             autoUpload: true,
@@ -130,47 +176,47 @@ define(['./module','jquery'],function(controllers,$){
 
         uploader.filters.push({
             name: 'customFilter',
-            fn: function(item /*{File|FileLikeObject}*/, options) {
+            fn: function (item /*{File|FileLikeObject}*/, options) {
                 return this.queue.length < 10;
             }
         });
 
         // CALLBACKS
         $scope.CSVAdded = false;
-        uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
-        uploader.onAfterAddingFile = function(fileItem) {
+        uploader.onAfterAddingFile = function (fileItem) {
             console.info('onAfterAddingFile', fileItem);
         };
-        uploader.onAfterAddingAll = function(addedFileItems) {
+        uploader.onAfterAddingAll = function (addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
             $scope.CSVAdded = true;
         };
-        uploader.onBeforeUploadItem = function(item) {
+        uploader.onBeforeUploadItem = function (item) {
             console.info('onBeforeUploadItem', item);
         };
-        uploader.onProgressItem = function(fileItem, progress) {
+        uploader.onProgressItem = function (fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);
         };
-        uploader.onProgressAll = function(progress) {
+        uploader.onProgressAll = function (progress) {
             console.info('onProgressAll', progress);
         };
-        uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        uploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
             // alert('Файл загружен');
             $scope.CSVParsedFile = response;
         };
-        uploader.onErrorItem = function(fileItem, response, status, headers) {
+        uploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
         };
-        uploader.onCancelItem = function(fileItem, response, status, headers) {
+        uploader.onCancelItem = function (fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
         };
-        uploader.onCompleteItem = function(fileItem, response, status, headers) {
+        uploader.onCompleteItem = function (fileItem, response, status, headers) {
             console.info('onCompleteItem', fileItem, response, status, headers);
         };
-        uploader.onCompleteAll = function() {
+        uploader.onCompleteAll = function () {
             console.info('onCompleteAll');
             // alert('Файл загружен в базу');
         };
@@ -193,10 +239,10 @@ define(['./module','jquery'],function(controllers,$){
             // $scope.countOfRenewedRows = result.renewedRows;
             // $scope.countOfCreatedRows = result.createdRows;
             // alert('Строки созданы');
-            $scope.fileAddedInBase=result;
+            $scope.fileAddedInBase = result;
             $scope.rowsCreated++;
         });
-        
+
         // отчет о записях в базу картинок из CSV
         $scope.countReportPic = 0;
         ngSocket.on('createCSVPicturesReport', function (result) {
@@ -226,42 +272,42 @@ define(['./module','jquery'],function(controllers,$){
 
         // CALLBACKS
 
-        lotPicUploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+        lotPicUploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
-        lotPicUploader.onAfterAddingFile = function(fileItem) {
+        lotPicUploader.onAfterAddingFile = function (fileItem) {
             console.info('onAfterAddingFile', fileItem);
         };
-        lotPicUploader.onAfterAddingAll = function(addedFileItems) {
+        lotPicUploader.onAfterAddingAll = function (addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
             $scope.picturesAdded = true;
             $scope.CSVAddedInBase = false;
         };
-        lotPicUploader.onBeforeUploadItem = function(item) {
+        lotPicUploader.onBeforeUploadItem = function (item) {
             console.info('onBeforeUploadItem', item);
         };
-        lotPicUploader.onProgressItem = function(fileItem, progress) {
+        lotPicUploader.onProgressItem = function (fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);
         };
-        lotPicUploader.onProgressAll = function(progress) {
+        lotPicUploader.onProgressAll = function (progress) {
             console.info('onProgressAll', progress);
         };
-        lotPicUploader.onSuccessItem = function(fileItem, response, status, headers) {
+        lotPicUploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
             // alert('Файлы загружены');
             $scope.addedPic = response;
             console.log('>>>>>>>>>>>');
         };
-        lotPicUploader.onErrorItem = function(fileItem, response, status, headers) {
+        lotPicUploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
         };
-        lotPicUploader.onCancelItem = function(fileItem, response, status, headers) {
+        lotPicUploader.onCancelItem = function (fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
         };
-        lotPicUploader.onCompleteItem = function(fileItem, response, status, headers) {
+        lotPicUploader.onCompleteItem = function (fileItem, response, status, headers) {
             console.info('onCompleteItem', fileItem, response, status, headers);
         };
-        lotPicUploader.onCompleteAll = function() {
+        lotPicUploader.onCompleteAll = function () {
             console.info('onCompleteAll');
             // alert('Файлы загружены');
         };
@@ -274,9 +320,10 @@ define(['./module','jquery'],function(controllers,$){
 
         // Проверка роли : от 1до4 и 5-ая роль
         $scope.goToPageHeader = function () {
-            if ( $scope.currentUserInfo.roleId === 5 ) {
+            if ($scope.currentUserInfo.roleId === 5) {
                 $state.go('page-leading');
-            } if ( $scope.currentUserInfo.roleId === 2 ) {
+            }
+            if ($scope.currentUserInfo.roleId === 2) {
                 $state.go('admin');
             } else {
                 $state.go('lk');
@@ -289,36 +336,36 @@ define(['./module','jquery'],function(controllers,$){
         scrollUp.style.display = 'none';
         $scope.buttonUp = function () {
 
-            scrollUp.onmouseover = function() { // добавить прозрачность
-                scrollUp.style.opacity=0.3;
-                scrollUp.style.filter  = 'alpha(opacity=30)';
+            scrollUp.onmouseover = function () { // добавить прозрачность
+                scrollUp.style.opacity = 0.3;
+                scrollUp.style.filter = 'alpha(opacity=30)';
             };
 
-            scrollUp.onmouseout = function() { //убрать прозрачность
+            scrollUp.onmouseout = function () { //убрать прозрачность
                 scrollUp.style.opacity = 0.5;
-                scrollUp.style.filter  = 'alpha(opacity=50)';
+                scrollUp.style.filter = 'alpha(opacity=50)';
             };
 
-            scrollUp.onclick = function() { //обработка клика
-                $('body,html').animate({ scrollTop: 0 }, 800);
-            };           
+            scrollUp.onclick = function () { //обработка клика
+                $('body,html').animate({scrollTop: 0}, 800);
+            };
         };
 
         // show button
         window.onscroll = function () { // при скролле показывать и прятать блок
 
-            if ( window.pageYOffset > 75 ) {
+            if (window.pageYOffset > 75) {
                 scrollUp.style.display = 'block';
             } else {
                 scrollUp.style.display = 'none';
             }
         };
         // кнопка наверх конец
-        
+
         // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
             var mas = [];
-            while (text!==undefined && text.indexOf("<p>")+1) {
+            while (text !== undefined && text.indexOf("<p>") + 1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
 
                 text = text.substring(text.indexOf("</p>") + 3, text.length);

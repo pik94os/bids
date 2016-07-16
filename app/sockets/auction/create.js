@@ -14,7 +14,6 @@ module.exports = function(socket, data) {
         );
         return
     }
-
     let auctionData = {
         name: data.name.trim()+'',
         number: +data.number,
@@ -22,19 +21,40 @@ module.exports = function(socket, data) {
         userId: +data.userId,
         isArchive: false
     };
+        if (data.editId){
+            Auction.update(
+                auctionData
+            , {
+                where: {id: +data.editId}
+            }).then(function (auction) {
+                console.log('>>>>>>>>>>');
+                socket.emit('auctionEdited', {
+                    'err': 0,
+                    auction: {
+                        id : data.editId
+                    }
+                });
+            }).catch(function (err) {
+                socket.emit('auctionEdited',
+                    {err: 1, message: err.message}
+                );
+            })
+        }
 
-    Auction.create(auctionData)
-        .then(function (auction) {
-            socket.emit('auctionCreated', {
-                'err': 0,
-                auction: {
-                    id : auction.id,
-                    name : auction.name
-                }
-            });
-        }).catch(function (err) {
-        socket.emit('auctionCreated',
-            {err: 1, message: err.message}
-        );
-    })
+    if (!data.editId) {
+            Auction.create(auctionData)
+                .then(function (auction) {
+                    socket.emit('auctionCreated', {
+                        'err': 0,
+                        auction: {
+                            id : auction.id,
+                            name : auction.name
+                        }
+                    });
+                }).catch(function (err) {
+                socket.emit('auctionCreated',
+                    {err: 1, message: err.message}
+                );
+            })
+        }
 };

@@ -7,46 +7,15 @@
                     <div class="pageAuctionLeading-left-in-title">
                         Сеть
                     </div>
-                    <div class="pageAuctionLeading-left-in-text">
+                    <div class="pageAuctionLeading-left-in-text" ng-repeat="user in users">
                         <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№60</b> Апрелев С.М.
+                            <b>№{{getUserNumber(user.id)}}</b> {{user.firstName}} {{user.lastName}} {{user.patronymic}}
                         </div>
                         <div class="pageAuctionLeading-left-in-text-circleColor">
                             <img src="images/circle-green.png">
                         </div>
                     </div>
-                    <div class="pageAuctionLeading-left-in-text">
-                        <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№389</b> Ведерникова Г.И.
-                        </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
-                            <img src="images/circle-green.png">
-                        </div>
-                    </div>
-                    <div class="pageAuctionLeading-left-in-text">
-                        <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№236</b> Порной У.Е.
-                        </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
-                            <img src="images/circle-green.png">
-                        </div>
-                    </div>
-                    <div class="pageAuctionLeading-left-in-text">
-                        <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№40</b> Пономарев И.Г.
-                        </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
-                            <img src="images/circle-green.png">
-                        </div>
-                    </div>
-                    <div class="pageAuctionLeading-left-in-text">
-                        <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№61</b> Зведущая И.М.
-                        </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
-                            <img src="images/circle-green.png">
-                        </div>
-                    </div>
+
                 </div>
                 <!--<div class="pageAuctionLeading-left-in">-->
                 <!--<div class="pageAuctionLeading-left-in-title">-->
@@ -122,20 +91,23 @@
             <div class="pageAuctionLeading-right col-xs-9">
                 <div>
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
-                    <div class="auction-button-sale" ng-click="sold(true)">Лот продан</div>
-                    <div class="auction-button-remove">Снять лот</div>
+                    <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="startAuction && cleanLot">Снять лот</div>
+                    <div class="auction-button-sale" ng-click="sold(true,isClean)" ng-show="startAuction && soldLot">Лот продан</div>
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
                         <div class="pageAuctionLeading-right-top-left-top">
-                            <!--40 000 000 руб-->
-                                {{lotList.estimateFrom + ' - ' + lotList.estimateTo}}
+                            {{price.toLocaleString() + 'руб'}}
+                            <p>{{'№' + userNumber}} {{userData}}</p>
+                            <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->
+                            <!--{{lotList.estimateFrom + ' - ' + lotList.estimateTo}}-->
                         </div>
 
                     </div>
                     <div class="pageAuctionLeading-right-top-right col-md-4">
                         <div class="pageAuctionLeading-right-top-right-top">
                             Следующий бид!
+                            <input type="text" ng-model="numberLot" ng-keyup="sendFilter($event)" class="form-control">
                         </div>
                         <div class="pageAuctionLeading-right-top-right-bottom">
                             <!--40 000 100-->
@@ -145,7 +117,7 @@
                 </div>
                 <!--{{lot}}-->
                 <div class="pageAuctionLeading-right-center row">
-                    <div class="pageAuctionLeading-right-center-left col-md-2">
+                    <div class="pageAuctionLeading-right-center-left col-md-4">
                         <div class="pageAuctionLeading-right-center-left-top">
                             Лот № {{lotList.number}}
                         </div>
@@ -166,7 +138,7 @@
                             <!--</div>-->
                         </div>
                     </div>
-                    <div class="pageAuctionLeading-right-center-center col-md-5">
+                    <div class="pageAuctionLeading-right-center-center col-md-4">
                         <div class="pageAuctionLeading-right-center-center-gallery">
                             <div class="gallery-div" ng-repeat="img in lotImage" ng-if="img.fileName !== null">
                                 <img src="images/lot-images/{{img.fileName}}" style="width: 100px;height: 132px;">
@@ -186,15 +158,16 @@
                             <!--</div>-->
                         </div>
                     </div>
-                    <div class="pageAuctionLeading-right-center-right col-md-5">
+                    <div class="pageAuctionLeading-right-center-right col-md-4">
                         <div class="pageAuctionLeading-right-center-right-camera">
                             <broadcaster
                                     has-stream="hasStream"
                                     room-name="roomName"
                                     is-broadcasting="isBroadcasting"></broadcaster>
 
-                            <button ng-click="prepare()" >Включить камеру</button>
-                            <button ng-click="start()" >Начать трансляцию</button>
+                            <button ng-click="prepare()">Включить камеру</button>
+                            <button ng-click="start()">Начать трансляцию</button>
+                            <button ng-click="reloadPage()">Остановить трансляцию / Перезагрузить страницу</button>
                         </div>
                         <!--<div class="pageAuctionLeading-right-center-right-textTop">-->
                         <!--<div class="pageAuctionLeading-right-center-right-textTop-in">-->
@@ -240,8 +213,8 @@
                         <!--</div>-->
                         <div class="pageAuctionLeading-right-center-right-textBottom">
                             <div class="top">Зал</div>
-                            <div class="center"><b>№36</b> Аргосян С.Е.</div>
-                            <div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>
+                            <div class="center"><b>{{'№' + userNumber}}</b><br>{{userData}}</div>
+                            <div class="bottom">{{price.toLocaleString() + 'руб'}}</div>
                         </div>
                     </div>
                 </div>

@@ -8,17 +8,18 @@
                     <img src="images/image-body-in.png">
                 </div>
                 <div class="auction-body">
-                    <p class="auction-body-header">{{date}} в {{time}} | Москва | Online</p>
+                    <p class="auction-body-header">{{auction.date | dateTimeFilter}} | Москва | Online</p>
+                    <!--<p class="auction-body-header">{{date}} в {{time}} | Москва | Online</p>-->
                     <p class="front-body-in-center-p2">Аукцион {{number}}</p>
                     <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
-                    <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
+                    <p class="front-body-in-center-p4">Редкие и ценные книги, автографы, рукописи, фотографии</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-xs-4 col-md-12">
                         <div class="auction-button active" ng-if="notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>
-                        <div class="auction-button active" ng-if="!notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#rloginModal">Регистрация</div>
+                        <div class="auction-button active" ng-if="notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#rloginModal">Регистрация</div>
                     </div>
                     <!--div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div-->
                     <a class="col-xs-4 col-md-12" href="/images/pdf/abc_auction_{{auction.number}}.pdf" target="_blank"><div class="auction-button">Распечатать каталог</div></a>
@@ -70,7 +71,7 @@
         <!--<div class="mode-toplot">ТОП-ЛОТЫ</div>-->
         <div class="mode-import" data-toggle="modal" data-target="#import-CSV">ИМПОРТ</div>
 
-        <div class="mode-prop"></div>
+        <div class="mode-prop" data-toggle="modal" data-target="#edit-auction" ng-click="getAuctionForEdit(singleAuction.id)"></div>
         <!--<div class="mode-view-2"></div>-->
         <!--<div class="mode-view-1-active"></div>-->
         <div class="mode-cat"></div>
@@ -136,7 +137,7 @@
                         <div class="delete"></div>
                     </div>
 
-                    <div class="img222" ng-class="{'molot':singleLot.sellingPrice && !singleLot.isSold}">
+                    <div class="img222" ng-class="{'molot':singleLot.isPlayOut}">
                         <!--{{singleLot.lot_pictures.originalName}}-->
                         <div ng-if="singleLot.titlePicId" ng-repeat="titlepic in singleLot.lot_pictures">
                             <div ng-if="singleLot.titlePicId === titlepic.id">
@@ -159,7 +160,9 @@
                     <div class="img222-under2 descPr">{{singleLot.descriptionPrev | htmlToPlaintext}}</div>
                     <div class="img222-under3">Эстимейт</div>
                     <div class="img222-under41">{{singleLot.estimateFrom.toLocaleString()}} - {{singleLot.estimateTo.toLocaleString()}} р</div><div class="img222-under42"></div>
-                    <div class="info" ng-if="singleLot.sellingPrice.toLocaleString()"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice.toLocaleString()}} Р</p></div>
+                    <div class="info" ng-if="singleLot.isSold"><p class="top">Продано за</p>
+                        <p class="bottom">{{singleLot.sellingPrice.toLocaleString()}} Р</p></div>
+                    <div class="info" ng-if="singleLot.isCl"><p class="top">лот снят</div>
                 </div>
             </div>
         </div>

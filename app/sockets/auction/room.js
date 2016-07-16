@@ -4,6 +4,7 @@ const Lot = require('../../models/').Lot;
 const LotPicture = require('../../models/').LotPicture;
 const User = require('../../models/').User;
 
+
 module.exports = function(socket, data) {
     if (!data.id) {
         socket.emit('room',
@@ -11,27 +12,56 @@ module.exports = function(socket, data) {
         );
         return
     }
+    const user = socket.request.user;
 
-    Auction.findById(data.id, {
+    let attributes = [];
+        if(data.userAuction) {
+            attributes = ["firstName", "lastName", "patronymic", "id"]
+        } else {
+            attributes = ["id", "username"]
+        }
+    Auction.findById(data.id,{
         include:[{
             model: Lot,
-            attributes: ["id", "isPlayOut", "isSold"]
+            attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number"]
         },
             {
              model: User,
-             attributes: ["id", "username"],
-             order: '"id" DESC'
+                attributes: attributes
             }
+        ],
+        order: [
+            [Lot, 'number', 'ASC'],
+            [User, 'id', 'ASC']
         ]
-    })
-        .then(function(auction) {
-            socket.emit('room', {
-                 err: 0,
-                 auction: auction
+    }).then(function(auction) {
+            getPicturesTitle(auction.lots, function(err, LotPictures){
+                socket.emit('room', {
+                    err: 0,
+                    auction: auction,
+                    lotPictures: LotPictures,
+                    authUser: user.userId
+                });
             });
+        socket.join('auction:' + data.id);
         }).catch(function (err) {
         socket.emit('room',
             {err: 1, message: err.message}
         );
     })
+
+    function getPicturesTitle(lots, cb){
+        var picIds = lots.map(function(e) { return e.titlePicId });
+            LotPicture.findAll({
+                where:{
+                    id:{
+                        $in:picIds
+                    }
+                }
+            }).then(function(LotPictures) {
+                  return cb(null, LotPictures);
+            }).catch(function (err) {
+                  return cb(err);
+            })
+    }
 };

@@ -1,6 +1,6 @@
 <div class="tab-pane fade" ng-class="{'in active':tab==='auctions'}">
     <div class="auctions-list collapse in lk-body-div-center lk-tab-body">
-        <div class="new-auction row"  data-toggle="modal" data-target="#create-auction">
+        <div class="new-auction row"  data-toggle="modal" data-target="#create-auction" ng-click="clearAuction()">
             <div class="col-xs-12">
                 <div class="auction-img1">
 
@@ -27,9 +27,9 @@
                 <div class="col-md-3">
                     <div class="row">
                         <div class="col-xs-6 col-md-12">
-                            <div class="auction-button active"  ui-sref="auction({open:1, auctionId: singleAuction.id})">Просмотреть каталог</div>
-                            <div class="auction-button active"  ui-sref="auction({auctionId: singleAuction.id})">Редактировать каталог</div>
-                            <div class="auction-button">Редактировать аукцион</div>
+                            <div class="auction-button active" ui-sref="auction({open:1, auctionId: singleAuction.id})">Просмотреть каталог</div>
+                            <div class="auction-button active" ui-sref="auction({auctionId: singleAuction.id})">Редактировать каталог</div>
+                            <div class="auction-button" data-toggle="modal" data-target="#edit-auction" ng-click="getAuctionForEdit(singleAuction.id)">Редактировать аукцион</div>
                         </div>
                     </div>
                 </div>
