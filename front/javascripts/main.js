@@ -14,8 +14,7 @@ require.config({
         'angular-localForage': '../components/angular-localforage/dist/angular-localForage.min',
         'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min',
         'io': './libs/socket.io-1.4.5',
-        'angularFileUpload': '../components/angular-file-upload/dist/angular-file-upload.min',
-        'SimpleWebRTC': './libs/ng-simple-webrtc/ng-simple-webrtc'
+        'angularFileUpload': '../components/angular-file-upload/dist/angular-file-upload.min'
     },
     // angular не поддерживает AMD из коробки, поэтому экспортируем перменную angular в глобальную область
     shim: {
@@ -32,7 +31,6 @@ require.config({
         },
         'uiRouter' : ['angular'],
         'angular-localForage' : ['angular','localforage'],
-        'SimpleWebRTC' : ['angular'],
         'uiSocket':['angular'],
         'uiStorage':['angular'],
         "bstrap" : ['jquery'],
