@@ -270,16 +270,13 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
                     $scope.current_lot.sellingPrice = data.bid.price;
-                $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep($scope.current_lot.sellingPrice);
+                    $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep($scope.current_lot.sellingPrice);
                     $scope.timeoutBidUser = true;
                     setTimeout(function () {
                         $scope.timeoutBidUser = false
                     }, 3000);
-                    ngSocket.emit('auction/getLot', {
-                        lotId: $scope.auction_params.lots[currentId].id
-                    });
                 }
-                $scope.confirm = data
+                $scope.confirm = data;
             });
 
             var curDate = new Date();
@@ -364,7 +361,6 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
-            //console.log(data);
         });
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();

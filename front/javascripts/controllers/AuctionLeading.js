@@ -30,7 +30,6 @@ define(['./module','jquery'],function(controllers,$){
         $scope.start = function start() {
             ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
             $scope.$broadcast('start');
-            console.log(+$scope.lotId);
         };
         $scope.reloadPage = function reloadPage() {
             window.location.reload();
@@ -109,6 +108,7 @@ define(['./module','jquery'],function(controllers,$){
 
 
         ngSocket.on('auctionState', function (data) {
+            console.log(data);
             setLotInfo(data.lot);
             $scope.soldLot = data.lot.sellingPrice ? true : false;
             setTimeout(function () {
