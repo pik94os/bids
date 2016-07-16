@@ -474,6 +474,12 @@
       background-image: url(/images/ICONS_svg/sound.svg);
       border-radius: 100%;
     }
+    .sound-on {
+      opacity: 1;
+    }
+    .sound-off {
+      opacity: 0.5;
+    }
 
     .room-message-form {
       border-radius: 0px;
