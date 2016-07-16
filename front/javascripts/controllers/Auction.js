@@ -13,6 +13,7 @@ define(['./module','jquery'],function(controllers,$){
         });
 
     }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function($scope,$http,$rootScope,$stateParams,ngSocket,FileUploader){
+        $scope.currentAuctionId = $stateParams.auctionId;
         $scope.open = +$stateParams.auctionId?$stateParams.open:2;
         $scope.contactsShow= false;
         $scope.showContacts = function () {

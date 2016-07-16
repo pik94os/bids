@@ -397,6 +397,17 @@ height: 70px;
     *overflow: hidden;
 
   }
+  .lot-description-input2{
+    background-color: transparent;
+    border:none;
+    width: 100%;
+    overflow:auto;
+    resize: none;
+    padding: 10px;
+    height: 300px;
+    *overflow: hidden;
+
+  }
   .lot-price {
     position: relative;
     width: 100%;
