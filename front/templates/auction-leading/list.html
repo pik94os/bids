@@ -108,7 +108,7 @@
                         <div class="pageAuctionLeading-right-top-right-top">
                             Следующий бид!
                             <div>
-                                {{(lot.sellingPrice+calcStep(lot.sellingPrice)).toLocaleString()}}
+                                {{(priceNext).toLocaleString()}} руб
                             </div>
 
                             <input type="text" ng-model="numberLot" ng-keyup="sendFilter($event)" class="form-control">
