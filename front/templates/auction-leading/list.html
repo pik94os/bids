@@ -224,8 +224,8 @@
                 <div class="pageAuctionLeading-right-bottom row">
                     <div class="pageAuctionLeading-right-bottom-left col-md-7">
                         <!--<input size="70" ng-model="chatMessage">-->
-                        <input class="form-control" id="write-message" ng-model="chat.message" ng-keyup="chat.keyUp($event)"></input>
-                        <!--<div class="button btn-primary" ng-click="pasteChatMessage(chatMessage)">отправить</div>-->
+                        <input class="form-control" id="write-message" ng-model="chat.message" ng-keyup="chat.keyUp($event)">
+                        <div class="button btn-primary" ng-click="chat.addMessage()">отправить</div>
                         <div class="pageAuctionLeading-right-bottom-left-chat">
                             <div class="pageAuctionLeading-right-bottom-left-chat-text">
                                 <!--<div class="black">Апрелев</div> > <div class="black">все</div> : Можно вопрос?-->
