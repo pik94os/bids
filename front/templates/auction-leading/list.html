@@ -91,8 +91,8 @@
             <div class="pageAuctionLeading-right col-xs-9">
                 <div>
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
-                    <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="startAuction && cleanLot">Снять лот</div>
-                    <div class="auction-button-sale" ng-click="sold(true,isClean)" ng-show="startAuction && soldLot">Лот продан</div>
+                    <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="cleanLot">Снять лот</div>
+                    <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn">Лот продан</div>
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">

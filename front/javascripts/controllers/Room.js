@@ -317,7 +317,6 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.confirm = data;
             $scope.estimateToMax = $scope.current_lot.sellingPrice > $scope.estimateTo ? 0 : 1;
-            console.log(data.bid.price);
         });
 
             var curDate = new Date();
@@ -443,10 +442,13 @@ define(['./module','jquery'],function(controllers,$){
 
         $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
             var video = $("#remoteVideo")[0];
+            $scope.classSoundOnOff =! $scope.classSoundOnOff;
             if (video.muted) {
                 video.muted = false;
+                console.log('Sound off');
             } else {
                 video.muted = true;
+                console.log('Sound on');
             }
         };
 
@@ -471,19 +473,13 @@ define(['./module','jquery'],function(controllers,$){
 
             f.addListener(WCSEvent.StreamStatusEvent, function (event) {
                 switch (event.status) {
-                    //если поток опубликовался
-                    case StreamStatus.Publishing:
-                        //отправить слушателям ссылку на поток
-                        ngSocket.emit('callTeacher', {auctionId: $stateParams.auctionId, name: event.name});
-                        break;
                     //Если возникли ошибки
                     case StreamStatus.Failed:
                         setTimeout(function () {
                             $scope.videoName = 'video:' + Date.now();
                             //опубликовать поток с вебки ведущего
-                            $scope.f.publishStream({
-                                name:  $scope.videoName,
-                                record: false
+                            $scope.f.playStream({
+                                name:  $scope.videoName, remoteMediaElementId: 'remoteVideo'
                             });
                             ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:$scope.videoName});
                         },1000*(ErrCounter++));
