@@ -192,7 +192,7 @@ define(['./module','jquery'],function(controllers,$){
 
             ngSocket.on('lotSelected', function (data) {
                 initLotParams($scope.current_lot, params, data.lot);
-                $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
+                $scope.current_lot.step = data.lot.sellingPrice?calcStep(data.lot.sellingPrice):data.lot.estimateFrom;
                 $scope.estimateTo = data.lot.estimateTo;
 
                 if(data.lot.sellingPrice !== null) {
@@ -475,14 +475,6 @@ define(['./module','jquery'],function(controllers,$){
                 switch (event.status) {
                     //Если возникли ошибки
                     case StreamStatus.Failed:
-                        setTimeout(function () {
-                            $scope.videoName = 'video:' + Date.now();
-                            //опубликовать поток с вебки ведущего
-                            $scope.f.playStream({
-                                name:  $scope.videoName, remoteMediaElementId: 'remoteVideo'
-                            });
-                            ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:$scope.videoName});
-                        },1000*(ErrCounter++));
                         break;
                 }
             });
@@ -504,13 +496,16 @@ define(['./module','jquery'],function(controllers,$){
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
-            f.connect({urlServer: url, appKey: 'defaultApp'});
+            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
         };
         ngSocket.on('webcam',function (data) {
+            console.log(data.name);
             $scope.f.stopStream({name: $scope.videoName});
+            if(data.name!==$scope.videoName){
+                $scope.f.playStream({name: data.name, remoteMediaElementId: 'remoteVideo'});
+            }
             $scope.videoName = data.name;
-            $scope.f.playStream({name: data.name, remoteMediaElementId: 'remoteVideo'});
-        })
+        });
 
         $(function () {
             $scope.initPlayer();

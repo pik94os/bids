@@ -66,7 +66,7 @@ define(['./module','jquery'],function(controllers,$){
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
-            f.connect({urlServer: url, appKey: 'defaultApp'});
+            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
         };
 
         $scope.sendFilter = function (e) {
@@ -127,11 +127,17 @@ define(['./module','jquery'],function(controllers,$){
             }
         });
         function setLotInfo(lot) {
+            console.log(lot);
+            $scope.descriptionPrevArr = [];
             $scope.lotList = lot;
-            if(lot.descriptionPrev !== undefined) {
+            if(lot && lot.descriptionPrev !== undefined) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
             }
-            $scope.lotImage = lot.lot_pictures;
+            if(lot.lot_pictures==undefined){
+                $scope.lotImage = [];
+            }else{
+                $scope.lotImage = lot.lot_pictures ;
+            }
             $scope.lotId = lot.id;
             $scope.lotIdSelect = lot.id;
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: lot.id});
