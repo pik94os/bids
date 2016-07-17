@@ -56,7 +56,7 @@ define(['./module','jquery'],function(controllers,$){
             var port;
             if (window.location.protocol == "http:") {
                 proto = "ws://188.120.226.71";
-                port = "8080";
+                port = "8282";
             } else {
                 proto = "wss://art-bid.ru";
                 port = "8443";
