@@ -497,7 +497,7 @@ define(['./module','jquery'],function(controllers,$){
                 proto = "ws://188.120.226.71";
                 port = "8282";
             } else {
-                proto = "wss://art-bid.ru";
+                proto = "wss://wcs5-eu.flashphoner.com";
                 port = "8443";
             }
 
