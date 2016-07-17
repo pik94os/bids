@@ -104,6 +104,34 @@
             </div>
 
             <br>
+            <!--чат-->
+            <div class="input-group room-input-group">
+                <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
+                <input class="form-control room-message-form"
+                       type="text"
+                       placeholder="СООБЩЕНИЕ"
+                       id="write-message2"
+                       ng-model="chat.message"
+                       ng-keyup="chat.keyUp($event)">
+                        <span class="input-group-btn">
+                            <button class="btn room-buttons"
+                                    type="submit"
+                                    ng-click="chat.addMessage()">
+                                ОТПРАВИТЬ
+                            </button>
+                        </span>
+            </div>
+
+            <div class="room-chat">
+                <div ng-repeat="chatMessage in chat.messages">
+                    <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
+                        <!--{{chatMessage.user.patronymic}}-->
+                        : {{chatMessage.message}}
+                        <!--&gt; <div class="black">все</div>-->
+                    </div>
+                </div>
+            </div>
+            <br>
         </div>
     </div>
 
