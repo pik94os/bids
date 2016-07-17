@@ -130,10 +130,10 @@
                             {{(lot.sellingPrice+calcStep(lot.sellingPrice)).toLocaleString()}}
                         </div>
                         <br>
-                        <div ng-hide="auctionOn">
+                        <div ng-show="fuckStop">
                         <label for="date" class=""> Дата начала аукциона</label>
-                        <input type="text" ng-model="dateStart" class="form-control" id="date">
-                        <button ng-click="dateStartAuction()">Сохранить</button>
+                        <input type="text" ng-model="dateStart" class="form-control" id="date" ng-show="fuckStop">
+                        <button ng-click="dateStartAuction()" ng-show="fuckStop">Сохранить</button>
                         </div>
                     </div>
                 </div>
