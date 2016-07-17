@@ -31,14 +31,18 @@ module.exports = function(socket, data) {
                 if (err) return emitError(socket, err);
                 checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, function(err){
                     if (err) return emitError(socket, err);
-                Bid.create({price: data.bidPrice, lotId: lot.id, creatorId: user.id})
+                Bid.create({price: data.bidPrice, lotId: lot.id, userId: user.id})
                     .then(function (bid){
                         if (lot.isPlayOut) {
                             lot.sellingPrice = data.bidPrice;
+                        } else if (data.extramural) {
+                            lot.sellingPrice = data.bidPrice;
+                            console.log(data.extramural, data.bidPrice);
                         }
                         return lot.save().then(function (lot) {
                             socket.emit('lotConfirmed',
                                 {err: 0, bid: bid});
+                            console.log(lot.sellingPrice);
                             socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
                                 err: 0,
                                 bid: bid,

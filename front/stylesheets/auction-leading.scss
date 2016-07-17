@@ -83,8 +83,6 @@
         //height: 100%;
         font-weight: bold;
         padding: 23px;
-	
-width: 310px;
         &-top {
           font-size: 40px;
         }
@@ -101,9 +99,6 @@ width: 310px;
         //height: 100%;
         font-weight: bold;
         padding: 15px;
-
-	width: 279px;
-
         &-gallery {
           @include clearfix;
           .gallery-div {
@@ -151,7 +146,7 @@ width: 310px;
       &-right {
         //height: 100%;
         padding: 15px;
-
+        margin-top: 50px;
 	//width: 450px;
         &-camera {
           //height: 160px;

@@ -13,6 +13,7 @@ module.exports = function (socket, data) {
         });
         return
     }
+    // Auction.findAll({where: {id: data.id, isArchive: false}}).then((data)=> {
     Auction.findById(data.id).then((data)=> {
         socket.emit('catchAuction', {
             err: 0,

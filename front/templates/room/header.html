@@ -10,13 +10,13 @@
         </div>
     </div>
 
-    <div class="room-header">
+    <div class="room-header" ng-hide="countdown==1">
         <!--<div class="info-top"><br></div>-->
         <div class="row">
             <div class="info-bottom">
                 <div class="pull-left">ЛОТ {{lot_number}}</div>
                 <!--<div class="favorite pull-right"></div>-->
-                <div class="cat pull-right" ui-sref="auction({auctionId:auction_id,open:1})"></div>
+                <div class="cat pull-right" ui-sref="auction({auctionId: auction_id, open: 1})"></div>
             </div>
         </div>
     </div>

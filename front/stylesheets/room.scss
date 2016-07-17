@@ -437,6 +437,7 @@
       background: #a6b5bc;
       color: #121a3e;
       height: 43px;
+      margin: 0;
       > div {
         margin-bottom: 10px;
       }
@@ -486,6 +487,9 @@
       margin-top: 10px;
       font-size: 12pt;
       padding: 10px;
+      max-height: 240px;
+      overflow: hidden;
+      overflow-y: auto;
     }
 
     .insert-your {
@@ -537,6 +541,7 @@
     .room-container-with-circles {
       margin-bottom: 40px;
       margin-left: 25px;
+      //min-height: 415px;
       padding-top: 30px;
       .lot-table {
         float: left;
@@ -549,6 +554,12 @@
         background-image: url("/images/lot-tables/lot_tabl_quite.png");
         &.moveToTheRight {
           margin-left: 0;
+        }
+        .lot-user-internet {
+          @extend .lot-table;
+          background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat;
+          height: 100px;
+          width: 100px;
         }
       }
       .lot-table-user {
@@ -653,6 +664,26 @@
     .legend {
       white-space: nowrap;
       margin-bottom: 40px;
+      .internet-hover {
+        &:hover {
+          color: blue;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .lot-user {
+      @extend .lot-table;
+      background: url("/images/lot-tables/lot_tabl_quite.png") no-repeat;
+      height: 100px;
+      width: 100px;
+    }
+
+    .lot-user-internet {
+      @extend .lot-table;
+      background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat;
+      height: 100px;
+      width: 100px;
     }
 
     .description {
@@ -791,5 +822,20 @@
       }
     }
   }
+}
+
+.class-Of-Lot-I {
+  background: url("/images/lot-tables/lot_tabl_press_inet.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
+  div {
+    display: none;
+  }
+}
+.lot-user-internet {
+  @extend .lot-table;
+  background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
 }
 

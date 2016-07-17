@@ -10,7 +10,7 @@ module.exports = function(socket, data) {
         isArchive : false
     };
     if(!data.public){
-        where = {userId: socket.request.user.id};
+        where = {userId: socket.request.user.id, isArchive:false};
     }
     Auction.findAll({where,
     include: Lot})

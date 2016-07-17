@@ -1,0 +1,123 @@
+<!--<div class="lot-list" ng-class="{'ll-open':open,'ll-open-1':open===1,'ll-open-2':open===2,'ll-open-1-false':isPlayOut === false,'ll-open-1-true':isPlayOut === true }">-->
+<div class="lot-list">
+    <div class="row row-lg">
+
+        <div class="top-block">
+            <div class=" col col-sm-6">
+                <div class="lot-title">
+                    <div class="edit"></div>
+                    <div><textarea class="lot-description-input" ng-model="newLotDescriptionPrev"></textarea></div>
+                </div>
+                <div class="lot-price">Номер лота: <input class="lot-priceinput" ng-model="newLotNumber"></div>
+                <div class="lot-price">Год лота: <input class="lot-priceinput" ng-model="newLotYear"></div>
+                <div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="newLotEstimateFrom"> -
+                    <input class="lot-priceinput" ng-model="newLotEstimateTo"> Руб.
+                </div>
+
+                <div class="lot-price">Цена продажи: <input class="lot-priceinput" ng-model="newLotSellingPrice"></div>
+            </div>
+
+            <div class="col col-sm-6">
+                <div class="big-photo">
+                    <img ng-src="/images/lot-images/{{bigPhoto}}" ng-if="bigPhoto">
+                    <img ng-src="/images/no-photo.jpg" ng-if="!bigPhoto" class="big-photo_no-photo">
+                    <div class="cclose"></div>
+                    <div class="edit"></div>
+                </div>
+                <div class="big-photo-under">
+                    <img class="li4077" src="images/arrow_galery_left.svg" ng-click="lastPhotos()"
+                         ng-if="gallery.length>5"><img class="li4077" src="images/arrow_galery_right.svg"
+                                                       ng-click="firstPhotos()" ng-if="gallery.length>5">
+                </div>
+                <div class="gallery">
+                    <div class="small-photo" ng-repeat="img in gallery" ng-click="setBigPhoto(img.fileName)"
+                         ng-if="img.fileName">
+                        <div class="cclose"></div>
+                        <div>
+                            <img ng-src="/images/lot-images/{{img.fileName}}">
+                        </div>
+                    </div>
+                    <div class="add" onclick="$('#selectMultiplePhoto').click()">
+                        <div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <input id="selectMultiplePhoto" type="file" nv-file-select="" uploader="multipleLotPicUploader" multiple name="PhotoFiles" ng-hide="true"/>
+                <!--<div class="button custom-title-block col-sm-offset-4 col-sm-4" onclick="$('#selectMultiplePhoto').click()">Выбрать фотографии</div>-->
+                <div class="lot-price" ng-click="multipleLotPicUploader.uploadAll()"
+                     ng-disabled="!multipleLotPicUploader.getNotUploadedItems().length" ng-show="picturesAdded && !addedPic">
+                    Добавить фотографии
+                </div>
+            </div>
+            <div class="col col-sm-12 txt-edit-parent">
+                <div class="txt-edit">
+                    <div class="lot-body-div-center-in-top pad-icon pull-right">
+                        <!--  Здесь вставлять иконки или шрифт ? -->
+                        <!--div class="sm-dropdown"-->
+                        <div class="lot-body-div-center-in-top-divdescription"><a class="t" href="/"
+                                                                                  title="Обычный текст"></a></div>
+                        <div class="lot-body-div-center-in-top-divdescription"><a class="i" href="/" title="Курсив"></a>
+                        </div>
+                        <div class="lot-body-div-center-in-top-divdescription"><a class="b" href="/" title="Жирный"></a>
+                        </div>
+                        <div class="lot-body-div-center-in-top-divdescription"><a class="tt" href="/"
+                                                                                  title="С подчёркиванием"></a></div>
+                        <!--/div-->
+                        <div class="sm-dropdown">
+                            <div class="lot-body-div-center-in-top-divdescription m-l"><a class="font-l" href="/"
+                                                                                          title="Выровнять текст по левому краю"></a>
+                            </div>
+                            <div class="lot-body-div-center-in-top-divdescription"><a class="font-c" href="/"
+                                                                                      title="Выровнять текст по центру"></a>
+                            </div>
+                            <div class="lot-body-div-center-in-top-divdescription"><a class="font-r" href="/"
+                                                                                      title="Выровнять текст по правому краю"></a>
+                            </div>
+                        </div>
+                        <div class="sm-dropdown">
+                            <div class="lot-body-div-center-in-top-divdescription m-l"><a class="indent-reduce" href="/"
+                                                                                          title="Уменьшить отступ"></a>
+                            </div>
+                            <div class="lot-body-div-center-in-top-divdescription m-l"><a class="indent-increase"
+                                                                                          href="/"
+                                                                                          title="Увеличить отступ"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="title">
+                        <ul class="nav">
+                            <li class="li406" ng-class="{'active':!tab}" ui-sref="{tab:''}">ОПИСАНИЕ</li>
+                            <!--li class="li406" ng-class="{'active':tab==='historyofauctions'}" ui-sref="{tab:'historyofauctions'}">ИСТРОРИЯ ТОРГОВ</li-->
+                            <!--li class="li406" ng-class="{'active':tab==='reviews'}" ui-sref="{tab:'reviews'}">ОТЗЫВЫ</li-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="edit-field tab-content">
+                    <div class="edit"></div>
+                    <textarea class="lot-description-input" ng-model="newLotDescription"></textarea>
+                    <div class="cclose"></div>
+                    <!--=include tabs/*.html -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="lot-description">
+        <div class="lot-description-header"></div>
+        <div class="lot-description-body"></div>
+    </div>{{newLotInfo}}
+    <p ng-show="lotExist" class="lot-price">Лот с номером {{lotExist}} уже существует</p>
+    <p ng-show="newLotSaved" class="lot-price">Новый лот с номером <!--{{newLotInfo.lot.number}}--> успешно сохранен в базу </p>
+    <div class="row lot-buttons">
+
+        <div class="col-sm-3">
+            <div class="custom-btn-sm btn-block custom-btn-red">Удалить</div>
+        </div>
+        <div class="col-sm-3">
+            <div class="custom-btn-sm btn-block" ng-click="createNewLot()">Сохранить</div>
+        </div>
+        <div class="col-sm-6">
+            <div class="custom-btn-sm btn-block" ng-click="createNewLot()">Сохранить и создать новый</div>
+        </div>
+    </div>
+</div>

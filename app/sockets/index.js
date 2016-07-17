@@ -46,12 +46,21 @@ module.exports = function(io,passportSocketIo) {
             {event:'auction/createLot', access:0, comment: "создание лота"},
             {event:'auction/confirmLot', access:0, comment: "подтверждение лота"},
             {event:'auction/getAuction', access:0, comment: "запрос аукциона по id"},
+            {event:'auction/updateAuction', access:0, comment: "обновление аукциона"},
             // картинки
             {event:'auction/getPictureList', access:0, comment: "получение списка картинок"},
             {event:'userAuction', access:0, comment: "регистрация пользователя для аукциона"},
+            {event:'auction/createLotPicture', access:0, comment: "добавление картинок вручную"},
             //лоты
             {event:'auction/updateLot', access:0, comment: "обновление лотов"},
-            {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"}
+            {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"},
+            //биды
+            {event:'auction/getListBids', access:0, comment: "запуск разыгрываемого первого лота"},
+            // чат
+            {event:'auction/pasteChatMessage', access:0, comment: "добавление сообщений в чат"},
+            {event:'auction/getChatMessages', access:0, comment: "получение сообщений из чата определенного аукциона"},
+            //video
+            {event:'video/newVideo', access:0, comment: "обновление информации о трансляции"}
         ];
 
         //цикл проходит по всем элементам массива возвращая нужное событие

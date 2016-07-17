@@ -15,7 +15,10 @@ require.config({
         'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min',
         'io': './libs/socket.io-1.4.5',
         'angularFileUpload': '../components/angular-file-upload/dist/angular-file-upload.min',
-        'SimpleWebRTC': './libs/ng-simple-webrtc/ng-simple-webrtc'
+        //Flashphoner
+        'FP': './libs/flashphoner/Flashphoner',
+        'FPjq-json': './libs/flashphoner/jquery.json',
+        'FPjq-ws': './libs/flashphoner/jquery.websocket'
     },
     // angular не поддерживает AMD из коробки, поэтому экспортируем перменную angular в глобальную область
     shim: {
@@ -32,12 +35,15 @@ require.config({
         },
         'uiRouter' : ['angular'],
         'angular-localForage' : ['angular','localforage'],
-        'SimpleWebRTC' : ['angular'],
         'uiSocket':['angular'],
         'uiStorage':['angular'],
         "bstrap" : ['jquery'],
         'angular-svg-round-progressbar' : ['angular'],
-        'angularFileUpload':['angular']
+        'angularFileUpload':['angular'],
+        //Flashphoner
+        'FPjq-json' : ['jquery'],
+        'FPjq-ws' : ['jquery'],
+        'FP' : ['FPjq-json','FPjq-ws']
     },
     deps: ['./bootstrap']
 });

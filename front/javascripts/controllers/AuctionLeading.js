@@ -1,14 +1,73 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionLeading',['$state','$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($state,$scope,$http,$rootScope,$stateParams, ngSocket){
+        $scope.dateStart = '';
         $scope.numberLot = "";
         $scope.cleanLot = true;
         $scope.hasStream = true;
-        $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
         $scope.isBroadcasting = '';
         $scope.prepare = function prepare() {
-            $scope.$broadcast('prepare');
+            $scope.initPlayer();
         };
+        $scope.videoName = 'video:' + Date.now();
+
+        $scope.initPlayer = function () {
+            var f = $scope.f = Flashphoner.getInstance();
+            //счетчик ошибок перезапуска
+            var ErrCounter = 0;
+
+            f.addListener(WCSEvent.ConnectionStatusEvent, function () {
+                //После инициализации
+                //опубликовать поток с вебки ведущего
+                $scope.f.publishStream({
+                    name:  $scope.videoName,
+                    record: false
+                });
+            });
+
+
+            f.addListener(WCSEvent.StreamStatusEvent, function (event) {
+                switch (event.status) {
+                    //если поток опубликовался
+                    case StreamStatus.Publishing:
+                        //отправить слушателям ссылку на поток
+                        ngSocket.emit('callTeacher', {auctionId: $stateParams.auctionId, name: event.name});
+                        break;
+                    //Если возникли ошибки
+                    case StreamStatus.Failed:
+                        setTimeout(function () {
+                            $scope.videoName = 'video:' + Date.now();
+                            //опубликовать поток с вебки ведущего
+                            $scope.f.publishStream({
+                                name:  $scope.videoName,
+                                record: false
+                            });
+                            ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:$scope.videoName});
+                        },1000*(ErrCounter++));
+                        break;
+                }
+            });
+            var configuration = new Configuration();
+            configuration.remoteMediaElementId = 'remoteVideo';
+            configuration.localMediaElementId = 'localVideo';
+            configuration.elementIdForSWF = "flashVideoDiv";
+            var proto;
+            var url;
+            var port;
+            if (window.location.protocol == "http:") {
+                proto = "ws://188.120.226.71";
+                port = "8282";
+            } else {
+                proto = "wss://art-bid.ru";
+                port = "8443";
+            }
+
+            url = proto + ":" + port;
+            f.init(configuration);
+            // $scope.f.getAccessToAudioAndVideo();
+            f.connect({urlServer: url, appKey: 'defaultApp'});
+        };
+
         $scope.sendFilter = function (e) {
             if (e.keyCode === 13) {
                 ngSocket.emit('auction/getLotList', {
@@ -28,8 +87,11 @@ define(['./module','jquery'],function(controllers,$){
             }
         };
         $scope.start = function start() {
+            ngSocket.emit('video/newVideo', {
+                auctionId: +$stateParams.auctionId,
+                name: $scope.videoName
+            });
             ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
-            $scope.$broadcast('start');
         };
         $scope.reloadPage = function reloadPage() {
             window.location.reload();
@@ -46,6 +108,8 @@ define(['./module','jquery'],function(controllers,$){
                 alert(data.message);
             }
             $scope.soldLot = true;
+            $scope.startAuction = true;
+
         });
         ngSocket.on('catchAuction', function (data) {
             if(data.err) {
@@ -53,7 +117,7 @@ define(['./module','jquery'],function(controllers,$){
             }
             $scope.dateAuction = data.data.date;
             if(new Date(data.data.date) <= new Date()) {
-                $scope.startAuction = true;
+
                 ngSocket.emit('auction/updateLot', {
                     lotId: +$scope.lotId,
                     isPlayOut: true
@@ -77,6 +141,7 @@ define(['./module','jquery'],function(controllers,$){
         });
         ngSocket.on('room', function (auction) {
             $scope.users = auction.auction.users;
+            $scope.auctionOn = auction.auction.start ? 1 : 0
         });
 
 
@@ -97,19 +162,36 @@ define(['./module','jquery'],function(controllers,$){
                     isCl: isClean,
                     auctionId: $stateParams.auctionId
                 });
-            console.log(+$scope.lotId);
         };
 
         ngSocket.on('lotConfirmed', function (data) {
-            
+            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId});
             $scope.price = data.bid.price;
-            $scope.userNumber = data.bid.creatorId;
+            $scope.userNumber = data.bid.userId;
             $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
         });
+        $scope.dateStartAuction = function () {
+            var date_arr_new = $scope.dateStart.split('.');
+            $scope.date = date_arr_new[2] + '-' + date_arr_new[1] + '-' + date_arr_new[0] + 'T00:00:00';
+            ngSocket.emit('auction/updateAuction', {
+                date: $scope.date,
+                id: +$stateParams.auctionId
+            });
+            $scope.dateStart = '';
+        };
 
+        ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId});
 
+        ngSocket.on('bidList', function (bid) {
+            if(bid.err) {
+                alert(bid.message);
+            }
+            $scope.bids = bid.bids;
+            console.log(bid);
+        });
 
         ngSocket.on('auctionState', function (data) {
+            console.log(data);
             setLotInfo(data.lot);
             $scope.soldLot = data.lot.sellingPrice ? true : false;
             setTimeout(function () {

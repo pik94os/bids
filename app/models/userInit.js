@@ -11,6 +11,7 @@ var UserMeta = require('./userInit/User.js'),
     LotMeta = require('./userInit/Lot'),
     LotPictureMeta = require('./userInit/LotPicture'),
     BidMeta = require('./userInit/Bid'),
+    ChatMeta = require('./userInit/Chat'),
     AuctionUserMeta = require('./userInit/AuctionUser'),
     connection = require('../sequelize.js');
 
@@ -35,7 +36,8 @@ class Initiator {
                 Lot: that.Lot,
                 LotPicture: that.LotPicture,
                 Bid: that.Bid,
-                AuctionUser: that.AuctionUser
+                AuctionUser: that.AuctionUser,
+                Chat: that.Chat
             }
         }).catch(function (err) {
             console.error(err.message)
@@ -54,6 +56,7 @@ class Initiator {
         this.Lot = connection.define('lot', LotMeta.attributes);
         this.Bid = connection.define('bid', BidMeta.attributes);
         this.LotPicture = connection.define('lot_picture', LotPictureMeta.attributes);
+        this.Chat = connection.define('chat', ChatMeta.attributes);
 
         this.Role.hasMany(this.User);
         this.Role.belongsToMany(this.Right, {through: this.RoleRight});
@@ -65,10 +68,14 @@ class Initiator {
         this.Auction.hasMany(this.Lot);
         this.Lot.belongsTo(this.Auction);
         this.Lot.hasMany(this.LotPicture);
-        this.Bid.belongsTo(this.Lot, {as: "lot"});
-        this.Bid.belongsTo(this.User, {as: "creator"});
+        this.Bid.belongsTo(this.Lot);
+        this.Lot.hasMany(this.Bid);
+        this.User.hasMany(this.Bid);
+        this.Bid.belongsTo(this.User);
        // this.Notification.belongsTo(this.Lot, {as: "lot"});
        // this.Notification.belongsTo(this.User, {as: "users"});
+        this.Chat.belongsTo(this.User);
+
 
         this.roles = {};
         this.rights = {};
@@ -84,6 +91,7 @@ class Initiator {
         models.Lot = this.Lot;
         models.LotPicture = this.LotPicture;
         models.Bid = this.Bid;
+        models.Chat = this.Chat;
     }
 
     _syncModels() {
@@ -104,6 +112,8 @@ class Initiator {
             return that.LotPicture.sync({force: false})
         }).then(function () {
             return that.Bid.sync({force: false})
+        }).then(function () {
+            return that.Chat.sync({force: false})
         })
     }
 
