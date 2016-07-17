@@ -471,19 +471,13 @@ define(['./module','jquery'],function(controllers,$){
 
             f.addListener(WCSEvent.StreamStatusEvent, function (event) {
                 switch (event.status) {
-                    //если поток опубликовался
-                    case StreamStatus.Publishing:
-                        //отправить слушателям ссылку на поток
-                        ngSocket.emit('callTeacher', {auctionId: $stateParams.auctionId, name: event.name});
-                        break;
                     //Если возникли ошибки
                     case StreamStatus.Failed:
                         setTimeout(function () {
                             $scope.videoName = 'video:' + Date.now();
                             //опубликовать поток с вебки ведущего
-                            $scope.f.publishStream({
-                                name:  $scope.videoName,
-                                record: false
+                            $scope.f.playStream({
+                                name:  $scope.videoName, remoteMediaElementId: 'remoteVideo'
                             });
                             ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:$scope.videoName});
                         },1000*(ErrCounter++));
