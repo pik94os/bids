@@ -474,7 +474,12 @@
       background-image: url(/images/ICONS_svg/sound.svg);
       border-radius: 100%;
     }
-
+    .sound-on {
+      opacity: 1;
+    }
+    .sound-off {
+      opacity: 0.5;
+    }
     .room-message-form {
       border-radius: 0px;
       border: 0pt;
@@ -667,6 +672,7 @@
       .internet-hover {
         &:hover {
           color: blue;
+          cursor: pointer;
         }
       }
     }
@@ -711,7 +717,14 @@
       color: white;
       //padding: 5px 0px 0px 20px; // левый отступ - 20px\
       margin-top: 10px;
-
+      &-color {
+        &:hover {
+          background: #117400;
+        }
+        &:active {
+          background: #115200;
+        }
+      }
     }
     .display-table {
       display: table;
@@ -823,9 +836,25 @@
   }
 }
 
+.class-Of-Lot-I {
+  background: url("/images/lot-tables/lot_tabl_press_inet.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
+  div {
+    display: none;
+  }
+}
+
+.class-red-bid {
+  background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
+}
+
 .lot-user-internet {
   @extend .lot-table;
   background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
   height: 100px;
   width: 100px;
 }
+

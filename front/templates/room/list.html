@@ -134,13 +134,30 @@
                             Интернет: <b>{{auction_params.users_length.internet_users}}</b>
                         </div>
                     </div>
-
+                    <!--вывод всех ID пользователей - {{auction_params.users_number}}<br>-->
+                    <!--вывод текущего ID пользователя - {{currentUserInfo.id}}-->
                     <!--карточки-->
+
+                    <br><br>
+                    lastBid-{{lastBid}}
+                    <br><br>
+                    price-{{price}}
+                    <br><br>
+                    priceNext-{{priceNext}}
+                    <br><br>
+                    userNumber-{{userNumber}}
+                    <br><br>
+                    userData-{{userData}}
+                    <br><br>
+
                     <div class="row">
                         <div class="room-container-with-circles">
+                            getUserNumber-{{getUserNumber()}}
                             <div emit-last-repeater-element
                                  class="lot-table"
-                                 ng-class="{'lot-user-internet':classLot}"
+                                 ng-class="{'lot-user-internet': classLot,
+                                            'class-Of-Lot-I': $index == classOfLotI,
+                                            'class-red-bid': $index+2 === userNumber && timeoutBidUser === true}"
                                  ng-repeat="r in auction_params.users_number"
                                  ng-click='setPopup($index)'>
                                  <!--ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,-->
@@ -159,7 +176,9 @@
                                     </div>
                                     <div class="btn bg-primary popup-text-btn">Сообщение</div>
                                 </div>-->
-                                <div class="num-on-table">{{$index+1}}</div>
+                                <div>
+                                    <div class="num-on-table">{{$index+1}}</div>
+                                </div>
                             </div>
                         </div>
 
@@ -295,7 +314,8 @@
                                     <button class="btn swap-btn" ng-click="changeClassVideoWindow()"
                                             style="margin-left: -35px"></button>
                                     <button class="btn sound-btn" ng-click="soundOnOff()"
-                                            style="margin-left: -35px; margin-top: 50px">
+                                            style="margin-left: -35px; margin-top: 50px"
+                                            ng-class="{'sound-on':!classSoundOnOff,'sound-off':classSoundOnOff}">
                                     </button>
                                     <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
 
@@ -326,7 +346,7 @@
                             <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                             <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
                         </div>
-                        <div class="room-price do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
+                        <div class="room-price room-price-color do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
                         <div class="room-price number-of-rate col-sm-6">{{bidPrice}}</div>
                     </div>
                     <div class="max-rate" ng-click="maxEstimate()" ng-if="estimateToMax">

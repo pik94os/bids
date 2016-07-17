@@ -50,6 +50,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         }
     }]).controller('Lot', ['$anchorScroll', '$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function ($anchorScroll, $scope, $http, $rootScope, $stateParams, ngSocket, FileUploader) {
 
+    }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket, FileUploader) {
+
         $scope.open = ($stateParams.lotId) ? 1 : 0;
         $scope.tab = $stateParams.tab;
         $scope.bidPrice = 0;
@@ -72,42 +74,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 titlePicId: $stateParams.titlePicId
             });
         };
-
-        // ngSocket.emit('auction/createLot', {
-        //     number: '',
-        //     descriptionPrev: '',
-        //     description: '',
-        //     estimateFrom: '',
-        //     estimateTo: '',
-        //     sellingPrice: '',
-        //     auctionId: '',
-        //     year: ''
-        //     // titlePicId: 123
-        // });
-
-
-
-        // // создание нового лота вручную (верхнее не работает)
-        // var promisesForCreateNewLot = [];
-        //     var newLot = {
-        //         number: $scope.newLotNumber,
-        //         descriptionPrev: $scope.newLotDescriptionPrev,
-        //         description: $scope.newLotDescription,
-        //         estimateFrom: $scope.newLotEstimateFrom,
-        //         estimateTo: $scope.newLotEstimateTo,
-        //         sellingPrice: $scope.newLotSellingPrice,
-        //         auctionId: $stateParams.auctionId,
-        //         year: $scope.newLotYear
-        //         // titlePicId: 123
-        //     };
-        //
-        // promisesForCreateNewLot.push(
-        //     new Promise(
-        //         ngSocket.emit('auction/createLot', newLot)
-        //     )
-        // );
-
-
+        
         // создание нового лота вручную (верхнее не работает)
         $scope.createNewLot = function () {
             ngSocket.emit('auction/createLot', {
@@ -122,7 +89,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 // titlePicId: 123
             });
         };
-
+        
         // подтверждение бида
         $scope.confirmLot = function () {
             if ($scope.bidPrice > $scope.sellingPrice) {
@@ -131,7 +98,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                     bidPrice: +$scope.bidPrice,
                     extramural: true
                 });
-                console.log($scope.bidPrice);
             }
             ngSocket.emit('auction/confirmLot', {
                 lotId: $scope.lotId,
@@ -150,20 +116,34 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.confirm.message = 'Бид ' + data.bid.price + ' успешно добавлен';
             }
             $scope.confirm = data
+
+            $scope.sellingPrice = data.bid.price;
+            $scope.bidPrice = $scope.sellingPrice + calcStep($scope.sellingPrice);
+
+
         });
 
         ngSocket.on('lotSelected', function (data) {
-            console.log(data);
+            $scope.sellingPrice = data.lot.sellingPrice;
             ngSocket.emit('auction/getPictureList', {lotId: data.lot.id});
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
-            $scope.descriptionArr = $scope.deleteTegP($scope.lot.description);
-            $scope.descriptionPrevArr = $scope.deleteTegP($scope.lot.descriptionPrev);
+            $scope.descriptionArr = $scope.lot.description !== null ? $scope.deleteTegP($scope.lot.description) : $scope.lot.description;
+            $scope.descriptionPrevArr = $scope.lot.descriptionPrev !== null ? $scope.deleteTegP($scope.lot.descriptionPrev) : $scope.lot.descriptionPrev;
             $scope.isPlayOut = $scope.lot.isPlayOut;
             $scope.open = ($scope.lot.isSold || $scope.lot.isCl) ? 2 : 1;
-            $scope.bidPrice = $scope.lot.estimateFrom;
+            $scope.bidPrice = 0;
+            if ($scope.bidPrice < data.lot.sellingPrice) {
+                $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
+                $scope.$apply();
+            }
+            else {
+                $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
+                $scope.$apply();
+
+            }
             initLotParams($scope, params, $scope.lot);
-            initStep();
+            calcStep();
         });
         var addPicturesPromises = [];
         ngSocket.on('lotCreated', function (data) {
@@ -195,8 +175,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         $scope.incrementBid = function () {
             $scope.bidPrice += Number($scope.step);
-
-            if ($scope.bidPrice < (+$scope.lot.estimateFrom + $scope.step)) {
+            if ($scope.bidPrice < (+$scope.sellingPrice + $scope.step)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;
@@ -207,7 +186,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             if ($scope.bidPrice > 0)
                 $scope.bidPrice -= Number($scope.step);
 
-            if ($scope.bidPrice < (+$scope.lot.estimateFrom + $scope.step)) {
+            if ($scope.bidPrice < (+$scope.sellingPrice + $scope.step)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;
@@ -225,55 +204,57 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
         };
 
-        function initStep() {
-            var price = $scope.lot.estimateFrom;
+        function calcStep(price) {
             var step = 1;
             if (price <= 5) {
-                step = 1;
+                return step = 1;
             }
             if (5 < price && price <= 50) {
-                step = 5;
+                return step = 5;
             }
             if (50 < price && price <= 200) {
-                step = 10;
+                return step = 10;
             }
             if (200 < price && price <= 500) {
-                step = 20;
+                return step = 20;
             }
             if (500 < price && price <= 1000) {
-                step = 50;
+                return step = 50;
             }
             if (1000 < price && price <= 2000) {
-                step = 100;
+                return step = 100;
             }
             if (2000 < price && price <= 5000) {
-                step = 200;
+                return step = 200;
             }
             if (5000 < price && price <= 10000) {
-                step = 500;
+                return step = 500;
             }
             if (10000 < price && price <= 20000) {
-                step = 1000;
+                return step = 1000;
             }
             if (20000 < price && price <= 50000) {
-                step = 2000;
+                return step = 2000;
             }
             if (50000 < price && price <= 100000) {
-                step = 5000;
+                return step = 5000;
             }
             if (100000 < price && price <= 200000) {
-                step = 10000;
+                return step = 10000;
             }
             if (200000 < price && price <= 500000) {
-                step = 20000;
+                return step = 20000;
             }
             if (500000 < price && price <= 1000000) {
-                step = 50000;
+                return step = 50000;
             } else {
                 step = 100000;
             }
             $scope.step = step;
+            return step;
         }
+
+
 
         $scope.lastPhotos = function () {
             var t = $('.gallery .small-photo:last-child');
@@ -308,8 +289,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         // });
 
         // CALLBACKS
-
-
 
         multipleLotPicUploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
@@ -369,7 +348,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         ngSocket.on('pictureUpdatedReport', function (result) {
             $scope.pictureUpdatedName = result;
         });
-
 
     }]);
     function initLotParams(scope, params, values) {

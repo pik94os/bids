@@ -35,32 +35,31 @@ define(['./module','jquery'],function(controllers,$){
             $scope.classLot = !$scope.classLot;
         };
         //init auction params
-            $scope.auction_params =
-                {
-                    users_length: {
-                        internet_users: 0,
-                        hall_users: 0
-                    },
-                    users: [],
-                    users_number: ["1"],
-                    current_user: null,
-                    lots_length:  0,
-                    lots: [],
-                    lots_isPlayOuted: [],
-                    lots_isPlayOutedPercent: 0,
-                    lot_pictures: [],
-                    progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
-                };
+        $scope.auction_params = {
+                users_length: {
+                    internet_users: 0,
+                    hall_users: 0
+                },
+                users: [],
+                users_number: ["1"],
+                current_user: null,
+                lots_length:  0,
+                lots: [],
+                lots_isPlayOuted: [],
+                lots_isPlayOutedPercent: 0,
+                lot_pictures: [],
+                progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
+            };
 
-            //init lot params
-            var params = ['id', 'description', 'sellingPrice', 'estimateFrom', 'estimateTo', 'titlePicId'];
-            var currentId = 0;
-            $scope.current_lot =
-                {
-                    step: 1,
-                    bids: []
-                };
-            $scope.bidPrice = 0;
+        //init lot params
+        var params = ['id', 'description', 'sellingPrice', 'estimateFrom', 'estimateTo', 'titlePicId'];
+        var currentId = 0;
+        $scope.current_lot =
+            {
+                step: 1,
+                bids: []
+            };
+        $scope.bidPrice = 0;
         $scope.current_lot.currentPic = 0;
         $scope.current_lot.currentPicReserve = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
@@ -88,6 +87,8 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
                 $scope.auction_params.current_user = data.authUser;
+                $scope.videoName = data.auction.webcam;
+                $scope.initPlayer();
 
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
@@ -181,19 +182,31 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.stopFight();
                 });
 
+                // чупачупс с классом I
+                $scope.classOfLotI = false;
+                $scope.auction_params.users_number.forEach(function(item,i) {
+                    if ( +item === +$scope.currentUserInfo.id ) {
+                        $scope.classOfLotI = i;
+                    }
+                });
+                // чупачупс с классом red ставка
+                $scope.redBid = false;
+                // $scope.auction_params.users_number.forEach(function(item,i) {
+                //     if ( +item === +$scope.currentUserInfo.id ) {
+                //         $scope.redBid = i;
+                //     }
+                // });
 
             });
 
             ngSocket.on('lotSelected', function (data) {
                 initLotParams($scope.current_lot, params, data.lot);
-                $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
+                $scope.current_lot.step = data.lot.sellingPrice?calcStep(data.lot.sellingPrice):data.lot.estimateFrom;
                 $scope.estimateTo = data.lot.estimateTo;
-
                 if(data.lot.sellingPrice !== null) {
                     $scope.current_lot.sellingPrice = data.lot.sellingPrice;
-                    console.log(data.lot.sellingPrice)
                 }
-                else if($scope.current_lot.sellingPrice == data.lot.estimateFrom) {
+                if($scope.current_lot.sellingPrice === data.lot.estimateFrom) {
                     $scope.bidPrice = data.lot.estimateFrom
                 }
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
@@ -202,7 +215,7 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.$apply();
                 }
                 else {
-                    $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
+                    $scope.bidPrice = +$scope.current_lot.sellingPrice;
                     $scope.$apply();
 
                 }
@@ -295,6 +308,11 @@ define(['./module','jquery'],function(controllers,$){
 
 
         ngSocket.on('lotConfirmed', function (data) {
+            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
+            // $scope.price = data.bid.price;
+            // $scope.priceNext = $scope.price + calcStep(data.bid.price);
+            // $scope.userNumber = data.bid.userId;
+            // $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
             if (data.err) {
                 alert(data.message);
             }
@@ -311,7 +329,6 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.confirm = data;
             $scope.estimateToMax = $scope.current_lot.sellingPrice > $scope.estimateTo ? 0 : 1;
-            console.log(data.bid.price);
         });
 
             var curDate = new Date();
@@ -431,20 +448,26 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.$broadcast('leaveRoom');
             };
             setTimeout(function () {
-                $scope.joinRoom();
+                $scope.initPlayer
             },2000);
         $scope.swap = false;
 
         $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
-            var video = $("#remotes video")[0];
+            var video = $("#remoteVideo")[0];
+            $scope.classSoundOnOff =! $scope.classSoundOnOff;
             if (video.muted) {
                 video.muted = false;
+                console.log('Sound off');
             } else {
                 video.muted = true;
+                console.log('Sound on');
             }
         };
 
-        $scope.initPlayer = function () {
+        $scope.initPlayer = function (){
+            if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f==undefined && $scope.f)) {
+                return false
+            }
             var f = $scope.f = Flashphoner.getInstance();
             //счетчик ошибок перезапуска
             var ErrCounter = 0;
@@ -452,31 +475,18 @@ define(['./module','jquery'],function(controllers,$){
             f.addListener(WCSEvent.ConnectionStatusEvent, function () {
                 //После инициализации
                 //опубликовать поток с вебки ведущего
-                $scope.f.publishStream({
+                console.log($scope.videoName);
+                $scope.f.playStream({
                     name:  $scope.videoName,
-                    record: false
+                    remoteMediaElementId: 'remoteVideo'
                 });
             });
 
 
             f.addListener(WCSEvent.StreamStatusEvent, function (event) {
                 switch (event.status) {
-                    //если поток опубликовался
-                    case StreamStatus.Publishing:
-                        //отправить слушателям ссылку на поток
-                        ngSocket.emit('callTeacher', {auctionId: $stateParams.auctionId, name: event.name});
-                        break;
                     //Если возникли ошибки
                     case StreamStatus.Failed:
-                        setTimeout(function () {
-                            $scope.videoName = 'video:' + Date.now();
-                            //опубликовать поток с вебки ведущего
-                            $scope.f.publishStream({
-                                name:  $scope.videoName,
-                                record: false
-                            });
-                            ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:$scope.videoName});
-                        },1000*(ErrCounter++));
                         break;
                 }
             });
@@ -498,13 +508,20 @@ define(['./module','jquery'],function(controllers,$){
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
-            f.connect({urlServer: url, appKey: 'defaultApp'});
+            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
         };
         ngSocket.on('webcam',function (data) {
+            console.log(data.name);
             $scope.f.stopStream({name: $scope.videoName});
+            if(data.name!==$scope.videoName){
+                $scope.f.playStream({name: data.name, remoteMediaElementId: 'remoteVideo'});
+            }
             $scope.videoName = data.name;
-            $scope.f.playStream({name: data.name, remoteMediaElementId: 'remoteVideo'});
-        })
+        });
+
+        $(function () {
+            $scope.initPlayer();
+        });
 
     }]);
             function initLotParams(scope, params, values){
@@ -565,7 +582,7 @@ define(['./module','jquery'],function(controllers,$){
                 if (500000 < price && price <= 1000000){
                     return step = 50000;
                 } else {
-                    step = 10000;
+                    step = 100000;
                 }
                 return step;
             }

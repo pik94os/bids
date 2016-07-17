@@ -59,8 +59,7 @@ module.exports = function(socket, data) {
     function findLot(lotId, cb){
         Lot.findById(lotId, {
             include: [{model: Auction, attributes: ['id', 'start']}]
-        })
-            .then(function(lot) {
+        }).then(function (lot) {
                 if (lot.auction.start && !lot.isPlayOut) {
                     return cb({message: "Аукцион начат, но лот ещё не разыгрывается"});
                 }
