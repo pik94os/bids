@@ -66,7 +66,7 @@ define(['./app'], function (app) {
             })
             //Страница создания лота вручную
             .state('createlot', {
-                url: '/createlot?auctionId',
+                url: '/createlot?auctionId&lotId',
                 views:{
                     '': {
                         templateUrl: "/templates/lot/createlot.html",

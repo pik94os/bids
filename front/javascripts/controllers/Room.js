@@ -26,6 +26,8 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countdown =  2;
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
+        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
+
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;
         };
