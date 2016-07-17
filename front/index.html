@@ -46,7 +46,7 @@
 				</div>
 			</div>
 
-			<div class="top-menu content-block" ng-if="!isAD">
+			<div class="top-menu content-block" ng-if="!isAD" ng-hide="hideHeaderAuctionLeading">
 				<div class="top-menu-img" ui-sref="front-page">
 					<img align="left" src="images/logo.png"/>
 				</div>
@@ -62,7 +62,7 @@
 				</a>
 			</div>
 
-			<div class="top-menu content-block" ng-if="isAD">
+			<div class="top-menu content-block" ng-if="isAD" ng-hide="hideHeaderAuctionLeading">
 				<div class="top-menu-img" ui-sref="auctions">
 					<img align="left" src="images/logo2.png"/>
 				</div>
