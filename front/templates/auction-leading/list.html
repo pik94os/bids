@@ -167,14 +167,11 @@
                     </div>
                     <div class="pageAuctionLeading-right-center-right col-md-4">
                         <div class="pageAuctionLeading-right-center-right-camera">
-                            <broadcaster
-                                    has-stream="hasStream"
-                                    room-name="roomName"
-                                    is-broadcasting="isBroadcasting"></broadcaster>
+                            <video id="localVideo" autoplay></video>
 
                             <button ng-click="prepare()">Включить камеру</button>
-                            <button ng-click="start()">Начать трансляцию</button>
-                            <button ng-click="reloadPage()">Остановить трансляцию / Перезагрузить страницу</button>
+                            <button ng-click="start()">Начать аукцион</button>
+                            <button ng-click="reloadPage()">Завершить аукцион</button>
                         </div>
                         <!--<div class="pageAuctionLeading-right-center-right-textTop">-->
                         <!--<div class="pageAuctionLeading-right-center-right-textTop-in">  -->

@@ -14,7 +14,11 @@ require.config({
         'angular-localForage': '../components/angular-localforage/dist/angular-localForage.min',
         'angular-svg-round-progressbar': '../components/angular-svg-round-progressbar/build/roundProgress.min',
         'io': './libs/socket.io-1.4.5',
-        'angularFileUpload': '../components/angular-file-upload/dist/angular-file-upload.min'
+        'angularFileUpload': '../components/angular-file-upload/dist/angular-file-upload.min',
+        //Flashphoner
+        'FP': './libs/flashphoner/Flashphoner',
+        'FPjq-json': './libs/flashphoner/jquery.json',
+        'FPjq-ws': './libs/flashphoner/jquery.websocket'
     },
     // angular не поддерживает AMD из коробки, поэтому экспортируем перменную angular в глобальную область
     shim: {

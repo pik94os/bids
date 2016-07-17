@@ -5,11 +5,63 @@ define(['./module','jquery'],function(controllers,$){
         $scope.numberLot = "";
         $scope.cleanLot = true;
         $scope.hasStream = true;
-        $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
         $scope.isBroadcasting = '';
         $scope.prepare = function prepare() {
             $scope.$broadcast('prepare');
         };
+
+        $scope.initPlayer = function () {
+            var f = $scope.f = Flashphoner.getInstance();
+            //счетчик ошибок перезапуска
+            var ErrCounter = 0;
+
+            f.addListener(WCSEvent.ConnectionStatusEvent, function () {
+                //После инициализации
+            });
+
+
+            f.addListener(WCSEvent.StreamStatusEvent, function (event) {
+                switch (event.status) {
+                    //если поток опубликовался
+                    case StreamStatus.Publishing:
+                        //отправить слушателям ссылку на поток
+                        ngSocket.emit('callTeacher', {auctionId: $stateParams.auctionId, name: event.name});
+                        break;
+                    //Если возникли ошибки
+                    case StreamStatus.Failed:
+                        setTimeout(function () {
+                            var name = 'video:' + Date.now();
+                            //опубликовать поток с вебки ведущего
+                            $scope.f.publishStream({
+                                name:  name,
+                                record: false
+                            });
+                            ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:name});
+                        },1000*(ErrCounter++));
+                        break;
+                }
+            });
+            var configuration = new Configuration();
+            configuration.remoteMediaElementId = 'remoteVideo';
+            configuration.localMediaElementId = 'localVideo';
+            configuration.elementIdForSWF = "flashVideoDiv";
+            var proto;
+            var url;
+            var port;
+            if (window.location.protocol == "http:") {
+                proto = "ws://188.120.226.71";
+                port = "8080";
+            } else {
+                proto = "wss://art-bid.ru";
+                port = "8443";
+            }
+
+            url = proto + ":" + port;
+            f.init(configuration);
+            // $scope.f.getAccessToAudioAndVideo();
+            f.connect({urlServer: url, appKey: 'defaultApp'});
+        };
+
         $scope.sendFilter = function (e) {
             if (e.keyCode === 13) {
                 ngSocket.emit('auction/getLotList', {
@@ -29,8 +81,17 @@ define(['./module','jquery'],function(controllers,$){
             }
         };
         $scope.start = function start() {
+            var name = 'video:' + Date.now();
+            //опубликовать поток с вебки ведущего
+            $scope.f.publishStream({
+                name:  name,
+                record: false
+            });
+            ngSocket.emit('video/newVideo', {
+                auctionId: +$stateParams.auctionId,
+                name:name
+            });
             ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
-            $scope.$broadcast('start');
         };
         $scope.reloadPage = function reloadPage() {
             window.location.reload();

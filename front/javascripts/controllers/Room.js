@@ -58,14 +58,9 @@ define(['./module','jquery'],function(controllers,$){
                 };
             $scope.bidPrice = 0;
         $scope.current_lot.currentPic = 0;
+        $scope.current_lot.currentPicReserve = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
 
-        $interval(function () {
-            if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
-                $scope.current_lot.currentPic += 1;
-            if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
-                $scope.current_lot.currentPic = 0
-        }, 5000);
 
         $scope.lastPhotos = function () {
             var t = $('.gallery-carousel .pull-left:last-child');
@@ -94,8 +89,18 @@ define(['./module','jquery'],function(controllers,$){
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
-                if (data.lotPictures != undefined)
-                    $scope.auction_params.lot_pictures = data.lotPictures;
+                $scope.auction_params.lot_pictures = [];
+                if (data.lotPictures != undefined && data.lotPictures.length){
+                    data.lotPictures.forEach(function (pic) {
+                        if(pic.fileName){
+                            $scope.auction_params.lot_pictures.push(pic);
+                            if(!$scope.auction_params.lot_pictures[0].fileName){
+                                $scope.current_lot.currentPicReserve = pic.fileName;
+                                $scope.current_lot.currentPic = pic.fileName;
+                            }
+                        }
+                    })
+                }
 
                 //находим количество пройденных лотов
                 data.auction.lots.map(function (e) {
@@ -177,6 +182,7 @@ define(['./module','jquery'],function(controllers,$){
             });
 
             ngSocket.on('lotSelected', function (data) {
+                console.log(data.lotPictures);
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 $scope.estimateTo = data.lot.estimateTo;
@@ -190,9 +196,28 @@ define(['./module','jquery'],function(controllers,$){
 
                 }
                 //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
-                $scope.current_lot.lot_pictures = data.lotPictures;
+
+                $scope.current_lot.lot_pictures = [];
+                if (data.lotPictures != undefined && data.lotPictures.length){
+                    data.lotPictures.forEach(function (pic,incr) {
+                        if(pic.fileName){
+                            $scope.current_lot.lot_pictures.push(pic);
+                            if(!$scope.current_lot.lot_pictures[0].fileName){
+                                $scope.current_lot.currentPicReserve = incr;
+                                $scope.current_lot.currentPic = incr;
+                            }
+                        }
+                    })
+                }
+
+                $interval(function () {
+                    if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
+                        $scope.current_lot.currentPic += 1;
+                    if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
+                        $scope.current_lot.currentPic = $scope.current_lot.currentPicReserve
+                }, 5000);
                 $scope.current_lot.bids = data.bids;
-                $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0
+                $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
                 console.log($scope.estimateTo)
             });
 
