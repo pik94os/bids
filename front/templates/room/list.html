@@ -138,26 +138,14 @@
                     <!--вывод текущего ID пользователя - {{currentUserInfo.id}}-->
                     <!--карточки-->
 
-                    <br><br>
-                    lastBid-{{lastBid}}
-                    <br><br>
-                    price-{{price}}
-                    <br><br>
-                    priceNext-{{priceNext}}
-                    <br><br>
-                    userNumber-{{userNumber}}
-                    <br><br>
-                    userData-{{userData}}
-                    <br><br>
-
                     <div class="row">
                         <div class="room-container-with-circles">
-                            getUserNumber-{{getUserNumber()}}
                             <div emit-last-repeater-element
                                  class="lot-table"
                                  ng-class="{'lot-user-internet': classLot,
                                             'class-Of-Lot-I': $index == classOfLotI,
-                                            'class-red-bid': $index+2 === userNumber && timeoutBidUser === true}"
+                                            'class-red-bid': $index+2 === userNumber && timeoutBidUser === true,
+                                            'class-blue-bid': $index+2 === userNumber && timeoutBidUser === true}"
                                  ng-repeat="r in auction_params.users_number"
                                  ng-click='setPopup($index)'>
                                  <!--ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,-->
@@ -179,6 +167,11 @@
                                 <div>
                                     <div class="num-on-table">{{$index+1}}</div>
                                 </div>
+                            </div>
+                            <br><br><br>
+                            <div class="class-red-text-bid-none"
+                                 ng-class="{'class-red-text-bid ': $index+2 === userNumber && timeoutBidUser === true}">
+                                ставка
                             </div>
                         </div>
 

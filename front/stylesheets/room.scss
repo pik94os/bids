@@ -548,6 +548,22 @@
       margin-left: 25px;
       //min-height: 415px;
       padding-top: 30px;
+
+      .class-red-text-bid-none {
+        display: none;
+      }
+
+      .class-red-text-bid {
+        color: red;
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        padding-top: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        width: 94%;
+      }
+
       .lot-table {
         float: left;
         position: relative;
@@ -648,7 +664,6 @@
             overflow: hidden;
           }
           &-btn {
-
             padding-left: 9px;
             position: absolute;
             width: 75px;
