@@ -14,7 +14,9 @@ module.exports = function (socket, data) {
         return Auction.update({
             start
         }, {
-            where: {id: +lot.auctionId}
+            where: {$and:[{
+                id: +lot.auctionId,
+            },['auctions.start IS NULL']]}
         }).then((auction)=> {
             lot.isPlayOut = true;
             return lot.save().then(()=> {
