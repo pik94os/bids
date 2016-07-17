@@ -87,6 +87,7 @@ define(['./module','jquery'],function(controllers,$){
 
             }
         };
+        
         $scope.start = function start() {
             ngSocket.emit('video/newVideo', {
                 auctionId: +$stateParams.auctionId,
@@ -98,7 +99,9 @@ define(['./module','jquery'],function(controllers,$){
             window.location.reload();
             ngSocket.emit('auction/startAuction', {id: +$scope.lotId, auctionEnd: true});
         };
-
+        ngSocket.on('auctionRun', function () {
+            $scope.startAuction = true;
+        });
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId,
             lot: true
@@ -109,6 +112,7 @@ define(['./module','jquery'],function(controllers,$){
                 alert(data.message);
             }
             $scope.startAuction = true;
+            console.log(data);
         });
         ngSocket.on('catchAuction', function (data) {
             if(data.err) {
@@ -116,7 +120,6 @@ define(['./module','jquery'],function(controllers,$){
             }
             $scope.dateAuction = data.data.date;
             if(new Date(data.data.date) <= new Date()) {
-
                 ngSocket.emit('auction/updateLot', {
                     lotId: +$scope.lotId,
                     isPlayOut: true
@@ -130,8 +133,10 @@ define(['./module','jquery'],function(controllers,$){
             }
             $scope.lotImage = lot.lot_pictures;
             $scope.lotId = lot.id;
-        }
+            $scope.lotIdSelect = lot.id;
+            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: lot.id});
 
+        }
         ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
 
         ngSocket.on('lotList', function (data) {
@@ -163,7 +168,7 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         ngSocket.on('lotConfirmed', function (data) {
-            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId});
+            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             $scope.price = data.bid.price;
             $scope.priceNext = $scope.price + calcStep(data.bid.price);
             $scope.userNumber = data.bid.userId;
@@ -179,12 +184,15 @@ define(['./module','jquery'],function(controllers,$){
             $scope.dateStart = '';
         };
 
-        ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId});
-
+        console.log($scope.lotId);
         ngSocket.on('bidList', function (bid) {
             if(bid.err) {
                 alert(bid.message);
             }
+            $scope.bids = bid.bids;
+            $scope.bids.forEach(function (bid) {
+                console.log(bid);
+            });
             $scope.bids = bid.bids;
         });
         ngSocket.on('auctionState', function (data) {
