@@ -26,7 +26,7 @@ define(['./module','jquery'],function(controllers,$){
             console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
             console.log(result.chatMessagesList);
             result.chatMessagesList.forEach(function (i) {
-                $scope.chat.messages.push(i);
+                $scope.chat.messages.unshift(i);
             });
         });
 
