@@ -568,7 +568,7 @@ define(['./module','jquery'],function(controllers,$){
                 if (500000 < price && price <= 1000000){
                     return step = 50000;
                 } else {
-                    step = 10000;
+                    step = 100000;
                 }
                 return step;
             }
