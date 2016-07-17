@@ -499,10 +499,13 @@ define(['./module','jquery'],function(controllers,$){
             f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
         };
         ngSocket.on('webcam',function (data) {
+            console.log(data.name);
             $scope.f.stopStream({name: $scope.videoName});
+            if(data.name!==$scope.videoName){
+                $scope.f.playStream({name: data.name, remoteMediaElementId: 'remoteVideo'});
+            }
             $scope.videoName = data.name;
-            $scope.f.playStream({name: data.name, remoteMediaElementId: 'remoteVideo'});
-        })
+        });
 
         $(function () {
             $scope.initPlayer();
