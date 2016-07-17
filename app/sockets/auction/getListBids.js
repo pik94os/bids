@@ -13,12 +13,12 @@ module.exports = function(socket, data) {
         );
         return
     }
-
     let include = [{model: User, attributes: ['id', 'firstName', 'lastName', 'patronymic']},
         {model: Lot}];
     Bid.findAll({
         where: {
-            lotId: data.lotId
+            lotId: data.lotId,
+            order: [['id', 'DESC']]
         },
         include
     }).then((bid)=>{
