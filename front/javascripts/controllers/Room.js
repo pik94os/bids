@@ -76,7 +76,6 @@ define(['./module','jquery'],function(controllers,$){
 
         ngSocket.on('auctionRun', function () {
             $scope.countdown =  1;
-            console.log('dadd');
         });
             ngSocket.on('room',function (data) {
                 var date;
@@ -184,15 +183,23 @@ define(['./module','jquery'],function(controllers,$){
             });
 
             ngSocket.on('lotSelected', function (data) {
-                console.log(data.lotPictures);
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = calcStep(data.lot.sellingPrice || data.lot.estimateFrom);
                 $scope.estimateTo = data.lot.estimateTo;
+
+                if(data.lot.sellingPrice !== null) {
+                    $scope.current_lot.sellingPrice = data.lot.sellingPrice;
+                    console.log(data.lot.sellingPrice)
+                }
+                else if($scope.current_lot.sellingPrice == data.lot.estimateFrom) {
+                    $scope.bidPrice = data.lot.estimateFrom
+                }
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
                 {
                     $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
                     $scope.$apply();
-                } else {
+                }
+                else {
                     $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
                     $scope.$apply();
 
@@ -220,7 +227,6 @@ define(['./module','jquery'],function(controllers,$){
                 }, 5000);
                 $scope.current_lot.bids = data.bids;
                 $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
-                console.log($scope.estimateTo)
             });
 
         $scope.maxEstimate = function () {
@@ -303,6 +309,7 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.confirm = data;
             $scope.estimateToMax = $scope.current_lot.sellingPrice > $scope.estimateTo ? 0 : 1;
+            console.log(data.bid.price);
         });
 
             var curDate = new Date();
