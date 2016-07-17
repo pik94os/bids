@@ -317,8 +317,7 @@
                             <div class="col-xs-4">
                                 <div class="description-the-book">
                                     <div class="recommended-price">ПРЕДЛОЖЕННАЯ ЦЕНА</div>
-                                    <div class="recommended-price-number">{{+current_lot.sellingPrice | toLocaleString}}
-                                    </div>
+                                    <div class="recommended-price-number">{{+current_lot.sellingPrice | toLocaleString}} Р</div>
                                     <br>
                                 </div>
                                 <hr>
@@ -367,7 +366,7 @@
                             <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
                         </div>
                         <div class="room-price room-price-color do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
-                        <div class="room-price number-of-rate col-sm-6">{{bidPrice}}</div>
+                        <div class="room-price number-of-rate col-sm-6">{{bidPrice | toLocaleString}} Р</div>
                     </div>
                     <div class="max-rate" ng-click="maxEstimate()" ng-if="estimateToMax">
                         <a>МАКСИМАЛЬНАЯ СТАВКА</a>

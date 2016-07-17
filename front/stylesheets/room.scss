@@ -759,9 +759,9 @@
     .number-of-rate {
       border-width: 0 0 0 1px;
       border-style: solid;
-      font-size: 25pt;
+      font-size: 19pt;
       text-align: center;
-      padding-top: 3px;
+      padding-top: 10px;
       font-weight: bold;
     }
     .max-rate {
@@ -780,7 +780,7 @@
       &-number {
         text-align: center;
         font-weight: bold;
-        font-size: 18pt;
+        font-size: 15pt;
         color: #118a02;
         white-space: nowrap;
       }
