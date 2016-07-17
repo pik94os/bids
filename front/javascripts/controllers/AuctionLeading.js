@@ -4,6 +4,7 @@ define(['./module','jquery'],function(controllers,$){
         $scope.dateStart = '';
         $scope.numberLot = "";
         $scope.cleanLot = true;
+        $scope.soldLot = true;
         $scope.hasStream = true;
         $scope.isBroadcasting = '';
         $scope.prepare = function prepare() {
@@ -95,21 +96,19 @@ define(['./module','jquery'],function(controllers,$){
         };
         $scope.reloadPage = function reloadPage() {
             window.location.reload();
+            ngSocket.emit('auction/startAuction', {id: +$scope.lotId, auctionEnd: true});
         };
 
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId,
             lot: true
         });
-        $scope.soldLot = false;
 
         ngSocket.on('lotConfirmed', function (data) {
             if(data.err) {
                 alert(data.message);
             }
-            $scope.soldLot = true;
             $scope.startAuction = true;
-
         });
         ngSocket.on('catchAuction', function (data) {
             if(data.err) {
@@ -129,7 +128,6 @@ define(['./module','jquery'],function(controllers,$){
             if(lot.descriptionPrev !== null) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
             }
-            $scope.soldLot = lot.sellingPrice ? true : false;
             $scope.lotImage = lot.lot_pictures;
             $scope.lotId = lot.id;
         }
@@ -153,9 +151,9 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
-
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
+        $scope.soldLot = false;
             ngSocket.emit('auction/updateLot', {
                     lotId: +$scope.lotId,
                     isSold: isSold,
@@ -187,16 +185,14 @@ define(['./module','jquery'],function(controllers,$){
                 alert(bid.message);
             }
             $scope.bids = bid.bids;
-            console.log(bid);
         });
-
         ngSocket.on('auctionState', function (data) {
             console.log(data);
             setLotInfo(data.lot);
-            $scope.soldLot = data.lot.sellingPrice ? true : false;
             setTimeout(function () {
                 $scope.cleanLot = true;
-                 $scope.$apply();
+                $scope.soldLot = true;
+                $scope.$apply();
             }, 1000);
         });
 

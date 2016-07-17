@@ -317,7 +317,6 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.confirm = data;
             $scope.estimateToMax = $scope.current_lot.sellingPrice > $scope.estimateTo ? 0 : 1;
-            console.log(data.bid.price);
         });
 
             var curDate = new Date();
@@ -443,10 +442,13 @@ define(['./module','jquery'],function(controllers,$){
 
         $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
             var video = $("#remoteVideo")[0];
+            $scope.classSoundOnOff =! $scope.classSoundOnOff;
             if (video.muted) {
                 video.muted = false;
+                console.log('Sound off');
             } else {
                 video.muted = true;
+                console.log('Sound on');
             }
         };
 
