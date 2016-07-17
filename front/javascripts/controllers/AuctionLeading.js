@@ -132,7 +132,7 @@ define(['./module','jquery'],function(controllers,$){
             if(lot && lot.descriptionPrev !== undefined) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
             }
-            $scope.lotImage = lot.lot_pictures;
+            $scope.lotImage = lot.lot_pictures || [];
             $scope.lotId = lot.id;
             $scope.lotIdSelect = lot.id;
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: lot.id});
