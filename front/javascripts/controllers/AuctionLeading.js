@@ -127,7 +127,6 @@ define(['./module','jquery'],function(controllers,$){
             }
         });
         function setLotInfo(lot) {
-            console.log(lot);
             $scope.descriptionPrevArr = [];
             $scope.lotList = lot;
             if(lot && lot.descriptionPrev !== undefined) {
@@ -141,7 +140,6 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lotId = lot.id;
             $scope.lotIdSelect = lot.id;
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: lot.id});
-
         }
         ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
 
@@ -150,7 +148,8 @@ define(['./module','jquery'],function(controllers,$){
         });
         ngSocket.on('room', function (auction) {
             $scope.users = auction.auction.users;
-            $scope.auctionOn = auction.auction.start ? 1 : 0
+            $scope.auctionOn = auction.auction.start ? 1 : 0;
+            console.log($scope.users.id);
         });
 
 
@@ -180,6 +179,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.userNumber = data.bid.userId;
             $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
         });
+
         $scope.dateStartAuction = function () {
             var date_arr_new = $scope.dateStart.split('.');
             $scope.date = date_arr_new[2] + '-' + date_arr_new[1] + '-' + date_arr_new[0] + 'T00:00:00';
@@ -189,8 +189,6 @@ define(['./module','jquery'],function(controllers,$){
             });
             $scope.dateStart = '';
         };
-
-        console.log($scope.lotId);
         ngSocket.on('bidList', function (bid) {
             if(bid.err) {
                 alert(bid.message);
@@ -205,7 +203,6 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lastBid = max;
         });
         ngSocket.on('auctionState', function (data) {
-            console.log(data);
             setLotInfo(data.lot);
             setTimeout(function () {
                 $scope.cleanLot = true;
