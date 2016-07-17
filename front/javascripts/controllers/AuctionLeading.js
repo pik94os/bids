@@ -128,7 +128,7 @@ define(['./module','jquery'],function(controllers,$){
         });
         function setLotInfo(lot) {
             $scope.lotList = lot;
-            if(lot.descriptionPrev !== null) {
+            if(lot.descriptionPrev !== undefined) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
             }
             $scope.lotImage = lot.lot_pictures;
