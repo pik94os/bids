@@ -37,11 +37,17 @@
                             <img ng-src="/images/lot-images/{{img.fileName}}">
                         </div>
                     </div>
-                    <div class="add">
+                    <div class="add" onclick="$('#selectMultiplePhoto').click()">
                         <div>
                             <div></div>
                         </div>
                     </div>
+                </div>
+                <input id="selectMultiplePhoto" type="file" nv-file-select="" uploader="multipleLotPicUploader" multiple name="PhotoFiles" ng-hide="true"/>
+                <!--<div class="button custom-title-block col-sm-offset-4 col-sm-4" onclick="$('#selectMultiplePhoto').click()">Выбрать фотографии</div>-->
+                <div class="lot-price" ng-click="multipleLotPicUploader.uploadAll()"
+                     ng-disabled="!multipleLotPicUploader.getNotUploadedItems().length" ng-show="picturesAdded && !addedPic">
+                    Добавить фотографии
                 </div>
             </div>
             <div class="col col-sm-12 txt-edit-parent">
@@ -89,7 +95,7 @@
                 </div>
                 <div class="edit-field tab-content">
                     <div class="edit"></div>
-                    <textarea class="lot-description-input" ng-model="newLotDescription">
+                    <textarea class="lot-description-input" ng-model="newLotDescription"></textarea>
                     <div class="cclose"></div>
                     <!--=include tabs/*.html -->
                 </div>

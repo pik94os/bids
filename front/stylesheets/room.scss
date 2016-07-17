@@ -667,6 +667,7 @@
       .internet-hover {
         &:hover {
           color: blue;
+          cursor: pointer;
         }
       }
     }
@@ -823,9 +824,18 @@
   }
 }
 
+.class-Of-Lot-I {
+  background: url("/images/lot-tables/lot_tabl_press_inet.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
+  div {
+    display: none;
+  }
+}
 .lot-user-internet {
   @extend .lot-table;
   background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
   height: 100px;
   width: 100px;
 }
+

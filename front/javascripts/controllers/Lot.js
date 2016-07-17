@@ -46,7 +46,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                          lotId: lotArr[currentId].id
                     });
         }
-    }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket) {
+    }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket, FileUploader) {
         
         $scope.open = ($stateParams.lotId) ? 1 : 0;
         $scope.tab = $stateParams.tab;
@@ -248,7 +248,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         // загрузка картинок на сервер
         // angular-file-upload
         // https://github.com/nervgh/angular-file-upload/wiki/Module-API#directives
-        var singleLotPicUploader = $scope.singleLotPicUploader = new FileUploader({
+        var multipleLotPicUploader = $scope.multipleLotPicUploader = new FileUploader({
             url: '/api/upload/lotPic',
             // queueLimit: 1,
             // autoUpload: true,
@@ -266,47 +266,51 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         // CALLBACKS
 
-        singleLotPicUploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+        multipleLotPicUploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);
         };
-        singleLotPicUploader.onAfterAddingFile = function (fileItem) {
+        multipleLotPicUploader.onAfterAddingFile = function (fileItem) {
             console.info('onAfterAddingFile', fileItem);
+            console.log('>>>>>>>>>>>');
+            console.log(fileItem);
+            console.log(fileItem.file.name);
+            ngSocket.emit('auction/createLotPicture', {filename: fileItem.file.name})
         };
-        singleLotPicUploader.onAfterAddingAll = function (addedFileItems) {
+        multipleLotPicUploader.onAfterAddingAll = function (addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
             $scope.picturesAdded = true;
             $scope.CSVAddedInBase = false;
         };
-        singleLotPicUploader.onBeforeUploadItem = function (item) {
+        multipleLotPicUploader.onBeforeUploadItem = function (item) {
             console.info('onBeforeUploadItem', item);
         };
-        singleLotPicUploader.onProgressItem = function (fileItem, progress) {
+        multipleLotPicUploader.onProgressItem = function (fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);
         };
-        singleLotPicUploader.onProgressAll = function (progress) {
+        multipleLotPicUploader.onProgressAll = function (progress) {
             console.info('onProgressAll', progress);
         };
-        singleLotPicUploader.onSuccessItem = function (fileItem, response, status, headers) {
+        multipleLotPicUploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
             // alert('Файлы загружены');
             $scope.addedPic = response;
-            console.log('>>>>>>>>>>>');
+
         };
-        singleLotPicUploader.onErrorItem = function (fileItem, response, status, headers) {
+        multipleLotPicUploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
         };
-        singleLotPicUploader.onCancelItem = function (fileItem, response, status, headers) {
+        multipleLotPicUploader.onCancelItem = function (fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
         };
-        singleLotPicUploader.onCompleteItem = function (fileItem, response, status, headers) {
+        multipleLotPicUploader.onCompleteItem = function (fileItem, response, status, headers) {
             console.info('onCompleteItem', fileItem, response, status, headers);
         };
-        singleLotPicUploader.onCompleteAll = function () {
+        multipleLotPicUploader.onCompleteAll = function () {
             console.info('onCompleteAll');
-            // alert('Файлы загружены');
+            alert('Файлы загружены');
         };
 
-        console.info('lotPicUploader', singleLotPicUploader);
+        console.info('lotPicUploader', multipleLotPicUploader);
 
         ngSocket.on('pictureUpdatedReport', function (result) {
             $scope.pictureUpdatedName = result;

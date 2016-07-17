@@ -134,13 +134,14 @@
                             Интернет: <b>{{auction_params.users_length.internet_users}}</b>
                         </div>
                     </div>
-
+                    <!--вывод всех ID пользователей - {{auction_params.users_number}}<br>-->
+                    <!--вывод текущего ID пользователя - {{currentUserInfo.id}}-->
                     <!--карточки-->
                     <div class="row">
                         <div class="room-container-with-circles">
                             <div emit-last-repeater-element
                                  class="lot-table"
-                                 ng-class="{'lot-user-internet':classLot}"
+                                 ng-class="{'lot-user-internet':classLot, 'class-Of-Lot-I':$index==classOfLotI}"
                                  ng-repeat="r in auction_params.users_number"
                                  ng-click='setPopup($index)'>
                                  <!--ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,-->
@@ -159,7 +160,9 @@
                                     </div>
                                     <div class="btn bg-primary popup-text-btn">Сообщение</div>
                                 </div>-->
-                                <div class="num-on-table">{{$index+1}}</div>
+                                <div>
+                                    <div class="num-on-table">{{$index+1}}</div>
+                                </div>
                             </div>
                         </div>
 

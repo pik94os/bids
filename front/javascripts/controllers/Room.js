@@ -33,32 +33,31 @@ define(['./module','jquery'],function(controllers,$){
             $scope.classLot = !$scope.classLot;
         };
         //init auction params
-            $scope.auction_params =
-                {
-                    users_length: {
-                        internet_users: 0,
-                        hall_users: 0
-                    },
-                    users: [],
-                    users_number: ["1"],
-                    current_user: null,
-                    lots_length:  0,
-                    lots: [],
-                    lots_isPlayOuted: [],
-                    lots_isPlayOutedPercent: 0,
-                    lot_pictures: [],
-                    progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
-                };
+        $scope.auction_params = {
+                users_length: {
+                    internet_users: 0,
+                    hall_users: 0
+                },
+                users: [],
+                users_number: ["1"],
+                current_user: null,
+                lots_length:  0,
+                lots: [],
+                lots_isPlayOuted: [],
+                lots_isPlayOutedPercent: 0,
+                lot_pictures: [],
+                progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
+            };
 
-            //init lot params
-            var params = ['id', 'description', 'sellingPrice', 'estimateFrom', 'estimateTo', 'titlePicId'];
-            var currentId = 0;
-            $scope.current_lot =
-                {
-                    step: 1,
-                    bids: []
-                };
-            $scope.bidPrice = 0;
+        //init lot params
+        var params = ['id', 'description', 'sellingPrice', 'estimateFrom', 'estimateTo', 'titlePicId'];
+        var currentId = 0;
+        $scope.current_lot =
+            {
+                step: 1,
+                bids: []
+            };
+        $scope.bidPrice = 0;
         $scope.current_lot.currentPic = 0;
         $scope.current_lot.currentPicReserve = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
@@ -181,6 +180,13 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.stopFight();
                 });
 
+                // чупачупс с классом I
+                $scope.classOfLotI = false;
+                $scope.auction_params.users_number.forEach(function(item,i) {
+                    if ( +item === +$scope.currentUserInfo.id ) {
+                        $scope.classOfLotI = i;
+                    }
+                });
 
             });
 
