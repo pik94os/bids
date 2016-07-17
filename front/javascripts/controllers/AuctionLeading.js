@@ -66,7 +66,7 @@ define(['./module','jquery'],function(controllers,$){
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
-            f.connect({urlServer: url, appKey: 'defaultApp'});
+            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
         };
 
         $scope.sendFilter = function (e) {
@@ -127,8 +127,9 @@ define(['./module','jquery'],function(controllers,$){
             }
         });
         function setLotInfo(lot) {
+            $scope.descriptionPrevArr = [];
             $scope.lotList = lot;
-            if(lot.descriptionPrev !== undefined) {
+            if(lot && lot.descriptionPrev !== undefined) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
             }
             $scope.lotImage = lot.lot_pictures;

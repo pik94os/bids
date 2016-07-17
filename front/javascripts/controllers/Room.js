@@ -475,14 +475,6 @@ define(['./module','jquery'],function(controllers,$){
                 switch (event.status) {
                     //Если возникли ошибки
                     case StreamStatus.Failed:
-                        setTimeout(function () {
-                            $scope.videoName = 'video:' + Date.now();
-                            //опубликовать поток с вебки ведущего
-                            $scope.f.playStream({
-                                name:  $scope.videoName, remoteMediaElementId: 'remoteVideo'
-                            });
-                            ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:$scope.videoName});
-                        },1000*(ErrCounter++));
                         break;
                 }
             });
@@ -504,7 +496,7 @@ define(['./module','jquery'],function(controllers,$){
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
-            f.connect({urlServer: url, appKey: 'defaultApp'});
+            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
         };
         ngSocket.on('webcam',function (data) {
             $scope.f.stopStream({name: $scope.videoName});
