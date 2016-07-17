@@ -212,7 +212,7 @@
         &-chat {
           &-text {
             float: left;
-            width: calc(100% - 20px);
+            width: 100%;
           }
           &-cross {
             background: url("/images/cross-lead.png") no-repeat;
@@ -223,6 +223,7 @@
         }
       }
       &-right {
+
         div {
           //height: 25px;
           div {
