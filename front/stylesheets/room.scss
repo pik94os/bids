@@ -550,7 +550,7 @@
       padding-top: 30px;
 
       .class-red-text-bid-none {
-        display: none;
+        display: block;
       }
 
       .class-red-text-bid {
@@ -559,20 +559,24 @@
         font-size: 16px;
         font-weight: bold;
         padding-top: 20px;
+        margin: 0 auto;
         text-align: center;
         text-transform: uppercase;
         width: 94%;
+        position: absolute;
+        bottom: 0;
       }
 
       .lot-table {
         float: left;
         position: relative;
         cursor: pointer;
-        height: 75px;
+        height: 135px;
         width: 80px;
         margin-left: -25px;
         margin-top: -30px;
-        background-image: url("/images/lot-tables/lot_tabl_quite.png");
+        position: relative;
+        background: url("/images/lot-tables/lot_tabl_quite.png") no-repeat;
         &.moveToTheRight {
           margin-left: 0;
         }
@@ -585,11 +589,11 @@
       }
       .lot-table-user {
         @extend .lot-table;
-        background-image: url("/images/lot-tables/lot_tabl_user.png");
+        background: url("/images/lot-tables/lot_tabl_user.png") no-repeat;
       }
       .lot-table-stavka {
         @extend .lot-table;
-        background-image: url("/images/lot-tables/lot_tabl_stavka.png");
+        background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat;
       }
       .lot-table-leave {
         @extend .lot-table;
