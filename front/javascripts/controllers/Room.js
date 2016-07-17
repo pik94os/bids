@@ -86,6 +86,8 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
                 $scope.auction_params.current_user = data.authUser;
+                $scope.videoName = data.auction.webcam;
+                $scope.initPlayer();
 
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
@@ -429,12 +431,12 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.$broadcast('leaveRoom');
             };
             setTimeout(function () {
-                $scope.joinRoom();
+                $scope.initPlayer
             },2000);
         $scope.swap = false;
 
         $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
-            var video = $("#remotes video")[0];
+            var video = $("#remoteVideo")[0];
             if (video.muted) {
                 video.muted = false;
             } else {
@@ -442,7 +444,10 @@ define(['./module','jquery'],function(controllers,$){
             }
         };
 
-        $scope.initPlayer = function () {
+        $scope.initPlayer = function (){
+            if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f==undefined && $scope.f)) {
+                return false
+            }
             var f = $scope.f = Flashphoner.getInstance();
             //счетчик ошибок перезапуска
             var ErrCounter = 0;
@@ -450,9 +455,10 @@ define(['./module','jquery'],function(controllers,$){
             f.addListener(WCSEvent.ConnectionStatusEvent, function () {
                 //После инициализации
                 //опубликовать поток с вебки ведущего
-                $scope.f.publishStream({
+                console.log($scope.videoName);
+                $scope.f.playStream({
                     name:  $scope.videoName,
-                    record: false
+                    remoteMediaElementId: 'remoteVideo'
                 });
             });
 
@@ -503,6 +509,10 @@ define(['./module','jquery'],function(controllers,$){
             $scope.videoName = data.name;
             $scope.f.playStream({name: data.name, remoteMediaElementId: 'remoteVideo'});
         })
+
+        $(function () {
+            $scope.initPlayer();
+        });
 
     }]);
             function initLotParams(scope, params, values){

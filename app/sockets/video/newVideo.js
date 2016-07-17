@@ -6,9 +6,6 @@ module.exports = function (socket, data) {
     }, {
         where: {id: +data.auctionId}
     }).then((auction)=> {
-        lot.isPlayOut = true;
-        return lot.save().then(()=> {
-            socket.to('auction:' + (+data.auctionId)).emit('webcam', {name: data.name});
-        });
+        socket.to('auction:' + (+data.auctionId)).emit('webcam', {name: data.name});
     });
 };
