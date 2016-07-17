@@ -1,4 +1,13 @@
 .pageAuctionLeading {
+  .room-chat-leading {
+    //background: #ccdde5;
+    margin-top: 10px;
+    font-size: 12pt;
+    padding: 10px;
+    max-height: 240px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
   p {
     font-family: "Bookman", Georgia, "Times New Roman", serif;
     color: black;

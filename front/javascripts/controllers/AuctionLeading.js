@@ -12,6 +12,61 @@ define(['./module','jquery'],function(controllers,$){
         };
         $scope.videoName = 'video:' + Date.now();
 
+        // функционал чата на странице ведущего
+        // socket.join('lesson:' + +$stateParams.auctionId);
+        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
+        
+        $scope.chat = {};
+        $scope.chat.message = '';
+        $scope.chat.messages = [];
+
+        // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
+        ngSocket.on('chatMessagesList', function (result) {
+            // $scope.chatMessagesArr = result.resp;
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(result.chatMessagesList);
+            result.chatMessagesList.forEach(function (i) {
+                $scope.chat.messages.push(i);
+            });
+        });
+
+        $scope.chat.keyUp = function (e) {
+            if (e.keyCode === 13) {
+                if ($scope.chat.message) {
+                    $scope.chat.addMessage();
+                    return null;
+                }
+                $scope.chat.message = '';
+            }
+        };
+
+        $scope.chat.addMessage = function () {
+            if ($scope.chat.message) {
+                ngSocket.emit('auction/pasteChatMessage', {
+                    userId: +$scope.currentUserInfo.id,
+                    auctionId: +$stateParams.auctionId,
+                    chatMessage: $scope.chat.message
+                });
+            }
+            $scope.chat.message = '';
+        };
+
+        ngSocket.on('catchMessageRow', function (result) {
+            if (!result.err) {
+                // $scope.chat.messages.push({time: new Date(result.time), text:result.message, username:result.userId});
+                // if ($scope.chat.messages[$scope.chat.messages.length - 1].createdAt !== result.message.createdAt) {
+                $scope.chat.messages.unshift({
+                    createdAt: result.message.createdAt,
+                    message: result.message.message,
+                    user: result.user
+                });
+            }
+        });
+
+        ngSocket.on('chatMessagesList', function (result) {
+            $scope.chatMessagesArr = result.resp;
+        });
+
         $scope.initPlayer = function () {
             var f = $scope.f = Flashphoner.getInstance();
             //счетчик ошибок перезапуска
