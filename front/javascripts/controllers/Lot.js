@@ -88,6 +88,10 @@ define(['./module', 'jquery'], function (controllers, $) {
         
         // подтверждение бида
         $scope.confirmLot = function () {
+            if($scope.bidPrice > $scope.sellingPrice) {
+                ngSocket.emit('auction/confirmLot',{lotId: $stateParams.lotId, bidPrice: +$scope.bidPrice, extramural: true});
+                console.log($scope.bidPrice);
+            }
             ngSocket.emit('auction/confirmLot', {
                 lotId: $scope.lotId,
                 bidPrice: $scope.bidPrice
@@ -108,6 +112,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotSelected', function (data) {
+            console.log(data);
             ngSocket.emit('auction/getPictureList', {lotId:data.lot.id});
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;

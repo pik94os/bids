@@ -39,7 +39,11 @@ require.config({
         'uiStorage':['angular'],
         "bstrap" : ['jquery'],
         'angular-svg-round-progressbar' : ['angular'],
-        'angularFileUpload':['angular']
+        'angularFileUpload':['angular'],
+        //Flashphoner
+        'FPjq-json' : ['jquery'],
+        'FPjq-ws' : ['jquery'],
+        'FP' : ['FPjq-json','FPjq-ws']
     },
     deps: ['./bootstrap']
 });
