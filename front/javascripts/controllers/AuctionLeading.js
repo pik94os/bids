@@ -127,6 +127,7 @@ define(['./module','jquery'],function(controllers,$){
             }
         });
         function setLotInfo(lot) {
+            console.log(lot);
             $scope.descriptionPrevArr = [];
             $scope.lotList = lot;
             if(lot && lot.descriptionPrev !== undefined) {
