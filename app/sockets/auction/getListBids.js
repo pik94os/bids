@@ -13,12 +13,13 @@ module.exports = function(socket, data) {
         );
         return
     }
-    let where = {isArchive: false};
-    let select = {where};
+
     let include = [{model: User, attributes: ['id', 'firstName', 'lastName', 'patronymic']},
         {model: Lot}];
     Bid.findAll({
-        select,
+        where: {
+            lotId: data.lotId
+        },
         include
     }).then((bid)=>{
         socket.emit('bidList', {

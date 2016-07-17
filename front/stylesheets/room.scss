@@ -717,11 +717,13 @@
       color: white;
       //padding: 5px 0px 0px 20px; // левый отступ - 20px\
       margin-top: 10px;
-      &:hover {
-        background: #117400;
-      }
-      &:active {
-        background: #115200;
+      &-color {
+        &:hover {
+          background: #117400;
+        }
+        &:active {
+          background: #115200;
+        }
       }
     }
     .display-table {
