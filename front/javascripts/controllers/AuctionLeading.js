@@ -7,8 +7,9 @@ define(['./module','jquery'],function(controllers,$){
         $scope.hasStream = true;
         $scope.isBroadcasting = '';
         $scope.prepare = function prepare() {
-            $scope.$broadcast('prepare');
+            $scope.initPlayer();
         };
+        $scope.videoName = 'video:' + Date.now();
 
         $scope.initPlayer = function () {
             var f = $scope.f = Flashphoner.getInstance();
@@ -17,6 +18,11 @@ define(['./module','jquery'],function(controllers,$){
 
             f.addListener(WCSEvent.ConnectionStatusEvent, function () {
                 //После инициализации
+                //опубликовать поток с вебки ведущего
+                $scope.f.publishStream({
+                    name:  $scope.videoName,
+                    record: false
+                });
             });
 
 
@@ -30,13 +36,13 @@ define(['./module','jquery'],function(controllers,$){
                     //Если возникли ошибки
                     case StreamStatus.Failed:
                         setTimeout(function () {
-                            var name = 'video:' + Date.now();
+                            $scope.videoName = 'video:' + Date.now();
                             //опубликовать поток с вебки ведущего
                             $scope.f.publishStream({
-                                name:  name,
+                                name:  $scope.videoName,
                                 record: false
                             });
-                            ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:name});
+                            ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:$scope.videoName});
                         },1000*(ErrCounter++));
                         break;
                 }
@@ -81,15 +87,9 @@ define(['./module','jquery'],function(controllers,$){
             }
         };
         $scope.start = function start() {
-            var name = 'video:' + Date.now();
-            //опубликовать поток с вебки ведущего
-            $scope.f.publishStream({
-                name:  name,
-                record: false
-            });
             ngSocket.emit('video/newVideo', {
                 auctionId: +$stateParams.auctionId,
-                name:name
+                name: $scope.videoName
             });
             ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
         };
