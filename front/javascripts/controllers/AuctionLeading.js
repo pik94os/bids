@@ -189,11 +189,14 @@ define(['./module','jquery'],function(controllers,$){
             if(bid.err) {
                 alert(bid.message);
             }
+            var max = 0;
             $scope.bids = bid.bids;
             $scope.bids.forEach(function (bid) {
-                console.log(bid);
+                if(bid.price > max) {
+                    max = bid.price;
+                }
             });
-            $scope.bids = bid.bids;
+            $scope.lastBid = max;
         });
         ngSocket.on('auctionState', function (data) {
             console.log(data);
