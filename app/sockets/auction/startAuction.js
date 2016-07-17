@@ -10,12 +10,12 @@ module.exports = function (socket, data) {
     Lot.findOne({
         where: {id: data.id}
     }).then((lot)=> {
-        let start = data.auctionEnd ? null : new Date();
+
         return Auction.update({
-            start
+            start: new Date()
         }, {
             where: {$and:[{
-                id: +lot.auctionId,
+                id: +lot.auctionId
             },['auctions.start IS NULL']]}
         }).then((auction)=> {
             lot.isPlayOut = true;
@@ -24,6 +24,11 @@ module.exports = function (socket, data) {
                 socket.emit('auctionStart', {
                     err: 0,
                     data: lot
+                });
+                return Auction.update({
+                    isClose: null
+                }, {
+                    where: {id: +lot.auctionId}
                 });
             });
         });

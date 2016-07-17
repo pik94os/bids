@@ -14,12 +14,19 @@ define(['./module','jquery'],function(controllers,$){
                 //     $scope.countdown = 3
                 // });
                 $scope.countdown = (data.auction.start) ? 2 : 1;
+                if(data.auction.isClose) {
+                    $scope.countdown = 3;
+                }
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
                 $scope.auction_id = data.auction.id;
             });
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
+        });
+
+        ngSocket.on('stopAuction', function () {
+            $scope.countdown =  3;
         });
 
         ngSocket.on('auctionRun', function () {
@@ -75,6 +82,10 @@ define(['./module','jquery'],function(controllers,$){
         };
 
 
+        ngSocket.on('stopAuction', function () {
+            $scope.countdown =  3;
+        });
+
         ngSocket.on('auctionRun', function () {
             $scope.countdown =  2;
         });
@@ -83,6 +94,10 @@ define(['./module','jquery'],function(controllers,$){
                 if (data.err)
                 date = new Date(data.auction.date);
                 $scope.countdown = (data.auction.start) ? 2 : 1;
+                if(data.auction.isClose) {
+                    $scope.countdown = 3;
+                    console.log($scope.countdown);
+                }
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
