@@ -104,6 +104,34 @@
             </div>
 
             <br>
+            <!--чат-->
+            <div class="input-group room-input-group">
+                <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
+                <input class="form-control room-message-form"
+                       type="text"
+                       placeholder="СООБЩЕНИЕ"
+                       id="write-message2"
+                       ng-model="chat.message"
+                       ng-keyup="chat.keyUp($event)">
+                        <span class="input-group-btn">
+                            <button class="btn room-buttons"
+                                    type="submit"
+                                    ng-click="chat.addMessage()">
+                                ОТПРАВИТЬ
+                            </button>
+                        </span>
+            </div>
+
+            <div class="room-chat">
+                <div ng-repeat="chatMessage in chat.messages">
+                    <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
+                        <!--{{chatMessage.user.patronymic}}-->
+                        : {{chatMessage.message}}
+                        <!--&gt; <div class="black">все</div>-->
+                    </div>
+                </div>
+            </div>
+            <br>
         </div>
     </div>
 
@@ -137,13 +165,21 @@
                     <!--вывод всех ID пользователей - {{auction_params.users_number}}<br>-->
                     <!--вывод текущего ID пользователя - {{currentUserInfo.id}}-->
                     <!--карточки-->
+
                     <div class="row">
                         <div class="room-container-with-circles">
                             <div emit-last-repeater-element
                                  class="lot-table"
-                                 ng-class="{'lot-user-internet':classLot, 'class-Of-Lot-I':$index==classOfLotI}"
+                                 ng-class="{'lot-user-internet': classLot,
+                                            'class-Of-Lot-I': $index == classOfLotI,
+                                            'class-blue-bid': $index+2 === userNumber && timeoutBidUser === true,
+                                            'class-red-bid': $index+2 === userNumber && timeoutRedBidUser === true}"
                                  ng-repeat="r in auction_params.users_number"
                                  ng-click='setPopup($index)'>
+                                <div class="class-red-text-bid-none"
+                                     ng-class="{'class-red-text-bid': $index+2 === userNumber && timeoutRedBidUser === true}">
+                                    ставка
+                                </div>
                                  <!--ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,-->
             <!--'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,-->
             <!--'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].userId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"-->
@@ -184,6 +220,7 @@
                             </button>
                         </span>
                     </div>
+
                     <div class="room-chat">
                         <div ng-repeat="chatMessage in chat.messages">
                             <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
@@ -195,7 +232,7 @@
                     </div>
 
                 </div>
-
+                <!--{{chat.messages}}-->
                 <!--правая колонка-->
                 <div class="right-column col-sm-6">
                     <div class="row">

@@ -26,6 +26,8 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countdown =  2;
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
+        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
+
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;
         };
@@ -187,6 +189,13 @@ define(['./module','jquery'],function(controllers,$){
                         $scope.classOfLotI = i;
                     }
                 });
+                // чупачупс с классом red ставка
+                $scope.redBid = false;
+                // $scope.auction_params.users_number.forEach(function(item,i) {
+                //     if ( +item === +$scope.currentUserInfo.id ) {
+                //         $scope.redBid = i;
+                //     }
+                // });
 
             });
 
@@ -299,6 +308,11 @@ define(['./module','jquery'],function(controllers,$){
 
 
         ngSocket.on('lotConfirmed', function (data) {
+            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
+            // $scope.price = data.bid.price;
+            // $scope.priceNext = $scope.price + calcStep(data.bid.price);
+            // $scope.userNumber = data.bid.userId;
+            // $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
             if (data.err) {
                 alert(data.message);
             }
@@ -309,8 +323,9 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.current_lot.sellingPrice = data.bid.price;
                     $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep($scope.current_lot.sellingPrice);
                     $scope.timeoutBidUser = true;
+                    $scope.timeoutRedBidUser = true;
                     setTimeout(function () {
-                        $scope.timeoutBidUser = false
+                        $scope.timeoutRedBidUser = false
                     }, 3000);
                 }
                 $scope.confirm = data;

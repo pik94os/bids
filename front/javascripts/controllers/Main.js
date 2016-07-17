@@ -385,6 +385,16 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.chat.message = '';
         $scope.chat.messages = [];
 
+        // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
+        ngSocket.on('chatMessagesList', function (result) {
+            // $scope.chatMessagesArr = result.resp;
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(result.chatMessagesList);
+            result.chatMessagesList.forEach(function (i) {
+                $scope.chat.messages.push(i);
+            });
+        });
+        
         $scope.chat.keyUp = function (e) {
             if (e.keyCode === 13) {
                 if ($scope.chat.message) {
@@ -430,4 +440,3 @@ define(['./module', 'jquery'], function (controllers, $) {
 
     }])
 });
-

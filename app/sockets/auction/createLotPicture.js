@@ -8,8 +8,11 @@ let LotPicture = require('../../models/').LotPicture;
 module.exports = function(socket, data) {
     let _lotPicture = {
         originalName: data.filename,
+        lotId: data.lotId,
         isArchive: false
     };
+
+    
 
     LotPicture.findOne({where: {originalName: data.filename}}).then(function (result) {
         if (result){
