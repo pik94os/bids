@@ -10,8 +10,9 @@ module.exports = function (socket, data) {
     Lot.findOne({
         where: {id: data.id}
     }).then((lot)=> {
+        let start = data.auctionEnd ? null : new Date();
         return Auction.update({
-            start: new Date()
+            start
         }, {
             where: {id: +lot.auctionId}
         }).then((auction)=> {

@@ -317,7 +317,6 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.confirm = data;
             $scope.estimateToMax = $scope.current_lot.sellingPrice > $scope.estimateTo ? 0 : 1;
-            console.log(data.bid.price);
         });
 
             var curDate = new Date();
