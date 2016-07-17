@@ -17,9 +17,9 @@ module.exports = function(socket, data) {
         {model: Lot}];
     Bid.findAll({
         where: {
-            lotId: data.lotId,
-            order: [['id', 'DESC']]
+            lotId: data.lotId
         },
+        order: [['id', 'DESC']],
         include
     }).then((bid)=>{
         socket.emit('bidList', {
