@@ -194,12 +194,10 @@ define(['./module','jquery'],function(controllers,$){
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = data.lot.sellingPrice?calcStep(data.lot.sellingPrice):data.lot.estimateFrom;
                 $scope.estimateTo = data.lot.estimateTo;
-
                 if(data.lot.sellingPrice !== null) {
                     $scope.current_lot.sellingPrice = data.lot.sellingPrice;
-                    console.log(data.lot.sellingPrice)
                 }
-                else if($scope.current_lot.sellingPrice == data.lot.estimateFrom) {
+                if($scope.current_lot.sellingPrice === data.lot.estimateFrom) {
                     $scope.bidPrice = data.lot.estimateFrom
                 }
                 if($scope.bidPrice < $scope.current_lot.sellingPrice)
@@ -208,7 +206,7 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.$apply();
                 }
                 else {
-                    $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
+                    $scope.bidPrice = +$scope.current_lot.sellingPrice;
                     $scope.$apply();
 
                 }
@@ -570,7 +568,7 @@ define(['./module','jquery'],function(controllers,$){
                 if (500000 < price && price <= 1000000){
                     return step = 50000;
                 } else {
-                    step = 10000;
+                    step = 100000;
                 }
                 return step;
             }

@@ -124,8 +124,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/getPictureList', {lotId: data.lot.id});
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
-            $scope.descriptionArr = $scope.deleteTegP($scope.lot.description);
-            $scope.descriptionPrevArr = $scope.deleteTegP($scope.lot.descriptionPrev);
+            $scope.descriptionArr = $scope.lot.description !== null ? $scope.deleteTegP($scope.lot.description) : $scope.lot.description;
+            $scope.descriptionPrevArr = $scope.lot.descriptionPrev !== null ? $scope.deleteTegP($scope.lot.descriptionPrev) : $scope.lot.descriptionPrev;
             $scope.isPlayOut = $scope.lot.isPlayOut;
             $scope.open = ($scope.lot.isSold || $scope.lot.isCl) ? 2 : 1;
             $scope.bidPrice = 0;
