@@ -129,18 +129,24 @@
                         <div class="col-sm-6 pull-left">Всего участников: <b>{{auction_params.users_length.internet_users
                             + auction_params.users_length.hall_users}}</b></div>
                         <div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div>
-                        <div class="col-sm-3 pull-right">Интернет: <b>{{auction_params.users_length.internet_users}}</b>
+                        <div class="col-sm-3 pull-right internet-hover"
+                             ng-mouseenter="changeClassLot()" ng-mouseleave="changeClassLot()">
+                            Интернет: <b>{{auction_params.users_length.internet_users}}</b>
                         </div>
                     </div>
+
                     <!--карточки-->
                     <div class="row">
                         <div class="room-container-with-circles">
-                            <div emit-last-repeater-element class="lot-table"
+                            <div emit-last-repeater-element
+                                 class="lot-table"
+                                 ng-class="{'lot-user-internet':classLot}"
                                  ng-repeat="r in auction_params.users_number"
-                                 ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,
-            'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,
-            'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].userId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"
                                  ng-click='setPopup($index)'>
+                                 <!--ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,-->
+            <!--'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,-->
+            <!--'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].userId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"-->
+
                                 <!--<div class="popup-window" ng-show="popup===$index">
                                     <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
                                     <div class="popup-avatar"></div>

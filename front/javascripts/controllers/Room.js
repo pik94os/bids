@@ -29,7 +29,9 @@ define(['./module','jquery'],function(controllers,$){
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;
         };
-
+        $scope.changeClassLot = function () {
+            $scope.classLot = !$scope.classLot;
+        };
         //init auction params
             $scope.auction_params =
                 {
