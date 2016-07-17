@@ -47,6 +47,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     });
         }
     }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket) {
+        
         $scope.open = ($stateParams.lotId) ? 1 : 0;
         $scope.tab = $stateParams.tab;
         $scope.bidPrice = 0;
@@ -69,6 +70,22 @@ define(['./module', 'jquery'], function (controllers, $) {
                     titlePicId: $stateParams.titlePicId
                 });
         };
+        
+        // создание нового лота вручную (верхнее не работает)
+        $scope.createNewLot = function () {
+            ngSocket.emit('auction/createLot', {
+                number: $scope.newLotNumber,
+                descriptionPrev: $scope.newLotDescriptionPrev,
+                description: $scope.newLotDescription,
+                estimateFrom: $scope.newLotEstimateFrom,
+                estimateTo: $scope.newLotEstimateTo,
+                sellingPrice: $scope.newLotSellingPrice,
+                auctionId: $stateParams.auctionId,
+                year: $scope.newLotYear,
+                titlePicId: 123
+            });
+        };
+        
         // подтверждение бида
         $scope.confirmLot = function () {
             ngSocket.emit('auction/confirmLot', {
@@ -103,6 +120,15 @@ define(['./module', 'jquery'], function (controllers, $) {
             initStep();
         });
         ngSocket.on('lotCreated', function (data) {
+            if (data.lotExist){
+                $scope.lotExist = data.lotExist;
+                // alert('Лот с номером ' + data.lotExist + ' уже существует');
+            }
+            if (data.newLot){
+                $scope.newLotSaved = true;
+                $scope.newLotInfo = data;
+                // alert('Лот успешно сохранен в базу');
+            }
                 ngSocket.emit('auction/getLot', {
                     lotId: data.newLot.lot.id
             });
@@ -200,6 +226,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
             $scope.step = step;
         }
+
         $scope.lastPhotos = function () {
             var t = $('.gallery .small-photo:last-child');
             t.detach().prependTo('.gallery');
@@ -212,6 +239,74 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.maxEstimate2 = function () {
             $scope.bidPrice = $scope.estimateTo;
         };
+
+        // загрузка картинок на сервер
+        // angular-file-upload
+        // https://github.com/nervgh/angular-file-upload/wiki/Module-API#directives
+        var singleLotPicUploader = $scope.singleLotPicUploader = new FileUploader({
+            url: '/api/upload/lotPic',
+            // queueLimit: 1,
+            // autoUpload: true,
+            removeAfterUpload: true
+        });
+
+        // FILTERS
+
+        // lotPicUploader.filters.push({
+        //     name: 'customFilter',
+        //     fn: function(item /*{File|FileLikeObject}*/, options) {
+        //         // return this.queue.length < 10;
+        //     }
+        // });
+
+        // CALLBACKS
+
+        singleLotPicUploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+        };
+        singleLotPicUploader.onAfterAddingFile = function (fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        singleLotPicUploader.onAfterAddingAll = function (addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+            $scope.picturesAdded = true;
+            $scope.CSVAddedInBase = false;
+        };
+        singleLotPicUploader.onBeforeUploadItem = function (item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        singleLotPicUploader.onProgressItem = function (fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        singleLotPicUploader.onProgressAll = function (progress) {
+            console.info('onProgressAll', progress);
+        };
+        singleLotPicUploader.onSuccessItem = function (fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+            // alert('Файлы загружены');
+            $scope.addedPic = response;
+            console.log('>>>>>>>>>>>');
+        };
+        singleLotPicUploader.onErrorItem = function (fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        singleLotPicUploader.onCancelItem = function (fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        singleLotPicUploader.onCompleteItem = function (fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+        };
+        singleLotPicUploader.onCompleteAll = function () {
+            console.info('onCompleteAll');
+            // alert('Файлы загружены');
+        };
+
+        console.info('lotPicUploader', singleLotPicUploader);
+
+        ngSocket.on('pictureUpdatedReport', function (result) {
+            $scope.pictureUpdatedName = result;
+        });
+
     }]);
     function initLotParams(scope, params, values){
         params.forEach(function(item, i) {
