@@ -18,7 +18,7 @@ module.exports = function(socket, data) {
 
     const user = socket.request.user;
 
-    if(!socket.request.user.logged_in){
+    if(!user.logged_in){
         socket.emit('lotConfirmed',
             {err: 1, message: 'Пройдите регистрацию и сделайте ставку'}
         );
@@ -46,7 +46,12 @@ module.exports = function(socket, data) {
                             socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
                                 err: 0,
                                 bid: bid,
-                                userName: socket.request.user
+                                userName: {
+                                    id:user.id,
+                                    firstName:user.firstName,
+                                    lastName:user.lastName,
+                                    patronymic:user.patronymic
+                                }
                             });
                         });
                     }).catch(function (err) {
