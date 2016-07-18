@@ -62,7 +62,7 @@ define(['./module','jquery'],function(controllers,$){
                 lots_isPlayOuted: [],
                 lots_isPlayOutedPercent: 0,
                 lot_pictures: [],
-                progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
+                progress_bar_class: {'width': 'calc('+0+'% - 210px)'}
             };
 
         //init lot params
@@ -90,6 +90,7 @@ define(['./module','jquery'],function(controllers,$){
 
 
             ngSocket.on('room',function (data) {
+                console.log(data);
                 $scope.t = Date.now() - new Date(data.auction.start);
                 var date;
                 date = new Date(data.auction.date);
@@ -474,10 +475,14 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.emit('getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('auctionState', function (data) {
-            ngSocket.emit('auction/getLot', {
-                lotId: +data.lotId
+            ngSocket.emit('auction/room', {
+                id: $stateParams.auctionId
             });
+            /*ngSocket.emit('auction/getLot', {
+                lotId: +data.lotId
+            });*/
             $scope.userNumber = '';
+
         });
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();

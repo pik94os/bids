@@ -37,8 +37,8 @@ module.exports = function (socket, data) {
             }
             return AuctionUser.create({
                 userId: socket.request.user.id,
-                auctionId: data.auctionId
-                //number: number
+                auctionId: data.auctionId,
+                number: number
             }).then(() => {
                 socket.emit('auctionUser',{err:0,info});
             })
