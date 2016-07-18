@@ -43,7 +43,8 @@
     font-family: "Cambria";
     font-weight: normal;
     font-style: normal;
-    padding: 15px 5px 10px 5px;
+    //padding: 15px 5px 10px 5px;
+    padding: 15px 5px 0px;
     color: #758899;
     font-size: 15px;
   }
@@ -57,7 +58,7 @@
     font-weight: 500;
     text-transform: uppercase;
     padding: 0 0 5px 5px;
-    margin-top: -12px;
+    margin-top: -3px;
     .arrow_left { // от края букв до горизонтального края стрелки - 22 от верха хедера -38
       @extend %arrow_left;
       position: absolute;
@@ -119,7 +120,9 @@
       margin: 0;
 
       &.lot-open {
-        right: 57px;
+        //right: 57px;
+	right: 0px;
+
       }
       background: {
         image: url(/images/icons-lot/view_catalog_w.svg);
@@ -1049,4 +1052,9 @@ height: 70px;
       weight: normal;
     }
   }
+}
+
+.lots_numer {
+    margin-top: -13px;
+    position: absolute;
 }
