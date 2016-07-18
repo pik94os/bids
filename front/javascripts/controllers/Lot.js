@@ -54,6 +54,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.tab = $stateParams.tab;
         $scope.bidPrice = 0;
         $scope.step = 1;
+        $scope.lot = {};
         $scope.confirm = {err: null, message: null};
         //инициализация параметров лота
         var params = ['description', 'sellingPrice', 'estimateFrom', 'estimateTo'];
@@ -105,6 +106,12 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.on('auctionState', function (data) {
             console.log(data);
+            if(data.oldLotId==$scope.lot.id || data.lotId==$scope.lot.id){
+                ngSocket.emit('auction/getLot', {
+                    lotId: $stateParams.lotId
+                });
+            }
+
         });
 
         ngSocket.on('lotConfirmed', function (data) {

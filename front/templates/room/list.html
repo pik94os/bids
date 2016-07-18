@@ -145,7 +145,7 @@
                         <div ng-class="['progress-bar-line', 'pull-left']"
                              ng-style="auction_params.progress_bar_class"></div>
                         <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ
-                            {{auction_params.lots_length}} ЛОТОВ | 00 : 00
+                            {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}
                         </div>
                         <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
                     </div>
@@ -242,12 +242,21 @@
                             <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"
                                                                ng-click="firstPhotos()"></div>
                             <div class="gallery-carousel">
-                                <a emit-last-repeater-element class="pull-left width100"
-                                   ng-repeat="r in auction_params.lots" ui-sref="lot({lotId:r.id})" target="_blank">
-                                    <div class="page-numbers-single">{{auction_params.lots[$index].number}}</div>
+                                <a emit-last-repeater-element
+                                   class="pull-left width100"
+                                   ng-repeat="r in auction_params.lots"
+                                   ui-sref="lot({lotId:r.id})"
+                                   target="_blank">
+                                    <div class="page-numbers-single"
+                                         ng-class="{'page-numbers-single-red':
+                                         lot_number==auction_params.lots[$index].number}">
+                                         {{auction_params.lots[$index].number}}
+                                    </div>
                                     <div class="room-small-photo">
-                                        <div><img
-                                                ng-src="/images/lot-images/{{getPicById(r.titlePicId).fileName || 'no-photo.jpg'}}">
+                                        <div ng-class="{'room-small-photo-redBorder':
+                                             lot_number==auction_params.lots[$index].number}">
+                                            <img ng-src="/images/lot-images/{{getPicById(r.titlePicId).fileName
+                                                 || 'no-photo.jpg'}}">
                                         </div>
                                     </div>
                                 </a>
