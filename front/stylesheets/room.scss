@@ -526,8 +526,10 @@
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
-          width: 67px;
-          height: 67px;
+          //width: 67px;
+          //height: 67px;
+	  width: 80px;
+          height: 80px;
         }
       }
     }
@@ -799,7 +801,7 @@
       font-weight: bold;
       font-size: 24pt;
       &-sec-row {
-        font-size: 12pt;
+        font-size: 14pt;
       }
       &-third-row {
         opacity: 1.0;
@@ -895,3 +897,6 @@
     margin-top: -5px;
 }
 
+p.ng-binding.ng-scope {
+    margin-top: -10px;
+}

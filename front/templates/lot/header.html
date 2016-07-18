@@ -4,7 +4,7 @@
 	<div class="info-top">АУКЦИОН 6. Редкие и ценные книги, автографы, рукописи, фотографии</div>
 	<div class="info-bottom">
 		<div class="arrow_left" ng-click="goToPrevLot()"></div>
-		Лот №{{lot.number}}
+		<div class="lots_numer">Лот №{{lot.number}}</div>
 		<!--div class="favorite" ng-show="open"></div-->
 		<div class="cat" ng-class="{'lot-open':open}" ui-sref="auction({open: open, auctionId: lot.auctionId})"></div>
 		<div class="garbage" ng-hide="open"></div>

@@ -281,8 +281,12 @@
                             <div>
                                 Интернет
                             </div>
+		            <div>
+                                № {{getUserNumber(user.id)}}
+                            </div>
+
                             <div class="name">
-                                {{bid.user.firstName}} {{bid.user.lastName}} {{bid.user.patronymic}}
+                                {{bid.user.lastName}} {{bid.user.firstName}} <!--{{bid.user.patronymic}}-->
                             </div>
                             <div>
                                 {{bid.price | toLocaleString}}

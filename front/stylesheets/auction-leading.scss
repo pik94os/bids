@@ -9,7 +9,8 @@
     overflow-y: auto;
   }
   p {
-    font-family: "Bookman", Georgia, "Times New Roman", serif;
+font-family: "Century Gothic";
+    //font-family: "Bookman", Georgia, "Times New Roman", serif;
     color: black;
     font-size: 28px;
   }
@@ -224,12 +225,14 @@
       }
       &-right {
         font-size: 12pt;
-        margin-top: 10px;
+        //margin-top: 10px;
+        margin-top: 0px;
         max-height: 240px;
         overflow: auto;
         overflow-x: hidden;
         overflow-y: auto;
-        padding: 10px;
+        //padding: 10px;
+	padding: 5px;
         div {
           //height: 25px;
           div {
