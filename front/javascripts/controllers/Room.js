@@ -55,7 +55,7 @@ define(['./module','jquery'],function(controllers,$){
                     hall_users: 0
                 },
                 users: [],
-                users_number: ["1"],
+                users_number: [],
                 current_user: null,
                 lots_length:  0,
                 lots: [],
@@ -101,7 +101,7 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
-                $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
+                $scope.auction_params.users_number = data.userNumbers.map(function(e) { return e.number });
                 $scope.auction_params.current_user = data.authUser;
                 $scope.videoName = data.auction.webcam;
                 $scope.initPlayer();
