@@ -5,7 +5,7 @@
         <!--прогресс-бар наверху-->
         <div class="room-progress-bar-container">
             <div ng-class="['progress-bar-line', 'pull-left']" ng-style="auction_params.progress_bar_class"></div>
-            <div class="room-text-in-bar-procents pull-right">0% ИЗ 0 ЛОТОВ | 00 : 00</div>
+            <div class="room-text-in-bar-procents pull-right">0 ИЗ 0 ЛОТОВ | 00 : 00</div>
             <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
         </div>
         <div class="room-auction-title">
@@ -171,9 +171,9 @@
             <div emit-last-repeater-element
                  class="lot-table"
                  ng-class="{'lot-user-internet': classLot,
-                                            'class-Of-Lot-I': $index == classOfLotI,
-                                            'class-blue-bid': $index+2 === userNumber && timeoutBidUser === true,
-                                            'class-red-bid': $index+2 === userNumber && timeoutRedBidUser === true}"
+                                            'class-Of-Lot-I': r == classOfLotI,
+                                            'class-blue-bid': r === userNumber && timeoutBidUser === true,
+                                            'class-red-bid': r === userNumber && timeoutRedBidUser === true}"
                  ng-repeat="r in auction_params.users_number"
                  ng-click='setPopup($index)'>
                 <!--<div class="class-red-text-bid-none"-->

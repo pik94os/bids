@@ -62,7 +62,7 @@ define(['./module','jquery'],function(controllers,$){
                 lots_isPlayOuted: [],
                 lots_isPlayOutedPercent: 0,
                 lot_pictures: [],
-                progress_bar_class: {'width': 'calc('+0+'% - 210px)'}
+                progress_bar_class: {'width': 'calc('+0+'% - '+210+'px)'}
             };
 
         //init lot params
@@ -101,6 +101,7 @@ define(['./module','jquery'],function(controllers,$){
                 }
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
+                $scope.auction_params.usersNumber = data.userNumbers;
                 $scope.auction_params.users_number = data.userNumbers.map(function(e) { return e.number });
                 $scope.auction_params.current_user = data.authUser;
                 $scope.videoName = data.auction.webcam;
@@ -134,7 +135,7 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
-                $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
+                $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - '+210*$scope.auction_params.lots_isPlayOutedPercent/100+'px)'}
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
@@ -303,19 +304,18 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.bidPrice -= Number($scope.current_lot.step);
             }
 
-
-
         $scope.getPicById = function (id) {
             var idPic = $scope.auction_params.lot_pictures.map(function (e) {
                     return e.id;
             }).indexOf(id);
             return $scope.auction_params.lot_pictures[idPic];
         }
+
         $scope.getUserNumber = function (id) {
-            var userNum = $scope.auction_params.users.map(function (e) {
+            var userNum = $scope.auction_params.usersNumber.map(function (e) {
                     return e.id;
-                }).indexOf(id) + 1;
-            return userNum;
+                }).indexOf(id);
+            return $scope.auction_params.usersNumber[userNum];
         }
 
         //форматирование цены
@@ -361,9 +361,9 @@ define(['./module','jquery'],function(controllers,$){
             // $scope.userNumber = data.bid.userId;
             // $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
             if (data.err) {
-                alert(data.message);
+                return alert(data.message);
             }
-            $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
+            $scope.userNumber = $scope.getUserNumber(data.bid.userId);
             if (data.err == 0) {
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
