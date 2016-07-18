@@ -246,6 +246,7 @@ define(['./module','jquery'],function(controllers,$){
                     isCl: isClean,
                     auctionId: $stateParams.auctionId
                 });
+            $scope.price = false;
         };
 
         ngSocket.on('lotConfirmed', function (data) {

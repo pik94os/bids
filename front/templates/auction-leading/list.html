@@ -96,7 +96,7 @@
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
-                        <div class="pageAuctionLeading-right-top-left-top" ng-if="price && userNumber && userData">
+                        <div class="pageAuctionLeading-right-top-left-top" ng-show="price && userNumber && userData">
                             {{price.toLocaleString() + 'руб'}}
                             <p>{{'№' + userNumber}} {{userData}}</p>
                             <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->

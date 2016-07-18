@@ -161,7 +161,7 @@
                     <div class="img222-under3">Эстимейт</div>
                     <div class="img222-under41">{{singleLot.estimateFrom.toLocaleString()}} - {{singleLot.estimateTo.toLocaleString()}} р</div><div class="img222-under42"></div>
                     <div class="info" ng-if="singleLot.isSold"><p class="top">Продано за</p>
-                        <p class="bottom">{{singleLot.sellingPrice | toLocaleString}} Р</p></div>
+                        <p class="bottom">{{(singleLot.sellingPrice||singleLot.estimateFrom) | toLocaleString}} Р</p></div>
                     <div class="info" ng-if="singleLot.isCl"><p class="top">лот снят</div>
                 </div>
             </div>
