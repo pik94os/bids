@@ -18,7 +18,7 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-xs-4 col-md-12">
-                        <div class="auction-button active" ng-if="notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>
+                        <div class="auction-button active" ng-if="!notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>
                         <div class="auction-button active" ng-if="notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#rloginModal">Регистрация</div>
                     </div>
                     <!--div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div-->
