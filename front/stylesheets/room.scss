@@ -437,6 +437,7 @@
       background: #a6b5bc;
       color: #121a3e;
       height: 43px;
+      margin: 0;
       > div {
         margin-bottom: 10px;
       }
@@ -473,7 +474,12 @@
       background-image: url(/images/ICONS_svg/sound.svg);
       border-radius: 100%;
     }
-
+    .sound-on {
+      opacity: 1;
+    }
+    .sound-off {
+      opacity: 0.5;
+    }
     .room-message-form {
       border-radius: 0px;
       border: 0pt;
@@ -486,6 +492,9 @@
       margin-top: 10px;
       font-size: 12pt;
       padding: 10px;
+      max-height: 240px;
+      overflow: hidden;
+      overflow-y: auto;
     }
 
     .insert-your {
@@ -505,8 +514,11 @@
 
     .room-small-photo {
       text-align: center;
-
+      .room-small-photo-redBorder {
+        border: 1px solid red;
+      }
       > div {
+        border: 0;
         width: 80px;
         height: 80px;
         display: inline-block;
@@ -514,7 +526,6 @@
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
-
           width: 67px;
           height: 67px;
         }
@@ -534,10 +545,34 @@
       color: #000066;
     }
 
+    .page-numbers-single-red {
+      color: red;
+    }
+
     .room-container-with-circles {
       margin-bottom: 40px;
       margin-left: 25px;
+      //min-height: 415px;
       padding-top: 30px;
+
+      .class-red-text-bid-none {
+        display: none;
+      }
+
+      .class-red-text-bid {
+        color: red;
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        padding-top: 20px;
+        margin: 0 auto;
+        text-align: center;
+        text-transform: uppercase;
+        width: 94%;
+        position: absolute;
+        bottom: 0;
+      }
+
       .lot-table {
         float: left;
         position: relative;
@@ -546,18 +581,25 @@
         width: 80px;
         margin-left: -25px;
         margin-top: -30px;
-        background-image: url("/images/lot-tables/lot_tabl_quite.png");
+        position: relative;
+        background: url("/images/lot-tables/lot_tabl_quite.png") no-repeat;
         &.moveToTheRight {
           margin-left: 0;
+        }
+        .lot-user-internet {
+          @extend .lot-table;
+          background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat;
+          height: 100px;
+          width: 100px;
         }
       }
       .lot-table-user {
         @extend .lot-table;
-        background-image: url("/images/lot-tables/lot_tabl_user.png");
+        background: url("/images/lot-tables/lot_tabl_user.png") no-repeat;
       }
       .lot-table-stavka {
         @extend .lot-table;
-        background-image: url("/images/lot-tables/lot_tabl_stavka.png");
+        background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat;
       }
       .lot-table-leave {
         @extend .lot-table;
@@ -632,7 +674,6 @@
             overflow: hidden;
           }
           &-btn {
-
             padding-left: 9px;
             position: absolute;
             width: 75px;
@@ -653,6 +694,26 @@
     .legend {
       white-space: nowrap;
       margin-bottom: 40px;
+      .internet-hover {
+        &:hover {
+          color: blue;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .lot-user {
+      @extend .lot-table;
+      background: url("/images/lot-tables/lot_tabl_quite.png") no-repeat;
+      height: 100px;
+      width: 100px;
+    }
+
+    .lot-user-internet {
+      @extend .lot-table;
+      background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat;
+      height: 100px;
+      width: 100px;
     }
 
     .description {
@@ -670,8 +731,8 @@
     }
     .description-the-book {
       background: white;
-      height: 80px;
-
+      //border-bottom: 1px solid black;
+      min-height: 80px;
     }
     .room-price {
       //position: relative;
@@ -681,7 +742,14 @@
       color: white;
       //padding: 5px 0px 0px 20px; // левый отступ - 20px\
       margin-top: 10px;
-
+      &-color {
+        &:hover {
+          background: #117400;
+        }
+        &:active {
+          background: #115200;
+        }
+      }
     }
     .display-table {
       display: table;
@@ -697,9 +765,9 @@
     .number-of-rate {
       border-width: 0 0 0 1px;
       border-style: solid;
-      font-size: 25pt;
+      font-size: 19pt;
       text-align: center;
-      padding-top: 3px;
+      padding-top: 10px;
       font-weight: bold;
     }
     .max-rate {
@@ -718,7 +786,7 @@
       &-number {
         text-align: center;
         font-weight: bold;
-        font-size: 18pt;
+        font-size: 15pt;
         color: #118a02;
         white-space: nowrap;
       }
@@ -791,5 +859,33 @@
       }
     }
   }
+}
+
+.class-Of-Lot-I {
+  background: url("/images/lot-tables/lot_tabl_press_inet.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
+  div {
+    display: none;
+  }
+}
+
+.class-blue-bid {
+  background: url("/images/lot-tables/lot_tabl_user.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
+}
+
+.class-red-bid {
+  background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
+}
+
+.lot-user-internet {
+  @extend .lot-table;
+  background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
+  height: 100px;
+  width: 100px;
 }
 

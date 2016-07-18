@@ -13,9 +13,10 @@ module.exports = function(socket, data) {
         return
     }
     const user = socket.request.user;
-
+    let where = data.userAuction ? {auctionId: data.id} : '';
     let attributes = [];
         if(data.userAuction) {
+
             attributes = ["firstName", "lastName", "patronymic", "id"]
         } else {
             attributes = ["id", "username"]
@@ -24,8 +25,7 @@ module.exports = function(socket, data) {
         include:[{
             model: Lot,
             attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number"]
-        },
-            {
+        }, {
              model: User,
                 attributes: attributes
             }

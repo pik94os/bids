@@ -18,7 +18,7 @@ module.exports = function(socket, data) {
 
     const user = socket.request.user;
 
-    if(!socket.request.user.logged_in){
+    if(!user.logged_in){
         socket.emit('lotConfirmed',
             {err: 1, message: 'Пройдите регистрацию и сделайте ставку'}
         );
@@ -31,15 +31,28 @@ module.exports = function(socket, data) {
                 if (err) return emitError(socket, err);
                 checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, function(err){
                     if (err) return emitError(socket, err);
-                Bid.create({price: data.bidPrice, lotId: lot.id, creatorId: user.id})
+                Bid.create({price: data.bidPrice, lotId: lot.id, userId: user.id})
                     .then(function (bid){
                         if (lot.isPlayOut) {
                             lot.sellingPrice = data.bidPrice;
+                        } else if (data.extramural) {
+                            lot.sellingPrice = data.bidPrice;
+                            console.log(data.extramural, data.bidPrice);
                         }
                         return lot.save().then(function (lot) {
                             socket.emit('lotConfirmed',
                                 {err: 0, bid: bid});
-                            socket.to('auction:'+(+lot.auctionId)).emit('lotConfirmed', {err: 0, bid: bid});
+                            console.log(lot.sellingPrice);
+                            socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
+                                err: 0,
+                                bid: bid,
+                                userName: {
+                                    id:user.id,
+                                    firstName:user.firstName,
+                                    lastName:user.lastName,
+                                    patronymic:user.patronymic
+                                }
+                            });
                         });
                     }).catch(function (err) {
                         return emitError(socket, err);
@@ -51,8 +64,7 @@ module.exports = function(socket, data) {
     function findLot(lotId, cb){
         Lot.findById(lotId, {
             include: [{model: Auction, attributes: ['id', 'start']}]
-        })
-            .then(function(lot) {
+        }).then(function (lot) {
                 if (lot.auction.start && !lot.isPlayOut) {
                     return cb({message: "Аукцион начат, но лот ещё не разыгрывается"});
                 }

@@ -14,22 +14,41 @@ module.exports = function(socket, data) {
         );
         return
     }
-    let auctionData = {
-        name: data.name.trim()+'',
-        number: +data.number,
-        date: `${+data.date[2]}-${+data.date[1]}-${+data.date[0]} ${+data.date[3]}:${+data.date[4]}:00.000 +00:00`,
-        userId: +data.userId,
-        isArchive: false
-    };
 
-
+    if (data.isDelete == true){
+        if (data.editId){
+            Auction.update(
+                {isArchive: true}
+                , {
+                    where: {id: +data.editId}
+                }).then(function (auction) {
+                socket.emit('auctionEdited', {
+                    'err': 0,
+                    auction: {
+                        id : data.editId,
+                        isDelete: true
+                    }
+                });
+            }).catch(function (err) {
+                socket.emit('auctionEdited',
+                    {err: 1, message: err.message}
+                );
+            })
+        }
+    } else {
+        let auctionData = {
+            name: data.name.trim()+'',
+            number: +data.number,
+            date: `${+data.date[2]}-${+data.date[1]}-${+data.date[0]} ${+data.date[3]}:${+data.date[4]}:00.000 +00:00`,
+            userId: +data.userId,
+            isArchive: false
+        };
         if (data.editId){
             Auction.update(
                 auctionData
-            , {
-                where: {id: +data.editId}
-            }).then(function (auction) {
-                console.log('>>>>>>>>>>');
+                , {
+                    where: {id: +data.editId}
+                }).then(function (auction) {
                 socket.emit('auctionEdited', {
                     'err': 0,
                     auction: {
@@ -43,7 +62,7 @@ module.exports = function(socket, data) {
             })
         }
 
-    if (!data.editId) {
+        if (!data.editId) {
             Auction.create(auctionData)
                 .then(function (auction) {
                     socket.emit('auctionCreated', {
@@ -59,4 +78,7 @@ module.exports = function(socket, data) {
                 );
             })
         }
+    }
+
+
 };

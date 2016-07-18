@@ -5,7 +5,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>АртБид - Сервис Онлайн-Аукционов</title>
 		<link rel="stylesheet" href="/stylesheets/main.css" />
-		<script src="/javascripts/libs/simplewebrtc/latest.js"></script>
 		<script src="/javascripts/require.js" data-main="/javascripts/main.js"></script>
 	</head>
 	<body class="row-block ng-cloak scrollUp" ng-controller="Main">
@@ -47,7 +46,7 @@
 				</div>
 			</div>
 
-			<div class="top-menu content-block" ng-if="!isAD">
+			<div class="top-menu content-block" ng-if="!isAD" ng-hide="hideHeaderAuctionLeading">
 				<div class="top-menu-img" ui-sref="front-page">
 					<img align="left" src="images/logo.png"/>
 				</div>
@@ -63,7 +62,7 @@
 				</a>
 			</div>
 
-			<div class="top-menu content-block" ng-if="isAD">
+			<div class="top-menu content-block" ng-if="isAD" ng-hide="hideHeaderAuctionLeading">
 				<div class="top-menu-img" ui-sref="auctions">
 					<img align="left" src="images/logo2.png"/>
 				</div>

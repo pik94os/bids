@@ -33,7 +33,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             if(result.err){
                 alert(result.message);
             }
-            $state.go('auction',{auctionId:result.auction.id});
+                $state.go('auction',{auctionId:result.auction.id});
         });
 
         ngSocket.on('auctionEdited', function (result) {
@@ -41,7 +41,15 @@ define(['./module', 'jquery'], function (controllers, $) {
             if(result.err){
                 alert(result.message);
             }
-            $state.go('auction',{auctionId:result.auction.id});
+            if (result.auction.isDelete == false){
+
+                $state.go('auction',{auctionId:result.auction.id});
+            } else {
+                // $state.go('lk?tab=auctions');
+                window.location.reload();
+                // $scope.$apply();
+            }
+
         });
 
         // редактирование пользователя

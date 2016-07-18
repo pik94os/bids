@@ -91,30 +91,53 @@
             <div class="pageAuctionLeading-right col-xs-9">
                 <div>
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
-                    <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="startAuction && cleanLot">Снять лот</div>
-                    <div class="auction-button-sale" ng-click="sold(true,isClean)" ng-show="startAuction && soldLot">Лот продан</div>
+                    <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="cleanLot">Снять лот</div>
+                    <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn">Лот продан</div>
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
-                        <div class="pageAuctionLeading-right-top-left-top">
+                        <div class="pageAuctionLeading-right-top-left-top" ng-show="price && userNumber && userData">
                             {{price.toLocaleString() + 'руб'}}
-                            <p>{{'№' + getUserNumber(userNumber)}} Аргосян С.Е.</p>
+                            <p>{{'№' + userNumber}} {{userData}}</p>
                             <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->
                             <!--{{lotList.estimateFrom + ' - ' + lotList.estimateTo}}-->
                         </div>
-
+                        <!--<br><br>-->
+                        <!--lastBid-{{lastBid}}-->
+                        <!--<br><br>-->
+                        <!--price-{{price}}-->
+                        <!--<br><br>-->
+                        <!--priceNext-{{priceNext}}-->
+                        <!--<br><br>-->
+                        <!--userNumber-{{userNumber}}-->
+                        <!--<br><br>-->
+                        <!--userData-{{userData}}-->
+                        <!--<br><br>-->
                     </div>
                     <div class="pageAuctionLeading-right-top-right col-md-4">
                         <div class="pageAuctionLeading-right-top-right-top">
                             Следующий бид!
-                            <input type="text" ng-model="numberLot" ng-keyup="sendFilter($event)" class="form-control">
+                            <div>
+                                {{(priceNext).toLocaleString()}} руб
+                            </div>
+                            <input type="text"
+                                   ng-model="numberLot"
+                                   ng-keyup="sendFilter($event)"
+                                   class="form-control">
                         </div>
                         <div class="pageAuctionLeading-right-top-right-bottom">
                             <!--40 000 100-->
                             {{(lot.sellingPrice+calcStep(lot.sellingPrice)).toLocaleString()}}
                         </div>
+                        <br>
+                        <div ng-show="fuckStop">
+                        <label for="date" class=""> Дата начала аукциона</label>
+                        <input type="text" ng-model="dateStart" class="form-control" id="date" ng-show="fuckStop">
+                        <button ng-click="dateStartAuction()" ng-show="fuckStop">Сохранить</button>
+                        </div>
                     </div>
                 </div>
+                <br><br><br>
                 <!--{{lot}}-->
                 <div class="pageAuctionLeading-right-center row">
                     <div class="pageAuctionLeading-right-center-left col-md-4">
@@ -160,17 +183,14 @@
                     </div>
                     <div class="pageAuctionLeading-right-center-right col-md-4">
                         <div class="pageAuctionLeading-right-center-right-camera">
-                            <broadcaster
-                                    has-stream="hasStream"
-                                    room-name="roomName"
-                                    is-broadcasting="isBroadcasting"></broadcaster>
+                            <video id="localVideo" autoplay></video>
 
                             <button ng-click="prepare()">Включить камеру</button>
-                            <button ng-click="start()">Начать трансляцию</button>
-                            <button ng-click="reloadPage()">Остановить трансляцию / Перезагрузить страницу</button>
+                            <button ng-click="start()">Начать аукцион</button>
+                            <button ng-click="reloadPage()">Завершить аукцион</button>
                         </div>
                         <!--<div class="pageAuctionLeading-right-center-right-textTop">-->
-                        <!--<div class="pageAuctionLeading-right-center-right-textTop-in">-->
+                        <!--<div class="pageAuctionLeading-right-center-right-textTop-in">  -->
                         <!--<div class="pageAuctionLeading-right-center-right-textTop-in-text">-->
                         <!--<b>№60</b> Апрелев С.М.-->
                         <!--</div>-->
@@ -211,149 +231,131 @@
                         <!--</div>-->
                         <!--</div>-->
                         <!--</div>-->
-                        <div class="pageAuctionLeading-right-center-right-textBottom">
+                        <div class="pageAuctionLeading-right-center-right-textBottom" ng-if="userNumber && userData && price">
                             <div class="top">Зал</div>
-                            <div class="center"><b>{{'№' + getUserNumber(userNumber)}}</b> Аргосян С.Е.</div>
+                            <div class="center"><b>{{'№' + userNumber}}</b><br>{{userData}}</div>
                             <div class="bottom">{{price.toLocaleString() + 'руб'}}</div>
                         </div>
                     </div>
                 </div>
+
                 <div class="pageAuctionLeading-right-bottom row">
                     <div class="pageAuctionLeading-right-bottom-left col-md-7">
-                        <input placeholder="> Апрелев: Конечно. Какой ?" size="70">
+
+                        <!--чат-->
+                        <div class="input-group">
+                        <input class="form-control"
+                               type="text"
+                               placeholder="СООБЩЕНИЕ"
+                               id="write-message"
+                               ng-model="chat.message"
+                               ng-keyup="chat.keyUp($event)">
+                        <span class="input-group-btn">
+                            <button class="button btn"
+                                    type="submit"
+                                    ng-click="chat.addMessage()">
+                                ОТПРАВИТЬ
+                            </button>
+                        </span>
+                            </div>
                         <div class="pageAuctionLeading-right-bottom-left-chat">
                             <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="black">Апрелев</div> > <div class="black">все</div> : Можно вопрос?
+                                <div class="room-chat-leading">
+                                <div ng-repeat="chatMessage in chat.messages">
+                                    <div class=""><b>{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}</b>
+                                        : {{chatMessage.message}}
+                                    </div>
+                                </div>
+                                    </div>
                             </div>
                             <div class="pageAuctionLeading-right-bottom-left-chat-cross">
-
-                            </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="red-underline">Админ</div> > <div class="black">все</div> : <div class="red">Вопрос закрыт</div>
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
-
-                            </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="red-underline">Админ</div> > <div class="black">Аргосян</div> : <div class="red">Если купите, мы в доле ;)</div>
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
-
-                            </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="black">Аргосян</div> > <div class="black">Админ</div> : Я малость очкую...
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
-
-                            </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="black">Порной</div> > <div class="black">все</div> : Ну ну, покажи нам, что ты умеешь )))
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
-
-                            </div>
-                        </div>
-                        <div class="pageAuctionLeading-right-bottom-left-chat">
-                            <div class="pageAuctionLeading-right-bottom-left-chat-text">
-                                <div class="black">Аргосян</div> > <div class="black">все</div> : Вы все тут слабаки!
-                            </div>
-                            <div class="pageAuctionLeading-right-bottom-left-chat-cross">
-
                             </div>
                         </div>
                     </div>
                     <div class="pageAuctionLeading-right-bottom-right col-md-5">
-                        <div class="grey">
+                        <div class="grey" ng-repeat="bid in bids">
                             <div>
-                                Лот 34
+                                Лот {{bid.lot.number}}
                             </div>
                             <div>
-                                ---
+                                Интернет
                             </div>
                             <div class="name">
-                                Апрелев С.М. (заоч)
+                                {{bid.user.firstName}} {{bid.user.lastName}} {{bid.user.patronymic}}
                             </div>
                             <div>
-                                80 000р
+                                {{bid.price | toLocaleString}}
                             </div>
                         </div>
-                        <div class="grey">
-                            <div>
-                                Лот 33
-                            </div>
-                            <div>
-                                ---
-                            </div>
-                            <div class="name">
-                                ---
-                            </div>
-                            <div>
-                                80 000 000р
-                            </div>
-                        </div>
-                        <div class="black">
-                            <div>
-                                Лот 32
-                            </div>
-                            <div>
-                                Сейчас
-                            </div>
-                            <div class="name">
-                                Аргосян С.Е.
-                            </div>
-                            <div>
-                                40 000 000р
-                            </div>
-                        </div>
-                        <div class="green">
-                            <div>
-                                Лот 31
-                            </div>
-                            <div>
-                                Зал
-                            </div>
-                            <div class="name">
-                                Порной У.Е.
-                            </div>
-                            <div>
-                                26 000р
-                            </div>
-                        </div>
-                        <div class="red">
-                            <div>
-                                Лот 30
-                            </div>
-                            <div>
-                                Не прод.
-                            </div>
-                            <div class="name">
-                                ---
-                            </div>
-                            <div>
-                                30 000р
-                            </div>
-                        </div>
-                        <div class="green">
-                            <div>
-                                Лот 29
-                            </div>
-                            <div>
-                                Инет
-                            </div>
-                            <div class="name">
-                                Апрелев С.М.
-                            </div>
-                            <div>
-                                80 000р
-                            </div>
+                        <!--<div class="grey">-->
+                            <!--<div>-->
+                                <!--Лот 33-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!-- -&#45;&#45;-->
+                            <!--</div>-->
+                            <!--<div class="name">-->
+                                <!-- -&#45;&#45;-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--80 000 000р-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="black">-->
+                            <!--<div>-->
+                                <!--Лот 32-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--Сейчас-->
+                            <!--</div>-->
+                            <!--<div class="name">-->
+                                <!--Аргосян С.Е.-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--40 000 000р-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="green">-->
+                            <!--<div>-->
+                                <!--Лот 31-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--Зал-->
+                            <!--</div>-->
+                            <!--<div class="name">-->
+                                <!--Порной У.Е.-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--26 000р-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="red">-->
+                            <!--<div>-->
+                                <!--Лот 30-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--Не прод.-->
+                            <!--</div>-->
+                            <!--<div class="name">-->
+                                <!-- -&#45;&#45;-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--30 000р-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="green">-->
+                            <!--<div>-->
+                                <!--Лот 29-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--Инет-->
+                            <!--</div>-->
+                            <!--<div class="name">-->
+                                <!--Апрелев С.М.-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--80 000р-->
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>

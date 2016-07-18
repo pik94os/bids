@@ -1,4 +1,4 @@
-iv class="rom-container">
+<div class="rom-container">
 <!--первая подстраница с прогресс-барами круглыми-->
 <div ng-show="countdown==1">
     <div class="room-list" ng-class="{'ll-open':open}">
@@ -101,6 +101,34 @@ iv class="rom-container">
                 </div>
             </div>
 
+            <br>
+            <!--чат-->
+            <div class="input-group room-input-group">
+                <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
+                <input class="form-control room-message-form"
+                       type="text"
+                       placeholder="СООБЩЕНИЕ"
+                       id="write-message2"
+                       ng-model="chat.message"
+                       ng-keyup="chat.keyUp($event)">
+                        <span class="input-group-btn">
+                            <button class="btn room-buttons"
+                                    type="submit"
+                                    ng-click="chat.addMessage()">
+                                ОТПРАВИТЬ
+                            </button>
+                        </span>
+            </div>
+            <div class="room-chat">
+                <div ng-repeat="chatMessage in chat.messages">
+                    <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
+                        <!--{{chatMessage.user.patronymic}}-->
+                        : {{chatMessage.message}}
+                        <!--&gt; <div class="black">все</div>-->
+                    </div>
+                </div>
+            </div>
+            <br>
         </div>
         <!--<div class="input-group room-input-group-p1">-->
         <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
@@ -123,75 +151,162 @@ iv class="rom-container">
     </div>
 </div>
 
-<!--вторая подстраница непосредственно с аукционом-->
-<div ng-show="countdown==2" class="container">
-<div class="row">
-<div class="room-list">
-<!--прогресс-бар наверху-->
-<div>
-    <div class="room-progress-bar-container">
-        <div ng-class="['progress-bar-line', 'pull-left']"
-             ng-style="auction_params.progress_bar_class"></div>
-        <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ
-            {{auction_params.lots_length}} ЛОТОВ | 00 : 00
-        </div>
-        <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
-    </div>
-</div>
-<!--левая колонка-->
-<div class="col-sm-6 left-column">
+    <!--вторая подстраница непосредственно с аукционом-->
+    <div ng-show="countdown==2" class="container">
+        <div class="row">
+            <div class="room-list">
+                <!--прогресс-бар наверху-->
+                <div>
+                    <div class="room-progress-bar-container">
+                        <div ng-class="['progress-bar-line', 'pull-left']"
+                             ng-style="auction_params.progress_bar_class"></div>
+                        <div class="room-text-in-bar-procents pull-right">{{auction_params.lots_isPlayOutedPercent}}% ИЗ
+                            {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}
+                        </div>
+                        <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
+                    </div>
+                </div>
+                <!--левая колонка-->
+                <div class="col-sm-6 left-column">
 
-    <div class="legend">
-        <div class="col-sm-6 pull-left">Всего участников: <b>{{auction_params.users_length.internet_users
-            + auction_params.users_length.hall_users}}</b></div>
-        <div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div>
-        <div class="col-sm-3 pull-right">Интернет: <b>{{auction_params.users_length.internet_users}}</b>
-        </div>
-    </div>
-    <!--карточки-->
-    <div class="row">
-        <div class="room-container-with-circles">
-            <div emit-last-repeater-element class="lot-table"
-                 ng-repeat="r in auction_params.users_number"
-                 ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,
-            'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,
-            'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].creatorId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"
-                 ng-click='setPopup($index)'>
-                <!--<div class="popup-window" ng-show="popup===$index">
-                    <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
-                    <div class="popup-avatar"></div>
-                    <div class="popup-text">
-                        <div class="popup-text-name">
-                            {{auction_params.users[r-1].username}}
+                    <div class="legend">
+                        <div class="col-sm-6 pull-left">Всего участников: <b>{{auction_params.users_length.internet_users
+                            + auction_params.users_length.hall_users}}</b></div>
+                        <div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div>
+                        <div class="col-sm-3 pull-right internet-hover"
+                             ng-mouseenter="changeClassLot()" ng-mouseleave="changeClassLot()">
+                            Интернет: <b>{{auction_params.users_length.internet_users}}</b>
+                        </div>
+                    </div>
+                    <!--вывод всех ID пользователей - {{auction_params.users_number}}<br>-->
+                    <!--вывод текущего ID пользователя - {{currentUserInfo.id}}-->
+                    <!--карточки-->
+
+                    <div class="row">
+                        <div class="room-container-with-circles">
+                            <div emit-last-repeater-element
+                                 class="lot-table"
+                                 ng-class="{'lot-user-internet': classLot,
+                                            'class-Of-Lot-I': $index == classOfLotI,
+                                            'class-blue-bid': $index+2 === userNumber && timeoutBidUser === true,
+                                            'class-red-bid': $index+2 === userNumber && timeoutRedBidUser === true}"
+                                 ng-repeat="r in auction_params.users_number"
+                                 ng-click='setPopup($index)'>
+                                <!--<div class="class-red-text-bid-none"-->
+                                     <!--ng-class="{'class-red-text-bid': $index+2 === userNumber && timeoutRedBidUser === true}">-->
+                                    <!--ставка-->
+                                <!--</div>-->
+                                 <!--ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,-->
+            <!--'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,-->
+            <!--'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].userId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"-->
+
+                                <!--<div class="popup-window" ng-show="popup===$index">
+                                    <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
+                                    <div class="popup-avatar"></div>
+                                    <div class="popup-text">
+                                        <div class="popup-text-name">
+                                            {{auction_params.users[r-1].username}}
+                                        </div>
+
+                                        № {{auction_params.users[r-1].number}} <br>
+                                    </div>
+                                    <div class="btn bg-primary popup-text-btn">Сообщение</div>
+                                </div>-->
+                                <div>
+                                    <div class="num-on-table">{{$index+1}}</div>
+                                </div>
+                            </div>
                         </div>
 
-                        № {{auction_params.users[r-1].number}} <br>
                     </div>
-                    <div class="btn bg-primary popup-text-btn">Сообщение</div>
-                </div>-->
-                <div class="num-on-table">{{$index+1}}</div>
-            </div>
-        </div>
-    </div>
-    <!--<div class="input-group room-input-group">-->
-    <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
-    <!--<span class="input-group-btn">-->
-    <!--<button class="btn room-buttons" type="submit">ОТПРАВИТЬ</button>-->
-    <!--</span>-->
-    <!--</div>-->
-    <!--<div class="room-chat">-->
-    <!--<div>#39: Как мало сегодня книг</div>-->
-    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-    <!--<div>#Администратор: Ставку вернули.</div>-->
-    <!--<div>#39: Как мало сегодня книг</div>-->
-    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-    <!--<div>#Администратор: Ставку вернули.</div>-->
-    <!--<div>#39: Как мало сегодня книг</div>-->
-    <!--<div>#41(ВЫ): Можно поставить вернуть ставку?</div>-->
-    <!--<div>#Администратор: Ставку вернули.</div>-->
-    <!--</div>-->
-</div>
 
+                    <div class="input-group room-input-group">
+                        <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
+                        <input class="form-control room-message-form"
+                               type="text"
+                               placeholder="СООБЩЕНИЕ"
+                               id="write-message"
+                               ng-model="chat.message"
+                               ng-keyup="chat.keyUp($event)">
+                        <span class="input-group-btn">
+                            <button class="btn room-buttons"
+                                    type="submit"
+                                    ng-click="chat.addMessage()">
+                                ОТПРАВИТЬ
+                            </button>
+                        </span>
+                    </div>
+
+                    <div class="room-chat">
+                        <div ng-repeat="chatMessage in chat.messages">
+                            <div class="black"><b>{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}</b>
+                                <!--{{chatMessage.user.patronymic}}-->
+                                : {{chatMessage.message}}
+                                <!--&gt; <div class="black">все</div>-->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!--{{chat.messages}}-->
+                <!--правая колонка-->
+                <div class="right-column col-sm-6">
+                    <div class="row">
+                        <div class="room-small-books-container">
+                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png"
+                                                              ng-click="lastPhotos()"></div>
+                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"
+                                                               ng-click="firstPhotos()"></div>
+                            <div class="gallery-carousel">
+                                <a emit-last-repeater-element
+                                   class="pull-left width100"
+                                   ng-repeat="r in auction_params.lots"
+                                   ui-sref="lot({lotId:r.id})"
+                                   target="_blank">
+                                    <div class="page-numbers-single"
+                                         ng-class="{'page-numbers-single-red':
+                                         lot_number==auction_params.lots[$index].number}">
+                                         {{auction_params.lots[$index].number}}
+                                    </div>
+                                    <div class="room-small-photo">
+                                        <div ng-class="{'room-small-photo-redBorder':
+                                             lot_number==auction_params.lots[$index].number}">
+                                            <img ng-src="/images/lot-images/{{getPicById(r.titlePicId).fileName
+                                                 || 'no-photo.jpg'}}">
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <!--<div class="pull-left width100">
+                                <div class="page-numbers-single">149</div>
+                                <div class="room-small-photo">
+                                    <div><img src="/images/FOR_DEV/sm_book.png"></div>
+                                </div>
+                            </div>
+                            <div class="pull-left width100">
+                                <div class="page-numbers-single">150</div>
+                                <div class="room-small-photo">
+                                    <div><img src="/images/FOR_DEV/sm_book.png"></div>
+                                </div>
+                            </div>
+                            <div class="pull-left width100">
+                                <div class="page-numbers-single">151</div>
+                                <div class="room-small-photo">
+                                    <div><img src="/images/FOR_DEV/sm_book.png"></div>
+                                </div>
+                            </div>
+                            <div class="pull-left width100">
+                                <div class="page-numbers-single">152</div>
+                                <div class="room-small-photo">
+                                    <div><img src="/images/FOR_DEV/sm_book.png"></div>
+                                </div>
+                            </div>
+                            <div class="pull-left width100">
+                                <div class="page-numbers-single">153</div>
+                                <div class="room-small-photo">
+                                    <div><img src="/images/FOR_DEV/sm_book.png"></div>
+                                </div>
+                            </div>-->
 <!--правая колонка-->
 <div class="right-column col-sm-6">
     <div class="row">
@@ -244,30 +359,60 @@ iv class="rom-container">
 
         </div>
     </div>
+                    <div class="row">
+                        <div class="description">
 
+                            <div class="col-xs-8 blue-border-right">
+                                <div class="description-the-book">
+                                    {{current_lot.description.slice(0,135)+'...'| htmlToPlaintext }}
+                                </div>
+                                <hr>
+                                <!--<div class="room-large-book">-->
+                                <!--<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"-->
+                                <!--width="200pt" ng-hide="swap">-->
 
+                                <!--<div ng-hide="swap">-->
+                                <!--<img src="/images/FOR_DEV/video.png" width="200pt">-->
+                                <!--</div>-->
+
+                                <!--<div ng-hide="swap">-->
+                                <!--<img src="/images/FOR_DEV/video.png">-->
+                                <!--&lt;!&ndash;<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"&ndash;&gt;-->
+                                <!--&lt;!&ndash;width="200pt" ng-hide="swap">&ndash;&gt;-->
+                                <!--</div>-->
     <div class="row">
         <div class="description">
 
-            <div class="col-xs-8 blue-border-right">
-                <div class="description-the-book">
-                    {{current_lot.description.slice(0,135)+'...'| htmlToPlaintext }}
-                </div>
-                <hr>
-                <!--<div class="room-large-book">-->
-                <!--<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"-->
-                <!--width="200pt" ng-hide="swap">-->
+                       <!--<img src="/images/FOR_DEV/video.png" width="200pt" ng-if="swap == true">-->
+                                <!--<img src="/images/FOR_DEV/video.png" width="260pt" ng-if="swap == false">-->
+                                <!--</div>-->
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="description-the-book">
+                                    <div class="recommended-price">ПРЕДЛОЖЕННАЯ ЦЕНА</div>
+                                    <div class="recommended-price-number">{{+current_lot.sellingPrice | toLocaleString}} Р</div>
+                                    <br>
+                                </div>
+                                <hr>
+                                <div class="rate-from-inet" >
+                                    <span>СТАВКА</span>
+                                    <div class="rate-from-inet-sec-row" ><p ng-if="userNumber">ИЗ ИНТЕРНЕТА</p></div>
+                                    <div class="rate-from-inet-third-row"><p ng-if="userNumber">ОТ #
+                                        {{getUserNumber(userNumber)}}</p>
+                                    </div>
+                                </div>
+                                <!--<div class="dollar-arrows"></div>-->
+                                <div class="video-container">
+                                    <button class="btn swap-btn" ng-click="changeClassVideoWindow()"
+                                            style="margin-left: -35px"></button>
+                                    <button class="btn sound-btn" ng-click="soundOnOff()"
+                                            style="margin-left: -35px; margin-top: 50px"
+                                            ng-class="{'sound-on':!classSoundOnOff,'sound-off':classSoundOnOff}">
+                                    </button>
+                                    <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
 
-                <!--<div ng-hide="swap">-->
-                <!--<img src="/images/FOR_DEV/video.png" width="200pt">-->
-                <!--</div>-->
-
-                <!--<div ng-hide="swap">-->
-                <!--<img src="/images/FOR_DEV/video.png">-->
-                <!--&lt;!&ndash;<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"&ndash;&gt;-->
-                <!--&lt;!&ndash;width="200pt" ng-hide="swap">&ndash;&gt;-->
-                <!--</div>-->
-
+                                    <!--<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"-->
+                                    <!--height="70pt" ng-if="swap == true">-->
 
                 <!--<img src="/images/FOR_DEV/video.png" width="200pt" ng-if="swap == true">-->
                 <!--<img src="/images/FOR_DEV/video.png" width="260pt" ng-if="swap == false">-->
@@ -280,40 +425,33 @@ iv class="rom-container">
                     </div>
                     <br>
 
-                </div>
-                <hr>
-                <div class="rate-from-inet">
-                    <span>СТАВКА</span>
-                    <div class="rate-from-inet-sec-row">ИЗ ИНТЕРНЕТА</div>
-                    <div class="rate-from-inet-third-row">ОТ #
-                        {{getUserNumber(current_lot.bids[0].creatorId)}}
+                                    <div ng-class="{'classForVideo-small':aaa,'classForVideo-big':!aaa}">
+                                        <!--<img src="/images/FOR_DEV/video.png">-->
+                                        <div class="room-large-book">
+                                            <img ng-src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName || 'no-photo.jpg'}}">
+                                        </div>
+                                    </div>
+                                    <div ng-class="{'classForVideo-big':aaa,'classForVideo-small':!aaa}">
+                                        <video id="remoteVideo"></video>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <!--<div class="dollar-arrows"></div>-->
-                <div class="video-container">
-                    <button class="btn swap-btn" ng-click="changeClassVideoWindow()"
-                            style="margin-left: -35px"></button>
-                    <button class="btn sound-btn" ng-click="soundOnOff()"
-                            style="margin-left: -35px; margin-top: 50px">
-                    </button>
-                    <!--<button ng-click="joinRoom()">Включить трансляцию</button>-->
 
-                    <!--<img src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName}}"-->
-                    <!--height="70pt" ng-if="swap == true">-->
-
-
+                    <div class="row">
 
                     <div ng-class="{'classForVideo-small':aaa,'classForVideo-big':!aaa}">
                         <!--<img src="/images/FOR_DEV/video.png">-->
                         <div class="room-large-book">
                             <img ng-src="/images/lot-images/{{current_lot.lot_pictures[current_lot.currentPic].fileName || '../no-photo.jpg'}}" width="200pt">
                         </div>
+                        <div class="room-price room-price-color do-rate col-sm-6" ng-click="confirmLot()">СДЕЛАТЬ СТАВКУ</div>
+                        <div class="room-price number-of-rate col-sm-6">{{bidPrice | toLocaleString}} Р</div>
                     </div>
-                    <div ng-class="{'classForVideo-big':aaa,'classForVideo-small':!aaa}">
-                        <watch-room room-name="roomName"
-                                    joined-room="joinedRoom"
-                                    max-num-peers="1000">
-                        </watch-room>
+                    <div class="max-rate" ng-click="maxEstimate()" ng-if="estimateToMax">
+                        <a>МАКСИМАЛЬНАЯ СТАВКА</a>
                     </div>
 
 
@@ -344,7 +482,8 @@ iv class="rom-container">
 </div>
 </div>
 <div class="room-auction-title" ng-if="countdown===3">
-    <div class="room-auction-title-auction" style="font-size: 55px;text-align: center"><b>АУКЦИОН ЗАВЕРШЕН</b></div>
-    <div class="room-auction-title-starts-in" style="font-size: 55px;text-align: center"><b>СПАСИБО ЗА ВНИМАНИЕ</b>
+    <div class="room-auction-title-auction">
+        <p style="font-size: 60px;text-align: center;padding-top: 150px;"><b>АУКЦИОН ЗАВЕРШЕН</b></p>
+        <p style="font-size: 60px;text-align: center;;"><b>СПАСИБО ЗА ВНИМАНИЕ!</b></p>
     </div>
 </div>

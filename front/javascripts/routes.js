@@ -52,10 +52,24 @@ define(['./app'], function (app) {
             })
             //Страница редактирования и просмотра любого лота
             .state('lot', {
-                url: '/lot?&lotId&year&titlePicId',
+                url: '/lot?auctionId&lotId&year&titlePicId',
                 views:{
                     '': {
                         templateUrl: "/templates/lot/list.html",
+                        controller: 'Lot'
+                    },
+                    'header':{
+                        templateUrl: "/templates/lot/header.html",
+                        controller: 'LotHeader'
+                    }
+                }
+            })
+            //Страница создания лота вручную
+            .state('createlot', {
+                url: '/createlot?auctionId&lotId',
+                views:{
+                    '': {
+                        templateUrl: "/templates/lot/createlot.html",
                         controller: 'Lot'
                     },
                     'header':{

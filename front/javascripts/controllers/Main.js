@@ -117,15 +117,17 @@ define(['./module', 'jquery'], function (controllers, $) {
             });
         };
 
-        // создание аукциона
+        // редактирование аукциона
         $scope.newAuction = {};
-        $scope.editAuction = function () {
+        $scope.editAuction = function (param, auctionId) {
             ngSocket.emit('auction/create', {
                 name: $scope.editedAuction.nameAuction,
                 number: $scope.editedAuction.numberAuction,
                 date: $scope.editedAuction.date,
                 userId: $scope.currentUserInfo.id,
-                editId: +$scope.auctionIdForEdit.id
+                editId: auctionId,
+                // editId: +$scope.auctionIdForEdit.id,
+                isDelete: param
             });
         };
 
@@ -365,7 +367,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
             var mas = [];
-            while (text !== undefined && text.indexOf("<p>") + 1) {
+            while (text !== undefined && text && text.indexOf("<p>") + 1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
 
                 text = text.substring(text.indexOf("</p>") + 3, text.length);
@@ -375,5 +377,66 @@ define(['./module', 'jquery'], function (controllers, $) {
             return mas;
         };
         // удаление <p></p> из текста и удаление @ кон
+
+        // функционал чата на странице ведущего
+        // socket.join('lesson:' + +$stateParams.auctionId);
+        
+        $scope.chat = {};
+        $scope.chat.message = '';
+        $scope.chat.messages = [];
+
+        // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
+        ngSocket.on('chatMessagesList', function (result) {
+            // $scope.chatMessagesArr = result.resp;
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(result.chatMessagesList);
+            result.chatMessagesList.forEach(function (i) {
+                $scope.chat.messages.push(i);
+            });
+        });
+        
+        $scope.chat.keyUp = function (e) {
+            if (e.keyCode === 13) {
+                if ($scope.chat.message) {
+                    $scope.chat.addMessage();
+                    return null;
+                }
+                $scope.chat.message = '';
+            }
+        };
+
+        $scope.chat.addMessage = function () {
+            if ($scope.chat.message) {
+                ngSocket.emit('auction/pasteChatMessage', {
+                    userId: +$scope.currentUserInfo.id,
+                    auctionId: +$stateParams.auctionId,
+                    chatMessage: $scope.chat.message
+                });
+            }
+            $scope.chat.message = '';
+        };
+
+        ngSocket.on('catchMessageRow', function (result) {
+            if (!result.err) {
+                // $scope.chat.messages.push({time: new Date(result.time), text:result.message, username:result.userId});
+                // if ($scope.chat.messages[$scope.chat.messages.length - 1].createdAt !== result.message.createdAt) {
+                $scope.chat.messages.unshift({
+                    createdAt: result.message.createdAt,
+                    message: result.message.message,
+                    user: result.user
+                });
+            }
+        });
+
+        ngSocket.on('chatMessagesList', function (result) {
+            $scope.chatMessagesArr = result.resp;
+        });
+
+        $rootScope.$on('$viewContentLoaded', function () {
+            if ($scope.$state.current.name === 'auction-leading') {
+                $scope.hideHeaderAuctionLeading = true;
+            }
+        });
+
     }])
 });
