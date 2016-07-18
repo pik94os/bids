@@ -48,8 +48,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 lotId: lotArr[currentId].id
             });
         }
-    }]).controller('Lot', ['$anchorScroll', '$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function ($anchorScroll, $scope, $http, $rootScope, $stateParams, ngSocket, FileUploader) {
-
     }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket, FileUploader) {
 
         $scope.open = ($stateParams.lotId) ? 1 : 0;
@@ -113,9 +111,15 @@ define(['./module', 'jquery'], function (controllers, $) {
             console.log(data);
             if (data.err == 0) {
                 $scope.confirm = data;
-                $scope.confirm.message = 'Бид ' + data.bid.price + ' успешно добавлен';
+                if(data.userName!==undefined && data.userName){
+                    $scope.confirm.message = null;
+                    $scope.confirm.err = null;
+                }else{
+                    $scope.confirm.message = 'Бид ' + data.bid.price + ' успешно добавлен';
+                }
+            }else{
+                $scope.confirm = data
             }
-            $scope.confirm = data
 
             $scope.sellingPrice = data.bid.price;
             $scope.bidPrice = $scope.sellingPrice + calcStep($scope.sellingPrice);

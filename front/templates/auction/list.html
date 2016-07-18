@@ -2,7 +2,7 @@
 
     <div class="preview-auction auction row" ng-if="open == 1">
         <div class="">
-            <div class="col-md-9" ui-sref="room({auctionId:auction.id})">
+            <div class="col-md-9 col-xs-12" ui-sref="room({auctionId:auction.id})">
             <!--<div class="col-md-9">-->
                 <div class="auction-img">
                     <img src="images/image-body-in.png">
@@ -161,7 +161,7 @@
                     <div class="img222-under3">Эстимейт</div>
                     <div class="img222-under41">{{singleLot.estimateFrom.toLocaleString()}} - {{singleLot.estimateTo.toLocaleString()}} р</div><div class="img222-under42"></div>
                     <div class="info" ng-if="singleLot.isSold"><p class="top">Продано за</p>
-                        <p class="bottom">{{singleLot.sellingPrice.toLocaleString()}} Р</p></div>
+                        <p class="bottom">{{singleLot.sellingPrice | toLocaleString}} Р</p></div>
                     <div class="info" ng-if="singleLot.isCl"><p class="top">лот снят</div>
                 </div>
             </div>

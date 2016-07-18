@@ -1,7 +1,7 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('AuctionHeader',['$scope', '$stateParams','ngSocket', function($scope, $stateParams,ngSocket){
-        $scope.open = +$stateParams.auctionId?$stateParams.open:2;
+        $scope.open = +$stateParams.auctionId?+$stateParams.open:2;
         ngSocket.emit('auction/getAuction', {id: +$stateParams.auctionId});
         ngSocket.on('catchAuction', function (data) {
             if(data.err) {
@@ -14,7 +14,7 @@ define(['./module','jquery'],function(controllers,$){
 
     }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function($scope,$http,$rootScope,$stateParams,ngSocket,FileUploader){
         $scope.currentAuctionId = $stateParams.auctionId;
-        $scope.open = +$stateParams.auctionId?$stateParams.open:2;
+        $scope.open = +$stateParams.auctionId?+$stateParams.open:2;
         $scope.contactsShow= false;
         $scope.showContacts = function () {
             $scope.contactsShow= true;

@@ -59,10 +59,10 @@ module.exports = function(socket, data) {
                     isSold: false
                 }
             }).then((count)=> {
-                console.log(count);
                 if (!count) {
                     socket.emit('countDown', {});
                 }
+                socket.join('auction:' + data.auctionId);
             })
         }).catch(function (err) {
         socket.emit('lotList',
