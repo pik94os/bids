@@ -9,35 +9,20 @@
                     <div ng-if="open==0"><textarea class="lot-description-input"
                                                    ng-model="description">{{description}}</textarea></div>
                     <div ng-model="description"><p ng-repeat="str in descriptionPrevArr">{{str}}</p></div>
-                </div>
-                <div class="lot-prisesale" ng-hide="lot.isCl">Цена продажи: {{sellingPrice}}</div>
-                <div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="estimateFrom"
-                                                                    value="{{estimateFrom}}"
-                                                                    ng-readonly="{{open != 0}}"/> - <input
-                        class="lot-priceinput" ng-model="estimateTo" value="{{estimateTo}}"
-                        ng-readonly="{{open != 0}}"/>
-                    <div class="edit"></div>
-                    Руб.
-                </div>
+				</div>
+                <div class="lot-prisesale" ng-hide="lot.isCl">Цена продажи: {{sellingPrice | toLocaleString}} Р</div>
+				<div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="estimateFrom" value="{{estimateFrom}}" ng-readonly="{{open != 0}}"/> - <input class="lot-priceinput" ng-model="estimateTo" value="{{estimateTo}}" ng-readonly="{{open != 0}}"/><div class="edit"></div> Руб.</div>
 
-                <div class="lot-estimate">Эстимэйт: {{estimateFrom}} - {{estimateTo}}
-                    <div class="edit"></div>
-                </div>
+				<div class="lot-estimate">Эстимэйт: {{estimateFrom | toLocaleString}} - {{estimateTo | toLocaleString}} <div class="edit"></div></div>
 
-                <div class="lot-price" ng-hide="lot.isCl">Цена продажи: <input class="lot-priceinput"
-                                                                               ng-model="sellingPrice"
-                                                                               value="{{sellingPrice}}"
-                                                                               ng-readonly="{{open != 0}}"/>
-                    <div class="edit"></div>
-                </div>
+                <div class="lot-price" ng-hide="lot.isCl">Цена продажи: <input class="lot-priceinput" ng-model="sellingPrice" value="{{sellingPrice| toLocaleString}}" ng-readonly="{{open != 0}}"/><div class="edit"> Р</div></div>
 
-                <div class="lot-price1">Разыгрывается сейчас<br>{{sellingPrice}} руб</div>
-                <div class="lot-pricediv1">
-                    <!--div class="lot-pricediv1-11">Разместить максимальный бид</div-->
-                    <div class="max-rate" ng-click="maxEstimate2()"><a href="#">Разместить максимальный бид</a></div>
-                    <div class="lot-pricediv1-2">
-                        <input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой"
-                               value="{{bidPrice}}" ng-change="formatBid()">
+				<div class="lot-price1">Разыигрывается сейчас<br>{{sellingPrice | toLocaleString}} Р</div>
+				<div class="lot-pricediv1">
+					<!--div class="lot-pricediv1-11">Разместить максимальный бид</div-->
+					<div class="max-rate" ng-click="maxEstimate2()"><a href="#">Разместить максимальный бид</a></div>
+					<div class="lot-pricediv1-2">
+                        <input class="lot-priceinput" ng-model="bidPrice" placeholder="Сделайте шаг / впишите свой" value="{{bidPrice}}" ng-change="formatBid()">
                         <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                         <div class="lot-pricediv1-2-1" ng-click="decrementBid()" ng-show="minus"></div>
                     </div>

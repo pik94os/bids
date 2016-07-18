@@ -96,7 +96,7 @@
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
-                        <div class="pageAuctionLeading-right-top-left-top" ng-if="price && userNumber && userData">
+                        <div class="pageAuctionLeading-right-top-left-top" ng-show="price && userNumber && userData">
                             {{price.toLocaleString() + 'руб'}}
                             <p>{{'№' + userNumber}} {{userData}}</p>
                             <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->
@@ -130,10 +130,10 @@
                             {{(lot.sellingPrice+calcStep(lot.sellingPrice)).toLocaleString()}}
                         </div>
                         <br>
-                        <div ng-hide="auctionOn">
+                        <div ng-show="fuckStop">
                         <label for="date" class=""> Дата начала аукциона</label>
-                        <input type="text" ng-model="dateStart" class="form-control" id="date">
-                        <button ng-click="dateStartAuction()">Сохранить</button>
+                        <input type="text" ng-model="dateStart" class="form-control" id="date" ng-show="fuckStop">
+                        <button ng-click="dateStartAuction()" ng-show="fuckStop">Сохранить</button>
                         </div>
                     </div>
                 </div>
@@ -262,7 +262,7 @@
                             <div class="pageAuctionLeading-right-bottom-left-chat-text">
                                 <div class="room-chat-leading">
                                 <div ng-repeat="chatMessage in chat.messages">
-                                    <div class="">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
+                                    <div class=""><b>{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}</b>
                                         : {{chatMessage.message}}
                                     </div>
                                 </div>
@@ -284,7 +284,7 @@
                                 {{bid.user.firstName}} {{bid.user.lastName}} {{bid.user.patronymic}}
                             </div>
                             <div>
-                                {{bid.price}}
+                                {{bid.price | toLocaleString}}
                             </div>
                         </div>
                         <!--<div class="grey">-->

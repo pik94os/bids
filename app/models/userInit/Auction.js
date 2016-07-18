@@ -13,7 +13,8 @@ var attributes = {
     webcam: {type: Sequelize.STRING },
     date: {type: Sequelize.DATE},
     start: {type: Sequelize.DATE},
-    isArchive: {type: Sequelize.BOOLEAN}
+    isArchive: {type: Sequelize.BOOLEAN},
+    isClose: {type: Sequelize.DATE}
 };
 
 module.exports.attributes = attributes;
