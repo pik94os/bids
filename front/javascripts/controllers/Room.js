@@ -20,6 +20,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
                 $scope.auction_id = data.auction.id;
+                
             });
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
@@ -33,6 +34,23 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countdown =  2;
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
+
+        ngSocket.on('room',function (data) {
+            if(data.err){
+                return console.log(data);
+            }
+            var date = new Date(data.auction.date);
+            // ngSocket.on('countDown', function () {
+            //     $scope.countdown = 3
+            // });
+            $scope.countdown = (data.auction.start) ? 2 : 1;
+            $scope.auction_number = data.auction.number;
+            $scope.auction_name = data.auction.name;
+            $scope.auction_id = data.auction.id;
+        });
+
+
+        
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
 
         $scope.changeClassVideoWindow = function () {
@@ -104,10 +122,18 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.current_user = data.authUser;
                 $scope.videoName = data.auction.webcam;
                 $scope.initPlayer();
-
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
+
+                $scope.redColor = false;
+                $scope.auction_params.lots.forEach(function(item,i) {
+                    if ( $scope.lot_number === item.number ) {
+                        $scope.redColor = true;
+                    }
+                });
+
+
                 $scope.auction_params.lot_pictures = [];
                 if (data.lotPictures != undefined && data.lotPictures.length){
                     data.lotPictures.forEach(function (pic) {
@@ -235,6 +261,7 @@ define(['./module','jquery'],function(controllers,$){
 
                 }
                 //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
+                $scope.lot_number = data.lot.number;
 
                 $scope.current_lot.lot_pictures = [];
                 if (data.lotPictures != undefined && data.lotPictures.length){

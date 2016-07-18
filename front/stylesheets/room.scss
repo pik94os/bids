@@ -514,8 +514,11 @@
 
     .room-small-photo {
       text-align: center;
-
+      .room-small-photo-redBorder {
+        border: 1px solid red;
+      }
       > div {
+        border: 0;
         width: 80px;
         height: 80px;
         display: inline-block;
@@ -523,7 +526,6 @@
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
-
           width: 67px;
           height: 67px;
         }
@@ -541,6 +543,10 @@
       font-weight: bold;
       font-size: 8pt;
       color: #000066;
+    }
+
+    .page-numbers-single-red {
+      color: red;
     }
 
     .room-container-with-circles {
@@ -725,8 +731,8 @@
     }
     .description-the-book {
       background: white;
-      height: 80px;
-
+      //border-bottom: 1px solid black;
+      min-height: 80px;
     }
     .room-price {
       //position: relative;
