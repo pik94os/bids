@@ -11,11 +11,11 @@
                     <div ng-model="description"><p ng-repeat="str in descriptionPrevArr">{{str}}</p></div>
 				</div>
                 <div class="lot-prisesale" ng-hide="lot.isCl">Цена продажи: {{sellingPrice | toLocaleString}} Р</div>
-				<div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="estimateFrom" value="{{estimateFrom}}" ng-readonly="{{open != 0}}"/> - <input class="lot-priceinput" ng-model="estimateTo" value="{{estimateTo}}" ng-readonly="{{open != 0}}"/><div class="edit"></div> Руб.</div>
+				<div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="estimateFrom" value="{{estimateFrom}}" ng-readonly="open != 0"> - <input class="lot-priceinput" ng-model="estimateTo" value="{{estimateTo}}" ng-readonly="open != 0"/><div class="edit"></div> Руб.</div>
 
 				<div class="lot-estimate">Эстимэйт: {{estimateFrom | toLocaleString}} - {{estimateTo | toLocaleString}} <div class="edit"></div></div>
 
-                <div class="lot-price" ng-hide="lot.isCl">Цена продажи: <input class="lot-priceinput" ng-model="sellingPrice" value="{{sellingPrice| toLocaleString}}" ng-readonly="{{open != 0}}"/><div class="edit"> Р</div></div>
+                <div class="lot-price" ng-hide="lot.isCl">Цена продажи: <input class="lot-priceinput" ng-model="sellingPrice" value="{{sellingPrice| toLocaleString}}" ng-readonly="open != 0"/><div class="edit"> Р</div></div>
 
 				<div class="lot-price1">Разыигрывается сейчас<br>{{sellingPrice | toLocaleString}} Р</div>
 				<div class="lot-pricediv1">
@@ -26,6 +26,7 @@
                         <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                         <div class="lot-pricediv1-2-1" ng-click="decrementBid()" ng-show="minus"></div>
                     </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 					<div class="lot-pricediv1-3" ng-click="confirmLot()">{{ isPlayOut ? "Подтвердить" : "Заочный бид"}}</div>
 					<!--div class="lot-pricediv1-4">Таблица шагов</div-->
@@ -38,6 +39,9 @@
 =======
                     <div class="lot-pricediv1-3" ng-click="confirmLot()">{{ isPlayOut ? "Подтвердить" : "Заочный
                         бид"}}
+=======
+                    <div class="lot-pricediv1-3" ng-click="confirmLot()">{{ isPlayOut ? "Подтвердить" : "Заочный бид"}}
+>>>>>>> b84e3b3ad6b3a84894f47ebb7761f55f3f182d41
                     </div>
                     <!--div class="lot-pricediv1-4">Таблица шагов</div-->
                     <!--div class="lot-pricediv1-5"><div class="div032"></div><div class="div033">Включить напоминание</div></div-->
