@@ -226,9 +226,7 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('room', function (auction) {
             $scope.users = auction.auction.users;
             $scope.auctionOn = auction.auction.start ? 1 : 0;
-            console.log($scope.users.id);
         });
-
 
         $scope.getUserNumber = function (id) {
             var userNum = $scope.users.map(function (e) {
@@ -240,11 +238,21 @@ define(['./module','jquery'],function(controllers,$){
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
         $scope.soldLot = false;
+            var max = 0;
+            $scope.bids.forEach(function (bid) {
+                if(new Date(bid.createdAt) > max) {
+                    max = new Date(bid.createdAt);
+                }
+                var time = (bid.createdAt.split('T')[1].split(':'));
+                $scope.lastBid = {price: bid.price, user: bid.user, time: time[0] + ':' + time[1]};
+
+            });
             ngSocket.emit('auction/updateLot', {
                     lotId: +$scope.lotId,
                     isSold: isSold,
                     isCl: isClean,
-                    auctionId: $stateParams.auctionId
+                    auctionId: $stateParams.auctionId,
+                    lastBid: $scope.lastBid
                 });
             $scope.price = false;
         };
@@ -270,14 +278,7 @@ define(['./module','jquery'],function(controllers,$){
             if(bid.err) {
                 alert(bid.message);
             }
-            var max = 0;
             $scope.bids = bid.bids;
-            $scope.bids.forEach(function (bid) {
-                if(bid.price > max) {
-                    max = bid.price;
-                }
-            });
-            $scope.lastBid = max;
         });
         ngSocket.on('auctionState', function (data) {
             setLotInfo(data.lot);

@@ -266,12 +266,15 @@ define(['./module','jquery'],function(controllers,$){
                 {
                     $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
                     $scope.$apply();
-                }
-                else {
-                    $scope.bidPrice = +$scope.current_lot.sellingPrice;
-                    $scope.$apply();
+                } else {}
 
-                }
+                //TODO: странная штука не удалять
+                // else {
+                //
+                //     $scope.bidPrice = +$scope.current_lot.sellingPrice;
+                //     $scope.$apply();
+                //
+                // }
                 //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
 
                 $scope.current_lot.lot_pictures = [];
@@ -409,7 +412,6 @@ define(['./module','jquery'],function(controllers,$){
             razn = +date - +curDate;
             $scope.startTime = true;
             //$scope.stopFight();
-
             $scope.timer = {};
             $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
             razn -= $scope.timer.days*1000*60*60*24;
@@ -493,7 +495,12 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
+            console.log(data);
+            $scope.soldLot = data;
             $scope.userNumber = '';
+            $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
+
+            $scope.numberLot = data.lot.number;
         });
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
