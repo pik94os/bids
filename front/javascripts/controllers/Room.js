@@ -246,7 +246,7 @@ define(['./module','jquery'],function(controllers,$){
 
             ngSocket.on('lotSelected', function (data) {
                 initLotParams($scope.current_lot, params, data.lot);
-                $scope.current_lot.step = data.lot.sellingPrice?calcStep(data.lot.sellingPrice):data.lot.estimateFrom;
+                $scope.current_lot.step = data.lot.sellingPrice ? calcStep(data.lot.sellingPrice) : data.lot.estimateFrom;
                 $scope.estimateTo = data.lot.estimateTo;
                 if(data.lot.sellingPrice !== null) {
                     $scope.current_lot.sellingPrice = data.lot.sellingPrice;
