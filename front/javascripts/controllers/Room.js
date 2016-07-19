@@ -37,8 +37,13 @@ define(['./module','jquery'],function(controllers,$){
             console.log('dasda');
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
+        
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
-
+        ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
+        ngSocket.on('catchSellingStatistics', function (result) {
+            $scope.sellingStatistics = result.sellingStatistics;
+        });
+        
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;
         };
@@ -340,7 +345,8 @@ define(['./module','jquery'],function(controllers,$){
             $scope.confirmLot = function () {
                 ngSocket.emit('auction/confirmLot', {
                     lotId: $scope.current_lot.id,
-                    bidPrice: $scope.bidPrice
+                    bidPrice: $scope.bidPrice,
+                    auctionId: $stateParams.auctionId
                 });
             };
 

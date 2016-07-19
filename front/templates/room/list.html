@@ -164,8 +164,8 @@
                     </div>
                     <!--вывод всех ID пользователей - {{auction_params.users_number}}<br>-->
                     <!--вывод текущего ID пользователя - {{currentUserInfo.id}}-->
-                    <!--карточки-->
 
+                    <!--карточки-->
                     <div class="row">
                         <div class="room-container-with-circles">
                             <div emit-last-repeater-element
@@ -185,6 +185,7 @@
 
                     </div>
 
+                    <!--чат-->
                     <div class="input-group room-input-group">
                         <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
                         <input class="form-control room-message-form"
@@ -212,6 +213,16 @@
                         </div>
                     </div>
 
+                    <!--Статистика покупок-->
+                    <div class="room-chat">
+                        Статистика покупок:<br><br>
+                        <!--{{timeOfBying}} {{byer}} купил лот {{selledLotNumber}}-->
+                        <div ng-repeat="row in sellingStatistics">
+                            <div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> <br> купил лот № {{row.lotNumber}} за {{row.price}} руб.</div><br>
+                            <div ng-show="row.isCl">Лот № {{row.lotNumber}} снят с продажи</div>
+                        </div>
+                    </div>
+                    <!--{{sellingStatistics}}-->
                 </div>
                 <!--{{chat.messages}}-->
                 <!--правая колонка-->

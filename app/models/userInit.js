@@ -13,6 +13,7 @@ var UserMeta = require('./userInit/User.js'),
     BidMeta = require('./userInit/Bid'),
     ChatMeta = require('./userInit/Chat'),
     AuctionUserMeta = require('./userInit/AuctionUser'),
+    SellingStatisticsMeta = require('./userInit/SellingStatistics'),
     connection = require('../sequelize.js');
 
 class Initiator {
@@ -37,7 +38,8 @@ class Initiator {
                 LotPicture: that.LotPicture,
                 Bid: that.Bid,
                 AuctionUser: that.AuctionUser,
-                Chat: that.Chat
+                Chat: that.Chat,
+                SellingStatistics: that.SellingStatistics
             }
         }).catch(function (err) {
             console.error(err.message)
@@ -57,6 +59,7 @@ class Initiator {
         this.Bid = connection.define('bid', BidMeta.attributes);
         this.LotPicture = connection.define('lot_picture', LotPictureMeta.attributes);
         this.Chat = connection.define('chat', ChatMeta.attributes);
+        this.SellingStatistics = connection.define('selling_statistics', SellingStatisticsMeta.attributes);
 
         this.Role.hasMany(this.User);
         this.Role.belongsToMany(this.Right, {through: this.RoleRight});
@@ -92,6 +95,7 @@ class Initiator {
         models.LotPicture = this.LotPicture;
         models.Bid = this.Bid;
         models.Chat = this.Chat;
+        models.SellingStatistics = this.SellingStatistics;
     }
 
     _syncModels() {
@@ -114,6 +118,8 @@ class Initiator {
             return that.Bid.sync({force: false})
         }).then(function () {
             return that.Chat.sync({force: false})
+        }).then(function () {
+            return that.SellingStatistics.sync({force: false})
         })
     }
 

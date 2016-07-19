@@ -1,6 +1,6 @@
-define(['./module','jquery'],function(controllers,$){
+define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('AuctionLeading',['$state','$scope','$http', '$rootScope', '$stateParams', 'ngSocket', function($state,$scope,$http,$rootScope,$stateParams, ngSocket){
+    controllers.controller('AuctionLeading', ['$state', '$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($state, $scope, $http, $rootScope, $stateParams, ngSocket) {
         $scope.dateStart = '';
         $scope.numberLot = "";
         $scope.cleanLot = true;
@@ -15,7 +15,7 @@ define(['./module','jquery'],function(controllers,$){
         // функционал чата на странице ведущего
         // socket.join('lesson:' + +$stateParams.auctionId);
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
-        
+
         $scope.chat = {};
         $scope.chat.message = '';
         $scope.chat.messages = [];
@@ -23,8 +23,8 @@ define(['./module','jquery'],function(controllers,$){
         // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         ngSocket.on('chatMessagesList', function (result) {
             // $scope.chatMessagesArr = result.resp;
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
-            console.log(result.chatMessagesList);
+            // console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
+            // console.log(result.chatMessagesList);
             result.chatMessagesList.forEach(function (i) {
                 $scope.chat.messages.unshift(i);
             });
@@ -76,7 +76,7 @@ define(['./module','jquery'],function(controllers,$){
                 //После инициализации
                 //опубликовать поток с вебки ведущего
                 $scope.f.publishStream({
-                    name:  $scope.videoName,
+                    name: $scope.videoName,
                     record: false
                 });
             });
@@ -95,11 +95,14 @@ define(['./module','jquery'],function(controllers,$){
                             $scope.videoName = 'video:' + Date.now();
                             //опубликовать поток с вебки ведущего
                             $scope.f.publishStream({
-                                name:  $scope.videoName,
+                                name: $scope.videoName,
                                 record: false
                             });
-                            ngSocket.emit('video/newVideo', {auctionId: +$stateParams.auctionId, name:$scope.videoName});
-                        },1000*(ErrCounter++));
+                            ngSocket.emit('video/newVideo', {
+                                auctionId: +$stateParams.auctionId,
+                                name: $scope.videoName
+                            });
+                        }, 1000 * (ErrCounter++));
                         break;
                 }
             });
@@ -121,7 +124,7 @@ define(['./module','jquery'],function(controllers,$){
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
-            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
+            f.connect({width: 0, height: 0, urlServer: url, appKey: 'defaultApp'});
         };
 
         $scope.sendFilter = function (e) {
@@ -157,10 +160,10 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         ngSocket.on('stopAuction', function (stop) {
-            if($scope.f !== undefined) {
-            $scope.f.unPublishStream({name:  $scope.videoName});
+            if ($scope.f !== undefined) {
+                $scope.f.unPublishStream({name: $scope.videoName});
             }
-            if(stop.stop) {
+            if (stop.stop) {
                 $scope.fuckStop = stop.stop;
             }
         });
@@ -173,51 +176,51 @@ define(['./module','jquery'],function(controllers,$){
         });
 
         ngSocket.on('lotConfirmed', function (data) {
-            if(data.err) {
+            if (data.err) {
                 alert(data.message);
             }
             $scope.startAuction = true;
         });
 
 
-
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('catchAuction', function (data) {
-            if(data.err) {
+            if (data.err) {
                 alert(data.message);
             }
 
             $scope.dateAuction = data.data.date;
-            if(new Date(data.data.date) <= new Date()) {
+            if (new Date(data.data.date) <= new Date()) {
                 ngSocket.emit('auction/updateLot', {
                     lotId: +$scope.lotId,
                     isPlayOut: true
                 });
             }
-            if(data.data.start) {
-                 $scope.fuckStop = false
+            if (data.data.start) {
+                $scope.fuckStop = false
             }
-            if (data.data.isClose){
-                 $scope.fuckStop = true
+            if (data.data.isClose) {
+                $scope.fuckStop = true
             }
 
         });
         function setLotInfo(lot) {
             $scope.descriptionPrevArr = [];
             $scope.lotList = lot;
-            if(lot && lot.descriptionPrev !== undefined) {
+            if (lot && lot.descriptionPrev !== undefined) {
                 $scope.descriptionPrevArr = $scope.deleteTegP(lot.descriptionPrev);
             }
-            if(lot.lot_pictures==undefined){
+            if (lot.lot_pictures == undefined) {
                 $scope.lotImage = [];
-            }else{
-                $scope.lotImage = lot.lot_pictures ;
+            } else {
+                $scope.lotImage = lot.lot_pictures;
             }
             $scope.lotId = lot.id;
             $scope.lotIdSelect = lot.id;
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: lot.id});
         }
+
         ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
 
         ngSocket.on('lotList', function (data) {
@@ -234,6 +237,7 @@ define(['./module','jquery'],function(controllers,$){
                 }).indexOf(id) + 1;
             return userNum;
         };
+
 
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
@@ -255,14 +259,37 @@ define(['./module','jquery'],function(controllers,$){
                     lastBid: $scope.lastBid
                 });
             $scope.price = false;
+
         };
 
         ngSocket.on('lotConfirmed', function (data) {
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(data);
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             $scope.price = data.bid.price;
             $scope.priceNext = $scope.price + calcStep(data.bid.price);
             $scope.userNumber = data.bid.userId;
             $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
+
+            // запись статистики проданного лота в таблицу статистики
+
+            var _SellingStatisticsData = {
+                userId: data.bid.userId,
+                firstName: data.userName.firstName,
+                lastName: data.userName.lastName,
+                patronymic: data.userName.patronymic,
+
+                lotId: $scope.lotId,
+                lotNumber: $scope.lotList.number,
+                price: data.bid.price,
+                auctionId: $stateParams.auctionId,
+
+                isSold: true,
+                isCl: false
+            };
+
+            ngSocket.emit('auction/createSellingStatistics', _SellingStatisticsData);
+            ngSocket.on('sellingStatisticsCreated', function (result) {$scope.sellingStatisticsResult = result});
         });
 
         $scope.dateStartAuction = function () {
@@ -275,7 +302,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.dateStart = '';
         };
         ngSocket.on('bidList', function (bid) {
-            if(bid.err) {
+            if (bid.err) {
                 alert(bid.message);
             }
             $scope.bids = bid.bids;
@@ -291,48 +318,48 @@ define(['./module','jquery'],function(controllers,$){
 
 
         //вычисление шага для цены продажи (не доделано ??)
-        function calcStep(price){
+        function calcStep(price) {
             var step = 1;
-            if (price <= 5){
+            if (price <= 5) {
                 return step = 1;
             }
             if (5 < price && price <= 50) {
                 return step = 5;
             }
-            if (50 < price && price <= 200){
+            if (50 < price && price <= 200) {
                 return step = 10;
             }
-            if (200 < price && price <= 500){
+            if (200 < price && price <= 500) {
                 return step = 20;
             }
-            if (500 < price && price <= 1000){
+            if (500 < price && price <= 1000) {
                 return step = 50;
             }
             if (1000 < price && price <= 2000) {
                 return step = 100;
             }
-            if (2000 < price && price <= 5000){
+            if (2000 < price && price <= 5000) {
                 return step = 200;
             }
-            if (5000 < price && price <= 10000){
+            if (5000 < price && price <= 10000) {
                 return step = 500;
             }
-            if (10000 < price && price <= 20000){
+            if (10000 < price && price <= 20000) {
                 return step = 1000;
             }
-            if (20000 < price && price <= 50000){
+            if (20000 < price && price <= 50000) {
                 return step = 2000;
             }
-            if (50000 < price && price <= 100000){
+            if (50000 < price && price <= 100000) {
                 return step = 5000;
             }
-            if (100000 < price && price <= 200000){
+            if (100000 < price && price <= 200000) {
                 return step = 10000;
             }
-            if (200000 < price && price <= 500000){
+            if (200000 < price && price <= 500000) {
                 return step = 20000;
             }
-            if (500000 < price && price <= 1000000){
+            if (500000 < price && price <= 1000000) {
                 return step = 50000;
             } else {
                 step = 100000;
