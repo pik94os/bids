@@ -32,6 +32,10 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('auctionRun', function () {
             $scope.countdown =  2;
         });
+        ngSocket.on('auctionDate', function () {
+            $scope.countdown = 1;
+            console.log('dasda');
+        });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
 
@@ -47,6 +51,10 @@ define(['./module','jquery'],function(controllers,$){
             $scope.stopTimer();
         });
 
+        ngSocket.on('auctionDate', function () {
+            $scope.countdown = 1;
+            $scope.auctionNewDate = true;
+        });
 
         //init auction params
         $scope.auction_params = {
@@ -97,6 +105,9 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 if(data.auction.isClose) {
                     $scope.countdown = 3;
+                    if($scope.auctionNewDate) {
+                        $scope.countdown = 1;
+                    }
                 }
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
@@ -329,6 +340,14 @@ define(['./module','jquery'],function(controllers,$){
                     bidPrice: $scope.bidPrice
                 });
             };
+
+        // пропадание/появление кнопки сделать ставку
+        $scope.setButtonTimeout = function () {
+            $scope.btnHide = true;
+            setTimeout(function () {
+                $scope.btnHide=false;
+            }, 1500)
+        };
 
             // переход на предыдущий лот
             $scope.goToPrevLot = function(){
