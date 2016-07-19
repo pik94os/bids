@@ -14,6 +14,7 @@ module.exports = function (socket, data) {
     return
     }
     
+    
     Auction.update({
     isClose: new Date()
     },{
