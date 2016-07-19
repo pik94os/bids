@@ -377,6 +377,7 @@ define(['./module','jquery'],function(controllers,$){
             if (data.err) {
                 alert(data.message);
             }
+            $scope.setButtonTimeout();
             $scope.userNumber = data.bid.userId;
             if (data.err == 0) {
                     $scope.confirm = data;
