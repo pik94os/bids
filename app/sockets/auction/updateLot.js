@@ -13,16 +13,17 @@ module.exports = function (socket, data) {
             result.isSold = data.isSold;
             result.isCl = data.isCl;
             result.isPlayOut = false;
-        return result.save().then((data)=> {
+        return result.save().then((auction)=> {
             socket.emit('lotUpdate', {
                 err: 0,
-                data: data
+                data: auction
             });
+            //TODO: если что поправить auction на data
             return Lot.findOne({
                 where: {
                     isSold: false,
                     isCl: false,
-                    auctionId: +data.auctionId
+                    auctionId: +auction.auctionId
                 },
                 include: [LotPicture],
                 order: [['id', 'ASC']]
@@ -33,15 +34,17 @@ module.exports = function (socket, data) {
                         lot: lot,
                         lotId: lot.id,
                         oldLotId: result.id,
-                        isSold: data.isSold,
-                        isCl: data.isCl
+                        isSold: auction.isSold,
+                        isCl: auction.isCl,
+                        lastBid: data.lastBid
                     });
                     socket.emit('auctionState', {
                         oldLotId: result.id,
                         lotId: lot.id,
                         lot:lot,
                         isSold:data.isSold,
-                        isCl: data.isCl
+                        isCl: data.isCl,
+                        lastBid: data.lastBid
                     });
                 })
             });

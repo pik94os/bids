@@ -156,7 +156,7 @@
                     <div class="legend">
                         <div class="col-sm-6 pull-left">Всего участников: <b>{{auction_params.users_length.internet_users
                             + auction_params.users_length.hall_users}}</b></div>
-                        <!--div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div-->
+                        <div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div>
                         <div class="col-sm-3 pull-right internet-hover"
                              ng-mouseenter="changeClassLot()" ng-mouseleave="changeClassLot()">
                             Интернет: <b>{{auction_params.users_length.internet_users}}</b>
@@ -204,6 +204,7 @@
 
                     </div>
 
+                    <!--чат-->
                     <div class="input-group room-input-group">
                         <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
                         <input class="form-control room-message-form"
@@ -231,6 +232,16 @@
                         </div>
                     </div>
 
+                    <!--Статистика покупок-->
+                    <div class="room-chat">
+                        Статистика покупок:<br><br>
+                        <!--{{timeOfBying}} {{byer}} купил лот {{selledLotNumber}}-->
+                        <div ng-repeat="row in sellingStatistics">
+                            <div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> <br> купил лот № {{row.lotNumber}} за {{row.price}} руб.</div><br>
+                            <div ng-show="row.isCl">Лот № {{row.lotNumber}} снят с продажи</div>
+                        </div>
+                    </div>
+                    <!--{{sellingStatistics}}-->
                 </div>
                 <!--{{chat.messages}}-->
                 <!--правая колонка-->
@@ -381,10 +392,11 @@
                     <div class="max-rate" ng-click="maxEstimate()" ng-if="estimateToMax">
                         <a>МАКСИМАЛЬНАЯ СТАВКА</a>
                     </div>
-
-
-
-
+                    <span class="state-lot" ng-if="soldLot.lot.number && soldLot.lastBid.user.lastName && soldLot.lastBid.price">
+                        <p>Лот {{soldLot.lot.number}} продан {{soldLot.lastBid.user.lastName}} {{soldLot.lastBid.user.lastName[0]}}.
+                            {{soldLot.lastBid.user.patronymic[0]}} {{soldLot.lastBid.price.toLocaleString() + ' руб'}}
+                            {{soldLot.lastBid.time}}</p>
+                        </span>
                 </div>
             </div>
         </div>

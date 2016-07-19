@@ -26,7 +26,6 @@ module.exports = function(socket, data) {
              socket.to('auction:' + (+action)).emit('auctionDate', {
                 date: data.date
              });
-             console.log(action);
          })
     }).catch((err)=>{
         socket.emit('auctionUpdate', {
