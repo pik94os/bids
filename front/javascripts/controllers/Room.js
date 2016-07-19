@@ -53,6 +53,7 @@ define(['./module','jquery'],function(controllers,$){
 
         ngSocket.on('auctionDate', function () {
             $scope.countdown = 1;
+            $scope.auctionNewDate = true;
         });
 
         //init auction params
@@ -104,6 +105,9 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 if(data.auction.isClose) {
                     $scope.countdown = 3;
+                    if($scope.auctionNewDate) {
+                        $scope.countdown = 1;
+                    }
                 }
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
