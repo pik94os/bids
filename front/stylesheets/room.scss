@@ -762,6 +762,21 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .do-rate-hided {
+      background: lightgrey;
+      text-align: center;
+      font-size: 15pt;
+      padding-top: 12px;
+      white-space: nowrap;
+      font-weight: bold;
+      cursor: pointer;
+        &:hover {
+          background: lightgrey;
+        }
+        &:active {
+          background: lightgrey;
+        }
+    }
     .number-of-rate {
       border-width: 0 0 0 1px;
       border-style: solid;
