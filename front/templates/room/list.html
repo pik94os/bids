@@ -176,26 +176,7 @@
                                             'class-red-bid': $index+2 === userNumber && timeoutRedBidUser === true}"
                                  ng-repeat="r in auction_params.users_number"
                                  ng-click='setPopup($index)'>
-                                <!--<div class="class-red-text-bid-none"-->
-                                     <!--ng-class="{'class-red-text-bid': $index+2 === userNumber && timeoutRedBidUser === true}">-->
-                                    <!--ставка-->
-                                <!--</div>-->
-                                 <!--ng-class="{'lot-tabl-hover-inet':r===2, 'lot-tabl-hover-zal':r===3, 'lot-table-leave':r===4,-->
-            <!--'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,-->
-            <!--'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].userId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"-->
 
-                                <!--<div class="popup-window" ng-show="popup===$index">
-                                    <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
-                                    <div class="popup-avatar"></div>
-                                    <div class="popup-text">
-                                        <div class="popup-text-name">
-                                            {{auction_params.users[r-1].username}}
-                                        </div>
-
-                                        № {{auction_params.users[r-1].number}} <br>
-                                    </div>
-                                    <div class="btn bg-primary popup-text-btn">Сообщение</div>
-                                </div>-->
                                 <div>
                                     <div class="num-on-table">{{$index+1}}</div>
                                 </div>
