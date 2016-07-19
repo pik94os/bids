@@ -330,6 +330,14 @@ define(['./module','jquery'],function(controllers,$){
                 });
             };
 
+        // пропадание/появление кнопки сделать ставку
+        $scope.setButtonTimeout = function () {
+            $scope.btnHide = true;
+            setTimeout(function () {
+                $scope.btnHide=false;
+            }, 1500)
+        };
+
             // переход на предыдущий лот
             $scope.goToPrevLot = function(){
                 if (currentId > 0)
