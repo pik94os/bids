@@ -373,8 +373,10 @@
                     <div class="max-rate" ng-click="maxEstimate()" ng-if="estimateToMax">
                         <a>МАКСИМАЛЬНАЯ СТАВКА</a>
                     </div>
-                    <span class="state-lot">
-                        <p>Лот {{soldLot.lot.number}} продан {{soldLot.user.lastName}} А.М 15:00</p>
+                    <span class="state-lot" ng-if="soldLot.lot.number && soldLot.lastBid.user.lastName && soldLot.lastBid.price">
+                        <p>Лот {{soldLot.lot.number}} продан {{soldLot.lastBid.user.lastName}} {{soldLot.lastBid.user.lastName[0]}}.
+                            {{soldLot.lastBid.user.patronymic[0]}} {{soldLot.lastBid.price.toLocaleString() + ' руб'}}
+                            {{soldLot.lastBid.time}}</p>
                         </span>
                 </div>
             </div>

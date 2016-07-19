@@ -348,6 +348,9 @@ define(['./module','jquery'],function(controllers,$){
                     bidPrice: $scope.bidPrice,
                     auctionId: $stateParams.auctionId
                 });
+                if($scope.lastBid !== undefined){
+                    $scope.soldLot.lot.number = $scope.soldLot.lastBid.user.lastName = $scope.soldLot.lastBid.price = false;
+                }
             };
 
         // пропадание/появление кнопки сделать ставку
@@ -501,11 +504,13 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
-            console.log(data);
-            $scope.soldLot = data;
+            if(data.isSold) {
+                $scope.soldLot = data;
+            } else if (data.isCl){
+                $scope.soldLot.lot.number = $scope.soldLot.lastBid.user.lastName = $scope.soldLot.lastBid.price = false;
+            }
             $scope.userNumber = '';
             $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
-
             $scope.numberLot = data.lot.number;
         });
             /*$scope.$on('LastRepeaterElement', function(){
@@ -541,7 +546,7 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         $scope.initPlayer = function (){
-            if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f==undefined && $scope.f)) {
+            if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f == undefined && $scope.f)) {
                 return false
             }
             var f = $scope.f = Flashphoner.getInstance();

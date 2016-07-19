@@ -249,15 +249,15 @@ define(['./module', 'jquery'], function (controllers, $) {
                 }
                 var time = (bid.createdAt.split('T')[1].split(':'));
                 $scope.lastBid = {price: bid.price, user: bid.user, time: time[0] + ':' + time[1]};
-
             });
-            ngSocket.emit('auction/updateLot', {
+                ngSocket.emit('auction/updateLot', {
                     lotId: +$scope.lotId,
                     isSold: isSold,
                     isCl: isClean,
                     auctionId: $stateParams.auctionId,
                     lastBid: $scope.lastBid
                 });
+            
             $scope.price = false;
 
         };
