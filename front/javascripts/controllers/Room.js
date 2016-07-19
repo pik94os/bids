@@ -32,6 +32,10 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('auctionRun', function () {
             $scope.countdown =  2;
         });
+        ngSocket.on('auctionDate', function () {
+            $scope.countdown = 1;
+            console.log('dasda');
+        });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
 
@@ -47,6 +51,9 @@ define(['./module','jquery'],function(controllers,$){
             $scope.stopTimer();
         });
 
+        ngSocket.on('auctionDate', function () {
+            $scope.countdown = 1;
+        });
 
         //init auction params
         $scope.auction_params = {
