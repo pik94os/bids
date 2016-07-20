@@ -391,7 +391,7 @@ define(['./module','jquery'],function(controllers,$){
                 alert(data.message);
             }
             $scope.setButtonTimeout();
-            $scope.userNumber = data.bid.userId;
+            // $scope.userNumber = data.bid.userId;
             $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
             if (data.err == 0) {
                     $scope.confirm = data;
