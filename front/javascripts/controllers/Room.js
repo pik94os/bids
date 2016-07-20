@@ -523,6 +523,10 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('catchSellingStatistics', function (result) {
             // $scope.sellingStatistics = result.sellingStatistics;
             result.sellingStatistics.forEach(function (i) {
+                // i.createdAt = Date.parse(i.createdAt);
+                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                // i.createdAt = i.createdAt.getMinutes();
+                // var time = i.createdAt.split();
                 $scope.sellingStatistics.unshift(i);
             });
         });
