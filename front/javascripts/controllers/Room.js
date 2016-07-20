@@ -68,14 +68,14 @@ define(['./module','jquery'],function(controllers,$){
                     hall_users: 0
                 },
                 users: [],
-                users_number: ["1"],
+                users_number: [],
                 current_user: null,
                 lots_length:  0,
                 lots: [],
                 lots_isPlayOuted: [],
                 lots_isPlayOutedPercent: 0,
                 lot_pictures: [],
-                progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
+                progress_bar_class: {'width': 'calc('+0+'% - '+210+'px)'}
             };
 
         //init lot params
@@ -149,10 +149,11 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
-                $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
+                $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - '+210*$scope.auction_params.lots_isPlayOutedPercent/100+'px)'}
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
+
                 if ($scope.auction_params.lots[currentId] !== undefined) {
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
@@ -305,6 +306,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
             });
 
+
         $scope.maxEstimate = function () {
             $scope.bidPrice = $scope.current_lot.estimateTo;
         }
@@ -319,15 +321,15 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.bidPrice -= Number($scope.current_lot.step);
             }
 
-
         $scope.getPicById = function (id) {
             var idPic = $scope.auction_params.lot_pictures.map(function (e) {
                     return e.id;
             }).indexOf(id);
             return $scope.auction_params.lot_pictures[idPic];
         }
+
         $scope.getUserNumber = function (id) {
-            var userNum = $scope.auction_params.users.map(function (e) {
+            var userNum = $scope.auction_params.usersNumber.map(function (e) {
                     return e.id;
                 }).indexOf(id) + 1;
             return userNum;
@@ -388,7 +390,7 @@ define(['./module','jquery'],function(controllers,$){
             // $scope.userNumber = data.bid.userId;
             // $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
             if (data.err) {
-                alert(data.message);
+                return alert(data.message);
             }
             $scope.setButtonTimeout();
             $scope.userNumber = data.bid.userId;
@@ -503,8 +505,12 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.emit('getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('auctionState', function (data) {
-            ngSocket.emit('auction/getLot', {
+            ngSocket.emit('auction/room', {
+                id: $stateParams.auctionId
+            });
+            /*ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
+            });*/
             });
             if(data.isSold) {
                 $scope.soldLot = data;
@@ -512,6 +518,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.soldLot.lot.number = $scope.soldLot.lastBid.user.lastName = $scope.soldLot.lastBid.price = false;
             }
             $scope.userNumber = '';
+
             $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
             $scope.numberLot = data.lot.number;
         });

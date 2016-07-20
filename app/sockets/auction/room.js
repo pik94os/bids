@@ -3,6 +3,7 @@ const Auction = require('../../models/').Auction;
 const Lot = require('../../models/').Lot;
 const LotPicture = require('../../models/').LotPicture;
 const User = require('../../models/').User;
+const UserAuction = require('../../models').AuctionUser;
 
 
 module.exports = function(socket, data) {
@@ -22,7 +23,6 @@ module.exports = function(socket, data) {
             attributes = ["id", "username"]
         }
     Auction.findById(data.id,{
-        where,
         include:[{
             model: Lot,
             attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number"]
@@ -37,11 +37,14 @@ module.exports = function(socket, data) {
         ]
     }).then(function(auction) {
             getPicturesTitle(auction.lots, function(err, LotPictures){
-                socket.emit('room', {
-                    err: 0,
-                    auction: auction,
-                    lotPictures: LotPictures,
-                    authUser: user.userId
+                getUsersNumber(auction.users, function(err, UserNumbers){
+                    socket.emit('room', {
+                        err: 0,
+                        auction: auction,
+                        lotPictures: LotPictures,
+                        authUser: user.userId,
+                        userNumbers: UserNumbers
+                    });
                 });
             });
         socket.join('auction:' + data.id);
@@ -63,6 +66,21 @@ module.exports = function(socket, data) {
                   return cb(null, LotPictures);
             }).catch(function (err) {
                   return cb(err);
+            })
+    }
+
+    function getUsersNumber(users, cb){
+        var userIds = users.map(function(e) { return e.id });
+            UserAuction.findAll({
+                where:{
+                    userId:{
+                        $in:userIds
+                    }
+                }
+            }).then(function(result) {
+                    return cb(null, result);
+            }).catch(function (err) {
+                    return cb(err);
             })
     }
 };
