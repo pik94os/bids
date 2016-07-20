@@ -1,4 +1,12 @@
 .pageAuctionLeading {
+  .auction-leading-statistics{
+    //margin-top: 10px;
+    //font-size: 12pt;
+    //padding: 10px;
+    max-height: 280px;
+    overflow: auto;
+    overflow-y: auto;
+  }
   .room-chat-leading {
     //background: #ccdde5;
     margin-top: 10px;
@@ -61,6 +69,13 @@ font-family: "Century Gothic";
           color: #b90000;
           font-size: 42px;
           font-weight: bold;
+          .div-number {
+            font-size: 30px;
+          }
+          .div-text {
+            color: black;
+            font-size: 20px;
+          }
         }
         &-bottom {
           font-size: 23px;
@@ -156,7 +171,7 @@ font-family: "Century Gothic";
       &-right {
         //height: 100%;
         padding: 15px;
-        margin-top: 100px;
+        margin-top: 180px;
 	//width: 450px;
         &-camera {
           //height: 160px;
@@ -245,6 +260,10 @@ font-family: "Century Gothic";
         }
         .grey {
           color: grey;
+          width: 100%;
+          div {
+            width: 20%;
+          }
         }
         .black {
           color: black;

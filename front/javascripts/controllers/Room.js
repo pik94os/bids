@@ -36,9 +36,12 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countdown = 1;
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
-        
-        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
 
+        ngSocket.on('lotSelected', function (data) {
+            $scope.lot_number = data.lot.number;
+        });
+
+        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;
@@ -346,9 +349,6 @@ define(['./module','jquery'],function(controllers,$){
                     bidPrice: $scope.bidPrice,
                     auctionId: $stateParams.auctionId
                 });
-                if($scope.lastBid !== undefined){
-                    $scope.soldLot.lot.number = $scope.soldLot.lastBid.user.lastName = $scope.soldLot.lastBid.price = false;
-                }
             };
 
         // пропадание/появление кнопки сделать ставку
@@ -504,24 +504,17 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
-            if(data.isSold) {
-                $scope.soldLot = data;
-            } else if (data.isCl){
-                $scope.soldLot.lot.number = $scope.soldLot.lastBid.user.lastName = $scope.soldLot.lastBid.price = false;
-            }
             $scope.userNumber = '';
             $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
             $scope.numberLot = data.lot.number;
-
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
-
         });
 
 
         $scope.sellingStatistics = [];
         ngSocket.on('catchSellingStatistics', function (result) {
-            // $scope.sellingStatistics = result.sellingStatistics;
             result.sellingStatistics.forEach(function (i) {
+                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
                 $scope.sellingStatistics.unshift(i);
             });
         });

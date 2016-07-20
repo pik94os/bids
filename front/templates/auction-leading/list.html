@@ -9,7 +9,8 @@
                     </div>
                     <div class="pageAuctionLeading-left-in-text" ng-repeat="user in users">
                         <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№{{getUserNumber(user.id)}}</b> {{user.lastName}} {{user.firstName}} <!--{{user.patronymic}}-->
+                            <b>№{{getUserNumber(user.id)}}</b> {{user.lastName}} {{user.firstName}}
+                            <!--{{user.patronymic}}-->
                         </div>
                         <div class="pageAuctionLeading-left-in-text-circleColor">
                             <img src="images/circle-green.png">
@@ -28,8 +29,8 @@
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
                         <div class="pageAuctionLeading-right-top-left-top" ng-show="price && userNumber && userData">
-                            {{price.toLocaleString() + 'руб'}}
-                            <p>{{'№' + userNumber}} {{userData}}</p>
+                            <div class="div-number">{{price.toLocaleString() + 'руб'}}</div>
+                            <div class="div-text">{{'№' + userNumber}} {{userData}}</div>
                             <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->
                             <!--{{lotList.estimateFrom + ' - ' + lotList.estimateTo}}-->
                         </div>
@@ -40,7 +41,7 @@
                             <div>
                                 {{(priceNext).toLocaleString()}} руб
                             </div>
- 			<div style="margin-top:30px">ВЕРНУТЬСЯ К СНЯТОМУ ЛОТУ</div>
+                            <div style="margin-top:30px">ВЕРНУТЬСЯ К СНЯТОМУ ЛОТУ</div>
                             <input type="text"
                                    ng-model="numberLot"
                                    ng-keyup="sendFilter($event)"
@@ -54,6 +55,8 @@
                         <div ng-show="fuckStop">
                         <label for="date" class=""> Дата начала аукциона</label>
                         <input type="text" ng-model="dateStart" class="form-control" id="date" ng-show="fuckStop">
+                            <label for="time" class="">Время начала аукциона</label>
+                        <input type="text" ng-model="timeStart" class="form-control" id="time" ng-show="fuckStop">
                         <button ng-click="dateStartAuction()" ng-show="fuckStop">Сохранить</button>
                         </div>
                     </div>
@@ -89,16 +92,16 @@
                                 <div class="check">
                                     <img src="images/OK-green.png">
                                 </div>
-                        </div>
                             </div>
+                        </div>
                         <div class="pageAuctionLeading-right-center-center-bottom">
                             <!--<div class="pageAuctionLeading-right-center-center-bottom-time">-->
-                                <!--0:08 мин-->
+                            <!--0:08 мин-->
                             <!--</div>-->
                             <!--<div class="pageAuctionLeading-right-center-center-bottom-pause">-->
-                                <!--<img src="images/previous.png">-->
-                                <!--<img src="images/stop.png">-->
-                                <!--<img src="images/next.png">-->
+                            <!--<img src="images/previous.png">-->
+                            <!--<img src="images/stop.png">-->
+                            <!--<img src="images/next.png">-->
                             <!--</div>-->
                         </div>
                     </div>
@@ -110,25 +113,25 @@
                             <button ng-click="start()">Начать аукцион</button>
                             <button ng-click="reloadPage()">Завершить аукцион</button>
                         </div>
-                        <div class="pageAuctionLeading-right-center-right-textBottom" ng-if="userNumber && userData && price">
+                        <div class="pageAuctionLeading-right-center-right-textBottom"
+                             ng-if="userNumber && userData && price">
                             <div class="top">Зал</div>
                             <div class="center"><b>{{'№' + userNumber}}</b><br>{{userData}}</div>
                             <div class="bottom">{{price.toLocaleString() + 'руб'}}</div>
                         </div>
                     </div>
                 </div>
-
                 <div class="pageAuctionLeading-right-bottom row">
                     <div class="pageAuctionLeading-right-bottom-left col-md-7">
 
                         <!--чат-->
                         <div class="input-group">
-                        <input class="form-control"
-                               type="text"
-                               placeholder="СООБЩЕНИЕ"
-                               id="write-message"
-                               ng-model="chat.message"
-                               ng-keyup="chat.keyUp($event)">
+                            <input class="form-control"
+                                   type="text"
+                                   placeholder="СООБЩЕНИЕ"
+                                   id="write-message"
+                                   ng-model="chat.message"
+                                   ng-keyup="chat.keyUp($event)">
                         <span class="input-group-btn">
                             <button class="button btn"
                                     type="submit"
@@ -136,16 +139,17 @@
                                 ОТПРАВИТЬ
                             </button>
                         </span>
-                            </div>
+                        </div>
                         <div class="pageAuctionLeading-right-bottom-left-chat">
                             <div class="pageAuctionLeading-right-bottom-left-chat-text">
                                 <div class="room-chat-leading">
-                                <div ng-repeat="chatMessage in chat.messages">
-                                    <div class=""><b>{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}</b>
-                                        : {{chatMessage.message}}
+                                    <div ng-repeat="chatMessage in chat.messages">
+                                        <div class=""><b>{{chatMessage.user.firstName}}
+                                            {{chatMessage.user.lastName}}</b>
+                                            : {{chatMessage.message}}
+                                        </div>
                                     </div>
                                 </div>
-                                    </div>
                             </div>
                             <div class="pageAuctionLeading-right-bottom-left-chat-cross">
                             </div>
@@ -159,7 +163,7 @@
                             <div>
                                 Интернет
                             </div>
-		            <div>
+                            <div>
                                 № {{getUserNumber(user.id)}}
                             </div>
 
@@ -170,10 +174,10 @@
                                 {{bid.price | toLocaleString}}
                             </div>
                         </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

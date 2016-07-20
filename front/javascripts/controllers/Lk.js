@@ -4,6 +4,18 @@
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
     controllers.controller('Lk', ['$scope','$sessionStorage', '$state', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $sessionStorage, $state, $rootScope, $stateParams, ngSocket) {
+
+        // запрос статистики продаж
+        ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
+        $scope.sellingStatistics = [];
+        ngSocket.on('catchSellingStatistics', function (result) {
+            // $scope.sellingStatistics = result.sellingStatistics;
+            result.sellingStatistics.forEach(function (i) {
+                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                $scope.sellingStatistics.unshift(i);
+            });
+        });
+
         $scope.tab = $stateParams.tab;
         
         $scope.tempUserInfo = JSON.parse(JSON.stringify($scope.currentUserInfo));

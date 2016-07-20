@@ -2,6 +2,7 @@ define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
     controllers.controller('AuctionLeading', ['$state', '$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', function ($state, $scope, $http, $rootScope, $stateParams, ngSocket) {
         $scope.dateStart = '';
+        $scope.timeStart = '';
         $scope.numberLot = "";
         $scope.cleanLot = true;
         $scope.soldLot = true;
@@ -39,7 +40,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.chat.message = '';
             }
         };
-
         $scope.chat.addMessage = function () {
             if ($scope.chat.message) {
                 ngSocket.emit('auction/pasteChatMessage', {
@@ -139,13 +139,13 @@ define(['./module', 'jquery'], function (controllers, $) {
                     ngSocket.emit('auction/updateLot', {
                         lotId: +$scope.lotId,
                         isPlayOut: true,
-                        isCl: false
+                        isCl: false,
+                        auctionId: $stateParams.auctionId
                     });
                 }, 1000);
 
             }
         };
-
 
         $scope.start = function start() {
             ngSocket.emit('video/newVideo', {
@@ -163,9 +163,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             if ($scope.f !== undefined) {
                 $scope.f.unPublishStream({name: $scope.videoName});
             }
-            if (stop.stop) {
-                $scope.fuckStop = stop.stop;
-            }
         });
         ngSocket.on('auctionRun', function () {
             $scope.startAuction = true;
@@ -175,13 +172,26 @@ define(['./module', 'jquery'], function (controllers, $) {
             lot: true
         });
 
+        ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
+        $scope.sellingStatistics = [];
+
+
         ngSocket.on('lotConfirmed', function (data) {
             if (data.err) {
                 alert(data.message);
             }
             $scope.startAuction = true;
+            ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         });
 
+        ngSocket.on('catchSellingStatistics', function (result) {
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(result);
+            result.sellingStatistics.forEach(function (i) {
+                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                $scope.sellingStatistics.unshift(i);
+            });
+        });
 
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
 
@@ -197,12 +207,12 @@ define(['./module', 'jquery'], function (controllers, $) {
                     isPlayOut: true
                 });
             }
-            if (data.data.start) {
+            if(data.data.start === null) {
+                $scope.fuckStop = true
+            } else if (data.data.start) {
                 $scope.fuckStop = false
             }
-            if (data.data.isClose) {
-                $scope.fuckStop = true
-            }
+            
 
         });
         function setLotInfo(lot) {
@@ -226,6 +236,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);
         });
+
         ngSocket.on('room', function (auction) {
             $scope.users = auction.auction.users;
             $scope.auctionOn = auction.auction.start ? 1 : 0;
@@ -241,14 +252,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
             $scope.soldLot = false;
-            var max = 0;
-            $scope.bids.forEach(function (bid) {
-                if (new Date(bid.createdAt) > max) {
-                    max = new Date(bid.createdAt);
-                }
-                var time = (bid.createdAt.split('T')[1].split(':'));
-                $scope.lastBid = {price: bid.price, user: bid.user, time: time[0] + ':' + time[1]};
-            });
             ngSocket.emit('auction/updateLot', {
                 lotId: +$scope.lotId,
                 isSold: isSold,
@@ -290,8 +293,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         ngSocket.on('lotConfirmed', function (data) {
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-            console.log(data);
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             $scope.price = data.bid.price;
             $scope.priceNext = $scope.price + calcStep(data.bid.price);
@@ -300,17 +301,17 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.userfirstName = data.userName.firstName;
             $scope.userlastName = data.userName.lastName;
             $scope.userpatronymic = data.userName.patronymic;
-
-
         });
 
         $scope.dateStartAuction = function () {
             var date_arr_new = $scope.dateStart.split('.');
-            $scope.date = date_arr_new[2] + '-' + date_arr_new[1] + '-' + date_arr_new[0] + 'T00:00:00';
+            var time_arr_new = $scope.timeStart.split(':');
+            $scope.date = date_arr_new[2] + '-' + date_arr_new[1] + '-' + date_arr_new[0] + 'T' + (+time_arr_new[0] - 3) + ':' + time_arr_new[1] + ':00';
             ngSocket.emit('auction/updateAuction', {
                 date: $scope.date,
                 id: +$stateParams.auctionId
             });
+            $scope.timeStart = '';
             $scope.dateStart = '';
         };
         ngSocket.on('bidList', function (bid) {
