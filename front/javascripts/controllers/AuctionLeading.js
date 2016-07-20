@@ -142,7 +142,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                         isCl: false,
                         auctionId: $stateParams.auctionId
                     });
-                }, 1000);
+                }, 2000);
 
             }
         };
@@ -248,7 +248,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 }).indexOf(id) + 1;
             return userNum;
         };
-
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
             $scope.soldLot = false;
@@ -296,7 +295,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             $scope.price = data.bid.price;
             $scope.priceNext = $scope.price + calcStep(data.bid.price);
-            $scope.userNumber = data.bid.userId;
+            $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
             $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
             $scope.userfirstName = data.userName.firstName;
             $scope.userlastName = data.userName.lastName;
