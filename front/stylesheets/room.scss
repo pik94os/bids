@@ -735,6 +735,8 @@
       margin-top: 10px;
       margin-bottom: 10px;
       .video-container {
+        background: orange;
+        position: relative;
       }
     }
     .blue-border-right {
@@ -882,19 +884,111 @@
         width: 130px;
       }
     }
+    //&-big {
+    //  bottom: -18px;
+    //  height: 220px;
+    //  position: absolute;
+    //  right: 180px;
+    //  width: 285px;
+    //  background: orange;
+    //  video {
+    //    position: absolute;
+    //  }
+    //}
+  }
+}
+//
+@media screen and (min-width: 1200px) {
+  .classForVideo {
     &-big {
       bottom: -18px;
       height: 220px;
       position: absolute;
-      right: 180px;
+      right: 164px;
       width: 285px;
+      background: orange;
       video {
         position: absolute;
       }
     }
   }
 }
-
+@media screen and (max-width: 1200px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 180px;
+      width: 255px;
+      background: orange;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 123px;
+      width: 200px;
+      background: orange;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 260px;
+      width: 300px;
+      background: orange;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 635px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 210px;
+      width: 200px;
+      background: orange;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 150px;
+      width: 150px;
+      background: orange;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+//
 .class-Of-Lot-I {
   background: url("/images/lot-tables/lot_tabl_press_inet.png") no-repeat !important;
   height: 100px;
