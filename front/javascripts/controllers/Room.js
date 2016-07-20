@@ -34,11 +34,12 @@ define(['./module','jquery'],function(controllers,$){
         });
         ngSocket.on('auctionDate', function () {
             $scope.countdown = 1;
-            console.log('dasda');
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
+        
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
 
+        
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;
         };
@@ -266,12 +267,15 @@ define(['./module','jquery'],function(controllers,$){
                 {
                     $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
                     $scope.$apply();
-                }
-                else {
-                    $scope.bidPrice = +$scope.current_lot.sellingPrice;
-                    $scope.$apply();
+                } else {}
 
-                }
+                //TODO: странная штука не удалять
+                // else {
+                //
+                //     $scope.bidPrice = +$scope.current_lot.sellingPrice;
+                //     $scope.$apply();
+                //
+                // }
                 //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
 
                 $scope.current_lot.lot_pictures = [];
@@ -295,6 +299,8 @@ define(['./module','jquery'],function(controllers,$){
                 }, 5000);
                 $scope.current_lot.bids = data.bids;
                 $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
+
+
             });
 
         $scope.maxEstimate = function () {
@@ -337,8 +343,12 @@ define(['./module','jquery'],function(controllers,$){
             $scope.confirmLot = function () {
                 ngSocket.emit('auction/confirmLot', {
                     lotId: $scope.current_lot.id,
-                    bidPrice: $scope.bidPrice
+                    bidPrice: $scope.bidPrice,
+                    auctionId: $stateParams.auctionId
                 });
+                if($scope.lastBid !== undefined){
+                    $scope.soldLot.lot.number = $scope.soldLot.lastBid.user.lastName = $scope.soldLot.lastBid.price = false;
+                }
             };
 
         // пропадание/появление кнопки сделать ставку
@@ -378,6 +388,8 @@ define(['./module','jquery'],function(controllers,$){
             if (data.err) {
                 alert(data.message);
             }
+            $scope.setButtonTimeout();
+            // $scope.userNumber = data.bid.userId;
             $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
             if (data.err == 0) {
                     $scope.confirm = data;
@@ -409,7 +421,6 @@ define(['./module','jquery'],function(controllers,$){
             razn = +date - +curDate;
             $scope.startTime = true;
             //$scope.stopFight();
-
             $scope.timer = {};
             $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
             razn -= $scope.timer.days*1000*60*60*24;
@@ -488,13 +499,33 @@ define(['./module','jquery'],function(controllers,$){
             }
 
         ngSocket.emit('getAuction', {id: $stateParams.auctionId});
-
+        ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         ngSocket.on('auctionState', function (data) {
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
+            if(data.isSold) {
+                $scope.soldLot = data;
+            } else if (data.isCl){
+                $scope.soldLot.lot.number = $scope.soldLot.lastBid.user.lastName = $scope.soldLot.lastBid.price = false;
+            }
             $scope.userNumber = '';
+            $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
+            $scope.numberLot = data.lot.number;
+
+            ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
+
         });
+
+
+        $scope.sellingStatistics = [];
+        ngSocket.on('catchSellingStatistics', function (result) {
+            // $scope.sellingStatistics = result.sellingStatistics;
+            result.sellingStatistics.forEach(function (i) {
+                $scope.sellingStatistics.unshift(i);
+            });
+        });
+
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
             });
@@ -567,7 +598,6 @@ define(['./module','jquery'],function(controllers,$){
                 proto = "wss://art-bid.ru";
                 port = "8443";
             }
-
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
