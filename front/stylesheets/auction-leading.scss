@@ -1,4 +1,12 @@
 .pageAuctionLeading {
+  .auction-leading-statistics{
+    //margin-top: 10px;
+    //font-size: 12pt;
+    //padding: 10px;
+    max-height: 280px;
+    overflow: auto;
+    overflow-y: auto;
+  }
   .room-chat-leading {
     //background: #ccdde5;
     margin-top: 10px;

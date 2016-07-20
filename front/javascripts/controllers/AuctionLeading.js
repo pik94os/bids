@@ -175,13 +175,26 @@ define(['./module', 'jquery'], function (controllers, $) {
             lot: true
         });
 
+        ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
+        $scope.sellingStatistics = [];
+
+
         ngSocket.on('lotConfirmed', function (data) {
             if (data.err) {
                 alert(data.message);
             }
             $scope.startAuction = true;
+            ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         });
 
+        ngSocket.on('catchSellingStatistics', function (result) {
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(result);
+            result.sellingStatistics.forEach(function (i) {
+                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                $scope.sellingStatistics.unshift(i);
+            });
+        });
 
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
 

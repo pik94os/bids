@@ -5,7 +5,6 @@
 let SellingStatistics = require('../../models/').SellingStatistics;
 
 module.exports = function(socket, data) {
-    
     let where = {
       auctionId: data.auctionId  
     };
