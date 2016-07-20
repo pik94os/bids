@@ -73,6 +73,7 @@
 .lot-priceinput {
   background-color: transparent;
   border:none;
+  color: #FF0000;
   width: 30%;
 }
 .lot-pricediv1 {
@@ -229,6 +230,12 @@
       height: 400px;
       overflow: auto;
       margin-top: 10px;
+      .color-grey {
+        color: #999;
+      }
+      .color-red {
+        color: #FF0000;
+      }
     }
   }
 
@@ -497,15 +504,15 @@
     }
     .room-chat {
       background: #ccdde5;
-      margin-top: 10px;
       font-size: 12pt;
       padding: 10px;
-      max-height: 240px;
+      max-height: 235px;
       overflow: hidden;
-      overflow-y: auto;
     }
 
-
+    .lotCl{
+      color: grey;
+    }
 
     .insert-your {
       padding-top: 12px;
@@ -701,7 +708,7 @@
       }
     }
     .room-input-group {
-      margin-top: 20px;
+      margin-top: 100px;
     }
 
     .legend {
@@ -750,7 +757,9 @@
       //border-bottom: 1px solid black;
       min-height: 80px;
       height: 100px;
-      overflow: auto;
+      font-size: 15px;
+      font-weight: 700;
+      overflow: hidden;
     }
     .room-price {
       //position: relative;
@@ -814,7 +823,7 @@
     .recommended-price {
       opacity: 0.5;
       font-weight: bold;
-      font-size: 8pt;
+      font-size: 10pt;
       text-align: center;
       &-number {
         text-align: center;
@@ -832,8 +841,12 @@
       font-size: 16pt;
       height: 100px;
       font-size: 24pt;
+      line-height: 0.8;
       &-sec-row {
         font-size: 14pt;
+        p {
+          margin: 0;
+        }
       }
       &-third-row {
         opacity: 1.0;
@@ -1003,6 +1016,24 @@
   background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat !important;
   height: 100px;
   width: 100px;
+}
+
+.class-red-bid-external {
+  height: 45px;
+}
+
+.class-red-bid-text {
+  color: red;
+  display: block !important;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.class-red-bid-text-none {
+  display: none;
 }
 
 .lot-user-internet {
