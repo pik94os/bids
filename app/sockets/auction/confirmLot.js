@@ -46,6 +46,7 @@ module.exports = function(socket, data) {
                             socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
                                 err: 0,
                                 bid: bid,
+                                // lot: lot,
                                 userName: {
                                     id:user.id,
                                     firstName:user.firstName,

@@ -15,84 +15,16 @@
                             <img src="images/circle-green.png">
                         </div>
                     </div>
-
                 </div>
-                <!--<div class="pageAuctionLeading-left-in">-->
-                <!--<div class="pageAuctionLeading-left-in-title">-->
-                <!--Зал-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text">-->
-                <!--<div class="pageAuctionLeading-left-in-text-numberAndName">-->
-                <!--<b>№61</b> Зведущая И.М.-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text-circleColor">-->
-                <!--<img src="images/circle-green.png">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text">-->
-                <!--<div class="pageAuctionLeading-left-in-text-numberAndName color-yellow">-->
-                <!--<b>№40</b> Пономарев И.Г.-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text-circleColor">-->
-                <!--<img src="images/circle-yellow.png">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text">-->
-                <!--<div class="pageAuctionLeading-left-in-text-numberAndName">-->
-                <!--<b>№60</b> Апрелев С.М.-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text-circleColor">-->
-                <!--<img src="images/circle-green.png">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text">-->
-                <!--<div class="pageAuctionLeading-left-in-text-numberAndName">-->
-                <!--<b>№389</b> Ведерникова Г.И.-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text-circleColor">-->
-                <!--<img src="images/circle-green.png">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text">-->
-                <!--<div class="pageAuctionLeading-left-in-text-numberAndName">-->
-                <!--<b>№236</b> Порной У.Е.-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text-circleColor">-->
-                <!--<img src="images/circle-green.png">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text">-->
-                <!--<div class="pageAuctionLeading-left-in-text-numberAndName color-red">-->
-                <!--<b>№40</b> Пономарев И.Г.-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text-circleColor">-->
-                <!--<img src="images/circle-red.png">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text">-->
-                <!--<div class="pageAuctionLeading-left-in-text-numberAndName">-->
-                <!--<b>№61</b> Зведущая И.М.-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text-circleColor">-->
-                <!--<img src="images/circle-green.png">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text">-->
-                <!--<div class="pageAuctionLeading-left-in-text-numberAndName">-->
-                <!--<b>№236</b> Порной У.Е.-->
-                <!--</div>-->
-                <!--<div class="pageAuctionLeading-left-in-text-circleColor">-->
-                <!--<img src="images/circle-green.png">-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
             </div>
 
             <div class="pageAuctionLeading-right col-xs-9">
                 <div>
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
                     <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="cleanLot">Снять лот</div>
-                    <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn">Лот продан</div>
+                    <!--<div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn">Лот продан</div>-->
+                    <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn && price">Лот продан</div>
+                    <div class="auction-button-sale-inactive" ng-show="auctionOn && !price">Ставок нет</div>
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
@@ -102,17 +34,6 @@
                             <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->
                             <!--{{lotList.estimateFrom + ' - ' + lotList.estimateTo}}-->
                         </div>
-                        <!--<br><br>-->
-                        <!--lastBid-{{lastBid}}-->
-                        <!--<br><br>-->
-                        <!--price-{{price}}-->
-                        <!--<br><br>-->
-                        <!--priceNext-{{priceNext}}-->
-                        <!--<br><br>-->
-                        <!--userNumber-{{userNumber}}-->
-                        <!--<br><br>-->
-                        <!--userData-{{userData}}-->
-                        <!--<br><br>-->
                     </div>
                     <div class="pageAuctionLeading-right-top-right col-md-4">
                         <div class="pageAuctionLeading-right-top-right-top">
@@ -245,7 +166,6 @@
                                 {{bid.price | toLocaleString}}
                             </div>
                         </div>
-
                         </div>
                     </div>
                 </div>

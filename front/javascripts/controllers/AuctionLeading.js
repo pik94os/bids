@@ -238,28 +238,55 @@ define(['./module', 'jquery'], function (controllers, $) {
             return userNum;
         };
 
-
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
-        $scope.soldLot = false;
+            $scope.soldLot = false;
             var max = 0;
             $scope.bids.forEach(function (bid) {
-                if(new Date(bid.createdAt) > max) {
+                if (new Date(bid.createdAt) > max) {
                     max = new Date(bid.createdAt);
                 }
                 var time = (bid.createdAt.split('T')[1].split(':'));
                 $scope.lastBid = {price: bid.price, user: bid.user, time: time[0] + ':' + time[1]};
             });
-                ngSocket.emit('auction/updateLot', {
-                    lotId: +$scope.lotId,
-                    isSold: isSold,
-                    isCl: isClean,
-                    auctionId: $stateParams.auctionId,
-                    lastBid: $scope.lastBid
-                });
-            
-            $scope.price = false;
+            ngSocket.emit('auction/updateLot', {
+                lotId: +$scope.lotId,
+                isSold: isSold,
+                isCl: isClean,
+                auctionId: $stateParams.auctionId,
+                lastBid: $scope.lastBid
+            });
 
+
+
+            // запись статистики проданного лота в таблицу статистики
+
+            var _SellingStatisticsData = {
+                userId: $scope.userNumber,
+                firstName: $scope.userfirstName,
+                lastName: $scope.userlastName,
+                patronymic: $scope.userpatronymic,
+
+                lotId: $scope.lotId,
+                lotNumber: $scope.lotList.number,
+                price: $scope.price,
+                auctionId: $stateParams.auctionId,
+
+                isSold: isSold,
+                isCl: isClean
+            };
+
+            // if ($scope.price > 0 && !isClean){
+            //     ngSocket.emit('auction/createSellingStatistics', _SellingStatisticsData);
+            // } else {
+            //
+            // }
+            ngSocket.emit('auction/createSellingStatistics', _SellingStatisticsData);
+
+            ngSocket.on('sellingStatisticsCreated', function (result) {
+                $scope.sellingStatisticsResult = result;
+                $scope.price = false;
+            });
         };
 
         ngSocket.on('lotConfirmed', function (data) {
@@ -270,26 +297,11 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.priceNext = $scope.price + calcStep(data.bid.price);
             $scope.userNumber = data.bid.userId;
             $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
+            $scope.userfirstName = data.userName.firstName;
+            $scope.userlastName = data.userName.lastName;
+            $scope.userpatronymic = data.userName.patronymic;
 
-            // запись статистики проданного лота в таблицу статистики
 
-            var _SellingStatisticsData = {
-                userId: data.bid.userId,
-                firstName: data.userName.firstName,
-                lastName: data.userName.lastName,
-                patronymic: data.userName.patronymic,
-
-                lotId: $scope.lotId,
-                lotNumber: $scope.lotList.number,
-                price: data.bid.price,
-                auctionId: $stateParams.auctionId,
-
-                isSold: true,
-                isCl: false
-            };
-
-            ngSocket.emit('auction/createSellingStatistics', _SellingStatisticsData);
-            ngSocket.on('sellingStatisticsCreated', function (result) {$scope.sellingStatisticsResult = result});
         });
 
         $scope.dateStartAuction = function () {

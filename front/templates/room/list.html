@@ -212,17 +212,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--Статистика покупок-->
-                    <div class="room-chat">
-                        Статистика покупок:<br><br>
-                        <!--{{timeOfBying}} {{byer}} купил лот {{selledLotNumber}}-->
-                        <div ng-repeat="row in sellingStatistics">
-                            <div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> <br> купил лот № {{row.lotNumber}} за {{row.price}} руб.</div><br>
-                            <div ng-show="row.isCl">Лот № {{row.lotNumber}} снят с продажи</div>
-                        </div>
-                    </div>
-                    <!--{{sellingStatistics}}-->
                 </div>
                 <!--{{chat.messages}}-->
                 <!--правая колонка-->
@@ -378,6 +367,14 @@
                             {{soldLot.lastBid.user.patronymic[0]}} {{soldLot.lastBid.price.toLocaleString() + ' руб'}}
                             {{soldLot.lastBid.time}}</p>
                         </span>
+
+                    <!--Статистика покупок-->
+                    <div class="row">
+                        <div class="room-chat" ng-repeat="row in sellingStatistics">
+                            <div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> купил лот <b>№ {{row.lotNumber}} </b> за {{row.price}} руб.</div>
+                            <div ng-show="row.isCl"><b>Лот № {{row.lotNumber}}</b> снят с продажи</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
