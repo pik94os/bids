@@ -1007,6 +1007,24 @@
   width: 100px;
 }
 
+.class-red-bid-external {
+  height: 45px;
+}
+
+.class-red-bid-text {
+  color: red;
+  display: block !important;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.class-red-bid-text-none {
+  display: none;
+}
+
 .lot-user-internet {
   @extend .lot-table;
   background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
