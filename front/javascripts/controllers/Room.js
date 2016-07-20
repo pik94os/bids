@@ -517,7 +517,15 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
 
         });
-        ngSocket.on('catchSellingStatistics', function (result) {$scope.sellingStatistics = result.sellingStatistics;});
+
+
+        $scope.sellingStatistics = [];
+        ngSocket.on('catchSellingStatistics', function (result) {
+            // $scope.sellingStatistics = result.sellingStatistics;
+            result.sellingStatistics.forEach(function (i) {
+                $scope.sellingStatistics.unshift(i);
+            });
+        });
 
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
