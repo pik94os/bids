@@ -37,9 +37,12 @@ define(['./module','jquery'],function(controllers,$){
             console.log('dasda');
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
-        
-        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
 
+        ngSocket.on('lotSelected', function (data) {
+            $scope.lot_number = data.lot.number;
+        });
+
+        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;

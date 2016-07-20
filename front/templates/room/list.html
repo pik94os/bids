@@ -157,7 +157,7 @@
                     <div class="legend">
                         <div class="col-sm-6 pull-left">Всего участников: <b>{{auction_params.users_length.internet_users
                             + auction_params.users_length.hall_users}}</b></div>
-                        <div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div>
+                        <!--<div class="col-sm-3 pull-right">В зале: <b>{{auction_params.users_length.hall_users}}</b></div>-->
                         <div class="col-sm-3 pull-right internet-hover"
                              ng-mouseenter="changeClassLot()" ng-mouseleave="changeClassLot()">
                             Интернет: <b>{{auction_params.users_length.internet_users}}</b>
@@ -235,8 +235,8 @@
                 <!--<br>-&#45;&#45;<br>-->
                 <!--{{auction_params.lots[$index].number}}-->
                 <!--<br>-&#45;&#45;<br>-->
-                <!--<div ng-click="movePreviewPicturesToStartGallery()">movePreviewPicturesToStartGallery</div>-->
-                <!--правая колонка-->
+                <div ng-click="movePreviewPicturesToStartGallery()">movePreviewPicturesToStartGallery</div>
+                правая колонка
                 <div class="right-column col-sm-6">
                     <div class="row">
                         <div class="room-small-books-container">
@@ -309,6 +309,7 @@
 
                             <div class="col-xs-8 blue-border-right">
                                 <div class="description-the-book">
+                                    ЛОТ {{lot_number}}<br>
                                     {{current_lot.description.slice(0,135)+'...'| htmlToPlaintext }}
                                 </div>
                                 <hr>
@@ -333,17 +334,20 @@
                             </div>
                             <div class="col-xs-4">
                                 <div class="description-the-book">
-                                    <div class="recommended-price">ПРЕДЛОЖЕННАЯ ЦЕНА</div>
+                                    <div class="recommended-price">ТЕКУЩАЯ СТАВКА</div>
                                     <div class="recommended-price-number">{{+current_lot.sellingPrice | toLocaleString}} Р</div>
                                     <br>
                                 </div>
                                 <hr>
                                 <div class="rate-from-inet" >
                                     <span>СТАВКА</span>
-                                    <div class="rate-from-inet-sec-row" ><p ng-if="userNumber">ИЗ ИНТЕРНЕТА</p></div>
-                                    <div class="rate-from-inet-third-row"><p ng-if="userNumber">ОТ #
-                                        {{userNumber - 1}}</p>
+                                    <div class="rate-from-inet-sec-row">
+                                        <p ng-if="userNumber">ИЗ ИНТЕРНЕТА</p>
+                                        <p class="rate-from-inet-third-row" ng-if="userNumber">ОТ # {{userNumber - 1}}</p>
                                     </div>
+                                    <!--<div class="rate-from-inet-third-row">-->
+                                        <!--<p ng-if="userNumber">ОТ # {{userNumber - 1}}</p>-->
+                                    <!--</div>-->
                                 </div>
                                 <!--<div class="dollar-arrows"></div>-->
                                 <div class="video-container">
@@ -403,6 +407,11 @@
                             <div ng-show="row.isCl" class="lotCl">Лот {{row.lotNumber}} СНЯТ {{row.createdAt}}</div>
                             <!--<div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> купил лот <b>№ {{row.lotNumber}} </b> за {{row.price}} руб.</div>-->
                             <!--<div ng-show="row.isCl"><b>Лот № {{row.lotNumber}}</b> снят с продажи</div>-->
+                            <div class="color-red" ng-show="row.isSold">
+                                <b>{{row.firstName}} {{row.lastName}}</b>купил лот
+                                                               <b>№ {{row.lotNumber}} </b> за {{row.price}} руб.
+                            </div>
+                            <div class="color-grey" ng-show="row.isCl"><b>Лот № {{row.lotNumber}}</b> снят с продажи</div>
                         </div>
                     </div>
                 </div>

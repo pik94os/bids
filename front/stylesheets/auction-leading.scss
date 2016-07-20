@@ -69,6 +69,13 @@ font-family: "Century Gothic";
           color: #b90000;
           font-size: 42px;
           font-weight: bold;
+          .div-number {
+            font-size: 30px;
+          }
+          .div-text {
+            color: black;
+            font-size: 20px;
+          }
         }
         &-bottom {
           font-size: 23px;
@@ -253,6 +260,10 @@ font-family: "Century Gothic";
         }
         .grey {
           color: grey;
+          width: 100%;
+          div {
+            width: 20%;
+          }
         }
         .black {
           color: black;
