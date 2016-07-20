@@ -165,6 +165,7 @@
                     </div>
                     <!--вывод всех ID пользователей - {{auction_params.users_number}}<br>-->
                     <!--вывод текущего ID пользователя - {{currentUserInfo.id}}-->
+
                     <!--карточки-->
 
                     <div class="row">
@@ -185,21 +186,8 @@
             <!--'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,-->
             <!--'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].userId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"-->
 
-                                <!--<div class="popup-window" ng-show="popup===$index">
-                                    <div class="popup-close-btn" ng-click='setPopup(false);$event.stopPropagation();'></div>
-                                    <div class="popup-avatar"></div>
-                                    <div class="popup-text">
-                                        <div class="popup-text-name">
-                                            {{auction_params.users[r-1].username}}
-                                        </div>
+                                <div class="num-on-table">{{$index+1}}</div>
 
-                                        № {{auction_params.users[r-1].number}} <br>
-                                    </div>
-                                    <div class="btn bg-primary popup-text-btn">Сообщение</div>
-                                </div>-->
-                                <div>
-                                    <div class="num-on-table">{{$index+1}}</div>
-                                </div>
                             </div>
                         </div>
 
@@ -402,6 +390,7 @@
                         <!--</span>-->
 
                     <!--Статистика покупок-->
+
                     <div class="row statistics">
                         <div class="room-chat" ng-repeat="row in sellingStatistics">
                             <div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> купил лот <b>№ {{row.lotNumber}} </b> за {{row.price}} руб.</div>
