@@ -950,8 +950,23 @@
       bottom: -18px;
       height: 220px;
       position: absolute;
-      right: 123px;
+      right: 210px;
       width: 200px;
+      background: orange;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 150px;
+      width: 150px;
       background: orange;
       video {
         position: absolute;
