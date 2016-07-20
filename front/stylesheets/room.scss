@@ -736,7 +736,6 @@
       margin-top: 10px;
       margin-bottom: 10px;
       .video-container {
-        background: orange;
         position: relative;
       }
     }
@@ -891,7 +890,6 @@
     //  position: absolute;
     //  right: 180px;
     //  width: 285px;
-    //  background: orange;
     //  video {
     //    position: absolute;
     //  }
@@ -907,7 +905,6 @@
       position: absolute;
       right: 164px;
       width: 285px;
-      background: orange;
       video {
         position: absolute;
       }
@@ -922,7 +919,6 @@
       position: absolute;
       right: 180px;
       width: 255px;
-      background: orange;
       video {
         position: absolute;
       }
@@ -937,7 +933,6 @@
       position: absolute;
       right: 123px;
       width: 200px;
-      background: orange;
       video {
         position: absolute;
       }
@@ -952,7 +947,6 @@
       position: absolute;
       right: 260px;
       width: 300px;
-      background: orange;
       video {
         position: absolute;
       }
@@ -967,7 +961,6 @@
       position: absolute;
       right: 210px;
       width: 200px;
-      background: orange;
       video {
         position: absolute;
       }
@@ -982,7 +975,6 @@
       position: absolute;
       right: 150px;
       width: 150px;
-      background: orange;
       video {
         position: absolute;
       }
@@ -991,12 +983,9 @@
 }
 //
 .class-Of-Lot-I {
-  background: url("/images/lot-tables/lot_tabl_press_inet.png") no-repeat !important;
+  background: url("/images/lot-tables/lot_tabl_press_inet_without_i.png") no-repeat !important;
   height: 100px;
   width: 100px;
-  div {
-    display: none;
-  }
 }
 .state-lot {
   font-size: 20px;
