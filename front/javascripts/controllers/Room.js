@@ -34,7 +34,6 @@ define(['./module','jquery'],function(controllers,$){
         });
         ngSocket.on('auctionDate', function () {
             $scope.countdown = 1;
-            console.log('dasda');
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
         

@@ -45,7 +45,6 @@ module.exports = function(socket, data) {
             attributes: ['id']
         }
     }
-    
     Lot.findAll(select)
         .then(function(lotList) {
             socket.emit('lotList', {
