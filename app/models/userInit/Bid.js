@@ -4,7 +4,8 @@
 var Sequelize = require('sequelize');
 
 var attributes = {
-    price: {type: Sequelize.INTEGER}
+    price: {type: Sequelize.INTEGER},
+    auctionId: {type: Sequelize.INTEGER}
 };
 
 module.exports.attributes = attributes;

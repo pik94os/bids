@@ -766,7 +766,7 @@
       cursor: pointer;
     }
     .do-rate-hided {
-      background: lightgrey;
+      background: #ccdde5;
       text-align: center;
       font-size: 15pt;
       padding-top: 12px;
@@ -774,10 +774,10 @@
       font-weight: bold;
       cursor: pointer;
         &:hover {
-          background: lightgrey;
+          background: #ccdde5;
         }
         &:active {
-          background: lightgrey;
+          background: #ccdde5;
         }
     }
     .number-of-rate {
@@ -887,6 +887,11 @@
   div {
     display: none;
   }
+}
+.state-lot {
+  font-size: 20px;
+  color: red;
+  text-align: center;
 }
 
 .class-blue-bid {
