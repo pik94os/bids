@@ -39,10 +39,7 @@ define(['./module','jquery'],function(controllers,$){
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
         
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
-        ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
-        ngSocket.on('catchSellingStatistics', function (result) {
-            $scope.sellingStatistics = result.sellingStatistics;
-        });
+
         
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;
@@ -303,6 +300,8 @@ define(['./module','jquery'],function(controllers,$){
                 }, 5000);
                 $scope.current_lot.bids = data.bids;
                 $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
+
+
             });
 
         $scope.maxEstimate = function () {
@@ -501,7 +500,7 @@ define(['./module','jquery'],function(controllers,$){
             }
 
         ngSocket.emit('getAuction', {id: $stateParams.auctionId});
-
+        ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         ngSocket.on('auctionState', function (data) {
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
@@ -514,7 +513,12 @@ define(['./module','jquery'],function(controllers,$){
             $scope.userNumber = '';
             $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
             $scope.numberLot = data.lot.number;
+
+            ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
+
         });
+        ngSocket.on('catchSellingStatistics', function (result) {$scope.sellingStatistics = result.sellingStatistics;});
+
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
             });
@@ -587,7 +591,6 @@ define(['./module','jquery'],function(controllers,$){
                 proto = "wss://art-bid.ru";
                 port = "8443";
             }
-
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();

@@ -122,6 +122,7 @@
                         </span>
             </div>
 
+
             <div class="room-chat">
                 <div ng-repeat="chatMessage in chat.messages">
                     <div class="black">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}
@@ -231,27 +232,28 @@
                             </div>
                         </div>
                     </div>
-
-                    <!--Статистика покупок-->
-                    <div class="room-chat">
-                        Статистика покупок:<br><br>
-                        <!--{{timeOfBying}} {{byer}} купил лот {{selledLotNumber}}-->
-                        <div ng-repeat="row in sellingStatistics">
-                            <div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> <br> купил лот № {{row.lotNumber}} за {{row.price}} руб.</div><br>
-                            <div ng-show="row.isCl">Лот № {{row.lotNumber}} снят с продажи</div>
-                        </div>
-                    </div>
-                    <!--{{sellingStatistics}}-->
                 </div>
                 <!--{{chat.messages}}-->
+                <!--<br>-&#45;&#45;<br>-->
+                <!--{{auction_params.lots}}-->
+                <!--<br>-&#45;&#45;<br>-->
+                <!--{{lot_number}}-->
+                <!--<br>-&#45;&#45;<br>-->
+                <!--{{auction_params.lots[$index].number}}-->
+                <!--<br>-&#45;&#45;<br>-->
+                <!--<div ng-click="movePreviewPicturesToStartGallery()">movePreviewPicturesToStartGallery</div>-->
                 <!--правая колонка-->
                 <div class="right-column col-sm-6">
                     <div class="row">
                         <div class="room-small-books-container">
-                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png"
-                                                              ng-click="lastPhotos()"></div>
-                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"
-                                                               ng-click="firstPhotos()"></div>
+                            <div class="room-arrow_left">
+                                <img src="../../images/arrow-left-b.png"
+                                     ng-click="lastPhotos()">
+                            </div>
+                            <div class="room-arrow-right">
+                                <img src="../../images/arrow-right-b.png"
+                                     ng-click="firstPhotos()">
+                            </div>
                             <div class="gallery-carousel">
                                 <a emit-last-repeater-element
                                    class="pull-left width100"
@@ -263,9 +265,10 @@
                                          lot_number==auction_params.lots[$index].number}">
                                          {{auction_params.lots[$index].number}}
                                     </div>
+
                                     <div class="room-small-photo">
                                         <div ng-class="{'room-small-photo-redBorder':
-                                             lot_number==auction_params.lots[$index].number}">
+                                             lot_number === auction_params.lots[$index].number}">
                                             <img ng-src="/images/lot-images/{{getPicById(r.titlePicId).fileName
                                                  || 'no-photo.jpg'}}">
                                         </div>
@@ -397,6 +400,14 @@
                             {{soldLot.lastBid.user.patronymic[0]}} {{soldLot.lastBid.price.toLocaleString() + ' руб'}}
                             {{soldLot.lastBid.time}}</p>
                         </span>
+
+                    <!--Статистика покупок-->
+                    <div class="row">
+                        <div class="room-chat" ng-repeat="row in sellingStatistics">
+                            <div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> купил лот <b>№ {{row.lotNumber}} </b> за {{row.price}} руб.</div>
+                            <div ng-show="row.isCl"><b>Лот № {{row.lotNumber}}</b> снят с продажи</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
