@@ -515,7 +515,6 @@ define(['./module','jquery'],function(controllers,$){
             $scope.numberLot = data.lot.number;
 
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
-
         });
 
 
