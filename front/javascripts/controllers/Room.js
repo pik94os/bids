@@ -378,6 +378,7 @@ define(['./module','jquery'],function(controllers,$){
                 });
             };
 
+        ngSocket.emit('confirmLot', {lotId: $stateParams.auctionId});
 
         ngSocket.on('lotConfirmed', function (data) {
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
@@ -389,7 +390,8 @@ define(['./module','jquery'],function(controllers,$){
                 alert(data.message);
             }
             $scope.setButtonTimeout();
-            $scope.userNumber = data.bid.userId;
+            // $scope.userNumber = data.bid.userId;
+            $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
             if (data.err == 0) {
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
