@@ -722,6 +722,9 @@
       height: 400px;
       margin-top: 10px;
       margin-bottom: 10px;
+      .video-container {
+        background: red;
+      }
     }
     .blue-border-right {
       border-width: 0 4px 0 0;
@@ -733,6 +736,8 @@
       background: white;
       //border-bottom: 1px solid black;
       min-height: 80px;
+      height: 100px;
+      overflow: auto;
     }
     .room-price {
       //position: relative;
@@ -811,6 +816,7 @@
       color: #989898;
       font-weight: bold;
       font-size: 16pt;
+      height: 100px;
       &-sec-row {
         font-size: 12pt;
       }
@@ -855,7 +861,7 @@
   .classForVideo {
     &-small {
       height: 106px;
-      padding-top: 20px;
+      //padding-top: 20px;
       width: 130px;
       video {
         height: 106px;
@@ -864,7 +870,7 @@
       }
     }
     &-big {
-      bottom: -37px;
+      bottom: -18px;
       height: 220px;
       position: absolute;
       right: 180px;

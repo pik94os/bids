@@ -550,7 +550,7 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         $scope.initPlayer = function (){
-            if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f == undefined && $scope.f)) {
+            if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f==undefined && $scope.f)) {
                 return false
             }
             var f = $scope.f = Flashphoner.getInstance();

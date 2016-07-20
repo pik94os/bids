@@ -214,14 +214,26 @@
                     </div>
                 </div>
                 <!--{{chat.messages}}-->
+                <!--<br>-&#45;&#45;<br>-->
+                <!--{{auction_params.lots}}-->
+                <!--<br>-&#45;&#45;<br>-->
+                <!--{{lot_number}}-->
+                <!--<br>-&#45;&#45;<br>-->
+                <!--{{auction_params.lots[$index].number}}-->
+                <!--<br>-&#45;&#45;<br>-->
+                <!--<div ng-click="movePreviewPicturesToStartGallery()">movePreviewPicturesToStartGallery</div>-->
                 <!--правая колонка-->
                 <div class="right-column col-sm-6">
                     <div class="row">
                         <div class="room-small-books-container">
-                            <div class="room-arrow_left"><img src="../../images/arrow-left-b.png"
-                                                              ng-click="lastPhotos()"></div>
-                            <div class="room-arrow-right"><img src="../../images/arrow-right-b.png"
-                                                               ng-click="firstPhotos()"></div>
+                            <div class="room-arrow_left">
+                                <img src="../../images/arrow-left-b.png"
+                                     ng-click="lastPhotos()">
+                            </div>
+                            <div class="room-arrow-right">
+                                <img src="../../images/arrow-right-b.png"
+                                     ng-click="firstPhotos()">
+                            </div>
                             <div class="gallery-carousel">
                                 <a emit-last-repeater-element
                                    class="pull-left width100"
@@ -233,9 +245,10 @@
                                          lot_number==auction_params.lots[$index].number}">
                                          {{auction_params.lots[$index].number}}
                                     </div>
+
                                     <div class="room-small-photo">
                                         <div ng-class="{'room-small-photo-redBorder':
-                                             lot_number==auction_params.lots[$index].number}">
+                                             lot_number === auction_params.lots[$index].number}">
                                             <img ng-src="/images/lot-images/{{getPicById(r.titlePicId).fileName
                                                  || 'no-photo.jpg'}}">
                                         </div>
