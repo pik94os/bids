@@ -224,7 +224,14 @@
   .right-column {
     padding-left: 15px;
     padding-top: 20px;
+
+    .statistics{
+      height: 400px;
+      overflow: auto;
+    }
   }
+
+
 
   .room-large-book {
     text-align: center;
@@ -496,6 +503,8 @@
       overflow: hidden;
       overflow-y: auto;
     }
+
+
 
     .insert-your {
       padding-top: 12px;
