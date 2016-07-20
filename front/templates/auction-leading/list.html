@@ -23,9 +23,7 @@
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
                     <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="cleanLot">Снять лот</div>
                     <!--<div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn">Лот продан</div>-->
-                    <div class="auction-button-sale" ng-click="sold(true,isClean)" ng-show="auctionOn && price">Лот
-                        продан
-                    </div>
+                    <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn && price">Лот продан</div>
                     <div class="auction-button-sale-inactive" ng-show="auctionOn && !price">Ставок нет</div>
                 </div>
                 <div class="pageAuctionLeading-right-top row">
@@ -55,9 +53,11 @@
                         </div>
                         <br>
                         <div ng-show="fuckStop">
-                            <label for="date" class=""> Дата начала аукциона</label>
-                            <input type="text" ng-model="dateStart" class="form-control" id="date" ng-show="fuckStop">
-                            <button ng-click="dateStartAuction()" ng-show="fuckStop">Сохранить</button>
+                        <label for="date" class=""> Дата начала аукциона</label>
+                        <input type="text" ng-model="dateStart" class="form-control" id="date" ng-show="fuckStop">
+                            <label for="time" class="">Время начала аукциона</label>
+                        <input type="text" ng-model="timeStart" class="form-control" id="time" ng-show="fuckStop">
+                        <button ng-click="dateStartAuction()" ng-show="fuckStop">Сохранить</button>
                         </div>
                     </div>
                 </div>
@@ -73,15 +73,15 @@
                         </div>
                         <div class="pageAuctionLeading-right-center-left-bottom">
                             <!--<div>-->
-                            <!--&lt;!&ndash;150 000 000 руб&ndash;&gt;-->
-                            <!--{{lot.estimateTo.toLocaleString()}}-->
+                                <!--&lt;!&ndash;150 000 000 руб&ndash;&gt;-->
+                                <!--{{lot.estimateTo.toLocaleString()}}-->
                             <!--</div>-->
                             <!--<div>-->
-                            <!--<img src="images/triangle-red-up.png">-->
+                                <!--<img src="images/triangle-red-up.png">-->
                             <!--</div>-->
                             <!--<div>-->
-                            <!--&lt;!&ndash;30 000 000 руб&ndash;&gt;-->
-                            <!--{{lotList.estimateFrom}}-->
+                                <!--&lt;!&ndash;30 000 000 руб&ndash;&gt;-->
+                                <!--{{lotList.estimateFrom}}-->
                             <!--</div>-->
                         </div>
                     </div>
@@ -155,15 +155,6 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div class="auction-leading-statistics">-->
-                        <!--<div ng-repeat="row in sellingStatistics">-->
-                            <!--<div ng-show="row.isSold">ЛОТ {{row.lotNumber}} купил №{{row.userId}} за {{row.price.toLocaleString()}} руб. {{row.createdAt}}</div>-->
-                            <!--<div ng-show="row.isCl" class="lotCl">Лот {{row.lotNumber}} СНЯТ {{row.createdAt}}</div>-->
-                            <!--&lt;!&ndash;<div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> купил лот <b>№ {{row.lotNumber}} </b> за {{row.price}} руб.</div>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<div ng-show="row.isCl"><b>Лот № {{row.lotNumber}}</b> снят с продажи</div>&ndash;&gt;-->
-                        <!--</div>-->
-                    <!--</div>-->
-
                     <div class="pageAuctionLeading-right-bottom-right col-md-5">
                         <div class="grey" ng-repeat="bid in bids">
                             <div>
