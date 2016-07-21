@@ -120,7 +120,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 proto = "wss://art-bid.ru";
                 port = "8443";
             }
-
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
