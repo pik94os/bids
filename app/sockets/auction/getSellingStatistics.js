@@ -5,10 +5,12 @@
 let SellingStatistics = require('../../models/').SellingStatistics;
 
 module.exports = function(socket, data) {
-    let where = {
-      auctionId: data.auctionId  
-    };
-    
+    let where = {};
+
+    if (data.auctionId){where.auctionId = data.auctionId;}
+    if (data.userId){where.userId = data.userId;}
+
+
     SellingStatistics.findAll({
         where
     }).then(function (result) {
