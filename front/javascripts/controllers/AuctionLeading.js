@@ -114,7 +114,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             var url;
             var port;
             if (window.location.protocol == "http:") {
-                proto = "ws://78.24.218.251";
+                proto = "ws://188.120.226.71";
                 port = "8282";
             } else {
                 proto = "wss://art-bid.ru";
