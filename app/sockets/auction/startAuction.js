@@ -7,6 +7,9 @@
 const Lot = require('../../models').Lot;
 const Auction = require('../../models').Auction;
 module.exports = function (socket, data) {
+    if(socket.request.user.roleId !== 3 && !socket.request.user.id) {
+        return false
+    } else {
     Lot.findOne({
         where: {id: data.id}
     }).then((lot)=> {
@@ -38,4 +41,5 @@ module.exports = function (socket, data) {
             message: err.message
         });
     })
+    }
 };
