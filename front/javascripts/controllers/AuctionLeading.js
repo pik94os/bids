@@ -77,9 +77,9 @@ define(['./module', 'jquery'], function (controllers, $) {
                 //опубликовать поток с вебки ведущего
                 $scope.f.publishStream({
                     name: $scope.videoName,
-                    // record: false
+                    record: false
                     //(видеовидео)уменьшаем битрейт
-                    record: record, bitrate:300
+                    // record: record, bitrate:300
                 });
             });
 
