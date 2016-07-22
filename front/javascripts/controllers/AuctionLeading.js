@@ -93,22 +93,22 @@ define(['./module', 'jquery'], function (controllers, $) {
                         break;
                     //Если возникли ошибки
                         // убрал обработку ошибок
-                    // case StreamStatus.Failed:
-                    //     setTimeout(function () {
-                    //         $scope.videoName = 'video:' + Date.now();
-                    //         //опубликовать поток с вебки ведущего
-                    //         $scope.f.publishStream({
-                    //             name: $scope.videoName,
-                    //             // record: false
-                    //             //(видеовидео)уменьшаем битрейт
-                    //             record: record, bitrate:300
-                    //         });
-                    //         ngSocket.emit('video/newVideo', {
-                    //             auctionId: +$stateParams.auctionId,
-                    //             name: $scope.videoName
-                    //         });
-                    //     }, 1000 * (ErrCounter++));
-                    //     break;
+                    case StreamStatus.Failed:
+                        setTimeout(function () {
+                            $scope.videoName = 'video:' + Date.now();
+                            //опубликовать поток с вебки ведущего
+                            $scope.f.publishStream({
+                                name: $scope.videoName,
+                                // record: false
+                                //(видеовидео)уменьшаем битрейт
+                                record: record, bitrate:300
+                            });
+                            ngSocket.emit('video/newVideo', {
+                                auctionId: +$stateParams.auctionId,
+                                name: $scope.videoName
+                            });
+                        }, 1000 * (ErrCounter++));
+                        break;
                 }
             });
             var configuration = new Configuration();
