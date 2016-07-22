@@ -77,7 +77,9 @@ define(['./module', 'jquery'], function (controllers, $) {
                 //опубликовать поток с вебки ведущего
                 $scope.f.publishStream({
                     name: $scope.videoName,
-                    record: false
+                    // record: false
+                    //(видеовидео)уменьшаем битрейт
+                    record: record, bitrate:300
                 });
             });
 
@@ -96,7 +98,9 @@ define(['./module', 'jquery'], function (controllers, $) {
                             //опубликовать поток с вебки ведущего
                             $scope.f.publishStream({
                                 name: $scope.videoName,
-                                record: false
+                                // record: false
+                                //(видеовидео)уменьшаем битрейт
+                                record: record, bitrate:300
                             });
                             ngSocket.emit('video/newVideo', {
                                 auctionId: +$stateParams.auctionId,
@@ -110,6 +114,9 @@ define(['./module', 'jquery'], function (controllers, $) {
             configuration.remoteMediaElementId = 'remoteVideo';
             configuration.localMediaElementId = 'localVideo';
             configuration.elementIdForSWF = "flashVideoDiv";
+            // (видеовидео) уменьшаем размер картинки для уменьшения потока
+            configuration.videoWidth=176;
+            configuration.videoHeight=144;
             var proto;
             var url;
             var port;

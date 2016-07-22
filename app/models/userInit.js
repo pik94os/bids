@@ -78,6 +78,7 @@ class Initiator {
        // this.Notification.belongsTo(this.Lot, {as: "lot"});
        // this.Notification.belongsTo(this.User, {as: "users"});
         this.Chat.belongsTo(this.User);
+        // this.SellingStatistics.hasMany(this.User);
 
 
         this.roles = {};
