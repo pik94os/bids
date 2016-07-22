@@ -89,7 +89,14 @@ define(['./module','jquery'],function(controllers,$){
         $scope.current_lot.currentPic = 0;
         $scope.current_lot.currentPicReserve = 0;
             initLotParams($scope.current_lot, params, initObjFromArr(params,[0,"", 0, 0, 0, 0]));
-
+            
+        //init slideshow
+        $interval(function () {
+            if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
+                    $scope.current_lot.currentPic += 1;
+            if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
+                    $scope.current_lot.currentPic = $scope.current_lot.currentPicReserve
+        }, 5000);
 
         $scope.lastPhotos = function () {
             var t = $('.gallery-carousel .pull-left:last-child');
@@ -293,13 +300,6 @@ define(['./module','jquery'],function(controllers,$){
                         }
                     })
                 }
-
-                $interval(function () {
-                    if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
-                        $scope.current_lot.currentPic += 1;
-                    if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
-                        $scope.current_lot.currentPic = $scope.current_lot.currentPicReserve
-                }, 5000);
                 $scope.current_lot.bids = data.bids;
                 $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
 
