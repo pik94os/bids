@@ -5,30 +5,6 @@ define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
     controllers.controller('Lk', ['$scope', '$sessionStorage', '$state', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $sessionStorage, $state, $rootScope, $stateParams, ngSocket) {
 
-        // // запрос статистики продаж
-        // if ($scope.currentUserInfo.id){
-        //     ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
-        // }
-        // $scope.sellingStatistics = {};
-        // $scope.sellingStatistics.sellingData = [];
-        // ngSocket.on('catchSellingStatistics', function (result) {
-        //     // $scope.sellingStatistics = result.sellingStatistics;
-        //     result.sellingStatistics.forEach(function (i) {
-        //         ngSocket.emit('auction/getAuction', {id: i.auctionId});
-        //         ngSocket.on('catchAuction', function (result) {
-        //             $scope.auction = result;
-        //         });
-        //             ngSocket.emit('getUser', {userId: 3});
-        //         ngSocket.on('userSelected', function (result) {
-        //             $scope.userFinded = result;
-        //         });
-        //         $scope.sellingStatistics.user = $scope.userFinded;
-        //         i.createdAt = new Date(i.createdAt).getDate() + '.' + new Date(i.createdAt).getUTCMonth() + '.' + new Date(i.createdAt).getFullYear() + ' / ' + new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes() + ':' + new Date(i.createdAt).getSeconds();
-        //         $scope.sellingStatistics.sellingData.unshift(i);
-        //     });
-        // });
-
-
         $scope.tab = $stateParams.tab;
 
         $scope.tempUserInfo = JSON.parse(JSON.stringify($scope.currentUserInfo));
@@ -92,28 +68,35 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.on('auctionList', function (data) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
-        });
-        $scope.sellingStatistics = [];
-            if ($scope.currentUserInfo.id) {
-                ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
+            if ($stateParams.tab ==='historyOfAuctions') {
+                data.auctionList.forEach(function (i) {
+                    ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id});
+                });
             }
-        // запрос статистики продаж
-        // $scope.getStatistics = function () {
-        //     if ($scope.currentUserInfo.id) {
-        //         ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
-        //     }
-        //
-        // };
 
-        ngSocket.on('catchSellingStatistics', function (result) {
-            // $scope.sellingStatistics = result.sellingStatistics;
-            result.sellingStatistics.forEach(function (i) {
-                // i.createdAt = new Date(i.createdAt).getDate() + '.' + new Date(i.createdAt).getUTCMonth() + '.' + new Date(i.createdAt).getFullYear() + ' / ' + new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes() + ':' + new Date(i.createdAt).getSeconds();
-                i.createdAt = i.createdAt.split('T')[0].split('-')[2] + '.' + i.createdAt.split('T')[0].split('-')[1] + '.' + i.createdAt.split('T')[0].split('-')[0] + ' / ' + new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes() + ':' + new Date(i.createdAt).getSeconds();
-                // i.createdAt = i.createdAt.split('T')[0].split('-')[2] + '.' + i.createdAt.split('T')[0].split('-')[1] + '.' + i.createdAt.split('T')[0].split('-')[0] + ' / ' + i.createdAt.split('T')[1].split('.')[0];
-                $scope.sellingStatistics.unshift(i);
-            });
         });
 
+        // пофиксить, дублирует статистику почему то!!!!
+        $scope.sellingStatisticsHouse = [];
+
+        if ($stateParams.tab ==='historyOfAuctions') {
+
+            ngSocket.on('catchSellingStatistics', function (result) {
+                result.sellingStatistics.forEach(function (r) {
+                    console.log(r)
+                    $scope.sellingStatisticsHouse.push(r);
+                });
+            });
+        }
+
+        if ($stateParams.tab ==='historyOfAuctionsCustomer') {
+            ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
+            ngSocket.on('catchSellingStatistics', function (result) {
+                $scope.sellingStatistics = [];
+                result.sellingStatistics.forEach(function (i) {
+                    $scope.sellingStatistics.unshift(i);
+                });
+            });
+        }
     }])
 });

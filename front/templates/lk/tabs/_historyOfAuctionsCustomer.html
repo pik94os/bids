@@ -19,9 +19,9 @@
                 <td class="td03">{{row.lotNumber}}</td>
                 <td class="td04">{{row.price.toLocaleString()}} Р</td>
                 <td class="td05">Ожидаем оплаты</td>
-                <td class="td06">{{row.createdAt}}</td>
-                <!--<td class="td06">20.06.16 / 14:23:26</td>-->
+                <td class="td06">{{row.createdAt.split('T')[0].split('-')[2] + '.' + row.createdAt.split('T')[0].split('-')[1] + '.' + row.createdAt.split('T')[0].split('-')[0] + ' / ' + row.createdAt.split('T')[1].split('.')[0]}}</td>
             </tr>
         </table>
+        <!--{{sellingStatistics}}-->
     </div>
 </div>
