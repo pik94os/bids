@@ -8,7 +8,7 @@
 				<!--li ng-class="{'active':tab==='description'}" ui-sref="{tab:'description'}">Описание</li-->
 				<li ng-class="{'active':tab==='historyOfAuctions'}" ui-sref="{tab:'historyOfAuctions'}" ng-if="currentUserInfo.roleId<=3">История торгов</li>
 				<li ng-class="{'active':!tab}" ui-sref="{tab:''}">Личные данные</li>
-				<li ng-class="{'active':tab==='historyOfAuctions'}" ui-sref="{tab:'historyOfAuctionsCustomer'}" ng-if="currentUserInfo.roleId==4">История торгов</li>
+				<li ng-class="{'active':tab==='historyOfAuctions'}" ng-click="getUserSellingStatistics()" ui-sref="{tab:'historyOfAuctionsCustomer'}" ng-if="currentUserInfo.roleId==4">История торгов</li>
             </ul>
 		</div>
 		<div class="tab-content">

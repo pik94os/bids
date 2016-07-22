@@ -582,6 +582,9 @@ define(['./module','jquery'],function(controllers,$){
             configuration.remoteMediaElementId = 'remoteVideo';
             configuration.localMediaElementId = 'localVideo';
             configuration.elementIdForSWF = "flashVideoDiv";
+            // (видеовидео) уменьшаем размер картинки для уменьшения потока
+            configuration.videoWidth=176;
+            configuration.videoHeight=144;
             var proto;
             var url;
             var port;

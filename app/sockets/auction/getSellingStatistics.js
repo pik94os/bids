@@ -5,7 +5,13 @@
 let SellingStatistics = require('../../models/').SellingStatistics;
 
 module.exports = function(socket, data) {
-    let where = {};
+
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
+    console.log(data);
+
+    let where = {
+        // auctionId: data.auctionId
+    };
 
     if (data.auctionId){where.auctionId = data.auctionId;}
     if (data.userId){where.userId = data.userId;}
