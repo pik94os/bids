@@ -165,6 +165,14 @@ define(['./module', 'jquery'], function (controllers, $) {
         //     })
         // };
 
+        // парсинг CSV и затем сохранение фоток в базу
+        $scope.addPicPromisesArr = [];
+        $scope.parseCSVAndSavePictures = function () {
+            $scope.createNewLotFromCSV().then(function () {
+                lotPicUploader()
+            });
+        };
+
         // импорт лотов из CSV
         $scope.CSVParsedFile = {};
         var uploader = $scope.uploader = new FileUploader({
@@ -190,6 +198,11 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         uploader.onAfterAddingFile = function (fileItem) {
             console.info('onAfterAddingFile', fileItem);
+            // addPicPromisesArr.push(
+            //     new Promise(
+            //         lotPicUploader()
+            //     )
+            // )
         };
         uploader.onAfterAddingAll = function (addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
@@ -388,8 +401,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         ngSocket.on('chatMessagesList', function (result) {
             // $scope.chatMessagesArr = result.resp;
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
-            console.log(result.chatMessagesList);
+            // console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
+            // console.log(result.chatMessagesList);
             result.chatMessagesList.forEach(function (i) {
                 $scope.chat.messages.push(i);
             });

@@ -26,7 +26,7 @@
     margin-left: 40px;
     margin-top: 25px;
     color: #fff;
-    font-size: 26px;
+    font-size: 37px;
     font-weight: 500;
 
     .favorite {
@@ -73,6 +73,7 @@
 .lot-priceinput {
   background-color: transparent;
   border:none;
+  color: #FF0000;
   width: 30%;
 }
 .lot-pricediv1 {
@@ -224,7 +225,21 @@
   .right-column {
     padding-left: 15px;
     padding-top: 20px;
+
+    .statistics{
+      height: 400px;
+      overflow: auto;
+      margin-top: 10px;
+      .color-grey {
+        color: #999;
+      }
+      .color-red {
+        color: #FF0000;
+      }
+    }
   }
+
+
 
   .room-large-book {
     text-align: center;
@@ -489,12 +504,14 @@
     }
     .room-chat {
       background: #ccdde5;
-      margin-top: 10px;
       font-size: 12pt;
       padding: 10px;
-      max-height: 240px;
+      max-height: 235px;
       overflow: hidden;
-      overflow-y: auto;
+    }
+
+    .lotCl{
+      color: grey;
     }
 
     .insert-your {
@@ -526,8 +543,10 @@
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
-          width: 67px;
-          height: 67px;
+          //width: 67px;
+          //height: 67px;
+	  width: 80px;
+          height: 80px;
         }
       }
     }
@@ -543,6 +562,7 @@
       font-weight: bold;
       font-size: 8pt;
       color: #000066;
+	margin-left: 10px;
     }
 
     .page-numbers-single-red {
@@ -688,7 +708,7 @@
       }
     }
     .room-input-group {
-      margin-top: 20px;
+      margin-top: 100px;
     }
 
     .legend {
@@ -722,6 +742,9 @@
       height: 400px;
       margin-top: 10px;
       margin-bottom: 10px;
+      .video-container {
+        position: relative;
+      }
     }
     .blue-border-right {
       border-width: 0 4px 0 0;
@@ -733,6 +756,10 @@
       background: white;
       //border-bottom: 1px solid black;
       min-height: 80px;
+      height: 100px;
+      font-size: 15px;
+      font-weight: 700;
+      overflow: hidden;
     }
     .room-price {
       //position: relative;
@@ -762,6 +789,21 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .do-rate-hided {
+      background: #ccdde5;
+      text-align: center;
+      font-size: 15pt;
+      padding-top: 12px;
+      white-space: nowrap;
+      font-weight: bold;
+      cursor: pointer;
+        &:hover {
+          background: #ccdde5;
+        }
+        &:active {
+          background: #ccdde5;
+        }
+    }
     .number-of-rate {
       border-width: 0 0 0 1px;
       border-style: solid;
@@ -781,13 +823,14 @@
     .recommended-price {
       opacity: 0.5;
       font-weight: bold;
-      font-size: 8pt;
+      font-size: 10pt;
       text-align: center;
       &-number {
         text-align: center;
         font-weight: bold;
         font-size: 15pt;
-        color: #118a02;
+        //color: #118a02;
+	color: #ff0000;
         white-space: nowrap;
       }
     }
@@ -796,8 +839,14 @@
       color: #989898;
       font-weight: bold;
       font-size: 16pt;
+      height: 100px;
+      font-size: 24pt;
+      line-height: 0.8;
       &-sec-row {
-        font-size: 12pt;
+        font-size: 14pt;
+        p {
+          margin: 0;
+        }
       }
       &-third-row {
         opacity: 1.0;
@@ -840,7 +889,7 @@
   .classForVideo {
     &-small {
       height: 106px;
-      padding-top: 20px;
+      //padding-top: 20px;
       width: 130px;
       video {
         height: 106px;
@@ -848,11 +897,26 @@
         width: 130px;
       }
     }
+    //&-big {
+    //  bottom: -18px;
+    //  height: 220px;
+    //  position: absolute;
+    //  right: 180px;
+    //  width: 285px;
+    //  video {
+    //    position: absolute;
+    //  }
+    //}
+  }
+}
+//
+@media screen and (min-width: 1200px) {
+  .classForVideo {
     &-big {
-      bottom: -37px;
+      bottom: -18px;
       height: 220px;
       position: absolute;
-      right: 180px;
+      right: 164px;
       width: 285px;
       video {
         position: absolute;
@@ -860,14 +924,86 @@
     }
   }
 }
-
+@media screen and (max-width: 1200px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 180px;
+      width: 255px;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 123px;
+      width: 200px;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 260px;
+      width: 300px;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 635px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 210px;
+      width: 200px;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .classForVideo {
+    &-big {
+      bottom: -18px;
+      height: 220px;
+      position: absolute;
+      right: 150px;
+      width: 150px;
+      video {
+        position: absolute;
+      }
+    }
+  }
+}
+//
 .class-Of-Lot-I {
-  background: url("/images/lot-tables/lot_tabl_press_inet.png") no-repeat !important;
+  background: url("/images/lot-tables/lot_tabl_press_inet_without_i.png") no-repeat !important;
   height: 100px;
   width: 100px;
-  div {
-    display: none;
-  }
+}
+.state-lot {
+  font-size: 20px;
+  color: red;
+  text-align: center;
 }
 
 .class-blue-bid {
@@ -882,6 +1018,24 @@
   width: 100px;
 }
 
+.class-red-bid-external {
+  height: 45px;
+}
+
+.class-red-bid-text {
+  color: red;
+  display: block !important;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.class-red-bid-text-none {
+  display: none;
+}
+
 .lot-user-internet {
   @extend .lot-table;
   background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
@@ -889,3 +1043,10 @@
   width: 100px;
 }
 
+.pull-left.ng-binding {
+    margin-top: -5px;
+}
+
+p.ng-binding.ng-scope {
+    margin-top: 0px;
+}

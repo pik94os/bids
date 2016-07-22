@@ -32,9 +32,17 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('auctionRun', function () {
             $scope.countdown =  2;
         });
+        ngSocket.on('auctionDate', function () {
+            $scope.countdown = 1;
+        });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
-        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
 
+        ngSocket.on('lotSelected', function (data) {
+            $scope.lot_number = data.lot.number;
+        });
+
+        ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
+        
         $scope.changeClassVideoWindow = function () {
             $scope.aaa = !$scope.aaa;
         };
@@ -47,6 +55,10 @@ define(['./module','jquery'],function(controllers,$){
             $scope.stopTimer();
         });
 
+        ngSocket.on('auctionDate', function () {
+            $scope.countdown = 1;
+            $scope.auctionNewDate = true;
+        });
 
         //init auction params
         $scope.auction_params = {
@@ -55,14 +67,14 @@ define(['./module','jquery'],function(controllers,$){
                     hall_users: 0
                 },
                 users: [],
-                users_number: [],
+                users_number: ["1"],
                 current_user: null,
                 lots_length:  0,
                 lots: [],
                 lots_isPlayOuted: [],
                 lots_isPlayOutedPercent: 0,
                 lot_pictures: [],
-                progress_bar_class: {'width': 'calc('+0+'% - '+210+'px)'}
+                progress_bar_class: {'width': 'calc('+this.lots_isPlayOutedPercent+'% - 210px)'}
             };
 
         //init lot params
@@ -90,7 +102,6 @@ define(['./module','jquery'],function(controllers,$){
 
 
             ngSocket.on('room',function (data) {
-                console.log(data);
                 $scope.t = Date.now() - new Date(data.auction.start);
                 var date;
                 date = new Date(data.auction.date);
@@ -98,11 +109,13 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 if(data.auction.isClose) {
                     $scope.countdown = 3;
+                    if($scope.auctionNewDate) {
+                        $scope.countdown = 1;
+                    }
                 }
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
-                $scope.auction_params.usersNumber = data.userNumbers;
-                $scope.auction_params.users_number = data.userNumbers.map(function(e) { return e.number });
+                $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
                 $scope.auction_params.current_user = data.authUser;
                 $scope.videoName = data.auction.webcam;
                 $scope.initPlayer();
@@ -135,11 +148,10 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
-                $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - '+210*$scope.auction_params.lots_isPlayOutedPercent/100+'px)'}
+                $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'}
 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
-
                 if ($scope.auction_params.lots[currentId] !== undefined) {
                     ngSocket.emit('auction/getLot', {
                         lotId: $scope.auction_params.lots[currentId].id
@@ -258,12 +270,15 @@ define(['./module','jquery'],function(controllers,$){
                 {
                     $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
                     $scope.$apply();
-                }
-                else {
-                    $scope.bidPrice = +$scope.current_lot.sellingPrice;
-                    $scope.$apply();
+                } else {}
 
-                }
+                //TODO: странная штука не удалять
+                // else {
+                //
+                //     $scope.bidPrice = +$scope.current_lot.sellingPrice;
+                //     $scope.$apply();
+                //
+                // }
                 //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
 
                 $scope.current_lot.lot_pictures = [];
@@ -287,8 +302,9 @@ define(['./module','jquery'],function(controllers,$){
                 }, 5000);
                 $scope.current_lot.bids = data.bids;
                 $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
-            });
 
+
+            });
 
         $scope.maxEstimate = function () {
             $scope.bidPrice = $scope.current_lot.estimateTo;
@@ -304,18 +320,18 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.bidPrice -= Number($scope.current_lot.step);
             }
 
+
         $scope.getPicById = function (id) {
             var idPic = $scope.auction_params.lot_pictures.map(function (e) {
                     return e.id;
             }).indexOf(id);
             return $scope.auction_params.lot_pictures[idPic];
         }
-
         $scope.getUserNumber = function (id) {
-            var userNum = $scope.auction_params.usersNumber.map(function (e) {
+            var userNum = $scope.auction_params.users.map(function (e) {
                     return e.id;
-                }).indexOf(id);
-            return $scope.auction_params.usersNumber[userNum];
+                }).indexOf(id) + 1;
+            return userNum;
         }
 
         //форматирование цены
@@ -330,9 +346,18 @@ define(['./module','jquery'],function(controllers,$){
             $scope.confirmLot = function () {
                 ngSocket.emit('auction/confirmLot', {
                     lotId: $scope.current_lot.id,
-                    bidPrice: $scope.bidPrice
+                    bidPrice: $scope.bidPrice,
+                    auctionId: $stateParams.auctionId
                 });
             };
+
+        // пропадание/появление кнопки сделать ставку
+        $scope.setButtonTimeout = function () {
+            $scope.btnHide = true;
+            setTimeout(function () {
+                $scope.btnHide=false;
+            }, 1500)
+        };
 
             // переход на предыдущий лот
             $scope.goToPrevLot = function(){
@@ -361,9 +386,11 @@ define(['./module','jquery'],function(controllers,$){
             // $scope.userNumber = data.bid.userId;
             // $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
             if (data.err) {
-                return alert(data.message);
+                alert(data.message);
             }
-            $scope.userNumber = $scope.getUserNumber(data.bid.userId);
+            $scope.setButtonTimeout();
+            // $scope.userNumber = data.bid.userId;
+            $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
             if (data.err == 0) {
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
@@ -394,7 +421,6 @@ define(['./module','jquery'],function(controllers,$){
             razn = +date - +curDate;
             $scope.startTime = true;
             //$scope.stopFight();
-
             $scope.timer = {};
             $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
             razn -= $scope.timer.days*1000*60*60*24;
@@ -473,17 +499,26 @@ define(['./module','jquery'],function(controllers,$){
             }
 
         ngSocket.emit('getAuction', {id: $stateParams.auctionId});
-
+        ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         ngSocket.on('auctionState', function (data) {
-            ngSocket.emit('auction/room', {
-                id: $stateParams.auctionId
-            });
-            /*ngSocket.emit('auction/getLot', {
+            ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
-            });*/
+            });
             $scope.userNumber = '';
-
+            $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
+            $scope.numberLot = data.lot.number;
+            ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         });
+
+
+        $scope.sellingStatistics = [];
+        ngSocket.on('catchSellingStatistics', function (result) {
+            result.sellingStatistics.forEach(function (i) {
+                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                $scope.sellingStatistics.unshift(i);
+            });
+        });
+
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();
             });
@@ -550,13 +585,12 @@ define(['./module','jquery'],function(controllers,$){
             var url;
             var port;
             if (window.location.protocol == "http:") {
-                proto = "ws://188.120.226.71";
+                proto = "ws://78.24.218.251";
                 port = "8282";
             } else {
                 proto = "wss://art-bid.ru";
                 port = "8443";
             }
-
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
@@ -590,52 +624,52 @@ define(['./module','jquery'],function(controllers,$){
                 });
                 return obj;
             }
-            function calcStep(price){
-                var step = 1;
-                if (price <= 5){
-                    return step = 1;
-                }
-                if (5 < price && price <= 50) {
-                    return step = 5;
-                }
-                if (50 < price && price <= 200){
-                    return step = 10;
-                }
-                if (200 < price && price <= 500){
-                    return step = 20;
-                }
-                if (500 < price && price <= 1000){
-                    return step = 50;
-                }
-                if (1000 < price && price <= 2000) {
-                    return step = 100;
-                }
-                if (2000 < price && price <= 5000){
-                    return step = 200;
-                }
-                if (5000 < price && price <= 10000){
-                    return step = 500;
-                }
-                if (10000 < price && price <= 20000){
-                    return step = 1000;
-                }
-                if (20000 < price && price <= 50000){
-                    return step = 2000;
-                }
-                if (50000 < price && price <= 100000){
-                    return step = 5000;
-                }
-                if (100000 < price && price <= 200000){
-                    return step = 10000;
-                }
-                if (200000 < price && price <= 500000){
-                    return step = 20000;
-                }
-                if (500000 < price && price <= 1000000){
-                    return step = 50000;
-                } else {
-                    step = 100000;
-                }
-                return step;
-            }
+    function calcStep(price) {
+        var step = 1;
+        if (price <= 5) {
+            return step = 1;
+        }
+        if (5 < price && price < 50) {
+            return step = 5;
+        }
+        if (50 <= price && price < 200) {
+            return step = 10;
+        }
+        if (200 < price && price < 500) {
+            return step = 20;
+        }
+        if (500 <= price && price < 1000) {
+            return step = 50;
+        }
+        if (1000 <= price && price < 2000) {
+            return step = 100;
+        }
+        if (2000 <= price && price < 5000) {
+            return step = 200;
+        }
+        if (5000 <= price && price < 10000) {
+            return step = 500;
+        }
+        if (10000 <= price && price < 20000) {
+            return step = 1000;
+        }
+        if (20000 <= price && price < 50000) {
+            return step = 2000;
+        }
+        if (50000 <= price && price < 100000) {
+            return step = 5000;
+        }
+        if (100000 <= price && price < 200000) {
+            return step = 10000;
+        }
+        if (200000 <= price && price < 500000) {
+            return step = 20000;
+        }
+        if (500000 <= price && price < 1000000) {
+            return step = 50000;
+        } else {
+            step = 100000;
+        }
+        return step;
+    }
 });

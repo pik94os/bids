@@ -31,7 +31,7 @@ module.exports = function(socket, data) {
                 if (err) return emitError(socket, err);
                 checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, function(err){
                     if (err) return emitError(socket, err);
-                Bid.create({price: data.bidPrice, lotId: lot.id, userId: user.id})
+                Bid.create({price: data.bidPrice, lotId: lot.id, userId: user.id, auctionId: data.auctionId})
                     .then(function (bid){
                         if (lot.isPlayOut) {
                             lot.sellingPrice = data.bidPrice;
@@ -46,6 +46,7 @@ module.exports = function(socket, data) {
                             socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
                                 err: 0,
                                 bid: bid,
+                                // lot: lot,
                                 userName: {
                                     id:user.id,
                                     firstName:user.firstName,
