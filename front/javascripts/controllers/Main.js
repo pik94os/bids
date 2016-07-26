@@ -346,35 +346,35 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
 
+        // Работающая со 2-го раза кнопка наверх
         // кнопка наверх начало
-        var scrollUp = document.getElementById('scrollup'); // найти элемент
-        scrollUp.style.display = 'none';
-        $scope.buttonUp = function () {
-
-            scrollUp.onmouseover = function () { // добавить прозрачность
-                scrollUp.style.opacity = 0.3;
-                scrollUp.style.filter = 'alpha(opacity=30)';
-            };
-
-            scrollUp.onmouseout = function () { //убрать прозрачность
-                scrollUp.style.opacity = 0.5;
-                scrollUp.style.filter = 'alpha(opacity=50)';
-            };
-
-            scrollUp.onclick = function () { //обработка клика
-                $('body,html').animate({scrollTop: 0}, 800);
-            };
-        };
-
-        // show button
-        window.onscroll = function () { // при скролле показывать и прятать блок
-
-            if (window.pageYOffset > 75) {
-                scrollUp.style.display = 'block';
-            } else {
-                scrollUp.style.display = 'none';
-            }
-        };
+        // var scrollUp = document.getElementById('scrollup'); // найти элемент
+        // scrollUp.style.display = 'none';
+        // $scope.buttonUp = function () {
+        //
+        //     scrollUp.onmouseover = function () { // добавить прозрачность
+        //         scrollUp.style.opacity = 0.3;
+        //         scrollUp.style.filter = 'alpha(opacity=30)';
+        //     };
+        //
+        //     scrollUp.onmouseout = function () { //убрать прозрачность
+        //         scrollUp.style.opacity = 0.5;
+        //         scrollUp.style.filter = 'alpha(opacity=50)';
+        //     };
+        //
+        //     scrollUp.onclick = function () { //обработка клика
+        //         $('body,html').animate({scrollTop: 0}, 800);
+        //     };
+        // };
+        //
+        // // show button
+        // window.onscroll = function () { // при скролле показывать и прятать блок
+        //     if (window.pageYOffset > 75) {
+        //         scrollUp.style.display = 'block';
+        //     } else {
+        //         scrollUp.style.display = 'none';
+        //     }
+        // };
         // кнопка наверх конец
 
         // удаление <p></p> из текста и удаление @ нач

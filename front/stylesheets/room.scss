@@ -124,7 +124,7 @@
   background: #e3f4fc;
   font-family: "Century Gothic";
 
-  video{
+  video {
     width: 100%;
   }
 
@@ -226,7 +226,7 @@
     padding-left: 15px;
     padding-top: 20px;
 
-    .statistics{
+    .statistics {
       height: 400px;
       overflow: auto;
       margin-top: 10px;
@@ -238,8 +238,6 @@
       }
     }
   }
-
-
 
   .room-large-book {
     text-align: center;
@@ -510,7 +508,7 @@
       overflow: hidden;
     }
 
-    .lotCl{
+    .lotCl {
       color: grey;
     }
 
@@ -543,10 +541,10 @@
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
-          //width: 67px;
-          //height: 67px;
-	  width: 80px;
-          height: 80px;
+          width: 78px;
+          height: 78px;
+          //width: 80px;
+          //height: 80px;
         }
       }
     }
@@ -562,7 +560,7 @@
       font-weight: bold;
       font-size: 8pt;
       color: #000066;
-	margin-left: 10px;
+      margin-left: 10px;
     }
 
     .page-numbers-single-red {
@@ -797,12 +795,12 @@
       white-space: nowrap;
       font-weight: bold;
       cursor: pointer;
-        &:hover {
-          background: #ccdde5;
-        }
-        &:active {
-          background: #ccdde5;
-        }
+      &:hover {
+        background: #ccdde5;
+      }
+      &:active {
+        background: #ccdde5;
+      }
     }
     .number-of-rate {
       border-width: 0 0 0 1px;
@@ -830,7 +828,7 @@
         font-weight: bold;
         font-size: 15pt;
         //color: #118a02;
-	color: #ff0000;
+        color: #ff0000;
         white-space: nowrap;
       }
     }
@@ -889,8 +887,8 @@
   .classForVideo {
     &-small {
       height: 106px;
-      //padding-top: 20px;
       width: 130px;
+      //padding-top: 20px;
       video {
         height: 106px;
         position: absolute;
@@ -903,150 +901,163 @@
     //  position: absolute;
     //  right: 180px;
     //  width: 285px;
-    //  video {
-    //    position: absolute;
+    //    video {
+    //      position: absolute;
+    //    }
     //  }
     //}
   }
-}
-//
-@media screen and (min-width: 1200px) {
-  .classForVideo {
-    &-big {
-      bottom: -18px;
-      height: 220px;
-      position: absolute;
-      right: 164px;
-      width: 285px;
-      video {
+  @media screen and (min-width: 1200px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
         position: absolute;
+        right: 164px;
+        width: 285px;
+        video {
+          position: absolute;
+        }
       }
     }
   }
-}
-@media screen and (max-width: 1200px) {
-  .classForVideo {
-    &-big {
-      bottom: -18px;
-      height: 220px;
-      position: absolute;
-      right: 180px;
-      width: 255px;
-      video {
+  @media screen and (max-width: 1200px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
         position: absolute;
+        right: 180px;
+        width: 255px;
+        video {
+          position: absolute;
+        }
       }
     }
   }
-}
-@media screen and (max-width: 992px) {
-  .classForVideo {
-    &-big {
-      bottom: -18px;
-      height: 220px;
-      position: absolute;
-      right: 123px;
-      width: 200px;
-      video {
+  @media screen and (max-width: 991px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
         position: absolute;
+        right: 123px;
+        width: 200px;
+        video {
+          position: absolute;
+        }
+      }
+      &-small {
+        width: 88px;
       }
     }
   }
-}
-@media screen and (max-width: 768px) {
-  .classForVideo {
-    &-big {
-      bottom: -18px;
-      height: 220px;
-      position: absolute;
-      right: 260px;
-      width: 300px;
-      video {
+  @media screen and (max-width: 768px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
         position: absolute;
+        right: 260px;
+        width: 300px;
+        video {
+          position: absolute;
+        }
+      }
+      &-small {
+        width: 160px;
       }
     }
   }
-}
-@media screen and (max-width: 635px) {
-  .classForVideo {
-    &-big {
-      bottom: -18px;
-      height: 220px;
-      position: absolute;
-      right: 210px;
-      width: 200px;
-      video {
+  @media screen and (max-width: 635px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
         position: absolute;
+        right: 210px;
+        width: 200px;
+        video {
+          position: absolute;
+        }
+      }
+      &-small {
+        height: 106px;
+        width: 120px;
       }
     }
   }
-}
-@media screen and (max-width: 480px) {
-  .classForVideo {
-    &-big {
-      bottom: -18px;
-      height: 220px;
-      position: absolute;
-      right: 150px;
-      width: 150px;
-      video {
+  @media screen and (max-width: 480px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
         position: absolute;
+        right: 150px;
+        width: 150px;
+        video {
+          position: absolute;
+        }
+      }
+      &-small {
+        width: 88px;
       }
     }
   }
-}
-//
-.class-Of-Lot-I {
-  background: url("/images/lot-tables/lot_tabl_press_inet_without_i.png") no-repeat !important;
-  height: 100px;
-  width: 100px;
-}
-.state-lot {
-  font-size: 20px;
-  color: red;
-  text-align: center;
-}
+  //
+  .class-Of-Lot-I {
+    background: url("/images/lot-tables/lot_tabl_press_inet_without_i.png") no-repeat !important;
+    height: 100px;
+    width: 100px;
+  }
+  .state-lot {
+    font-size: 20px;
+    color: red;
+    text-align: center;
+  }
 
-.class-blue-bid {
-  background: url("/images/lot-tables/lot_tabl_user.png") no-repeat !important;
-  height: 100px;
-  width: 100px;
-}
+  .class-blue-bid {
+    background: url("/images/lot-tables/lot_tabl_user.png") no-repeat !important;
+    height: 100px;
+    width: 100px;
+  }
 
-.class-red-bid {
-  background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat !important;
-  height: 100px;
-  width: 100px;
-}
+  .class-red-bid {
+    background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat !important;
+    height: 100px;
+    width: 100px;
+  }
 
-.class-red-bid-external {
-  height: 45px;
-}
+  .class-red-bid-external {
+    height: 45px;
+  }
 
-.class-red-bid-text {
-  color: red;
-  display: block !important;
-  font-size: 20px;
-  font-weight: bold;
-  padding-top: 15px;
-  text-align: center;
-  text-transform: uppercase;
-}
+  .class-red-bid-text {
+    color: red;
+    display: block !important;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 15px;
+    text-align: center;
+    text-transform: uppercase;
+  }
 
-.class-red-bid-text-none {
-  display: none;
-}
+  .class-red-bid-text-none {
+    display: none;
+  }
 
-.lot-user-internet {
-  @extend .lot-table;
-  background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
-  height: 100px;
-  width: 100px;
-}
+  .lot-user-internet {
+    @extend .lot-table;
+    background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
+    height: 100px;
+    width: 100px;
+  }
 
-.pull-left.ng-binding {
+  .pull-left.ng-binding {
     margin-top: -5px;
-}
+  }
 
-p.ng-binding.ng-scope {
+  p.ng-binding.ng-scope {
     margin-top: 0px;
+  }
 }
