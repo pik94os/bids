@@ -26,14 +26,14 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
         };
         ngSocket.on('auctionUserStop', function (data) {
-            $('#regUserAuctionStop').modal('show');
+            // $('#regUserAuctionStop').modal('show');
         });
 
         ngSocket.on('auctionUser', function (data) {
             if (data.err) {
                 alert(data.message)
             }
-            $('#regUserAuction').modal('show');
+            // $('#regUserAuction').modal('show');
         });
 
         if ($sessionStorage.auth) {

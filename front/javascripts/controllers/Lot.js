@@ -140,7 +140,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             calcStep();
         });
         var addPicturesPromises = [];
-        // создание нового лота вручную (верхнее не работает)
+        // создание нового лота вручную
         $scope.createNewLot = function () {
             ngSocket.emit('auction/createLot', {
                 number: $scope.newLotNumber,
@@ -166,7 +166,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 // alert('Лот успешно сохранен в базу');
                 Promise.all(addPicturesPromises).then(function () {
                     $scope.multipleLotPicUploader.uploadAll();
-
                 });
             }
 
