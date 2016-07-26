@@ -231,7 +231,12 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (lot.lot_pictures == undefined) {
                 $scope.lotImage = [];
             } else {
-                $scope.lotImage = lot.lot_pictures;
+                $scope.lotImage = [];
+                lot.lot_pictures.forEach(function (item) {
+                    if(item.fileName !== null && !$scope.lotImage.length) {
+                        $scope.lotImage.push(item.fileName);
+                    }
+                });
             }
             $scope.lotId = lot.id;
             $scope.lotIdSelect = lot.id;
