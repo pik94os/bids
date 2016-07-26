@@ -12,8 +12,8 @@ module.exports = function (socket, data) {
         return
     }
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log(data);
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log(data);
 
     let _sellingStatisticsData = {
         userId: +data.userId,

@@ -41,6 +41,51 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lot_number = data.lot.number;
         });
 
+        //
+        $scope.functionHell2 = function () {
+            var mas = [{"id":5001,"isPlayOut":false,"isSold":true,"titlePicId":1,"number":1},{"id":5002,"isPlayOut":true,"isSold":false,"titlePicId":2,"number":2},{"id":5003,"isPlayOut":false,"isSold":false,"titlePicId":3,"number":3},{"id":5004,"isPlayOut":false,"isSold":false,"titlePicId":4,"number":4},{"id":5005,"isPlayOut":false,"isSold":false,"titlePicId":5,"number":5},{"id":5006,"isPlayOut":false,"isSold":false,"titlePicId":7,"number":6},{"id":5007,"isPlayOut":false,"isSold":false,"titlePicId":8,"number":7},{"id":5008,"isPlayOut":false,"isSold":false,"titlePicId":9,"number":8},{"id":5009,"isPlayOut":false,"isSold":false,"titlePicId":10,"number":9}];
+
+            var mas1=[];
+            var mas2=[];
+
+            for (var key in mas) {
+                mas2[key] = mas[key];
+            }
+
+            mas.forEach(function(item) {
+                if ( item.number < 5 ) {
+                    mas1.push(item);
+                }
+            });
+
+            mas.forEach(function(item) {
+                if ( item.number < 5 ) {
+                    mas2.shift();
+                }
+            });
+
+            function merge_arrays(arr) {
+                var merged_array = arr;
+                for (var i = 1; i < arguments.length; i++) {
+                    merged_array= merged_array.concat(arguments[i]);
+                }
+                return merged_array;
+            }
+
+            var show_array = merge_arrays(mas2, mas1);
+
+            show_array.forEach(function(item) {
+                if ( item.number ) {
+                    alert (item.number);
+                }
+            });
+        };
+        //
+
+        ngSocket.on('lotSelected', function (data) {
+            $scope.lot_number = data.lot.number;
+        });
+
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         
         $scope.changeClassVideoWindow = function () {
@@ -132,6 +177,7 @@ define(['./module','jquery'],function(controllers,$){
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
+                console.log('hjhgjhkghjghj');
                 $scope.auction_params.lot_pictures = [];
                 if (data.lotPictures != undefined && data.lotPictures.length){
                     data.lotPictures.forEach(function (pic) {
@@ -260,6 +306,46 @@ define(['./module','jquery'],function(controllers,$){
                 //         $scope.redBid = i;
                 //     }
                 // });
+
+                $scope.functionHell = function () {
+                    var mas = $scope.auction_params.lots;
+                    var n = $scope.lot_number;
+                    var mas1=[];
+                    var mas2=[];
+
+                    for (var key in mas) {
+                        mas2[key] = mas[key];
+                    }
+
+                    mas.forEach(function(item) {
+                        if ( item.number < n ) {
+                            mas1.push(item);
+                        }
+                    });
+
+                    mas.forEach(function(item) {
+                        if ( item.number < n ) {
+                            mas2.shift();
+                        }
+                    });
+
+                    function merge_arrays(arr) {
+                        var merged_array = arr;
+                        for (var i = 1; i < arguments.length; i++) {
+                            merged_array= merged_array.concat(arguments[i]);
+                        }
+                        return merged_array;
+                    }
+                    var show_array = merge_arrays(mas2, mas1);
+                    console.log(mas.number);
+                    return $scope.auction_params.lots = show_array;
+
+                    // show_array.forEach(function(item) {
+                    //     if ( item.number ) {
+                    //         alert (item.number);
+                    //     }
+                    // });
+                };
 
             });
 
@@ -508,6 +594,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
             $scope.numberLot = data.lot.number;
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
+
         });
 
 

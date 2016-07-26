@@ -77,13 +77,11 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         // пофиксить, дублирует статистику почему то!!!!
-        $scope.sellingStatisticsHouse = [];
-
         if ($stateParams.tab ==='historyOfAuctions') {
-
             ngSocket.on('catchSellingStatistics', function (result) {
+                $scope.sellingStatisticsHouse = [];
                 result.sellingStatistics.forEach(function (r) {
-                    console.log(r)
+                    // console.log(r)
                     $scope.sellingStatisticsHouse.push(r);
                 });
             });
