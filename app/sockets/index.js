@@ -50,6 +50,7 @@ module.exports = function(io,passportSocketIo) {
             {event:'auction/auctionStop', access:0, comment: "завершение аукциона"},
             {event:'auction/createSellingStatistics', access:0, comment: "добавление факта продажи в таблицу статистики продаж"},
             {event:'auction/getSellingStatistics', access:0, comment: "получение статистики продаж"},
+            // {event:'auction/getAuctionUsers', access:0, comment: "получение списка аукционов на которые зарегистрирован юзер"},
             // картинки
             {event:'auction/getPictureList', access:0, comment: "получение списка картинок"},
             {event:'userAuction', access:0, comment: "регистрация пользователя для аукциона"},

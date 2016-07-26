@@ -1,6 +1,11 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
     controllers.controller('FrontPage',['$scope','$http', '$rootScope', '$state', 'ngSocket', function($scope,$http,$rootScope,$state, ngSocket){
+
+        $scope.auctionIn = function (data) {
+            $rootScope.selectedAuctionInMainId = data;
+        };
+
         ngSocket.emit('auction/list',{'public':true});
         ngSocket.on('auctionList',function (data) {
             if(data.err){
