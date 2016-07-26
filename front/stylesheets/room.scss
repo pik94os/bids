@@ -910,6 +910,12 @@
   }
 }
 //
+.classForVideo-big {
+  background: orange;
+}
+.classForVideo-small {
+  background: orange;
+}
 @media screen and (min-width: 1200px) {
   .classForVideo {
     &-big {
