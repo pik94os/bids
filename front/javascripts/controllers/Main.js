@@ -345,7 +345,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
         };
 
-        
+
         // Работающая со 2-го раза кнопка наверх
         // кнопка наверх начало
         // var scrollUp = document.getElementById('scrollup'); // найти элемент
