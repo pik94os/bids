@@ -92,8 +92,34 @@
 					<!--<div class="tw"><a href="/" title="мы в Tweeter"></a></div>-->
 					<div class="fb"><a href="https://www.facebook.com/antiquebookclub" title="мы в Facebook"></a></div>
 				</div>
+				<!--Костыль с кнопкой наверх-->
+				<script>
+					window.onload = function() { // после загрузки страницы
+						var scrollUp = document.getElementById('scrollup'); // найти элемент
+						scrollUp.onmouseover = function() { // добавить прозрачность
+							scrollUp.style.opacity=0.3;
+							scrollUp.style.filter  = 'alpha(opacity=30)';
+						};
+						scrollUp.onmouseout = function() { //убрать прозрачность
+							scrollUp.style.opacity = 0.5;
+							scrollUp.style.filter  = 'alpha(opacity=50)';
+						};
+						scrollUp.onclick = function() { //обработка клика
+//							window.scrollTo(0,0);
+							$('body,html').animate({scrollTop: 0}, 800);
+						};
+						// show button
+						window.onscroll = function () { // при скролле показывать и прятать блок
+							 if (window.pageYOffset > 75) {
+								 scrollUp.style.display = 'block';
+							 } else {
+								 scrollUp.style.display = 'none';
+							 }
+						 };
+					};
+				</script>
 				<div ng-click="buttonUp()" id="scrollup">
-					<!--<img alt="Прокрутить вверх" src="/images/bottom-on-top.png">-->
+					<img alt="Прокрутить вверх" src="/images/bottom-on-top.png">
 				</div>
 			</div>
 		</footer>
