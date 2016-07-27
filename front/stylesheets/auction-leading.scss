@@ -74,7 +74,9 @@ font-family: "Century Gothic";
           }
           .div-text {
             color: black;
-            font-size: 20px;
+            font-size: 18px;
+            max-height: 220px;
+            overflow: hidden;
           }
         }
         &-bottom {
@@ -82,16 +84,19 @@ font-family: "Century Gothic";
         }
       }
       &-right {
-        background: #f0c7c7;
         //height: 112px;
+        //padding-top: 24px;
+        //height: 85px;
+        background: #f0c7c7;
+        height: 74px;
+        padding-top: 8px;
         text-align: center;
-        
-        padding-top: 24px;
-        height: 85px;
-
         &-top {
           font-size: 14px;
           text-transform: uppercase;
+          .next-bid {
+            font-size: 30px;
+          }
         }
         &-bottom {
           color: #b90000;
@@ -117,7 +122,7 @@ font-family: "Century Gothic";
           padding-top: 20px;
         }
         &-bottom {
-          padding-top: 228px;
+          //padding-top: 228px;
         }
       }
       &-center {
