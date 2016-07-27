@@ -74,9 +74,7 @@ font-family: "Century Gothic";
           }
           .div-text {
             color: black;
-            font-size: 18px;
-            max-height: 220px;
-            overflow: hidden;
+            font-size: 20px;
           }
         }
         &-bottom {
@@ -84,19 +82,16 @@ font-family: "Century Gothic";
         }
       }
       &-right {
-        //height: 112px;
-        //padding-top: 24px;
-        //height: 85px;
         background: #f0c7c7;
-        height: 74px;
-        padding-top: 8px;
+        //height: 112px;
         text-align: center;
+        
+        padding-top: 24px;
+        height: 85px;
+
         &-top {
           font-size: 14px;
           text-transform: uppercase;
-          .next-bid {
-            font-size: 30px;
-          }
         }
         &-bottom {
           color: #b90000;
@@ -122,7 +117,7 @@ font-family: "Century Gothic";
           padding-top: 20px;
         }
         &-bottom {
-          //padding-top: 228px;
+          padding-top: 228px;
         }
       }
       &-center {
@@ -327,21 +322,6 @@ font-family: "Century Gothic";
     text-transform: uppercase;
     margin-top: 10px;
     background: red;
-    width: 50%;
-    float: left;
-    color: #fcf8e3;
-    height: 60px;
-    padding-top: 7px;
-    font-size: 32px;
-  }
-  .auction-button-remove-inactive {
-    cursor: pointer;
-    margin-bottom: 10px;
-    padding: 3px 0;
-    text-align: center;
-    text-transform: uppercase;
-    margin-top: 10px;
-    background: grey;
     width: 50%;
     float: left;
     color: #fcf8e3;

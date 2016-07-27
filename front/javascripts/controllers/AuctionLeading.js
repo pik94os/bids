@@ -93,22 +93,22 @@ define(['./module', 'jquery'], function (controllers, $) {
                         break;
                     //Если возникли ошибки
                         // убрал обработку ошибок
-                    // case StreamStatus.Failed:
-                    //     setTimeout(function () {
-                    //         $scope.videoName = 'video:' + Date.now();
-                    //         //опубликовать поток с вебки ведущего
-                    //         $scope.f.publishStream({
-                    //             name: $scope.videoName,
-                    //             // record: false
-                    //             //(видеовидео)уменьшаем битрейт
-                    //             record: record, bitrate:300
-                    //         });
-                    //         ngSocket.emit('video/newVideo', {
-                    //             auctionId: +$stateParams.auctionId,
-                    //             name: $scope.videoName
-                    //         });
-                    //     }, 1000 * (ErrCounter++));
-                    //     break;
+                    case StreamStatus.Failed:
+                        setTimeout(function () {
+                            $scope.videoName = 'video:' + Date.now();
+                            //опубликовать поток с вебки ведущего
+                            $scope.f.publishStream({
+                                name: $scope.videoName,
+                                // record: false
+                                //(видеовидео)уменьшаем битрейт
+                                record: record, bitrate:300
+                            });
+                            ngSocket.emit('video/newVideo', {
+                                auctionId: +$stateParams.auctionId,
+                                name: $scope.videoName
+                            });
+                        }, 1000 * (ErrCounter++));
+                        break;
                 }
             });
             var configuration = new Configuration();
@@ -122,13 +122,12 @@ define(['./module', 'jquery'], function (controllers, $) {
             var url;
             var port;
             if (window.location.protocol == "http:") {
-                proto = "ws://188.120.226.71";
+                proto = "ws://78.24.218.251";
                 port = "8282";
             } else {
                 proto = "wss://art-bid.ru";
                 port = "8443";
             }
-
             url = proto + ":" + port;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
@@ -150,7 +149,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                         isCl: false,
                         auctionId: $stateParams.auctionId
                     });
-                }, 1000);
+                }, 2000);
 
             }
         };
@@ -232,7 +231,12 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (lot.lot_pictures == undefined) {
                 $scope.lotImage = [];
             } else {
-                $scope.lotImage = lot.lot_pictures;
+                $scope.lotImage = [];
+                lot.lot_pictures.forEach(function (item) {
+                    if(item.fileName !== null && !$scope.lotImage.length) {
+                        $scope.lotImage.push(item.fileName);
+                    }
+                });
             }
             $scope.lotId = lot.id;
             $scope.lotIdSelect = lot.id;
@@ -256,7 +260,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 }).indexOf(id) + 1;
             return userNum;
         };
-
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
             $scope.soldLot = false;
@@ -304,7 +307,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             $scope.price = data.bid.price;
             $scope.priceNext = $scope.price + calcStep(data.bid.price);
-            $scope.userNumber = data.bid.userId;
+            $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
             $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
             $scope.userfirstName = data.userName.firstName;
             $scope.userlastName = data.userName.lastName;
@@ -344,43 +347,43 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (price <= 5) {
                 return step = 1;
             }
-            if (5 < price && price <= 50) {
+            if (5 < price && price < 50) {
                 return step = 5;
             }
-            if (50 < price && price <= 200) {
+            if (50 <= price && price < 200) {
                 return step = 10;
             }
-            if (200 < price && price <= 500) {
+            if (200 < price && price < 500) {
                 return step = 20;
             }
-            if (500 < price && price <= 1000) {
+            if (500 <= price && price < 1000) {
                 return step = 50;
             }
-            if (1000 < price && price <= 2000) {
+            if (1000 <= price && price < 2000) {
                 return step = 100;
             }
-            if (2000 < price && price <= 5000) {
+            if (2000 <= price && price < 5000) {
                 return step = 200;
             }
-            if (5000 < price && price <= 10000) {
+            if (5000 <= price && price < 10000) {
                 return step = 500;
             }
-            if (10000 < price && price <= 20000) {
+            if (10000 <= price && price < 20000) {
                 return step = 1000;
             }
-            if (20000 < price && price <= 50000) {
+            if (20000 <= price && price < 50000) {
                 return step = 2000;
             }
-            if (50000 < price && price <= 100000) {
+            if (50000 <= price && price < 100000) {
                 return step = 5000;
             }
-            if (100000 < price && price <= 200000) {
+            if (100000 <= price && price < 200000) {
                 return step = 10000;
             }
-            if (200000 < price && price <= 500000) {
+            if (200000 <= price && price < 500000) {
                 return step = 20000;
             }
-            if (500000 < price && price <= 1000000) {
+            if (500000 <= price && price < 1000000) {
                 return step = 50000;
             } else {
                 step = 100000;
