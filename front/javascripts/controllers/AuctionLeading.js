@@ -40,6 +40,15 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.chat.message = '';
             }
         };
+
+
+
+        ngSocket.on('lotSelected', function (data) {
+            $scope.estimateFrom = data.lot.estimateFrom;
+            $scope.estimateTo = data.lot.estimateTo;
+        });
+
+
         $scope.chat.addMessage = function () {
             if ($scope.chat.message) {
                 ngSocket.emit('auction/pasteChatMessage', {
@@ -187,6 +196,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (data.err) {
                 alert(data.message);
             }
+            console.log("gg");
             $scope.startAuction = true;
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         });
@@ -247,6 +257,7 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);
+            ngSocket.emit('auction/getLot', {lotId: +$scope.lotId});
         });
 
         ngSocket.on('room', function (auction) {
@@ -270,8 +281,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 auctionId: $stateParams.auctionId,
                 lastBid: $scope.lastBid
             });
-
-
+            ngSocket.emit('auction/getLot', {lotId: +$scope.lotId});
 
             // запись статистики проданного лота в таблицу статистики
 
@@ -338,6 +348,8 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.soldLot = true;
                 $scope.$apply();
             }, 1000);
+            ngSocket.emit('auction/getLot', {lotId: +$scope.lotId});
+
         });
 
 

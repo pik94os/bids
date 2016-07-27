@@ -25,6 +25,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lot_number = data.lot.number;
         });
 
+
         ngSocket.on('stopAuction', function () {
             $scope.countdown =  3;
         });
@@ -520,6 +521,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.timer.sec = Math.floor(razn  / 1000 );// вычисляем секунды
             $scope.$apply();
         });
+
         $scope.timer = {};
         $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
         razn -= $scope.timer.days*1000*60*60*24;
