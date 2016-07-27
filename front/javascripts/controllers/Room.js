@@ -251,6 +251,9 @@ define(['./module','jquery'],function(controllers,$){
                         }
                         if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
                             $scope.stopFight();
+                            ngSocket.on('auctionRun', function () {
+                                $scope.countdown =  2;
+                            });
                         }
                     }, 1000);
                 } else {
