@@ -42,7 +42,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
 
-
         ngSocket.on('lotSelected', function (data) {
             $scope.estimateFrom = data.lot.estimateFrom;
             $scope.estimateTo = data.lot.estimateTo;
@@ -101,7 +100,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                         ngSocket.emit('callTeacher', {auctionId: $stateParams.auctionId, name: event.name});
                         break;
                     //Если возникли ошибки
-                        // убрал обработку ошибок
+                    // убрал обработку ошибок
                     case StreamStatus.Failed:
                         setTimeout(function () {
                             $scope.videoName = 'video:' + Date.now();
@@ -110,7 +109,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                                 name: $scope.videoName,
                                 // record: false
                                 //(видеовидео)уменьшаем битрейт
-                                record: record, bitrate:300
+                                record: record, bitrate: 300
                             });
                             ngSocket.emit('video/newVideo', {
                                 auctionId: +$stateParams.auctionId,
@@ -125,8 +124,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             configuration.localMediaElementId = 'localVideo';
             configuration.elementIdForSWF = "flashVideoDiv";
             // (видеовидео) уменьшаем размер картинки для уменьшения потока
-            configuration.videoWidth=176;
-            configuration.videoHeight=144;
+            configuration.videoWidth = 176;
+            configuration.videoHeight = 144;
             var proto;
             var url;
             var port;
@@ -224,12 +223,12 @@ define(['./module', 'jquery'], function (controllers, $) {
                     isPlayOut: true
                 });
             }
-            if(data.data.start === null) {
+            if (data.data.start === null) {
                 $scope.fuckStop = true
             } else if (data.data.start) {
                 $scope.fuckStop = false
             }
-            
+
 
         });
         function setLotInfo(lot) {
@@ -243,7 +242,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             } else {
                 $scope.lotImage = [];
                 lot.lot_pictures.forEach(function (item) {
-                    if(item.fileName !== null && !$scope.lotImage.length) {
+                    if (item.fileName !== null && !$scope.lotImage.length) {
                         $scope.lotImage.push(item.fileName);
                     }
                 });
@@ -317,7 +316,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             $scope.price = data.bid.price;
             $scope.priceNext = $scope.price + calcStep(data.bid.price);
-            $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
+            $scope.userNumber = $scope.getUserNumber(data.bid.userId) + 1;
             $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
             $scope.userfirstName = data.userName.firstName;
             $scope.userlastName = data.userName.lastName;
@@ -356,16 +355,16 @@ define(['./module', 'jquery'], function (controllers, $) {
         //вычисление шага для цены продажи (не доделано ??)
         function calcStep(price) {
             var step = 1;
-            if (price <= 5) {
+            if (price < 5) {
                 return step = 1;
             }
-            if (5 < price && price < 50) {
+            if (5 <= price && price < 50) {
                 return step = 5;
             }
             if (50 <= price && price < 200) {
                 return step = 10;
             }
-            if (200 < price && price < 500) {
+            if (200 <= price && price < 500) {
                 return step = 20;
             }
             if (500 <= price && price < 1000) {
