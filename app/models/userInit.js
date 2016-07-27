@@ -50,8 +50,9 @@ class Initiator {
         this.Right = connection.define('right', RightMeta.attributes);
         this.Role = connection.define('role', RoleMeta.attributes, RoleMeta.options);
         this.RoleRight = connection.define('role_right', {});
-        this.AuctionUser = connection.define('auction_user', {});
-        // this.AuctionUser = connection.define('auction_user', AuctionUserMeta.attributes);
+        //TODO: Саня за чем ты за коментировал????
+        //this.AuctionUser = connection.define('auction_user', {});
+        this.AuctionUser = connection.define('auction_user', AuctionUserMeta.attributes);
         this.User = connection.define('users', UserMeta.attributes, UserMeta.options);
         this.AuctionHouse = connection.define('auction_houses', AuctionHouseMeta.attributes);
         this.Auction = connection.define('auction', AuctionMeta.attributes);

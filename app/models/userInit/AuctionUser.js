@@ -9,4 +9,3 @@ var attributes = {
 };
 
 module.exports.attributes = attributes;
-// module.exports.options = options;
