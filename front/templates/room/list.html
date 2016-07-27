@@ -387,7 +387,7 @@
 
                         <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice"
                                                                   placeholder="Сделайте шаг / впишите свой"
-                                                                  value="{{bidPrice}}" ng-change="formatBid()">
+                                                                  value="{{bidPrice | toLocaleString}}" ng-change="formatBid()">
                             <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                             <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
                         </div>
