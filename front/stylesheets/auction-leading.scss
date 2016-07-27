@@ -1,4 +1,7 @@
 .pageAuctionLeading {
+
+
+
   .auction-leading-statistics{
     //margin-top: 10px;
     //font-size: 12pt;
@@ -89,7 +92,19 @@ font-family: "Century Gothic";
         padding-top: 24px;
         height: 85px;
 
+        &-uppertop {
+          color: #b90000;
+          font: {
+            size: 30px;
+            weight: bold;
+          }
+        }
+
         &-top {
+          font-size: 14px;
+          text-transform: uppercase;
+        }
+        &-center {
           font-size: 14px;
           text-transform: uppercase;
         }
