@@ -19,9 +19,6 @@
                 </div>
             </div>
 
-            {{estimateTo}}
-
-
             <div class="pageAuctionLeading-right col-xs-9">
                 <div>
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
@@ -40,12 +37,10 @@
                         </div>
                     </div>
                     <div class="pageAuctionLeading-right-top-right col-md-4">
-                        <div class="pageAuctionLeading-right-top-right-uppertop">
-                            {{(estimateFrom).toLocaleString()}}-{{(estimateTo).toLocaleString()}}
-                        </div>
                         <div class="pageAuctionLeading-right-top-right-top">
-
-
+                            <div class="pageAuctionLeading-right-top-right-uppertop">
+                                {{(estimateFrom).toLocaleString()}}-{{(estimateTo).toLocaleString()}}
+                            </div>
                             Следующий бид!
                             <div>
                                 {{(priceNext).toLocaleString()}} руб
@@ -53,7 +48,7 @@
                             <div style="margin-top:30px">ВЕРНУТЬСЯ К СНЯТОМУ ЛОТУ</div>
                             <input type="text"
                                    ng-model="numberLot"
-                                   ng-keyup="sendFilter($event)"
+                                   ng-keyup="sendFilter($event, numberLot)"
                                    class="form-control">
                         </div>
                         <div class="pageAuctionLeading-right-top-right-bottom">

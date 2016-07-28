@@ -64,7 +64,9 @@ module.exports = function(io,passportSocketIo) {
             {event:'auction/pasteChatMessage', access:0, comment: "добавление сообщений в чат"},
             {event:'auction/getChatMessages', access:0, comment: "получение сообщений из чата определенного аукциона"},
             //video
-            {event:'video/newVideo', access:0, comment: "обновление информации о трансляции"}
+            {event:'video/newVideo', access:0, comment: "обновление информации о трансляции"},
+            //email
+            {event:'mailer', access:0, comment: "отправка мейла"}
         ];
 
         //цикл проходит по всем элементам массива возвращая нужное событие

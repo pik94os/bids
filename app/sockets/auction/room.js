@@ -24,7 +24,7 @@ module.exports = function(socket, data) {
         where,
         include:[{
             model: Lot,
-            attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number"]
+            attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number", "isCl"]
         }, {
              model: User,
                 attributes: attributes
