@@ -56,7 +56,6 @@ exports.login = function (req, res, next) {
 // };
 
 module.exports.register = function (req, res, next) {
-
     User.create({
         username: req.body.email.toUpperCase(),
         firstName: req.body.firstName.toUpperCase(),
@@ -64,7 +63,7 @@ module.exports.register = function (req, res, next) {
         patronymic: req.body.patronymic.toUpperCase(),
         email: req.body.email.toUpperCase(),
         phone: req.body.phone,
-        //confirmationCode: req.body.confirmationCode,
+        confirmationCode: req.body.confirmationCode,
         password: req.body.password,
         acceptTerms: req.body.acceptTerms,
         receiveMessages: req.body.receiveMessages,

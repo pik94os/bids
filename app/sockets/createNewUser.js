@@ -37,7 +37,8 @@ module.exports = function (socket, data) {
         numberOfClasses: data.numberOfClasses,
         password: data.password,
         isArchive: false,
-        roleId: data.roleId
+        roleId: data.roleId,
+        confirmationCode: data.confirmationCode
     };
     if (role === 1) {
         _userData.roleId = 2;

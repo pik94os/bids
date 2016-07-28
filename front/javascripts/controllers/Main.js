@@ -62,7 +62,18 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
         $scope.regUserData = {};
         $scope.loginUserData = {};
+
         $scope.createUser = function (role) {
+            console.log('>>>>>>>>>>>>>>>>>>>');
+            // console.log(result);
+            // $scope.confCode = 1234;
+
+            // console.log('>>>>>>>>>>>>>>>>>>>');
+            // console.log(confCode);
+            ngSocket.emit('mailer', {
+                receiver: $scope.regUserData.email,
+                confCode: 12345
+            });
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
             if (role == 3) roleOfNewUser = 3;
@@ -72,6 +83,9 @@ define(['./module', 'jquery'], function (controllers, $) {
                 && $scope.regUserData.email
                 && $scope.regUserData.phone
             ) {
+                // var confCode = function () {
+                //     Math.random() * (999 - 1) + 1;
+                // };
                 $http.post('/api/users/reg', {
                     username: $scope.regUserData.username,
                     firstName: $scope.regUserData.firstName,
@@ -80,7 +94,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     email: $scope.regUserData.email,
                     phone: $scope.regUserData.phone,
                     // confirmationCode: $scope.regUserData.confirmationCode,
-                    confirmationCode: null,
+                    confirmationCode: 123,
                     password: $scope.regUserData.password,
                     acceptTerms: true,
                     receiveMessages: $scope.regUserData.receiveMessages,

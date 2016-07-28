@@ -5,6 +5,8 @@ define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
     controllers.controller('Lk', ['$scope', '$sessionStorage', '$state', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $sessionStorage, $state, $rootScope, $stateParams, ngSocket) {
 
+        // ngSocket.emit('mailer', {});
+
         $scope.tab = $stateParams.tab;
 
         $scope.tempUserInfo = JSON.parse(JSON.stringify($scope.currentUserInfo));
