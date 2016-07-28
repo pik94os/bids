@@ -143,9 +143,12 @@
                 <div>
                     <div class="room-progress-bar-container">
                         <div ng-class="['progress-bar-line', 'pull-left']"
-                             ng-style="auction_params.progress_bar_class"></div>
+                             ng-style="auction_params.progress_bar_class"
+                             width="{{auction_params.lots_isPlayOutedPercent}}%">
+                        </div>
                         <div class="room-text-in-bar-procents pull-right">
-                            <!--{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}-->
+                            <!--{{auction_params.lots_isPlayOutedPercent}}% ИЗ
+                            {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}-->
                             {{lot_number}} ИЗ {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}
                         </div>
                         <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
@@ -236,7 +239,7 @@
                 <!--{{auction_params.lots[$index].number}}-->
                 <!--<br>-&#45;&#45;<br>-->
                 <!--<div ng-click="movePreviewPicturesToStartGallery()">movePreviewPicturesToStartGallery</div>-->
-                <!--<div ng-click="functionHell()">functionHell</div>-->
+                <div ng-click="functionHell()">functionHell</div>
                 <!--правая колонка-->
                 <div class="right-column col-sm-6">
                     <div class="row">
