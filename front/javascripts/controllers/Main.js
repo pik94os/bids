@@ -70,9 +70,11 @@ define(['./module', 'jquery'], function (controllers, $) {
 
             // console.log('>>>>>>>>>>>>>>>>>>>');
             // console.log(confCode);
+
+            var confCode = Math.ceil(1 + Math.random() * (999999 - 1));
             ngSocket.emit('mailer', {
                 receiver: $scope.regUserData.email,
-                confCode: 12345
+                confCode: confCode
             });
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
@@ -94,7 +96,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     email: $scope.regUserData.email,
                     phone: $scope.regUserData.phone,
                     // confirmationCode: $scope.regUserData.confirmationCode,
-                    confirmationCode: 123,
+                    confirmationCode: confCode,
                     password: $scope.regUserData.password,
                     acceptTerms: true,
                     receiveMessages: $scope.regUserData.receiveMessages,
