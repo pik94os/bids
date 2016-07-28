@@ -594,7 +594,9 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('auctionState', function (data) {
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
+
             });
+            console.log(+data.lotId);
             $scope.userNumber = '';
             $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
             $scope.numberLot = data.lot.number;

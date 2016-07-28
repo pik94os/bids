@@ -142,14 +142,16 @@ define(['./module', 'jquery'], function (controllers, $) {
             f.connect({width: 0, height: 0, urlServer: url, appKey: 'defaultApp'});
         };
 
-        $scope.sendFilter = function (e) {
+        //TODO: по возможности исправить связывание с моделью
+        $scope.sendFilter = function (e, numberLot) {
             if (e.keyCode === 13) {
                 ngSocket.emit('auction/getLotList', {
                     auctionId: $stateParams.auctionId,
-                    numberLot: +$scope.numberLot,
+                    numberLot: numberLot,
                     lotId: $scope.lotId
                 });
-                $scope.numberLot = "";
+                console.log($stateParams.auctionId, numberLot);
+                //$scope.numberLot = "";
                 setTimeout(function () {
                     ngSocket.emit('auction/updateLot', {
                         lotId: +$scope.lotId,
@@ -352,7 +354,11 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
 
-        //вычисление шага для цены продажи (не доделано ??)
+        /**
+         * Рассчитывает шаг изменения цены
+         * @param price - текущая цена
+         * @returns step - шаг изменения цены
+         */
         function calcStep(price) {
             var step = 1;
             if (price < 5) {

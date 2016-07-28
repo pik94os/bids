@@ -8,6 +8,7 @@ var LotPicture = require('../../models/').LotPicture;
 var Sequelize = require('sequelize');
 
 module.exports = function(socket, data) {
+    console.log(data.auctionId);
     if (!data.auctionId) {
         socket.emit('lotList',
             {err: 1, message: 'Undefined auction identifier'}
