@@ -143,9 +143,12 @@
                 <div>
                     <div class="room-progress-bar-container">
                         <div ng-class="['progress-bar-line', 'pull-left']"
-                             ng-style="auction_params.progress_bar_class"></div>
+                             ng-style="auction_params.progress_bar_class"
+                             width="{{auction_params.lots_isPlayOutedPercent}}%">
+                        </div>
                         <div class="room-text-in-bar-procents pull-right">
-                            <!--{{auction_params.lots_isPlayOutedPercent}}% ИЗ {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}-->
+                            <!--{{auction_params.lots_isPlayOutedPercent}}% ИЗ
+                            {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}-->
                             {{lot_number}} ИЗ {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}
                         </div>
                         <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
@@ -236,7 +239,7 @@
                 <!--{{auction_params.lots[$index].number}}-->
                 <!--<br>-&#45;&#45;<br>-->
                 <!--<div ng-click="movePreviewPicturesToStartGallery()">movePreviewPicturesToStartGallery</div>-->
-                <!--<div ng-click="functionHell()">functionHell</div>-->
+                <div ng-click="functionHell()">functionHell</div>
                 <!--правая колонка-->
                 <div class="right-column col-sm-6">
                     <div class="row">
@@ -252,13 +255,13 @@
                             <div class="gallery-carousel">
                                 <a emit-last-repeater-element
                                    class="pull-left width100"
-                                   ng-repeat="r in auction_params.lots"
+                                   ng-repeat="r in auction_params.lots | orderBy: '+isCl+isSold' "
                                    ui-sref="lot({lotId:r.id})"
                                    target="_blank">
                                     <div class="page-numbers-single"
                                          ng-class="{'page-numbers-single-red':
                                          lot_number==auction_params.lots[$index].number}">
-                                         {{auction_params.lots[$index].number}}
+                                         {{r.number}}
                                     </div>
 
                                     <div class="room-small-photo">

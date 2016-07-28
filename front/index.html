@@ -121,6 +121,24 @@
 				<div ng-click="buttonUp()" id="scrollup">
 					<img alt="Прокрутить вверх" src="/images/bottom-on-top.png">
 				</div>
+
+				<!--? тест - серверное время ?-->
+				<div>
+					<script type="text/javascript">
+						//var server_date = new Date(1348662336329);
+//						var server_date = new Date(<?php print time(); ?> * 1000);
+//						var local_date = new Date();
+//						var delta = server_date.getTime() - local_date.getTime();
+//						function clock() {
+//							var date = new Date();
+//							date.setTime( date.getTime() + delta );
+//							document.getElementById('clock').value = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+//						}
+//						setInterval(clock, 1000);
+					</script>
+					<!--<input id="clock" />-->
+				</div>
+
 			</div>
 		</footer>
 	</body>

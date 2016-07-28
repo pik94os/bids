@@ -113,6 +113,8 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.confirm = data
             }
 
+
+            console.log(data);
             $scope.sellingPrice = data.bid.price;
             $scope.bidPrice = $scope.sellingPrice + calcStep($scope.sellingPrice);
         });
@@ -127,12 +129,13 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.isPlayOut = $scope.lot.isPlayOut;
             $scope.open = ($scope.lot.isSold || $scope.lot.isCl) ? 2 : 1;
             $scope.bidPrice = 0;
-            if ($scope.bidPrice < data.lot.sellingPrice) {
-                $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
+
+            if (data.lot.sellingPrice == data.lot.estimateFrom) {
+                $scope.bidPrice = +data.lot.sellingPrice;
                 $scope.$apply();
             }
             else {
-                $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
+                $scope.bidPrice = +data.lot.sellingPrice + calcStep($scope.sellingPrice);
                 $scope.$apply();
 
             }
@@ -333,8 +336,9 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.bigPhoto = ph;
         };
         $scope.incrementBid = function () {
-            $scope.bidPrice += Number($scope.step);
-            if ($scope.bidPrice < (+$scope.sellingPrice + $scope.step)) {
+            var step = calcStep($scope.bidPrice);
+            $scope.bidPrice += Number(step);
+            if ($scope.bidPrice < (+$scope.sellingPrice + step)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;
@@ -342,10 +346,11 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         $scope.decrementBid = function () {
+            var step = calcStep($scope.bidPrice);
             if ($scope.bidPrice > 0)
-                $scope.bidPrice -= Number($scope.step);
+                $scope.bidPrice -= Number(step);
 
-            if ($scope.bidPrice < (+$scope.sellingPrice + $scope.step)) {
+            if ($scope.bidPrice < (+$scope.sellingPrice + step)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;
@@ -354,62 +359,63 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         $scope.formatBid = function () {
             var bid = $scope.bidPrice;
+            var step = calcStep($scope.bidPrice);
             bid = bid.replace(/[A-z, ]/g, '');
-            $scope.bidPrice = Number(bid);
-            if ($scope.bidPrice < (+$scope.lot.estimateFrom + $scope.step)) {
+            $scope.bidPrice = bid;
+            if ($scope.bidPrice < (+$scope.lot.estimateFrom + step)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;
             }
+
         };
 
         function calcStep(price) {
             var step = 1;
-            if (price <= 5) {
+            if (price < 5) {
                 return step = 1;
             }
-            if (5 < price && price <= 50) {
+            if (5 <= price && price < 50) {
                 return step = 5;
             }
-            if (50 < price && price <= 200) {
+            if (50 <= price && price < 200) {
                 return step = 10;
             }
-            if (200 < price && price <= 500) {
+            if (200 <= price && price < 500) {
                 return step = 20;
             }
-            if (500 < price && price <= 1000) {
+            if (500 <= price && price < 1000) {
                 return step = 50;
             }
-            if (1000 < price && price <= 2000) {
+            if (1000 <= price && price < 2000) {
                 return step = 100;
             }
-            if (2000 < price && price <= 5000) {
+            if (2000 <= price && price < 5000) {
                 return step = 200;
             }
-            if (5000 < price && price <= 10000) {
+            if (5000 <= price && price < 10000) {
                 return step = 500;
             }
-            if (10000 < price && price <= 20000) {
+            if (10000 <= price && price < 20000) {
                 return step = 1000;
             }
-            if (20000 < price && price <= 50000) {
+            if (20000 <= price && price < 50000) {
                 return step = 2000;
             }
-            if (50000 < price && price <= 100000) {
+            if (50000 <= price && price < 100000) {
                 return step = 5000;
             }
-            if (100000 < price && price <= 200000) {
+            if (100000 <= price && price < 200000) {
                 return step = 10000;
             }
-            if (200000 < price && price <= 500000) {
+            if (200000 <= price && price < 500000) {
                 return step = 20000;
             }
-            if (500000 < price && price <= 1000000) {
+            if (500000 <= price && price < 1000000) {
                 return step = 50000;
             } else {
                 step = 100000;
             }
-            $scope.step = step;
             return step;
         }
 
