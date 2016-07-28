@@ -42,46 +42,19 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lot_number = data.lot.number;
         });
 
-        //
-        $scope.functionHell = function () {
-            var mas = $scope.auction_params.lots;
-            var n = $scope.lot_number;
-            var mas1=[];
-            var mas2=[];
-
-            for (var key in mas) {
-                mas2[key] = mas[key];
-            }
-
-            mas.forEach(function(item) {
-                if ( item.number < n ) {
-                    mas1.push(item);
-                }
-            });
-
-            mas.forEach(function(item) {
-                if ( item.number < n ) {
-                    mas2.shift();
-                }
-            });
-
-            function merge_arrays(arr) {
-                var merged_array = arr;
-                for (var i = 1; i < arguments.length; i++) {
-                    merged_array= merged_array.concat(arguments[i]);
-                }
-                return merged_array;
-            }
-            var show_array = merge_arrays(mas2, mas1);
-            console.log(mas.number);
-            return $scope.auction_params.lots = show_array;
-
-            // show_array.forEach(function(item) {
-            //     if ( item.number ) {
-            //         alert (item.number);
-            //     }
-            // });
+        /**
+         *
+         * @param item
+         * @returns {boolean}
+         */
+        $scope.filterActive = function(item) {
+            return !(item.isCl || item.isSold);
         };
+
+        /**
+         * functionHell
+         * @returns {*}
+         */
         //
 
         ngSocket.on('lotSelected', function (data) {
@@ -179,6 +152,7 @@ define(['./module','jquery'],function(controllers,$){
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
+                console.log(data.auction.lots[1]);
                 console.log('hjhgjhkghjghj');
                 $scope.auction_params.lot_pictures = [];
                 if (data.lotPictures != undefined && data.lotPictures.length){
