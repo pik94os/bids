@@ -403,6 +403,10 @@ define(['./module','jquery'],function(controllers,$){
         }
         delete $scope.sellingStatistics;
         ngSocket.on('catchSellingStatistics', function (result) {
+            if(result.err) {
+                alert(result.message)
+            }
+            console.log(result);
             $scope.sellingStatistics = [];
             result.sellingStatistics.forEach(function (i) {
                 i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();

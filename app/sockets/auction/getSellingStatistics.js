@@ -3,12 +3,11 @@
  */
 'use strict';
 let SellingStatistics = require('../../models/').SellingStatistics;
-
+let AuctionUser = require('../../models/').AuctionUser;
 module.exports = function(socket, data) {
 
     console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
     console.log(data);
-
     let where = {
         // auctionId: data.auctionId
         // isSold: true
@@ -19,7 +18,8 @@ module.exports = function(socket, data) {
 
 
     SellingStatistics.findAll({
-        where
+        where,
+        include: [AuctionUser]
     }).then(function (result) {
         socket.emit('catchSellingStatistics', {
             'err': 0,
