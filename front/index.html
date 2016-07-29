@@ -9,149 +9,139 @@
 	</head>
 	<body class="row-block ng-cloak scrollUp" ng-controller="Main">
 	<!--{{currentUserInfo}}<br>-->
-	<div style="height: 750px;
-	  background: url(/images/404bg.png) no-repeat;
-	  -webkit-background-size: 100%;
-        -moz-background-size: 100%;
-        -o-background-size: 100%;
-        background-size: 100%;
-        text-align: center;">
-		<b style="font-size: 65px; margin-top: 250px">ERROR</b><br>
-		<b style="font-size: 30px;"> Please contact support</b><br>
-		<a style="font-size: 22px;" href="moriss.m@yahoo.com">moriss.m@yahoo.com</a></div>
-	<!--TODO: заглушка начало-->
-		<!--<a name="top"></a>-->
-		<!--<header class="row-block">-->
-			<!--<div class="header-top row-block">-->
-				<!--<div class="content-block header-top2">-->
-					<!--<div class="header-top-left">-->
-					<!--</div>-->
-					<!--<div class="header-top-right">-->
-						<!--<div ng-hide="!currentUserInfo.id">-->
-							<!--&lt;!&ndash;<div class="header-top-right-heart" ui-sref="auction({open:3})"></div>&ndash;&gt;-->
-							<!--<div class="header-top-right-avatar" ng-click="goToPageHeader()">-->
-								<!--<div class="avatar-hover">-->
-									<!--<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>-->
-									<!--<div class="paddindRight10px" ng-show="currentUserInfo.id">-->
-											<!--&lt;!&ndash;{{currentUserInfo.patronymic}}&ndash;&gt; {{currentUserInfo.firstName}} {{currentUserInfo.lastName}} -->
-									<!--</div>-->
-								<!--</div>-->
-							<!--</div>-->
+
+	 <!--TODO: заглушка начало-->
+		<a name="top"></a>
+		<header class="row-block">
+			<div class="header-top row-block">
+				<div class="content-block header-top2">
+					<div class="header-top-left">
+					</div>
+					<div class="header-top-right">
+						<div ng-hide="!currentUserInfo.id">
+							<!--<div class="header-top-right-heart" ui-sref="auction({open:3})"></div>-->
+							<div class="header-top-right-avatar" ng-click="goToPageHeader()">
+								<div class="avatar-hover">
+									<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>
+									<div class="paddindRight10px" ng-show="currentUserInfo.id">
+											<!--{{currentUserInfo.patronymic}}--> {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--<div ng-show="currentUserInfo.id">-->
+							<!--<a href="/lk">-->
+								<!--{{currentUserInfo.patronymic}} {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}-->
+							<!--</a>-->
 						<!--</div>-->
-						<!--&lt;!&ndash;<div ng-show="currentUserInfo.id">&ndash;&gt;-->
-							<!--&lt;!&ndash;<a href="/lk">&ndash;&gt;-->
-								<!--&lt;!&ndash;{{currentUserInfo.patronymic}} {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}&ndash;&gt;-->
-							<!--&lt;!&ndash;</a>&ndash;&gt;-->
-						<!--&lt;!&ndash;</div>&ndash;&gt;-->
-						<!--<a href="#" data-toggle="modal" data-target="#loginModal">-->
-							<!--<img src="images/icon-arrow.png" class="image-left-left" ng-show="currentUserInfo.id===null">-->
-							<!--<div class="div075" ng-hide="currentUserInfo.id">Вход/Регистрация</div>-->
-							<!--&lt;!&ndash;<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>&ndash;&gt;-->
-						<!--</a>-->
-						<!--&lt;!&ndash;div>-->
-							<!--<img src="images/icon-search.png">-->
-							<!--<div><input type="text" class="input-radius" value="Поиск"></div>-->
-							<!--<div class="button-radius">Найти</div>-->
-						<!--</div&ndash;&gt;-->
-					<!--</div>-->
-				<!--</div>-->
-			<!--</div>-->
+						<a href="#" data-toggle="modal" data-target="#loginModal">
+							<img src="images/icon-arrow.png" class="image-left-left" ng-show="currentUserInfo.id===null">
+							<div class="div075" ng-hide="currentUserInfo.id">Вход/Регистрация</div>
+							<!--<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>-->
+						</a>
+						<!--div>
+							<img src="images/icon-search.png">
+							<div><input type="text" class="input-radius" value="Поиск"></div>
+							<div class="button-radius">Найти</div>
+						</div-->
+					</div>
+				</div>
+			</div>
 
-			<!--<div class="top-menu content-block" ng-if="!isAD" ng-hide="hideHeaderAuctionLeading">-->
-				<!--<div class="top-menu-img" ui-sref="front-page">-->
-					<!--<img align="left" src="images/logo.png"/>-->
-				<!--</div>-->
-				<!--<a href="#" ng-click="topMenuShow = !topMenuShow" ng-blur="topMenuShow=false">-->
-					<!--<ul ng-class="{'open':topMenuShow}">-->
-						<!--<li class="current top-menu_col-2" ui-sref="front-page"><a>Главная</a></li>-->
-						<!--&lt;!&ndash;<li class="top-menu_col-2" ui-sref="auction({open:2})"><a>Каталог</a></li>&ndash;&gt;-->
-						<!--&lt;!&ndash;<li class="top-menu_col-3"><a>Аукционные дома</a></li>&ndash;&gt;-->
-						<!--<li class="top-menu_col-2" ui-sref="about-us"><a>О нас</a></li>-->
-						<!--&lt;!&ndash;<li class="top-menu_col-2" ui-sref="calendar"><a>Календарь</a></li>&ndash;&gt;-->
-						<!--<li class="top-menu_col-2" ui-sref="contacts"><a>Контакты</a></li>-->
-					<!--</ul>-->
-				<!--</a>-->
-			<!--</div>-->
+			<div class="top-menu content-block" ng-if="!isAD" ng-hide="hideHeaderAuctionLeading">
+				<div class="top-menu-img" ui-sref="front-page">
+					<img align="left" src="images/logo.png"/>
+				</div>
+				<a href="#" ng-click="topMenuShow = !topMenuShow" ng-blur="topMenuShow=false">
+					<ul ng-class="{'open':topMenuShow}">
+						<li class="current top-menu_col-2" ui-sref="front-page"><a>Главная</a></li>
+						<!--<li class="top-menu_col-2" ui-sref="auction({open:2})"><a>Каталог</a></li>-->
+						<!--<li class="top-menu_col-3"><a>Аукционные дома</a></li>-->
+						<li class="top-menu_col-2" ui-sref="about-us"><a>О нас</a></li>
+						<!--<li class="top-menu_col-2" ui-sref="calendar"><a>Календарь</a></li>-->
+						<li class="top-menu_col-2" ui-sref="contacts"><a>Контакты</a></li>
+					</ul>
+				</a>
+			</div>
 
-			<!--<div class="top-menu content-block" ng-if="isAD" ng-hide="hideHeaderAuctionLeading">-->
-				<!--<div class="top-menu-img" ui-sref="auctions">-->
-					<!--<img align="left" src="images/logo2.png"/>-->
-				<!--</div>-->
-				<!--<a href="#" ng-click="topMenuShow = !topMenuShow" ng-blur="topMenuShow=false">-->
-					<!--<ul ng-class="{'open':topMenuShow}">-->
-						<!--<li class="current top-menu_col-3" ui-sref="front-page"><a>Главная</a></li>-->
-						<!--<li class="top-menu_col-3" ui-sref="auctions"><a>Аукционы</a></li>-->
-						<!--<li class="top-menu_col-3" ui-sref="information"><a>Информация</a></li>-->
-					<!--</ul>-->
-				<!--</a>-->
-			<!--</div>-->
+			<div class="top-menu content-block" ng-if="isAD" ng-hide="hideHeaderAuctionLeading">
+				<div class="top-menu-img" ui-sref="auctions">
+					<img align="left" src="images/logo2.png"/>
+				</div>
+				<a href="#" ng-click="topMenuShow = !topMenuShow" ng-blur="topMenuShow=false">
+					<ul ng-class="{'open':topMenuShow}">
+						<li class="current top-menu_col-3" ui-sref="front-page"><a>Главная</a></li>
+						<li class="top-menu_col-3" ui-sref="auctions"><a>Аукционы</a></li>
+						<li class="top-menu_col-3" ui-sref="information"><a>Информация</a></li>
+					</ul>
+				</a>
+			</div>
 
-			<!--<div class="header-bottom row-block" ui-view="header"></div>-->
-		<!--</header>-->
+			<div class="header-bottom row-block" ui-view="header"></div>
+		</header>
 
-		<!--<content  class="row-block"  ui-view="">-->
-		<!--</content>-->
-		<!--<div class="modals">-->
-			<!--&lt;!&ndash;=include templates/modals/*.html &ndash;&gt;-->
-		<!--</div>-->
-		<!--<footer  class="row-block">-->
-			<!--<div class="content-block">-->
-				<!--<div class="logo-footer" ui-sref="front-page"></div>-->
-				<!--<div class="footer-links">-->
-					<!--<div class="vk"><a href="http://vk.com/antiquebookclub" title="мы в VK"></a></div>-->
-					<!--&lt;!&ndash;<div class="gp"><a href="/" title="мы в Google+"></a></div>&ndash;&gt;-->
-					<!--&lt;!&ndash;<div class="tw"><a href="/" title="мы в Tweeter"></a></div>&ndash;&gt;-->
-					<!--<div class="fb"><a href="https://www.facebook.com/antiquebookclub" title="мы в Facebook"></a></div>-->
-				<!--</div>-->
-				<!--&lt;!&ndash;Костыль с кнопкой наверх&ndash;&gt;-->
-				<!--<script>-->
-					<!--window.onload = function() { // после загрузки страницы-->
-						<!--var scrollUp = document.getElementById('scrollup'); // найти элемент-->
-						<!--scrollUp.onmouseover = function() { // добавить прозрачность-->
-							<!--scrollUp.style.opacity=0.3;-->
-							<!--scrollUp.style.filter  = 'alpha(opacity=30)';-->
-						<!--};-->
-						<!--scrollUp.onmouseout = function() { //убрать прозрачность-->
-							<!--scrollUp.style.opacity = 0.5;-->
-							<!--scrollUp.style.filter  = 'alpha(opacity=50)';-->
-						<!--};-->
-						<!--scrollUp.onclick = function() { //обработка клика-->
-<!--//							window.scrollTo(0,0);-->
-							<!--$('body,html').animate({scrollTop: 0}, 800);-->
-						<!--};-->
-						<!--// show button-->
-						<!--window.onscroll = function () { // при скролле показывать и прятать блок-->
-							 <!--if (window.pageYOffset > 75) {-->
-								 <!--scrollUp.style.display = 'block';-->
-							 <!--} else {-->
-								 <!--scrollUp.style.display = 'none';-->
-							 <!--}-->
-						 <!--};-->
-					<!--};-->
-				<!--</script>-->
-				<!--<div ng-click="buttonUp()" id="scrollup">-->
-					<!--<img alt="Прокрутить вверх" src="/images/bottom-on-top.png">-->
-				<!--</div>-->
+		<content  class="row-block"  ui-view="">
+		</content>
+		<div class="modals">
+			<!--=include templates/modals/*.html -->
+		</div>
+		<footer  class="row-block">
+			<div class="content-block">
+				<div class="logo-footer" ui-sref="front-page"></div>
+				<div class="footer-links">
+					<div class="vk"><a href="http://vk.com/antiquebookclub" title="мы в VK"></a></div>
+					<!--<div class="gp"><a href="/" title="мы в Google+"></a></div>-->
+					<!--<div class="tw"><a href="/" title="мы в Tweeter"></a></div>-->
+					<div class="fb"><a href="https://www.facebook.com/antiquebookclub" title="мы в Facebook"></a></div>
+				</div>
+				<!--Костыль с кнопкой наверх-->
+				<script>
+					window.onload = function() { // после загрузки страницы
+						var scrollUp = document.getElementById('scrollup'); // найти элемент
+						scrollUp.onmouseover = function() { // добавить прозрачность
+							scrollUp.style.opacity=0.3;
+							scrollUp.style.filter  = 'alpha(opacity=30)';
+						};
+						scrollUp.onmouseout = function() { //убрать прозрачность
+							scrollUp.style.opacity = 0.5;
+							scrollUp.style.filter  = 'alpha(opacity=50)';
+						};
+						scrollUp.onclick = function() { //обработка клика
+//							window.scrollTo(0,0);
+							$('body,html').animate({scrollTop: 0}, 800);
+						};
+						// show button
+						window.onscroll = function () { // при скролле показывать и прятать блок
+							 if (window.pageYOffset > 75) {
+								 scrollUp.style.display = 'block';
+							 } else {
+								 scrollUp.style.display = 'none';
+							 }
+						 };
+					};
+				</script>
+				<div ng-click="buttonUp()" id="scrollup">
+					<img alt="Прокрутить вверх" src="/images/bottom-on-top.png">
+				</div>
 
-				<!--&lt;!&ndash;? тест - серверное время ?&ndash;&gt;-->
-				<!--<div>-->
-					<!--<script type="text/javascript">-->
-						<!--//var server_date = new Date(1348662336329);-->
-<!--//						var server_date = new Date(<?php print time(); ?> * 1000);-->
-<!--//						var local_date = new Date();-->
-<!--//						var delta = server_date.getTime() - local_date.getTime();-->
-<!--//						function clock() {-->
-<!--//							var date = new Date();-->
-<!--//							date.setTime( date.getTime() + delta );-->
-<!--//							document.getElementById('clock').value = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();-->
-<!--//						}-->
-<!--//						setInterval(clock, 1000);-->
-					<!--</script>-->
-					<!--&lt;!&ndash;<input id="clock" />&ndash;&gt;-->
-				<!--</div>-->
+				<!--? тест - серверное время ?-->
+				<div>
+					<script type="text/javascript">
+						//var server_date = new Date(1348662336329);
+//						var server_date = new Date(<?php print time(); ?> * 1000);
+//						var local_date = new Date();
+//						var delta = server_date.getTime() - local_date.getTime();
+//						function clock() {
+//							var date = new Date();
+//							date.setTime( date.getTime() + delta );
+//							document.getElementById('clock').value = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+//						}
+//						setInterval(clock, 1000);
+					</script>
+					<!--<input id="clock" />-->
+				</div>
 
-			<!--</div>-->
-		<!--</footer>-->
-	<!--TODO: заглушка конец-->
+			</div>
+		</footer>
 	</body>
 </html>
