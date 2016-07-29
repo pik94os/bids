@@ -69,8 +69,8 @@ define(['./module', 'jquery'], function (controllers, $) {
                 receiverMailer: $scope.regUserData.email,
                 // confCode: confCode,
                 subjectMailer: 'ART-BID.RU (Подтверждение регистрации) ✔',
-                textMailer: 'Уважаемый ' + $scope.regUserData.firstName + ' ' + $scope.regUserData.patronymic + 'Вас приветствует антикварный книжный клуб ART-BID.RU. Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:' + confCode,
-                htmlMailer: '<p><b>Уважаемый ' + $scope.regUserData.firstName + ' ' + $scope.regUserData.patronymic + ' Вас приветствует антикварный книжный клуб ART-BID.RU</b></p>' +
+                textMailer: 'Уважаемый ' + $scope.regUserData.firstName + ' ' + $scope.regUserData.lastName + ', Вас приветствует антикварный книжный клуб ART-BID.RU. Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:' + confCode,
+                htmlMailer: '<p><b>Уважаемый ' + $scope.regUserData.firstName + ' ' + $scope.regUserData.lastName + ', Вас приветствует антикварный книжный клуб ART-BID.RU</b></p>' +
                 '<p><b>Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:</b></p>' +
                 '<p><h1>'+ confCode +'</h1></p>'
             });
