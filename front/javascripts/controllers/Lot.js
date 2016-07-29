@@ -133,7 +133,6 @@ define(['./module', 'jquery'], function (controllers, $) {
 
 
         });
-
         ngSocket.on('lotSelected', function (data) {
             $scope.sellingPrice = data.lot.sellingPrice;
             ngSocket.emit('auction/getPictureList', {lotId: data.lot.id});
