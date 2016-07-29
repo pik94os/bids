@@ -22,7 +22,8 @@
             <div class="pageAuctionLeading-right col-xs-9">
                 <div>
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
-                    <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="cleanLot">Снять лот</div>
+                    <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="cleanLot && !price">Снять лот</div>
+                    <div class="auction-button-remove-inactive" ng-show="price">Снять лот</div>
                     <!--<div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn">Лот продан</div>-->
                     <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn && price">Лот продан</div>
                     <div class="auction-button-sale-inactive" ng-show="auctionOn && !price">Ставок нет</div>
@@ -38,11 +39,11 @@
                     </div>
                     <div class="pageAuctionLeading-right-top-right col-md-4">
                         <div class="pageAuctionLeading-right-top-right-top">
-                            <div class="pageAuctionLeading-right-top-right-uppertop">
+                            <div class="pageAuctionLeading-right-top-right-uppertop fs30px">
                                 {{(estimateFrom).toLocaleString()}}-{{(estimateTo).toLocaleString()}}
                             </div>
-                            Следующий бид!
-                            <div>
+                                Следующий бид!
+                            <div class="fs30px">
                                 {{(priceNext).toLocaleString()}} руб
                             </div>
                             <div style="margin-top:30px">ВЕРНУТЬСЯ К СНЯТОМУ ЛОТУ</div>

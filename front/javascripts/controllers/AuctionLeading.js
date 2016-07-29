@@ -151,7 +151,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     lotId: $scope.lotId
                 });
                 console.log($stateParams.auctionId, numberLot);
-                //$scope.numberLot = "";
+                $scope.numberLot = "";
                 setTimeout(function () {
                     ngSocket.emit('auction/updateLot', {
                         lotId: +$scope.lotId,
@@ -159,7 +159,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                         isCl: false,
                         auctionId: $stateParams.auctionId
                     });
-                }, 2000);
+                }, 500);
 
             }
         };
@@ -287,7 +287,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             // запись статистики проданного лота в таблицу статистики
 
             var _SellingStatisticsData = {
-                userId: $scope.userNumber,
+                userId: $scope.realUserId,
                 firstName: $scope.userfirstName,
                 lastName: $scope.userlastName,
                 patronymic: $scope.userpatronymic,
@@ -323,6 +323,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.userfirstName = data.userName.firstName;
             $scope.userlastName = data.userName.lastName;
             $scope.userpatronymic = data.userName.patronymic;
+            $scope.realUserId = data.bid.userId;
         });
 
         $scope.dateStartAuction = function () {

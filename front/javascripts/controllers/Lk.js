@@ -88,10 +88,13 @@ define(['./module', 'jquery'], function (controllers, $) {
                 });
             });
         }
-
+        // $scope.sellingStatistics = [1,1,1]
         if ($stateParams.tab ==='historyOfAuctionsCustomer') {
+
             ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
             ngSocket.on('catchSellingStatistics', function (result) {
+                console.log('>>>>>>>>>>>>>>>>>>>');
+                console.log(result);
                 $scope.sellingStatistics = [];
                 result.sellingStatistics.forEach(function (i) {
                     $scope.sellingStatistics.unshift(i);
