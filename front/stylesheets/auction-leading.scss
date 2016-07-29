@@ -64,10 +64,14 @@ font-family: "Century Gothic";
   &-right {
     background: #efefef;
     &-top {
+      .fs30px {
+        font-size: 30px;
+      }
       &-left {
         background: white;
         //height: 112px;
         padding: 5px 0 0 40px;
+        height: 110px;
         &-top {
           color: #b90000;
           font-size: 42px;
@@ -88,9 +92,8 @@ font-family: "Century Gothic";
         background: #f0c7c7;
         //height: 112px;
         text-align: center;
-        
-        padding-top: 24px;
-        height: 85px;
+        //padding-top: 24px;
+        height: 110px;
 
         &-uppertop {
           color: #b90000;
