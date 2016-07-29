@@ -17,8 +17,10 @@
                 <td class="td01">{{row.auctionId}}</td>
                 <td class="td02">Самый крутой аукционный дом в мире</td>
                 <td class="td03">{{row.lotNumber}}</td>
-                <td class="td04">{{row.price.toLocaleString()}} Р</td>
-                <td class="td05">Ожидаем оплаты</td>
+                <td class="td04" ng-show="!row.isCl">{{row.price.toLocaleString()}} Р</td>
+                <td class="td04" ng-show="row.isCl">Лот снят</td>
+                <td class="td05" ng-show="!row.isCl">Ожидаем оплаты</td>
+                <td class="td05" ng-show="row.isCl"></td>
                 <td class="td06">{{row.createdAt.split('T')[0].split('-')[2] + '.' + row.createdAt.split('T')[0].split('-')[1] + '.' + row.createdAt.split('T')[0].split('-')[0] + ' / ' + row.createdAt.split('T')[1].split('.')[0]}}</td>
             </tr>
         </table>

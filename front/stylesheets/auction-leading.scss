@@ -344,4 +344,19 @@ font-family: "Century Gothic";
     padding-top: 7px;
     font-size: 32px;
   }
+  .auction-button-remove-inactive {
+    cursor: pointer;
+    margin-bottom: 10px;
+    padding: 3px 0;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 10px;
+    background: grey;
+    width: 50%;
+    float: left;
+    color: #fcf8e3;
+    height: 60px;
+    padding-top: 7px;
+    font-size: 32px;
+  }
 }
