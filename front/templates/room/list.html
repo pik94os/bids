@@ -135,6 +135,10 @@
             <br>
         </div>
     </div>
+    <div>
+        {{auction_params.lots_isPlayOutedPercent}}%
+        <br>
+    </div>
     <!--вторая подстраница непосредственно с аукционом-->
     <div ng-show="countdown==2" class="container">
         <div class="row">
@@ -143,9 +147,10 @@
                 <div>
                     <div class="room-progress-bar-container">
                         <div ng-class="['progress-bar-line', 'pull-left']"
-                             ng-style="auction_params.progress_bar_class"
-                             width="{{auction_params.lots_isPlayOutedPercent}}%">
+                             width = "{{auction_params.lots_isPlayOutedPercent}}%">
                         </div>
+                        <!--ng-style="auction_params.progress_bar_class"-->
+                        <!--width="{{auction_params.lots_isPlayOutedPercent}}%">-->
                         <div class="room-text-in-bar-procents pull-right">
                             <!--{{auction_params.lots_isPlayOutedPercent}}% ИЗ
                             {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}-->
@@ -239,7 +244,7 @@
                 <!--{{auction_params.lots[$index].number}}-->
                 <!--<br>-&#45;&#45;<br>-->
                 <!--<div ng-click="movePreviewPicturesToStartGallery()">movePreviewPicturesToStartGallery</div>-->
-                <div ng-click="functionHell()">functionHell</div>
+                <!--<div ng-click="functionHell()">functionHell</div>-->
                 <!--правая колонка-->
                 <div class="right-column col-sm-6">
                     <div class="row">
