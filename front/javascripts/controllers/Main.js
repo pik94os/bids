@@ -67,13 +67,11 @@ define(['./module', 'jquery'], function (controllers, $) {
             var confCode = Math.ceil(1 + Math.random() * (999999 - 1));
             ngSocket.emit('mailer', {
                 receiverMailer: $scope.regUserData.email,
-                confCode: confCode,
-                subjectMailer: '',
-                textMailer: 'Вас приветствует антикварный книжный клуб ART-BID.RU. Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:' + confCode,
-                htmlMailer: '<p><b>Вас приветствует антикварный книжный клуб ART-BID.RU</b></p>' +
-                // '<br>' +
+                // confCode: confCode,
+                subjectMailer: 'ART-BID.RU (Подтверждение регистрации) ✔',
+                textMailer: 'Уважаемый ' + $scope.regUserData.firstName + ' ' + $scope.regUserData.patronymic + 'Вас приветствует антикварный книжный клуб ART-BID.RU. Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:' + confCode,
+                htmlMailer: '<p><b>Уважаемый ' + $scope.regUserData.firstName + ' ' + $scope.regUserData.patronymic + ' Вас приветствует антикварный книжный клуб ART-BID.RU</b></p>' +
                 '<p><b>Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:</b></p>' +
-                // '<br>' +
                 '<p><h1>'+ confCode +'</h1></p>'
             });
             var roleOfNewUser;

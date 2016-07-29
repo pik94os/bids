@@ -6,9 +6,6 @@ let SellingStatistics = require('../../models/').SellingStatistics;
 
 module.exports = function(socket, data) {
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log(data);
-
     let where = {
         // auctionId: data.auctionId
         // isSold: true

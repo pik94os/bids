@@ -34,7 +34,8 @@ module.exports = function (socket, data) {
         // default message fields
 
         // sender info
-        from: 'Sender Name <noreply@art-bid.ru>',
+        from: 'noreply@art-bid.ru',
+        // from: 'Sender Name <noreply@art-bid.ru>',
         headers: {
             'X-Laziness-level': 1000 // just an example header, no need to use this
         }
@@ -44,10 +45,10 @@ module.exports = function (socket, data) {
 
 // Mock message queue. In reality you would be fetching messages from some external queue
     var messages = [{
-        to: '"Receiver Name"' + '<' + data.receiver +'>',
-        subject: 'ART-BID.RU (Подтверждение регистрации) ✔', //
-        text: data.text,
-        html: data.html
+        to: '"Receiver Name"' + '<' + data.receiverMailer +'>',
+        subject: data.subjectMailer, //
+        text: data.textMailer,
+        html: data.htmlMailer
     }];
 
 // send mail only if there are free connection slots available
