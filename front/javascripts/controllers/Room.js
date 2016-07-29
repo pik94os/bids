@@ -51,12 +51,6 @@ define(['./module','jquery'],function(controllers,$){
             return !(item.isCl || item.isSold);
         };
 
-        /**
-         * functionHell
-         * @returns {*}
-         */
-        //
-
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
         });
@@ -542,9 +536,20 @@ define(['./module','jquery'],function(controllers,$){
         ngSocket.on('auctionState', function (data) {
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
-
             });
-            console.log(+data.lotId);
+            
+            //Обновить auction_params
+            for (var lot in $scope.auction_params.lots) {
+                if ($scope.auction_params.lots[lot].id === data.oldLotId) {
+                    if (!(typeof data.oldLot.isCl === "undefined")) {
+                        $scope.auction_params.lots[lot].isCl = data.oldLot.isCl;
+                    }
+                    if (!(typeof data.oldLot.isSold === "undefined")) {
+                        $scope.auction_params.lots[lot].isSold = data.oldLot.isSold;
+                    }
+                }
+            }
+
             $scope.userNumber = '';
             $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
             $scope.numberLot = data.lot.number;
@@ -662,18 +667,23 @@ define(['./module','jquery'],function(controllers,$){
                 });
                 return obj;
             }
+    /**
+     * Рассчитывает шаг изменения цены
+     * @param price - текущая цена
+     * @returns step - шаг изменения цены
+     */
     function calcStep(price) {
         var step = 1;
-        if (price <= 5) {
+        if (price < 5) {
             return step = 1;
         }
-        if (5 < price && price < 50) {
+        if (5 <= price && price < 50) {
             return step = 5;
         }
         if (50 <= price && price < 200) {
             return step = 10;
         }
-        if (200 < price && price < 500) {
+        if (200 <= price && price < 500) {
             return step = 20;
         }
         if (500 <= price && price < 1000) {

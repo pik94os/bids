@@ -34,12 +34,14 @@ module.exports = function (socket, data) {
                         lot: lot,
                         lotId: lot.id,
                         oldLotId: result.id,
+                        oldLot: result,
                         isSold: auction.isSold,
                         isCl: auction.isCl,
                         lastBid: data.lastBid
                     });
                     socket.emit('auctionState', {
                         oldLotId: result.id,
+                        oldLot: result,
                         lotId: lot.id,
                         lot:lot,
                         isSold:data.isSold,

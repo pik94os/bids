@@ -265,13 +265,13 @@
                                    target="_blank">
                                     <div class="page-numbers-single"
                                          ng-class="{'page-numbers-single-red':
-                                         lot_number==auction_params.lots[$index].number}">
+                                         lot_number === r.number}">
                                          {{r.number}}
                                     </div>
 
                                     <div class="room-small-photo">
                                         <div ng-class="{'room-small-photo-redBorder':
-                                             lot_number === auction_params.lots[$index].number}">
+                                             lot_number === r.number}">
                                             <img ng-src="/images/lot-images/{{getPicById(r.titlePicId).fileName
                                                  || 'no-photo.jpg'}}">
                                         </div>
