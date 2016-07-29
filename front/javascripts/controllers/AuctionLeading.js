@@ -151,7 +151,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     lotId: $scope.lotId
                 });
                 console.log($stateParams.auctionId, numberLot);
-                //$scope.numberLot = "";
+                $scope.numberLot = "";
                 setTimeout(function () {
                     ngSocket.emit('auction/updateLot', {
                         lotId: +$scope.lotId,
@@ -159,7 +159,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                         isCl: false,
                         auctionId: $stateParams.auctionId
                     });
-                }, 2000);
+                }, 500);
 
             }
         };
