@@ -395,12 +395,26 @@ define(['./module','jquery'],function(controllers,$){
 
             // переход на следующий лот
             $scope.goToNextLot = function(){
+                ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
                 if (currentId < $scope.auction_params.lots_length - 1)
                     currentId += 1;
                 ngSocket.emit('auction/getLot', {
                     lotId: $scope.auction_params.lots[currentId].id
                 });
             };
+
+        // получение статистики
+        if (!$scope.sellingStatistics){
+            ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
+        }
+        delete $scope.sellingStatistics;
+        ngSocket.on('catchSellingStatistics', function (result) {
+            $scope.sellingStatistics = [];
+            result.sellingStatistics.forEach(function (i) {
+                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                $scope.sellingStatistics.unshift(i);
+            });
+        });
 
         ngSocket.emit('confirmLot', {lotId: $stateParams.auctionId});
 
@@ -525,7 +539,6 @@ define(['./module','jquery'],function(controllers,$){
             }
 
         ngSocket.emit('getAuction', {id: $stateParams.auctionId});
-        ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         ngSocket.on('auctionState', function (data) {
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
@@ -540,13 +553,6 @@ define(['./module','jquery'],function(controllers,$){
         });
 
 
-        $scope.sellingStatistics = [];
-        ngSocket.on('catchSellingStatistics', function (result) {
-            result.sellingStatistics.forEach(function (i) {
-                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
-                $scope.sellingStatistics.unshift(i);
-            });
-        });
 
             /*$scope.$on('LastRepeaterElement', function(){
                 moveToTheRigh();

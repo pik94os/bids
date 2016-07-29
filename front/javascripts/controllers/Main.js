@@ -64,17 +64,17 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.loginUserData = {};
 
         $scope.createUser = function (role) {
-            console.log('>>>>>>>>>>>>>>>>>>>');
-            // console.log(result);
-            // $scope.confCode = 1234;
-
-            // console.log('>>>>>>>>>>>>>>>>>>>');
-            // console.log(confCode);
-
             var confCode = Math.ceil(1 + Math.random() * (999999 - 1));
             ngSocket.emit('mailer', {
-                receiver: $scope.regUserData.email,
-                confCode: confCode
+                receiverMailer: $scope.regUserData.email,
+                confCode: confCode,
+                subjectMailer: '',
+                textMailer: 'Вас приветствует антикварный книжный клуб ART-BID.RU. Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:' + confCode,
+                htmlMailer: '<p><b>Вас приветствует антикварный книжный клуб ART-BID.RU</b></p>' +
+                // '<br>' +
+                '<p><b>Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:</b></p>' +
+                // '<br>' +
+                '<p><h1>'+ confCode +'</h1></p>'
             });
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
@@ -85,9 +85,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 && $scope.regUserData.email
                 && $scope.regUserData.phone
             ) {
-                // var confCode = function () {
-                //     Math.random() * (999 - 1) + 1;
-                // };
                 $http.post('/api/users/reg', {
                     username: $scope.regUserData.username,
                     firstName: $scope.regUserData.firstName,

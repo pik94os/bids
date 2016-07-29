@@ -46,14 +46,8 @@ module.exports = function (socket, data) {
     var messages = [{
         to: '"Receiver Name"' + '<' + data.receiver +'>',
         subject: 'ART-BID.RU (Подтверждение регистрации) ✔', //
-        text: 'Вас приветствует антикварный книжный клуб ART-BID.RU.' +
-        'Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:' +
-        'ANH14W',
-        html: '<p><b>Вас приветствует антикварный книжный клуб ART-BID.RU</b></p>' +
-        // '<br>' +
-        '<p><b>Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:</b></p>' +
-        // '<br>' +
-        '<p><h1>'+ data.confCode +'</h1></p>'
+        text: data.text,
+        html: data.html
     }];
 
 // send mail only if there are free connection slots available

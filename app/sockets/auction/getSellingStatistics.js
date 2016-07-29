@@ -11,7 +11,7 @@ module.exports = function(socket, data) {
 
     let where = {
         // auctionId: data.auctionId
-        isSold: true
+        // isSold: true
     };
 
     if (data.auctionId){where.auctionId = data.auctionId;}
