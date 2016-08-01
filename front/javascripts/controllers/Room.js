@@ -328,12 +328,14 @@ define(['./module','jquery'],function(controllers,$){
 
 
             $scope.incrementBid = function () {
-                $scope.bidPrice += Number($scope.current_lot.step);
+                var step = calcStep($scope.bidPrice);
+                $scope.bidPrice += Number(step);
             }
 
             $scope.decrementBid = function () {
+                var step = calcStep($scope.bidPrice - calcStep($scope.bidPrice));
                 if ($scope.bidPrice > 0)
-                    $scope.bidPrice -= Number($scope.current_lot.step);
+                    $scope.bidPrice -= Number(step);
             }
 
 
