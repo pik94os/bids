@@ -1,0 +1,29 @@
+<div class="tab-pane fade" ng-class="{'in active':tab==='historyOfAuctionsCustomer'}">
+    <!--{{currentUserInfo}}<br><br>-->
+    <!--{{sellingStatistics}}<br><br>-->
+    <!--{{auction}}<br><br>-->
+    <!--{{userFinded}}<br><br>-->
+    <div class="div-table-historyofauctions">
+        <table class="table-historyofauctions">
+            <tr class="tr-top">
+                <td class="td01">Аукцион №</td>
+                <td class="td02">Аукционный дом</td>
+                <td class="td03">Лот №</td>
+                <td class="td04">Цена покупки</td>
+                <td class="td05">Статус</td>
+                <td class="td06">Дата</td>
+            </tr>
+            <tr class="tr-bottom" ng-repeat="row in sellingStatistics">
+                <td class="td01">{{row.auctionId}}</td>
+                <td class="td02">Самый крутой аукционный дом в мире</td>
+                <td class="td03">{{row.lotNumber}}</td>
+                <td class="td04" ng-show="!row.isCl">{{row.price.toLocaleString()}} Р</td>
+                <td class="td04" ng-show="row.isCl">Лот снят</td>
+                <td class="td05" ng-show="!row.isCl">Ожидаем оплаты</td>
+                <td class="td05" ng-show="row.isCl"></td>
+                <td class="td06">{{row.createdAt.split('T')[0].split('-')[2] + '.' + row.createdAt.split('T')[0].split('-')[1] + '.' + row.createdAt.split('T')[0].split('-')[0] + ' / ' + row.createdAt.split('T')[1].split('.')[0]}}</td>
+            </tr>
+        </table>
+        <!--{{sellingStatistics}}-->
+    </div>
+</div>

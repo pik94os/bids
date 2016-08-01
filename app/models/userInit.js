@@ -11,7 +11,9 @@ var UserMeta = require('./userInit/User.js'),
     LotMeta = require('./userInit/Lot'),
     LotPictureMeta = require('./userInit/LotPicture'),
     BidMeta = require('./userInit/Bid'),
+    ChatMeta = require('./userInit/Chat'),
     AuctionUserMeta = require('./userInit/AuctionUser'),
+    SellingStatisticsMeta = require('./userInit/SellingStatistics'),
     connection = require('../sequelize.js');
 
 class Initiator {
@@ -35,7 +37,9 @@ class Initiator {
                 Lot: that.Lot,
                 LotPicture: that.LotPicture,
                 Bid: that.Bid,
-                AuctionUser: that.AuctionUser
+                AuctionUser: that.AuctionUser,
+                Chat: that.Chat,
+                SellingStatistics: that.SellingStatistics
             }
         }).catch(function (err) {
             console.error(err.message)
@@ -46,14 +50,17 @@ class Initiator {
         this.Right = connection.define('right', RightMeta.attributes);
         this.Role = connection.define('role', RoleMeta.attributes, RoleMeta.options);
         this.RoleRight = connection.define('role_right', {});
-        this.AuctionUser = connection.define('auction_user', {});
-        // this.AuctionUser = connection.define('auction_user', AuctionUserMeta.attributes);
+        //TODO: Саня за чем ты за коментировал????
+        //this.AuctionUser = connection.define('auction_user', {});
+        this.AuctionUser = connection.define('auction_user', AuctionUserMeta.attributes);
         this.User = connection.define('users', UserMeta.attributes, UserMeta.options);
         this.AuctionHouse = connection.define('auction_houses', AuctionHouseMeta.attributes);
         this.Auction = connection.define('auction', AuctionMeta.attributes);
         this.Lot = connection.define('lot', LotMeta.attributes);
         this.Bid = connection.define('bid', BidMeta.attributes);
         this.LotPicture = connection.define('lot_picture', LotPictureMeta.attributes);
+        this.Chat = connection.define('chat', ChatMeta.attributes);
+        this.SellingStatistics = connection.define('selling_statistics', SellingStatisticsMeta.attributes);
 
         this.Role.hasMany(this.User);
         this.Role.belongsToMany(this.Right, {through: this.RoleRight});
@@ -65,10 +72,17 @@ class Initiator {
         this.Auction.hasMany(this.Lot);
         this.Lot.belongsTo(this.Auction);
         this.Lot.hasMany(this.LotPicture);
-        this.Bid.belongsTo(this.Lot, {as: "lot"});
-        this.Bid.belongsTo(this.User, {as: "creator"});
+        this.Bid.belongsTo(this.Lot);
+        this.Lot.hasMany(this.Bid);
+        this.User.hasMany(this.Bid);
+        this.Bid.belongsTo(this.User);
+        this.SellingStatistics.belongsTo(this.AuctionUser);
+        this.AuctionUser.hasMany(this.SellingStatistics);
        // this.Notification.belongsTo(this.Lot, {as: "lot"});
        // this.Notification.belongsTo(this.User, {as: "users"});
+        this.Chat.belongsTo(this.User);
+        // this.SellingStatistics.hasMany(this.User);
+
 
         this.roles = {};
         this.rights = {};
@@ -84,6 +98,8 @@ class Initiator {
         models.Lot = this.Lot;
         models.LotPicture = this.LotPicture;
         models.Bid = this.Bid;
+        models.Chat = this.Chat;
+        models.SellingStatistics = this.SellingStatistics;
     }
 
     _syncModels() {
@@ -104,6 +120,10 @@ class Initiator {
             return that.LotPicture.sync({force: false})
         }).then(function () {
             return that.Bid.sync({force: false})
+        }).then(function () {
+            return that.Chat.sync({force: false})
+        }).then(function () {
+            return that.SellingStatistics.sync({force: false})
         })
     }
 

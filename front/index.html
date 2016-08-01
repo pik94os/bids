@@ -5,11 +5,25 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>АртБид - Сервис Онлайн-Аукционов</title>
 		<link rel="stylesheet" href="/stylesheets/main.css" />
-		<script src="/javascripts/libs/simplewebrtc/latest.js"></script>
 		<script src="/javascripts/require.js" data-main="/javascripts/main.js"></script>
 	</head>
 	<body class="row-block ng-cloak scrollUp" ng-controller="Main">
 	<!--{{currentUserInfo}}<br>-->
+
+	<!--TODO: заглушка начало-->
+	<div style="height: 750px;
+	  background: url(/images/404bg.png) no-repeat;
+	  -webkit-background-size: 100%;
+        -moz-background-size: 100%;
+        -o-background-size: 100%;
+        background-size: 100%;
+        text-align: center;" class="zaglushka">
+		<b style="font-size: 65px; margin-top: 250px">ERROR</b><br>
+		<b style="font-size: 30px;"> Please contact support</b><br>
+		<a style="font-size: 22px;" href="mailto:moriss.m@yahoo.com">moriss.m@yahoo.com</a>
+	</div>
+	<!--TODO: заглушка конец-->
+
 		<a name="top"></a>
 		<header class="row-block">
 			<div class="header-top row-block">
@@ -23,7 +37,7 @@
 								<div class="avatar-hover">
 									<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>
 									<div class="paddindRight10px" ng-show="currentUserInfo.id">
-											<!--{{currentUserInfo.patronymic}}--> {{currentUserInfo.firstName}} {{currentUserInfo.lastName}} 
+											<!--{{currentUserInfo.patronymic}}--> {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}
 									</div>
 								</div>
 							</div>
@@ -47,7 +61,7 @@
 				</div>
 			</div>
 
-			<div class="top-menu content-block" ng-if="!isAD">
+			<div class="top-menu content-block" ng-if="!isAD" ng-hide="hideHeaderAuctionLeading">
 				<div class="top-menu-img" ui-sref="front-page">
 					<img align="left" src="images/logo.png"/>
 				</div>
@@ -63,7 +77,7 @@
 				</a>
 			</div>
 
-			<div class="top-menu content-block" ng-if="isAD">
+			<div class="top-menu content-block" ng-if="isAD" ng-hide="hideHeaderAuctionLeading">
 				<div class="top-menu-img" ui-sref="auctions">
 					<img align="left" src="images/logo2.png"/>
 				</div>
@@ -86,16 +100,60 @@
 		</div>
 		<footer  class="row-block">
 			<div class="content-block">
-				<div class="logo-footer"></div>
+				<div class="logo-footer" ui-sref="front-page"></div>
 				<div class="footer-links">
 					<div class="vk"><a href="http://vk.com/antiquebookclub" title="мы в VK"></a></div>
 					<!--<div class="gp"><a href="/" title="мы в Google+"></a></div>-->
 					<!--<div class="tw"><a href="/" title="мы в Tweeter"></a></div>-->
 					<div class="fb"><a href="https://www.facebook.com/antiquebookclub" title="мы в Facebook"></a></div>
 				</div>
+				<!--Костыль с кнопкой наверх-->
+				<script>
+					window.onload = function() { // после загрузки страницы
+						var scrollUp = document.getElementById('scrollup'); // найти элемент
+						scrollUp.onmouseover = function() { // добавить прозрачность
+							scrollUp.style.opacity=0.3;
+							scrollUp.style.filter  = 'alpha(opacity=30)';
+						};
+						scrollUp.onmouseout = function() { //убрать прозрачность
+							scrollUp.style.opacity = 0.5;
+							scrollUp.style.filter  = 'alpha(opacity=50)';
+						};
+						scrollUp.onclick = function() { //обработка клика
+//							window.scrollTo(0,0);
+							$('body,html').animate({scrollTop: 0}, 800);
+						};
+						// show button
+						window.onscroll = function () { // при скролле показывать и прятать блок
+							 if (window.pageYOffset > 75) {
+								 scrollUp.style.display = 'block';
+							 } else {
+								 scrollUp.style.display = 'none';
+							 }
+						 };
+					};
+				</script>
 				<div ng-click="buttonUp()" id="scrollup">
-					<!--<img alt="Прокрутить вверх" src="/images/bottom-on-top.png">-->
+					<img alt="Прокрутить вверх" src="/images/bottom-on-top.png">
 				</div>
+
+				<!--? тест - серверное время ?-->
+				<div>
+					<script type="text/javascript">
+						//var server_date = new Date(1348662336329);
+//						var server_date = new Date(<?php print time(); ?> * 1000);
+//						var local_date = new Date();
+//						var delta = server_date.getTime() - local_date.getTime();
+//						function clock() {
+//							var date = new Date();
+//							date.setTime( date.getTime() + delta );
+//							document.getElementById('clock').value = date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+//						}
+//						setInterval(clock, 1000);
+					</script>
+					<!--<input id="clock" />-->
+				</div>
+
 			</div>
 		</footer>
 	</body>

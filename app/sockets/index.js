@@ -46,12 +46,27 @@ module.exports = function(io,passportSocketIo) {
             {event:'auction/createLot', access:0, comment: "создание лота"},
             {event:'auction/confirmLot', access:0, comment: "подтверждение лота"},
             {event:'auction/getAuction', access:0, comment: "запрос аукциона по id"},
+            {event:'auction/updateAuction', access:0, comment: "обновление аукциона"},
+            {event:'auction/auctionStop', access:0, comment: "завершение аукциона"},
+            {event:'auction/createSellingStatistics', access:0, comment: "добавление факта продажи в таблицу статистики продаж"},
+            {event:'auction/getSellingStatistics', access:0, comment: "получение статистики продаж"},
+            // {event:'auction/getAuctionUsers', access:0, comment: "получение списка аукционов на которые зарегистрирован юзер"},
             // картинки
             {event:'auction/getPictureList', access:0, comment: "получение списка картинок"},
             {event:'userAuction', access:0, comment: "регистрация пользователя для аукциона"},
+            {event:'auction/createLotPicture', access:0, comment: "добавление картинок вручную"},
             //лоты
             {event:'auction/updateLot', access:0, comment: "обновление лотов"},
-            {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"}
+            {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"},
+            //биды
+            {event:'auction/getListBids', access:0, comment: "запуск разыгрываемого первого лота"},
+            // чат
+            {event:'auction/pasteChatMessage', access:0, comment: "добавление сообщений в чат"},
+            {event:'auction/getChatMessages', access:0, comment: "получение сообщений из чата определенного аукциона"},
+            //video
+            {event:'video/newVideo', access:0, comment: "обновление информации о трансляции"},
+            //email
+            {event:'mailer', access:0, comment: "отправка мейла"}
         ];
 
         //цикл проходит по всем элементам массива возвращая нужное событие

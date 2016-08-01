@@ -11,7 +11,7 @@
 
   .info-top {
     // от верха хэдера до верха шрифта-26, до низа шрифта 44
-    font-family: "Cambria";
+    font-family: "Century Gothic";
     font-weight: normal;
     font-style: normal;
     padding: 17px 5px 0px 5px;
@@ -26,7 +26,7 @@
     margin-left: 40px;
     margin-top: 25px;
     color: #fff;
-    font-size: 26px;
+    font-size: 37px;
     font-weight: 500;
 
     .favorite {
@@ -73,6 +73,7 @@
 .lot-priceinput {
   background-color: transparent;
   border:none;
+  color: #FF0000;
   width: 30%;
 }
 .lot-pricediv1 {
@@ -123,7 +124,7 @@
   background: #e3f4fc;
   font-family: "Century Gothic";
 
-  video{
+  video {
     width: 100%;
   }
 
@@ -183,13 +184,17 @@
     background: white;
     margin-top: -10px;
     padding: 3px;
-    .progress-bar-line {
-      border-width: 0 1px 0 1px;
-      border-style: solid;
-      margin-top: 3px;
+    .progress-bar-line-container {
+      width: calc(100% - 210px);
       height: 40%;
-      //width: calc(100% - 210px);
-      background-color: #0d395f;
+      margin-top: 3px;
+      .progress-bar-line {
+        border-width: 0 1px 0 1px;
+        border-style: solid;
+        height: 100%;
+        //width: calc(100% - 210px);
+        background-color: #0d395f;
+      }
     }
 
     %rtib {
@@ -202,6 +207,7 @@
       text-align: center;
       font-weight: bold;
       font-size: 9pt;
+      margin-top: -11px;
     }
     .room-text-in-bar {
       &-procents {
@@ -224,6 +230,18 @@
   .right-column {
     padding-left: 15px;
     padding-top: 20px;
+
+    .statistics {
+      height: 400px;
+      overflow: auto;
+      margin-top: 10px;
+      .color-grey {
+        color: #999;
+      }
+      .color-red {
+        color: #FF0000;
+      }
+    }
   }
 
   .room-large-book {
@@ -437,6 +455,7 @@
       background: #a6b5bc;
       color: #121a3e;
       height: 43px;
+      margin: 0;
       > div {
         margin-bottom: 10px;
       }
@@ -473,7 +492,12 @@
       background-image: url(/images/ICONS_svg/sound.svg);
       border-radius: 100%;
     }
-
+    .sound-on {
+      opacity: 1;
+    }
+    .sound-off {
+      opacity: 0.5;
+    }
     .room-message-form {
       border-radius: 0px;
       border: 0pt;
@@ -483,9 +507,14 @@
     }
     .room-chat {
       background: #ccdde5;
-      margin-top: 10px;
       font-size: 12pt;
       padding: 10px;
+      max-height: 235px;
+      overflow: hidden;
+    }
+
+    .lotCl {
+      color: grey;
     }
 
     .insert-your {
@@ -505,8 +534,11 @@
 
     .room-small-photo {
       text-align: center;
-
+      .room-small-photo-redBorder {
+        border: 1px solid red;
+      }
       > div {
+        border: 0;
         width: 80px;
         height: 80px;
         display: inline-block;
@@ -514,9 +546,10 @@
         background: white;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         img {
-
-          width: 67px;
-          height: 67px;
+          width: 78px;
+          height: 78px;
+          //width: 80px;
+          //height: 80px;
         }
       }
     }
@@ -532,12 +565,37 @@
       font-weight: bold;
       font-size: 8pt;
       color: #000066;
+      margin-left: 10px;
+    }
+
+    .page-numbers-single-red {
+      color: red;
     }
 
     .room-container-with-circles {
       margin-bottom: 40px;
       margin-left: 25px;
+      //min-height: 415px;
       padding-top: 30px;
+
+      .class-red-text-bid-none {
+        display: none;
+      }
+
+      .class-red-text-bid {
+        color: red;
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        padding-top: 20px;
+        margin: 0 auto;
+        text-align: center;
+        text-transform: uppercase;
+        width: 94%;
+        position: absolute;
+        bottom: 0;
+      }
+
       .lot-table {
         float: left;
         position: relative;
@@ -546,18 +604,25 @@
         width: 80px;
         margin-left: -25px;
         margin-top: -30px;
-        background-image: url("/images/lot-tables/lot_tabl_quite.png");
+        position: relative;
+        background: url("/images/lot-tables/lot_tabl_quite.png") no-repeat;
         &.moveToTheRight {
           margin-left: 0;
+        }
+        .lot-user-internet {
+          @extend .lot-table;
+          background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat;
+          height: 100px;
+          width: 100px;
         }
       }
       .lot-table-user {
         @extend .lot-table;
-        background-image: url("/images/lot-tables/lot_tabl_user.png");
+        background: url("/images/lot-tables/lot_tabl_user.png") no-repeat;
       }
       .lot-table-stavka {
         @extend .lot-table;
-        background-image: url("/images/lot-tables/lot_tabl_stavka.png");
+        background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat;
       }
       .lot-table-leave {
         @extend .lot-table;
@@ -632,7 +697,6 @@
             overflow: hidden;
           }
           &-btn {
-
             padding-left: 9px;
             position: absolute;
             width: 75px;
@@ -647,12 +711,32 @@
       }
     }
     .room-input-group {
-      margin-top: 20px;
+      margin-top: 100px;
     }
 
     .legend {
       white-space: nowrap;
       margin-bottom: 40px;
+      .internet-hover {
+        &:hover {
+          color: blue;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .lot-user {
+      @extend .lot-table;
+      background: url("/images/lot-tables/lot_tabl_quite.png") no-repeat;
+      height: 100px;
+      width: 100px;
+    }
+
+    .lot-user-internet {
+      @extend .lot-table;
+      background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat;
+      height: 100px;
+      width: 100px;
     }
 
     .description {
@@ -661,6 +745,9 @@
       height: 400px;
       margin-top: 10px;
       margin-bottom: 10px;
+      .video-container {
+        position: relative;
+      }
     }
     .blue-border-right {
       border-width: 0 4px 0 0;
@@ -670,8 +757,12 @@
     }
     .description-the-book {
       background: white;
-      height: 80px;
-
+      //border-bottom: 1px solid black;
+      min-height: 80px;
+      height: 100px;
+      font-size: 15px;
+      font-weight: 700;
+      overflow: hidden;
     }
     .room-price {
       //position: relative;
@@ -681,7 +772,14 @@
       color: white;
       //padding: 5px 0px 0px 20px; // левый отступ - 20px\
       margin-top: 10px;
-
+      &-color {
+        &:hover {
+          background: #117400;
+        }
+        &:active {
+          background: #115200;
+        }
+      }
     }
     .display-table {
       display: table;
@@ -694,12 +792,27 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .do-rate-hided {
+      background: #ccdde5;
+      text-align: center;
+      font-size: 15pt;
+      padding-top: 12px;
+      white-space: nowrap;
+      font-weight: bold;
+      cursor: pointer;
+      &:hover {
+        background: #ccdde5;
+      }
+      &:active {
+        background: #ccdde5;
+      }
+    }
     .number-of-rate {
       border-width: 0 0 0 1px;
       border-style: solid;
-      font-size: 25pt;
+      font-size: 19pt;
       text-align: center;
-      padding-top: 3px;
+      padding-top: 10px;
       font-weight: bold;
     }
     .max-rate {
@@ -713,13 +826,14 @@
     .recommended-price {
       opacity: 0.5;
       font-weight: bold;
-      font-size: 8pt;
+      font-size: 10pt;
       text-align: center;
       &-number {
         text-align: center;
         font-weight: bold;
-        font-size: 18pt;
-        color: #118a02;
+        font-size: 15pt;
+        //color: #118a02;
+        color: #ff0000;
         white-space: nowrap;
       }
     }
@@ -727,13 +841,20 @@
       text-align: center;
       color: #989898;
       font-weight: bold;
-      font-size: 16pt;
+      height: 100px;
+      font-size: 24pt;
+      line-height: 0.7;
       &-sec-row {
-        font-size: 12pt;
+        font-size: 14pt;
+        p {
+          font-size: 17px;
+          margin: 7px 0 0 0;
+        }
       }
       &-third-row {
+        margin: 7px 0 0 0 !important;
         opacity: 1.0;
-        font-size: 12pt;
+        font-size: 12pt !important;
         color: #508820;
       }
     }
@@ -772,24 +893,181 @@
   .classForVideo {
     &-small {
       height: 106px;
-      padding-top: 20px;
       width: 130px;
+      //padding-top: 20px;
+      img {
+        min-height: 127px;
+        min-width: 127px;
+      }
       video {
         height: 106px;
         position: absolute;
         width: 130px;
       }
     }
-    &-big {
-      bottom: -37px;
-      height: 220px;
-      position: absolute;
-      right: 180px;
-      width: 285px;
-      video {
+    //&-big {
+    //  bottom: -18px;
+    //  height: 220px;
+    //  position: absolute;
+    //  right: 180px;
+    //  width: 285px;
+    //    video {
+    //      position: absolute;
+    //    }
+    //  }
+    //}
+  }
+  @media screen and (min-width: 1200px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
         position: absolute;
+        right: 164px;
+        width: 285px;
+        video {
+          position: absolute;
+        }
       }
     }
   }
-}
+  @media screen and (max-width: 1200px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
+        position: absolute;
+        right: 180px;
+        width: 255px;
+        video {
+          position: absolute;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 991px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
+        position: absolute;
+        right: 123px;
+        width: 200px;
+        video {
+          position: absolute;
+        }
+      }
+      &-small {
+        width: 88px;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
+        position: absolute;
+        right: 260px;
+        width: 300px;
+        video {
+          position: absolute;
+        }
+      }
+      &-small {
+        width: 160px;
+      }
+    }
+  }
+  @media screen and (max-width: 635px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
+        position: absolute;
+        right: 210px;
+        width: 200px;
+        video {
+          position: absolute;
+        }
+      }
+      &-small {
+        height: 106px;
+        width: 120px;
+      }
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .classForVideo {
+      &-big {
+        bottom: -18px;
+        height: 220px;
+        position: absolute;
+        right: 150px;
+        width: 150px;
+        video {
+          position: absolute;
+        }
+      }
+      &-small {
+        width: 88px;
+      }
+    }
+  }
+  //
+  .class-Of-Lot-I {
+    background: url("/images/lot-tables/lot_tabl_press_inet_without_i.png") no-repeat !important;
+    height: 100px;
+    width: 100px;
+  }
+  .state-lot {
+    font-size: 20px;
+    color: red;
+    text-align: center;
+  }
 
+  .class-blue-bid {
+    background: url("/images/lot-tables/lot_tabl_user.png") no-repeat !important;
+    height: 100px;
+    width: 100px;
+  }
+
+  .class-red-bid {
+    background: url("/images/lot-tables/lot_tabl_stavka.png") no-repeat !important;
+    height: 100px;
+    width: 100px;
+  }
+
+  .class-red-bid-external {
+    height: 45px;
+  }
+
+  .class-red-bid-text {
+    color: red;
+    display: block !important;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 15px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .class-red-bid-text-none {
+    display: none;
+  }
+
+  .lot-user-internet {
+    @extend .lot-table;
+    background: url("/images/lot-tables/lot_tabl_hover_inet.png") no-repeat !important;
+    height: 100px;
+    width: 100px;
+  }
+
+  .pull-left.ng-binding {
+    margin-top: -5px;
+  }
+
+  p.ng-binding.ng-scope {
+    margin-top: 0px;
+  }
+}

@@ -5,6 +5,7 @@ define([
     'angular',
     'jquery',
     'bstrap',
+    'FP',
     'angularFileUpload'
     ], function (ng) {
     'use strict';

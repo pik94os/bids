@@ -16,3 +16,5 @@ module.exports.AuctionHouse = _exports.AuctionHouse;
 module.exports.Lot = _exports.Lot;
 module.exports.Bid = _exports.Bid;
 module.exports.LotPicture = _exports.LotPicture;
+module.exports.Chat = _exports.Chat;
+module.exports.SellingStatistics = _exports.SellingStatistics;

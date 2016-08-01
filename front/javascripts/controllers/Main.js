@@ -1,8 +1,12 @@
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
 
-    controllers.controller('Main', ['$sessionStorage', '$scope', '$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function ($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader) {
-
+    controllers.controller('Main', ['$localForage','$sessionStorage', '$scope', '$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function ($localForage,$sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader) {
+        $localForage.getItem('zaglushka').then(function(data) {
+            data
+                ?$('body').addClass('dev')
+                :$('body').removeClass('dev');
+        });
         ngSocket.emit('getUserInfo', {});
         $scope.isAD = true;
         $scope.setIsAD = function () {
@@ -26,14 +30,14 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
         };
         ngSocket.on('auctionUserStop', function (data) {
-            $('#regUserAuctionStop').modal('show');
+            // $('#regUserAuctionStop').modal('show');
         });
 
         ngSocket.on('auctionUser', function (data) {
             if (data.err) {
                 alert(data.message)
             }
-            $('#regUserAuction').modal('show');
+            // $('#regUserAuction').modal('show');
         });
 
         if ($sessionStorage.auth) {
@@ -62,7 +66,18 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
         $scope.regUserData = {};
         $scope.loginUserData = {};
+
         $scope.createUser = function (role) {
+            var confCode = Math.ceil(1 + Math.random() * (999999 - 1));
+            ngSocket.emit('mailer', {
+                receiverMailer: $scope.regUserData.email,
+                // confCode: confCode,
+                subjectMailer: 'ART-BID.RU (Подтверждение регистрации) ✔',
+                textMailer: 'Уважаемый ' + $scope.regUserData.firstName + ' ' + $scope.regUserData.lastName + ', Вас приветствует антикварный книжный клуб ART-BID.RU. Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:' + confCode,
+                htmlMailer: '<p><b>Уважаемый ' + $scope.regUserData.firstName + ' ' + $scope.regUserData.lastName + ', Вас приветствует антикварный книжный клуб ART-BID.RU</b></p>' +
+                '<p><b>Для успешной регистрации в системе дожитесь звонка нашего оператора и продиктуйте ему код указанный ниже:</b></p>' +
+                '<p><h1>'+ confCode +'</h1></p>'
+            });
             var roleOfNewUser;
             if (role == 4) roleOfNewUser = 4;
             if (role == 3) roleOfNewUser = 3;
@@ -80,7 +95,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     email: $scope.regUserData.email,
                     phone: $scope.regUserData.phone,
                     // confirmationCode: $scope.regUserData.confirmationCode,
-                    confirmationCode: null,
+                    confirmationCode: confCode,
                     password: $scope.regUserData.password,
                     acceptTerms: true,
                     receiveMessages: $scope.regUserData.receiveMessages,
@@ -117,15 +132,17 @@ define(['./module', 'jquery'], function (controllers, $) {
             });
         };
 
-        // создание аукциона
+        // редактирование аукциона
         $scope.newAuction = {};
-        $scope.editAuction = function () {
+        $scope.editAuction = function (param, auctionId) {
             ngSocket.emit('auction/create', {
                 name: $scope.editedAuction.nameAuction,
                 number: $scope.editedAuction.numberAuction,
                 date: $scope.editedAuction.date,
                 userId: $scope.currentUserInfo.id,
-                editId: +$scope.auctionIdForEdit.id
+                editId: auctionId,
+                // editId: +$scope.auctionIdForEdit.id,
+                isDelete: param
             });
         };
 
@@ -163,6 +180,14 @@ define(['./module', 'jquery'], function (controllers, $) {
         //     })
         // };
 
+        // парсинг CSV и затем сохранение фоток в базу
+        $scope.addPicPromisesArr = [];
+        $scope.parseCSVAndSavePictures = function () {
+            $scope.createNewLotFromCSV().then(function () {
+                lotPicUploader()
+            });
+        };
+
         // импорт лотов из CSV
         $scope.CSVParsedFile = {};
         var uploader = $scope.uploader = new FileUploader({
@@ -188,6 +213,11 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         uploader.onAfterAddingFile = function (fileItem) {
             console.info('onAfterAddingFile', fileItem);
+            // addPicPromisesArr.push(
+            //     new Promise(
+            //         lotPicUploader()
+            //     )
+            // )
         };
         uploader.onAfterAddingAll = function (addedFileItems) {
             console.info('onAfterAddingAll', addedFileItems);
@@ -331,41 +361,41 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
 
+        // Работающая со 2-го раза кнопка наверх
         // кнопка наверх начало
-        var scrollUp = document.getElementById('scrollup'); // найти элемент
-        scrollUp.style.display = 'none';
-        $scope.buttonUp = function () {
-
-            scrollUp.onmouseover = function () { // добавить прозрачность
-                scrollUp.style.opacity = 0.3;
-                scrollUp.style.filter = 'alpha(opacity=30)';
-            };
-
-            scrollUp.onmouseout = function () { //убрать прозрачность
-                scrollUp.style.opacity = 0.5;
-                scrollUp.style.filter = 'alpha(opacity=50)';
-            };
-
-            scrollUp.onclick = function () { //обработка клика
-                $('body,html').animate({scrollTop: 0}, 800);
-            };
-        };
-
-        // show button
-        window.onscroll = function () { // при скролле показывать и прятать блок
-
-            if (window.pageYOffset > 75) {
-                scrollUp.style.display = 'block';
-            } else {
-                scrollUp.style.display = 'none';
-            }
-        };
+        // var scrollUp = document.getElementById('scrollup'); // найти элемент
+        // scrollUp.style.display = 'none';
+        // $scope.buttonUp = function () {
+        //
+        //     scrollUp.onmouseover = function () { // добавить прозрачность
+        //         scrollUp.style.opacity = 0.3;
+        //         scrollUp.style.filter = 'alpha(opacity=30)';
+        //     };
+        //
+        //     scrollUp.onmouseout = function () { //убрать прозрачность
+        //         scrollUp.style.opacity = 0.5;
+        //         scrollUp.style.filter = 'alpha(opacity=50)';
+        //     };
+        //
+        //     scrollUp.onclick = function () { //обработка клика
+        //         $('body,html').animate({scrollTop: 0}, 800);
+        //     };
+        // };
+        //
+        // // show button
+        // window.onscroll = function () { // при скролле показывать и прятать блок
+        //     if (window.pageYOffset > 75) {
+        //         scrollUp.style.display = 'block';
+        //     } else {
+        //         scrollUp.style.display = 'none';
+        //     }
+        // };
         // кнопка наверх конец
 
         // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
             var mas = [];
-            while (text !== undefined && text.indexOf("<p>") + 1) {
+            while (text !== undefined && text && text.indexOf("<p>") + 1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
 
                 text = text.substring(text.indexOf("</p>") + 3, text.length);
@@ -375,5 +405,66 @@ define(['./module', 'jquery'], function (controllers, $) {
             return mas;
         };
         // удаление <p></p> из текста и удаление @ кон
+
+        // функционал чата на странице ведущего
+        // socket.join('lesson:' + +$stateParams.auctionId);
+        
+        $scope.chat = {};
+        $scope.chat.message = '';
+        $scope.chat.messages = [];
+
+        // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
+        ngSocket.on('chatMessagesList', function (result) {
+            // $scope.chatMessagesArr = result.resp;
+            // console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
+            // console.log(result.chatMessagesList);
+            result.chatMessagesList.forEach(function (i) {
+                $scope.chat.messages.push(i);
+            });
+        });
+        
+        $scope.chat.keyUp = function (e) {
+            if (e.keyCode === 13) {
+                if ($scope.chat.message) {
+                    $scope.chat.addMessage();
+                    return null;
+                }
+                $scope.chat.message = '';
+            }
+        };
+
+        $scope.chat.addMessage = function () {
+            if ($scope.chat.message) {
+                ngSocket.emit('auction/pasteChatMessage', {
+                    userId: +$scope.currentUserInfo.id,
+                    auctionId: +$stateParams.auctionId,
+                    chatMessage: $scope.chat.message
+                });
+            }
+            $scope.chat.message = '';
+        };
+
+        ngSocket.on('catchMessageRow', function (result) {
+            if (!result.err) {
+                // $scope.chat.messages.push({time: new Date(result.time), text:result.message, username:result.userId});
+                // if ($scope.chat.messages[$scope.chat.messages.length - 1].createdAt !== result.message.createdAt) {
+                $scope.chat.messages.unshift({
+                    createdAt: result.message.createdAt,
+                    message: result.message.message,
+                    user: result.user
+                });
+            }
+        });
+
+        ngSocket.on('chatMessagesList', function (result) {
+            $scope.chatMessagesArr = result.resp;
+        });
+
+        $rootScope.$on('$viewContentLoaded', function () {
+            if ($scope.$state.current.name === 'auction-leading') {
+                $scope.hideHeaderAuctionLeading = true;
+            }
+        });
+
     }])
 });

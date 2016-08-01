@@ -3,19 +3,22 @@
  */
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
-    controllers.controller('Lk', ['$scope','$sessionStorage', '$state', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $sessionStorage, $state, $rootScope, $stateParams, ngSocket) {
+    controllers.controller('Lk', ['$scope', '$sessionStorage', '$state', '$rootScope', '$stateParams', 'ngSocket', function ($scope, $sessionStorage, $state, $rootScope, $stateParams, ngSocket) {
+
+        // ngSocket.emit('mailer', {});
+
         $scope.tab = $stateParams.tab;
-        
+
         $scope.tempUserInfo = JSON.parse(JSON.stringify($scope.currentUserInfo));
-        if($scope.currentUserInfo.roleId==3){
-            ngSocket.emit('auction/list',{});
+        if ($scope.currentUserInfo.roleId == 3) {
+            ngSocket.emit('auction/list', {});
         }
 
         ngSocket.on('userInfo', function (data) {
-            if(data.err!=undefined && data.err==0) {
+            if (data.err != undefined && data.err == 0) {
                 $scope.tempUserInfo = JSON.parse(JSON.stringify(data.doc));
-                if(data.doc.roleId==3){
-                    ngSocket.emit('auction/list',{});
+                if (data.doc.roleId == 3) {
+                    ngSocket.emit('auction/list', {});
                 }
             }
         });
@@ -23,25 +26,33 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.myDate = function (d) {
             var date = d.split('T')[0].split('-');
             var t = d.split('T')[1].split(':');
-            var time = t[0]+':'+t[1];
-            d = date[2]+'.'+date[1]+'.'+date[0];
+            var time = t[0] + ':' + t[1];
+            d = date[2] + '.' + date[1] + '.' + date[0];
             return d + ' в ' + time;
         };
 
         ngSocket.on('auctionCreated', function (result) {
 
-            if(result.err){
+            if (result.err) {
                 alert(result.message);
             }
-            $state.go('auction',{auctionId:result.auction.id});
+            $state.go('auction', {auctionId: result.auction.id});
         });
 
         ngSocket.on('auctionEdited', function (result) {
-           
-            if(result.err){
+
+            if (result.err) {
                 alert(result.message);
             }
-            $state.go('auction',{auctionId:result.auction.id});
+            if (result.auction.isDelete == false) {
+
+                $state.go('auction', {auctionId: result.auction.id});
+            } else {
+                // $state.go('lk?tab=auctions');
+                window.location.reload();
+                // $scope.$apply();
+            }
+
         });
 
         // редактирование пользователя
@@ -49,17 +60,47 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('editUser', $scope.tempUserInfo);
         };
         ngSocket.on('userChanged', function (data) {
-            if(data.err){
+            if (data.err) {
                 alert(data.message);
-            }else{
+            } else {
                 alert('Сохранено');
-                ngSocket.emit('getUserInfo',{});
+                ngSocket.emit('getUserInfo', {});
             }
         });
 
         ngSocket.on('auctionList', function (data) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
+            if ($stateParams.tab ==='historyOfAuctions') {
+                data.auctionList.forEach(function (i) {
+                    ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id});
+                });
+            }
+
         });
 
+        // if (!$scope.currentUserInfo.id==null){delete $scope.sellingStatisticsHouse}
+
+
+        // вывод статистики в личном кабинете дома
+        if ($stateParams.tab ==='historyOfAuctions' && $scope.currentUserInfo.id) {
+            ngSocket.on('catchSellingStatistics', function (result) {
+                $scope.sellingStatisticsHouse = [];
+                result.sellingStatistics.forEach(function (r) {
+                    // console.log(r)
+                    $scope.sellingStatisticsHouse.push(r);
+                });
+            });
+        }
+
+        // вывод статистики в личном кабинете покупателя
+        if ($stateParams.tab ==='historyOfAuctionsCustomer' && $scope.currentUserInfo.id) {
+            ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
+            ngSocket.on('catchSellingStatistics', function (result) {
+                $scope.sellingStatistics = [];
+                result.sellingStatistics.forEach(function (i) {
+                    $scope.sellingStatistics.unshift(i);
+                });
+            });
+        }
     }])
 });

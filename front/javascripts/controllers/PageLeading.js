@@ -2,9 +2,8 @@
 
 
 define(['./module','jquery'],function(controllers,$){
-    'use strict';
     controllers.controller('PageLeading',['$scope','$http', '$rootScope', '$stateParams','ngSocket','$interval', function($scope,$http,$rootScope,$stateParams,ngSocket,$interval){
-
+        
         ngSocket.emit('auction/list', {public: true});
         ngSocket.on('auctionList', function (data) {
             if(data.err) {
@@ -119,7 +118,6 @@ define(['./module','jquery'],function(controllers,$){
         });
         $(window).resize( function(){
             moveToTheRigh();
-        });        
-
+        });
     }])
 });

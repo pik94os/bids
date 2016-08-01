@@ -2,7 +2,7 @@
 
     <div class="preview-auction auction row" ng-if="open == 1">
         <div class="">
-            <div class="col-md-9" ui-sref="room({auctionId:auction.id})">
+            <div class="col-md-9 col-xs-12" ui-sref="room({auctionId:auction.id})">
             <!--<div class="col-md-9">-->
                 <div class="auction-img">
                     <img src="images/image-body-in.png">
@@ -18,8 +18,8 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-xs-4 col-md-12">
-                        <div class="auction-button active" ng-if="notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>
-                        <div class="auction-button active" ng-if="notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#rloginModal">Регистрация</div>
+                        <div class="auction-button active" ng-show="notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>
+                        <div class="auction-button active" ng-show="!notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#loginModal">Регистрация</div>
                     </div>
                     <!--div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div-->
                     <a class="col-xs-4 col-md-12" href="/images/pdf/abc_auction_{{auction.number}}.pdf" target="_blank"><div class="auction-button">Распечатать каталог</div></a>
@@ -95,7 +95,7 @@
     <div class="tabs">
         <div class="row">
             <!--{{lotList}}-->
-                <div class="col-xs-6 col-sm-4 col-md-3 col-tab-add"><div class="tab-add" ui-sref="lot">ДОБАВИТЬ НОВЫЙ ЛОТ</div></div>
+                <div class="col-xs-6 col-sm-4 col-md-3 col-tab-add"><div class="tab-add" ui-sref="createlot({auctionId: currentAuctionId})">ДОБАВИТЬ НОВЫЙ ЛОТ</div></div>
                 <!--<div class="col-xs-6 col-sm-4 col-md-3">-->
                     <!--<div class="tab">-->
                         <!--<div class="over">-->
@@ -160,9 +160,19 @@
                     <div class="img222-under2 descPr">{{singleLot.descriptionPrev | htmlToPlaintext}}</div>
                     <div class="img222-under3">Эстимейт</div>
                     <div class="img222-under41">{{singleLot.estimateFrom.toLocaleString()}} - {{singleLot.estimateTo.toLocaleString()}} р</div><div class="img222-under42"></div>
-                    <div class="info" ng-if="singleLot.isSold"><p class="top">Продано за</p>
-                        <p class="bottom">{{singleLot.sellingPrice.toLocaleString()}} Р</p></div>
-                    <div class="info" ng-if="singleLot.isCl"><p class="top">лот снят</div>
+                    <div class="info" ng-if="singleLot.isSold && !singleLot.isCl">
+                        <p class="top">Продано</p>
+                        <p class="bottom">
+                            {{(singleLot.sellingPrice || singleLot.estimateFrom)|toLocaleString}} Р
+                        </p>
+                    </div>
+                    <div class="info" ng-if="singleLot.isCl && !singleLot.isSold">
+                        <p class="top">Снят</p>
+                        <p class="bottom">
+                            {{(singleLot.sellingPrice || singleLot.estimateFrom)|toLocaleString}} Р
+                        </p>
+                    </div>
+                    <!--<div class="info" ng-if="singleLot.isCl"><p class="top">лот снят</div>-->
                 </div>
             </div>
         </div>

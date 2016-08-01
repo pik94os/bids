@@ -7,13 +7,19 @@
 const Lot = require('../../models').Lot;
 const Auction = require('../../models').Auction;
 module.exports = function (socket, data) {
+    if(socket.request.user.roleId !== 3 && !socket.request.user.id) {
+        return false
+    } else {
     Lot.findOne({
         where: {id: data.id}
     }).then((lot)=> {
+
         return Auction.update({
             start: new Date()
         }, {
-            where: {id: +lot.auctionId}
+            where: {$and:[{
+                id: +lot.auctionId
+            },['auctions.start IS NULL']]}
         }).then((auction)=> {
             lot.isPlayOut = true;
             return lot.save().then(()=> {
@@ -21,6 +27,11 @@ module.exports = function (socket, data) {
                 socket.emit('auctionStart', {
                     err: 0,
                     data: lot
+                });
+                return Auction.update({
+                    isClose: null
+                }, {
+                    where: {id: +lot.auctionId}
                 });
             });
         });
@@ -30,4 +41,5 @@ module.exports = function (socket, data) {
             message: err.message
         });
     })
+    }
 };

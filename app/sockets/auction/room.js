@@ -13,7 +13,7 @@ module.exports = function(socket, data) {
         return
     }
     const user = socket.request.user;
-
+    let where = data.userAuction ? {auctionId: data.id} : '';
     let attributes = [];
         if(data.userAuction) {
             attributes = ["firstName", "lastName", "patronymic", "id"]
@@ -21,11 +21,11 @@ module.exports = function(socket, data) {
             attributes = ["id", "username"]
         }
     Auction.findById(data.id,{
+        where,
         include:[{
             model: Lot,
-            attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number"]
-        },
-            {
+            attributes: ["id", "isPlayOut", "isSold", "titlePicId", "number", "isCl"]
+        }, {
              model: User,
                 attributes: attributes
             }

@@ -1,0 +1,23 @@
+<modal title="Вход на аукцион" id="emailNotification">
+    <div>
+        <!--{{currentUserInfo}}-->
+        <!--{{selectedAuctionInMainId}}-->
+        <div class="text-info">
+            <div>
+                <b style="font-size: 14px">
+                    Уважаемый {{regUserData.firstName}} {{regUserData.lastName}},<br>
+                    на Ваш e-mail: {{regUserData.email}} выслан числовой код необходимый для подтверждения регистрации. <br>
+                    По телефону: {{regUserData.phone}} с вами свяжется наш менеджер. <br>
+                    Пожалуйста проверьте ваш почтовый ящик и продиктуйте высланный вам код.<br>
+                    <br>
+                    (Внимание! Не забудьте проверить папку "Спам", наше письмо могло попасть туда)
+                </b>
+            </div>
+            <br>
+        </div><br>
+        <!--<div class="auction-button active" data-dismiss="modal">OK</div>-->
+        <div class="custom-btn-lg btn-block" ng-click="createUser(tRole)">
+            Создать учетную запись
+        </div>
+    </div>
+</modal>

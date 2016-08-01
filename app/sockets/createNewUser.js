@@ -5,7 +5,7 @@
 
 var User = require('../models/').User;
 
-module.exports = function(socket, data) {
+module.exports = function (socket, data) {
     const role = socket.request.user.roleId;
     // Todo : Использовать право createUser
     // if ((!role) || (role > 2)){
@@ -17,7 +17,7 @@ module.exports = function(socket, data) {
     // }
 
     var _userName = data.email.split('@')[0];
-    
+
     if (!((_userName) && (data.password))) {
         socket.emit('userCreated',
             {err: 1, message: 'Incorrect username or password'}
@@ -26,29 +26,30 @@ module.exports = function(socket, data) {
     }
 
     let _userData = {
-        username : _userName,
-        email : data.email,
-        firstName : data.firstName,
-        lastName : data.lastName,
-        patronymic : data.patronymic,
-        phone : data.phone,
-        introduce : data.introduce,
-        implementing : data.implementing,
-        numberOfClasses : data.numberOfClasses,
-        password : data.password,
-        isArchive : false,
-        roleId: data.roleId
+        username: _userName,
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        patronymic: data.patronymic,
+        phone: data.phone,
+        introduce: data.introduce,
+        implementing: data.implementing,
+        numberOfClasses: data.numberOfClasses,
+        password: data.password,
+        isArchive: false,
+        roleId: data.roleId,
+        confirmationCode: data.confirmationCode
     };
-    if(role===1){
+    if (role === 1) {
         _userData.roleId = 2;
     }
-    
+
     User.create(_userData)
         .then(function (user) {
             socket.emit('userCreated', {
                 'err': 0,
                 newUser: {
-                    userId : user.id,
+                    userId: user.id,
                     username: user.username
                 }
             });

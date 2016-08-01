@@ -16,7 +16,7 @@ module.exports = function(socket, data) {
     }
     const user = socket.request.user;
 
-    if(!socket.request.user.logged_in){
+    if(!user.logged_in){
         socket.emit('lotConfirmed',
             {err: 1, message: 'Пройдите регистрацию и сделайте ставку'}
         );
@@ -29,18 +29,28 @@ module.exports = function(socket, data) {
                 if (err) return emitError(socket, err);
                 checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, function(err){
                     if (err) return emitError(socket, err);
-                Bid.create({price: data.bidPrice, lotId: lot.id, creatorId: user.id})
+                Bid.create({price: data.bidPrice, lotId: lot.id, userId: user.id, auctionId: data.auctionId})
                     .then(function (bid){
                         if (lot.isPlayOut) {
                             lot.sellingPrice = data.bidPrice;
+                        } else if (data.extramural) {
+                            lot.sellingPrice = data.bidPrice;
+                            console.log(data.extramural, data.bidPrice);
                         }
                         return lot.save().then(function (lot) {
                             socket.emit('lotConfirmed',
                                 {err: 0, bid: bid});
+                            console.log(lot.sellingPrice);
                             socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
                                 err: 0,
                                 bid: bid,
-                                userName: socket.request.user
+                                // lot: lot,
+                                userName: {
+                                    id:user.id,
+                                    firstName:user.firstName,
+                                    lastName:user.lastName,
+                                    patronymic:user.patronymic
+                                }
                             });
                         });
                     }).catch(function (err) {
@@ -81,7 +91,7 @@ module.exports = function(socket, data) {
 
     }
     function checkBid(bid, currentPrice, estimateFrom, cb){
-        var step = calcStep(estimateFrom);
+        var step = calcStep(currentPrice);
         if (Number(bid) - Number(estimateFrom) < 0)
             return cb({message: "Бид ниже минимальной цены"});
         // if (Number(bid) - Number(estimateFrom) < step)
@@ -94,46 +104,46 @@ module.exports = function(socket, data) {
 
     function calcStep(price){
         var step = 1;
-        if (price <= 5){
+        if (price < 5){
             return step = 1;
         }
-        if (5 < price &&  price <= 50){
+        if (5 <= price &&  price < 50){
             return step = 5;
         }
-        if (50 < price && price <= 200){
+        if (50 <= price && price < 200){
             return step = 10;
         }
-        if (200 < price && price <= 500){
+        if (200 <= price && price < 500){
             return step = 20;
         }
-        if (500 < price && price <= 1000){
+        if (500 <= price && price < 1000){
             return step = 50;
         }
-        if (1000 < price && price <= 2000) {
+        if (1000 <= price && price < 2000) {
             return step = 100;
         }
-        if (2000 < price && price <= 5000){
+        if (2000 <= price && price < 5000){
             return step = 200;
         }
-        if (5000 < price && price <= 10000){
+        if (5000 <= price && price < 10000){
             return step = 500;
         }
-        if (10000 < price && price <= 20000){
+        if (10000 <= price && price < 20000){
             return step = 1000;
         }
-        if (20000 < price && price <= 50000){
+        if (20000 <= price && price < 50000){
             return step = 2000;
         }
-        if (50000 < price && price <= 100000){
+        if (50000 <= price && price < 100000){
             return step = 5000;
         }
-        if (100000 < price && price <= 200000){
+        if (100000 <= price && price < 200000){
             return step = 10000;
         }
-        if (200000 < price && price <= 500000){
+        if (200000 <= price && price < 500000){
             return step = 20000;
         }
-        if (500000 < price && price <= 1000000){
+        if (500000 <= price && price < 1000000){
             return step = 50000;
         } else {
             step = 100000;

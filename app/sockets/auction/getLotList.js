@@ -8,6 +8,7 @@ var LotPicture = require('../../models/').LotPicture;
 var Sequelize = require('sequelize');
 
 module.exports = function(socket, data) {
+    console.log(data.auctionId);
     if (!data.auctionId) {
         socket.emit('lotList',
             {err: 1, message: 'Undefined auction identifier'}
@@ -45,7 +46,6 @@ module.exports = function(socket, data) {
             attributes: ['id']
         }
     }
-    
     Lot.findAll(select)
         .then(function(lotList) {
             socket.emit('lotList', {
@@ -59,10 +59,10 @@ module.exports = function(socket, data) {
                     isSold: false
                 }
             }).then((count)=> {
-                console.log(count);
                 if (!count) {
                     socket.emit('countDown', {});
                 }
+                socket.join('auction:' + data.auctionId);
             })
         }).catch(function (err) {
         socket.emit('lotList',

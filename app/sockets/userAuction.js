@@ -4,7 +4,6 @@
 
 'use strict';
 const AuctionUser = require('../models/').AuctionUser;
-
 module.exports = function (socket, data) {
     if(!data.auctionId) {
         socket.emit('auctionUser', {
@@ -37,12 +36,12 @@ module.exports = function (socket, data) {
             }
             return AuctionUser.create({
                 userId: socket.request.user.id,
-                auctionId: data.auctionId
-                //number: number
+                auctionId: data.auctionId,
+                number: number
             }).then(() => {
                 socket.emit('auctionUser',{err:0,info});
             })
-            });
+        });
     }
 
 };

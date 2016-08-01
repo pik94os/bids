@@ -1,32 +1,30 @@
 <div class="tab-pane fade" ng-class="{'in active':tab==='historyOfAuctions'}">
-
+    <!--{{currentUserInfo}}-->
+    <!--{{auctionList}}-->
+    <!--<div class="auction row" ng-repeat="row in sellingStatisticsHouse">-->
+        <!--{{row.id}}-->
+    <!--</div>-->
+    <!--{{sellingStatistics}}-->
     <div class="div-table-historyofauctions">
         <table class="table-historyofauctions">
             <tr class="tr-top">
-                <td class="td01">Дата</td>
-                <td class="td02">Ставка</td>
-                <td class="td03">Пользователь</td>
-                <td class="td04">Локация</td>
+                <td class="td01">Аукцион №</td>
+                <td class="td02">Покупатель</td>
+                <td class="td03">Лот №</td>
+                <td class="td04">Цена покупки</td>
+                <td class="td05">Статус</td>
+                <td class="td06">Дата</td>
             </tr>
-            <tr class="tr-bottom">
-                <td class="td01">20 декабря / 14:23:26</td>
-                <td class="td02">6 800 000</td>
-                <td class="td03">26</td>
-                <td class="td04">Интернет</td>
-            </tr>
-            <tr class="tr-center">
-                <td class="td01">20 декабря / 14:23:26</td>
-                <td class="td02">7 000 000</td>
-                <td class="td03"></td>
-                <td class="td04">Зал</td>
-            </tr>
-            <tr class="tr-bottom">
-                <td class="td01">20 декабря / 14:23:26</td>
-                <td class="td02">7 400 000</td>
-                <td class="td03">26</td>
-                <td class="td04">Интернет</td>
+            <tr class="tr-bottom" ng-repeat="row in sellingStatisticsHouse">
+                <td class="td01">{{row.auctionId}}</td>
+                <td class="td02">{{row.firstName}} {{row.lastName}} {{row.patronymic}}</td>
+                <td class="td03">{{row.lotNumber}}</td>
+                <td class="td04" ng-show="!row.isCl">{{row.price.toLocaleString()}} Р</td>
+                <td class="td04" ng-show="row.isCl">Лот снят</td>
+                <td class="td05" ng-show="!row.isCl">Ожидаем оплаты</td>
+                <td class="td05" ng-show="row.isCl"></td>
+                <td class="td06">{{row.createdAt.split('T')[0].split('-')[2] + '.' + row.createdAt.split('T')[0].split('-')[1] + '.' + row.createdAt.split('T')[0].split('-')[0] + ' / ' + row.createdAt.split('T')[1].split('.')[0]}}</td>
             </tr>
         </table>
     </div>
-
 </div>

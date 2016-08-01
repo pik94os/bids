@@ -117,9 +117,11 @@
         -->
     </div>
     <div class="auctions-list collapse in">
+
+        <!--{{currentUserInfo}}-->
         <div class="auction row" ng-repeat="auction in auctionList">
             <div>
-                <div class="col-md-9" ui-sref="room({auctionId:auction.id})">
+                <div class="col-xs-9" ui-sref="room({auctionId:auction.id})">
                 <!--<div class="col-md-9">-->
                     <div class="auction-img">
                         <img src="images/image-body-in.png">
@@ -132,8 +134,8 @@
                         <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="row" >
+                <div class="col-xs-3">
+                    <div class="row">
                         <div class="col-xs-4 col-md-12"><!-- $('#regUserAuction').modal('show'); -->
                             <!--{{auction.id}}-->
                             <!--{{currentUserInfo.id}}-->
@@ -142,12 +144,14 @@
                                 <!--{{aucId.auctionId}}-->
                                 <!--{{auction.id}}-->
 
-                                <div class="auction-button active" ng-show="notRegistr && hidedBtns[$index]!=$index"  ng-click="regist(auction.id,myDate(auction.date)); hideBtnSet($index)">Регистрация</div>
+                                <!--<div class="auction-button active" ng-show="notRegistr && hidedBtns[$index]!=$index"  ng-click="regist(auction.id,myDate(auction.date)); hideBtnSet($index)">Регистрация</div>-->
+                                <!--<div class="auction-button active" ng-show="notRegistr && hidedBtns[$index]!=$index"  ng-click="regist(auction.id,myDate(auction.date)); hideBtnSet($index)">Регистрация</div>-->
                                 <!--<div class="auction-button active" ng-show="notRegistr && !buttonHide && indexBtn!=$index"  ng-click="regist(auction.id,myDate(auction.date)); hideBtnSet($index)">Регистрация</div>-->
 
                             <!--</div>-->
-                            <!--<div class="auction-button active" ng-hide="!hideRegButton"  ng-click="regist(auction.id,myDate(auction.date))">Регистрация</div>-->
-                            <div class="auction-button active" ng-hide="notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#loginModal">Регистрация</div>
+                            <!--<div class="auction-button active" ng-hide="!currentUserInfo.id"  ng-click="auctionIn(auction.id)">Войти в аукцион</div>-->
+                            <div class="auction-button active" ng-hide="!currentUserInfo.id" data-toggle="modal" data-target="#auctionIn" ng-click="auctionIn(auction.id)">Войти в аукцион</div>
+                            <div class="auction-button active" ng-hide="currentUserInfo.id" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#loginModal">Регистрация</div>
                         </div>
                         <div class="col-xs-4 col-md-12"><div class="auction-button" ui-sref="auction({open:1,auctionId:auction.id})">Просмотр каталога</div></div>
                         <!--<div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div>-->
