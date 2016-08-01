@@ -1,8 +1,12 @@
 define(['./module', 'jquery'], function (controllers, $) {
     'use strict';
 
-    controllers.controller('Main', ['$sessionStorage', '$scope', '$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function ($sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader) {
-
+    controllers.controller('Main', ['$localForage','$sessionStorage', '$scope', '$http', '$rootScope', '$state', '$stateParams', 'ngSocket', 'FileUploader', function ($localForage,$sessionStorage, $scope, $http, $rootScope, $state, $stateParams, ngSocket, FileUploader) {
+        $localForage.getItem('zaglushka').then(function(data) {
+            data
+                ?$('body').addClass('dev')
+                :$('body').removeClass('dev');
+        });
         ngSocket.emit('getUserInfo', {});
         $scope.isAD = true;
         $scope.setIsAD = function () {

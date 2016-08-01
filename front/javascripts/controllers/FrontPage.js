@@ -1,7 +1,24 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('FrontPage',['$scope','$http', '$rootScope', '$state', 'ngSocket', function($scope,$http,$rootScope,$state, ngSocket){
-
+    controllers.controller('FrontPage',['$localForage','$stateParams','$scope','$http', '$rootScope', '$state', 'ngSocket',
+        function($localForage,$stateParams,$scope,$http,$rootScope,$state, ngSocket){
+        if($stateParams.dev!=undefined){
+            if(+$stateParams.dev===0){
+                $localForage.setItem('zaglushka',null).then(function() {
+                    $('body').removeClass('dev');
+                });
+            }else{
+                $localForage.setItem('zaglushka',true).then(function() {
+                    $('body').addClass('dev');
+                });
+            }
+        }else{
+            $localForage.getItem('zaglushka').then(function(data) {
+                data
+                    ?$('body').addClass('dev')
+                    :$('body').removeClass('dev');
+            });
+        }
         $scope.auctionIn = function (data) {
             $rootScope.selectedAuctionInMainId = data;
         };

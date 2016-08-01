@@ -6,7 +6,7 @@ define(['./app'], function (app) {
         $stateProvider
             //Стартовая страница
             .state('front-page', {
-                url: "/",
+                url: "/?dev",
                 views:{
                     '': {
                         templateUrl: "/templates/front-page/list.html",
