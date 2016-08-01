@@ -345,7 +345,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         $scope.decrementBid = function () {
-            var step = calcStep($scope.bidPrice);
+            var step = calcStep($scope.bidPrice - calcStep($scope.bidPrice));
             if ($scope.bidPrice > 0)
                 $scope.bidPrice -= Number(step);
 
