@@ -163,12 +163,14 @@ define(['./module','jquery'],function(controllers,$){
 
                 //находим количество пройденных лотов
                 data.auction.lots.map(function (e) {
-                    if (e.isSold == true) {
+                    if (e.isSold || e.isCl) {
                         return $scope.auction_params.lots_isPlayOuted.push(e)
                     }
                 });
+                $scope.auction_params.lots_isPlayOutedLength = $scope.auction_params.lots_isPlayOuted.length;
                 if ($scope.auction_params.lots_length != 0)
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
+
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
                 //$scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'};
@@ -541,7 +543,17 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
-            
+
+            //обновить список проданных и закрытых лотов
+            if ((typeof data.oldLot.isSold != 'undefined' && data.oldLot.isSold) || (typeof data.oldLot.isCl != 'undefined' && data.oldLot.isCl)) {
+                $scope.auction_params.lots_isPlayOuted.push(data.oldLot);
+            } else {
+                $scope.auction_params.lots_isPlayOuted.splice($scope.auction_params.lots_isPlayOuted.indexOf(data.oldLot), 1);
+            }
+            $scope.auction_params.lots_isPlayOutedLength = $scope.auction_params.lots_isPlayOuted.length;
+            if ($scope.auction_params.lots_length != 0)
+                $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
+
             //Обновить auction_params
             for (var lot in $scope.auction_params.lots) {
                 if ($scope.auction_params.lots[lot].id === data.oldLotId) {
