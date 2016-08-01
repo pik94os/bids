@@ -146,17 +146,15 @@
                 <!--прогресс-бар наверху-->
                 <div>
                     <div class="room-progress-bar-container">
-                        <div ng-class="['progress-bar-line', 'pull-left']"
-                             width = "{{auction_params.lots_isPlayOutedPercent}}%">
+                        <div class="progress-bar-line-container">
+                            <div class="progress-bar-line" style="width: {{auction_params.lots_isPlayOutedPercent}}%">
+                            </div>
                         </div>
-                        <!--ng-style="auction_params.progress_bar_class"-->
-                        <!--width="{{auction_params.lots_isPlayOutedPercent}}%">-->
                         <div class="room-text-in-bar-procents pull-right">
                             <!--{{auction_params.lots_isPlayOutedPercent}}% ИЗ
                             {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}-->
-                            {{lot_number}} ИЗ {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}
+                            {{auction_params.lots_isPlayOutedLength}} ИЗ {{auction_params.lots_length}} ЛОТОВ | {{min}}:{{sec}}
                         </div>
-                        <!--<div class="room-text-in-bar-time pull-left">00 : 57</div>-->
                     </div>
                 </div>
                 <!--левая колонка-->

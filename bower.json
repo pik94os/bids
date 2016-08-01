@@ -33,9 +33,6 @@
     "jquery": "^2.0.0",
     "angular-file-upload": "^2.3.4",
     "localforage": "^1.4.2",
-    "simpleWebRTC": "^2.1.0",
-    "nodemailer": "^2.5.0",
-    "nodemailer-smtp-transport": "^2.6.0",
-    "nodemailer-dkim": "^0.2.2"
+    "simpleWebRTC": "^2.1.0"
   }
 }

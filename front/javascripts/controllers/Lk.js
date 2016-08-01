@@ -78,8 +78,11 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         });
 
-        // пофиксить, дублирует статистику почему то!!!!
-        if ($stateParams.tab ==='historyOfAuctions') {
+        // if (!$scope.currentUserInfo.id==null){delete $scope.sellingStatisticsHouse}
+
+
+        // вывод статистики в личном кабинете дома
+        if ($stateParams.tab ==='historyOfAuctions' && $scope.currentUserInfo.id) {
             ngSocket.on('catchSellingStatistics', function (result) {
                 $scope.sellingStatisticsHouse = [];
                 result.sellingStatistics.forEach(function (r) {
@@ -88,13 +91,11 @@ define(['./module', 'jquery'], function (controllers, $) {
                 });
             });
         }
-        // $scope.sellingStatistics = [1,1,1]
-        if ($stateParams.tab ==='historyOfAuctionsCustomer') {
 
+        // вывод статистики в личном кабинете покупателя
+        if ($stateParams.tab ==='historyOfAuctionsCustomer' && $scope.currentUserInfo.id) {
             ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
             ngSocket.on('catchSellingStatistics', function (result) {
-                console.log('>>>>>>>>>>>>>>>>>>>');
-                console.log(result);
                 $scope.sellingStatistics = [];
                 result.sellingStatistics.forEach(function (i) {
                     $scope.sellingStatistics.unshift(i);
