@@ -4,6 +4,7 @@
 
 'use strict';
 const AuctionUser = require('../models/').AuctionUser;
+const SellingStatistics = require(('../models/')).SellingStatistics;
 module.exports = function (socket, data) {
     if(!data.auctionId) {
         socket.emit('auctionUser', {
@@ -23,22 +24,24 @@ module.exports = function (socket, data) {
             {err: 1, message: err.message}
         );
     });
-
     function createAuctionUser(number) {
             AuctionUser.find({
                 where:{
-                    userId: socket.request.user.id,
+                    userId: data.lotConfirmed ? data.userId : socket.request.user.id,
                     auctionId: data.auctionId
                 }
             }).then((info) => {
-                if(info){
-                return socket.emit('auctionUserStop',{info});
-            }
+                if(data.lotConfirmed && info){
+                    return socket.emit('auctionUserStop',{info});
+                } else if(!data.lotConfirmed && info) {
+                    return socket.emit('auctionCurrentUserNumber',{info});
+                }
             return AuctionUser.create({
                 userId: socket.request.user.id,
                 auctionId: data.auctionId,
-                number: number
-            }).then(() => {
+                number: number,
+                isArchive: false
+            }).then((auctionUser) => {
                 socket.emit('auctionUser',{err:0,info});
             })
         });

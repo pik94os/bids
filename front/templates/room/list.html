@@ -1,6 +1,6 @@
-<div class="rom-container">
+<div class="rom-container" ng-switch on="countdown">
     <!--первая подстраница с прогресс-барами круглыми-->
-    <div ng-show="countdown==1">
+    <div ng-switch-when="1">
         <div class="room-list" ng-class="{'ll-open':open}">
             <!--прогресс-бар наверху-->
             <div class="room-progress-bar-container">
@@ -112,7 +112,7 @@
                        placeholder="СООБЩЕНИЕ"
                        id="write-message2"
                        ng-model="chat.message"
-                       ng-keyup="chat.keyUp($event)">
+                       ng-keyUp="chat.keyUp($event)">
                         <span class="input-group-btn">
                             <button class="btn room-buttons"
                                     type="submit"
@@ -140,7 +140,7 @@
         <!--<br>-->
     <!--</div>-->
     <!--вторая подстраница непосредственно с аукционом-->
-    <div ng-show="countdown==2" class="container">
+    <div ng-switch-when="2" class="container">
         <div class="row">
             <div class="room-list">
                 <!--прогресс-бар наверху-->
@@ -173,16 +173,15 @@
                     <!--вывод текущего ID пользователя - {{currentUserInfo.id}}-->
 
                     <!--карточки-->
-
                     <div class="row">
                         <div class="room-container-with-circles">
                             <div emit-last-repeater-element
                                  class="lot-table"
                                  ng-class="{'lot-user-internet': classLot,
-                                            'class-Of-Lot-I': $index == classOfLotI,
-                                            'class-blue-bid': $index+2 === userNumber && timeoutBidUser === true,
-                                            'class-red-bid': $index+2 === userNumber && timeoutRedBidUser === true}"
-                                 ng-repeat="r in auction_params.users_number"
+                                            'class-Of-Lot-I': r.auction_user.number === userCurrentNumber,
+                                            'class-blue-bid': r.auction_user.number === userNumber && timeoutBidUser === true,
+                                            'class-red-bid': r.auction_user.number === userNumber && timeoutRedBidUser === true}"
+                                 ng-repeat="r in auction_params.users"
                                  ng-click='setPopup($index)'>
                                 <!--<div class="class-red-text-bid-none"-->
                                      <!--ng-class="{'class-red-text-bid': $index+2 === userNumber && timeoutRedBidUser === true}">-->
@@ -192,7 +191,7 @@
             <!--'lot-table-press-inet':r === 5, 'lot-table-press-zal':r===6,-->
             <!--'lot-table-stavka': $index+1 === getUserNumber(current_lot.bids[0].userId) && timeoutBidUser === true , 'lot-table-user':$index+1 === getUserNumber(auction_params.current_user)}"-->
 
-                                <div class="num-on-table">{{$index+1}}</div>
+                                <div class="num-on-table">{{r.auction_user.number}}</div>
 
                             </div>
                         </div>
@@ -249,11 +248,11 @@
                         <div class="room-small-books-container">
                             <div class="room-arrow_left">
                                 <img src="../../images/arrow-left-b.png"
-                                     ng-click="lastPhotos()">
+                                     ng-click="goPreviousPage()">
                             </div>
                             <div class="room-arrow-right">
                                 <img src="../../images/arrow-right-b.png"
-                                     ng-click="firstPhotos()">
+                                     ng-click="goNextPage()">
                             </div>
                             <div class="gallery-carousel">
                                 <a emit-last-repeater-element
@@ -263,8 +262,8 @@
                                    target="_blank">
                                     <div class="page-numbers-single"
                                          ng-class="{'page-numbers-single-red':
-                                         lot_number === r.number}">
-                                         {{r.number}}
+                                        lot_number === r.number}">
+                                        {{r.number}}
                                     </div>
 
                                     <div class="room-small-photo">
@@ -350,7 +349,7 @@
                                     <span>СТАВКА</span>
                                     <div class="rate-from-inet-sec-row">
                                         <p ng-if="userNumber">ИЗ ИНТЕРНЕТА</p>
-                                        <p class="rate-from-inet-third-row" ng-if="userNumber">ОТ # {{userNumber - 1}}</p>
+                                        <p class="rate-from-inet-third-row" ng-if="userNumber">ОТ # {{userNumber}}</p>
                                     </div>
                                     <!--<div class="rate-from-inet-third-row">-->
                                         <!--<p ng-if="userNumber">ОТ # {{userNumber - 1}}</p>-->
@@ -426,7 +425,7 @@
         <br>
     </div>
 </div>
-<div class="room-auction-title" ng-if="countdown===3">
+<div class="room-auction-title" ng-switch-when="3">
     <div class="room-auction-title-auction">
         <p style="font-size: 60px;text-align: center;padding-top: 150px";><b>АУКЦИОН ЗАВЕРШЕН</b></p>
         <p style="font-size: 60px;text-align: center;";><b>СПАСИБО ЗА ВНИМАНИЕ!</b></p>
