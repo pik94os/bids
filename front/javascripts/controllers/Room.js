@@ -42,10 +42,6 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lot_number = data.lot.number;
         });
 
-        ngSocket.on('lotSelected', function (data) {
-            $scope.lot_number = data.lot.number;
-        });
-
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         
         $scope.changeClassVideoWindow = function () {
@@ -76,6 +72,7 @@ define(['./module','jquery'],function(controllers,$){
                 current_user: null,
                 lots_length:  0,
                 lots: [],
+                lotToShow: [],
                 lots_isPlayOuted: [],
                 lots_isPlayOutedPercent: 0,
                 lot_pictures: [],
@@ -138,6 +135,8 @@ define(['./module','jquery'],function(controllers,$){
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
+                //TODO: Пофиксить карусель - на странице должно одновременно отображаться 5 элементов из массива
+                //$scope.auction_params.lotsToShow = data.auction.lots.slice($scope.lot_number, 5);
                 console.log(data.auction.lots[1]);
                 console.log('hjhgjhkghjghj');
                 $scope.auction_params.lot_pictures = [];
