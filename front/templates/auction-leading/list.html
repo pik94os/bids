@@ -30,9 +30,9 @@
                 </div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
-                        <div class="pageAuctionLeading-right-top-left-top" ng-show="price && userNumber && userData">
+                        <div class="pageAuctionLeading-right-top-left-top" ng-if="price && userNumber">
                             <div class="div-number">{{price.toLocaleString() + 'руб'}}</div>
-                            <div class="div-text">{{'№' + (+userNumber - 1)}} {{userData}}</div>
+                            <div class="div-text">{{'№' + (+userNumber)}} {{userData}}</div>
                             <!--<div class="bottom">{{lot.sellingPrice.toLocaleString()}} руб</div>-->
                             <!--{{lotList.estimateFrom + ' - ' + lotList.estimateTo}}-->
                         </div>
@@ -121,7 +121,7 @@
                         <div class="pageAuctionLeading-right-center-right-textBottom"
                              ng-if="userNumber && userData && price">
                             <div class="top">Зал</div>
-                            <div class="center"><b>{{'№' + (+userNumber - 1)}}</b><br>{{userData}}</div>
+                            <div class="center"><b>{{'№' + (+userNumber)}}</b><br>{{userData}}</div>
                             <div class="bottom">{{price.toLocaleString() + 'руб'}}</div>
                         </div>
                     </div>
