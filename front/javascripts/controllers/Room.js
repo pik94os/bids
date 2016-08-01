@@ -42,15 +42,6 @@ define(['./module','jquery'],function(controllers,$){
             $scope.lot_number = data.lot.number;
         });
 
-        /**
-         *
-         * @param item
-         * @returns {boolean}
-         */
-        $scope.filterActive = function(item) {
-            return !(item.isCl || item.isSold);
-        };
-
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
         });
@@ -123,7 +114,8 @@ define(['./module','jquery'],function(controllers,$){
 
 
             ngSocket.on('room',function (data) {
-                $scope.t = Date.now() - new Date(data.auction.start);
+                // $scope.t = Date.now() - new Date(data.auction.start);
+                $scope.t = new Date(srvTime()) - new Date(data.auction.start);
                 var date;
                 date = new Date(data.auction.date);
                 $scope.auctionTime = data.auction.start;
@@ -239,6 +231,9 @@ define(['./module','jquery'],function(controllers,$){
 
                 $scope.min = Math.floor($scope.t / 1000 / 60);
                 $scope.sec = Math.floor($scope.t / 1000) - $scope.min * 60;
+                if ($scope.sec < 10) {
+                    $scope.sec = '0' + $scope.sec;
+                }
                 $scope.$apply();
 
                 var stopTime = $interval(function () {
@@ -736,4 +731,38 @@ define(['./module','jquery'],function(controllers,$){
         }
         return step;
     }
+
+
+    var xmlHttp;
+
+    /**
+     * Возвращает серверное время по AJAX запросу
+     * @returns {string} - серверное время в стороковом формате
+     */
+    function srvTime(){
+        try {
+            //FF, Opera, Safari, Chrome
+            xmlHttp = new XMLHttpRequest();
+        }
+        catch (err1) {
+            //IE
+            try {
+                xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
+            }
+            catch (err2) {
+                try {
+                    xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+                catch (eerr3) {
+                    //AJAX not supported, use CPU time.
+                    alert("AJAX not supported");
+                }
+            }
+        }
+        xmlHttp.open('HEAD',window.location.href.toString(),false);
+        xmlHttp.setRequestHeader("Content-Type", "text/html");
+        xmlHttp.send('');
+        return xmlHttp.getResponseHeader("Date");
+    }
+
 });
