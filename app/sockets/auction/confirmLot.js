@@ -5,7 +5,7 @@
 const Lot = require('../../models/').Lot;
 const User = require('../../models/').User;
 const Bid = require('../../models/').Bid;
-
+const Auction = require('../../models/').Auction;
 
 module.exports = function(socket, data) {
     if (!data.lotId) {
