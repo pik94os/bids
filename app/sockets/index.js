@@ -5,7 +5,7 @@ let rooms = {},
     userIds = {};
 module.exports = function(io,passportSocketIo) {
     io.on('connection', function(socket){
-        // const user=socket.request.user;
+        require('./changeUserState')(socket, passportSocketIo, io, null);
         // socket.io=io;
         // if(socket.request.user.logged_in){
         //     socket.passport=passportSocketIo;
@@ -119,15 +119,7 @@ module.exports = function(io,passportSocketIo) {
         });
 
         socket.on('disconnect', function () {
-            if (!currentRoom || !rooms[currentRoom]) {
-                return;
-            }
-            delete rooms[currentRoom][rooms[currentRoom].indexOf(socket)];
-            rooms[currentRoom].forEach(function (socket) {
-                if (socket) {
-                    socket.emit('peer.disconnected', { id: id });
-                }
-            });
+            require('./changeUserState')(socket, passportSocketIo, io, 1);
         });
     });
 };

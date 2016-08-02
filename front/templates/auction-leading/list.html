@@ -9,11 +9,16 @@
                     </div>
                     <div class="pageAuctionLeading-left-in-text" ng-repeat="user in users">
                         <div class="pageAuctionLeading-left-in-text-numberAndName">
-                            <b>№{{getUserNumber(user.id)}}</b> {{user.lastName}} {{user.firstName}}
-                            <!--{{user.patronymic}}-->
+                            <b>№{{user.auction_user.number}}</b> {{user.lastName}} {{user.firstName}}
                         </div>
-                        <div class="pageAuctionLeading-left-in-text-circleColor">
+                        <div class="pageAuctionLeading-left-in-text-circleColor" ng-if="user.state === null">
                             <img src="images/circle-green.png">
+                        </div>
+                        <div class="pageAuctionLeading-left-in-text-circleColor" ng-if="user.state === 1">
+                            <img src="images/circle-yellow.png">
+                        </div>
+                        <div class="pageAuctionLeading-left-in-text-circleColor" ng-if="user.state === 2">
+                            <img src="images/circle-red.png">
                         </div>
                     </div>
                 </div>
