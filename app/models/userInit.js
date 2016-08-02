@@ -77,6 +77,7 @@ class Initiator {
         this.User.hasMany(this.Bid);
         this.Bid.belongsTo(this.User);
         this.SellingStatistics.belongsTo(this.AuctionUser);
+        this.SellingStatistics.belongsTo(this.User, {foreignKey: 'userId'});
         this.AuctionUser.hasMany(this.SellingStatistics);
        // this.Notification.belongsTo(this.Lot, {as: "lot"});
        // this.Notification.belongsTo(this.User, {as: "users"});

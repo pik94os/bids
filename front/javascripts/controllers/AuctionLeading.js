@@ -173,8 +173,13 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.fuckStop = false;
         };
         $scope.reloadPage = function reloadPage() {
+            ngSocket.emit('auction/sendStatisticByEmail', {id: +$stateParams.auctionId});
             ngSocket.emit('auction/auctionStop', {id: +$stateParams.auctionId});
         };
+
+        ngSocket.on('catchSellingStatisticsEmail', function (result) {
+            $scope.mailStatistics = result;
+        });
 
         ngSocket.on('stopAuction', function (stop) {
             if ($scope.f !== undefined) {
