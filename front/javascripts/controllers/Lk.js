@@ -70,30 +70,25 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.on('auctionList', function (data) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
-            if ($stateParams.tab ==='historyOfAuctions') {
+            if ($stateParams.tab === 'historyOfAuctions') {
                 data.auctionList.forEach(function (i) {
                     ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id});
                 });
             }
-
+            // вывод статистики в личном кабинете дома
+            if ($stateParams.tab === 'historyOfAuctions' && $scope.currentUserInfo.id) {
+                $scope.sellingStatisticsHouse = [];
+                ngSocket.on('catchSellingStatistics', function (result) {
+                    result.sellingStatistics.forEach(function (r) {
+                        // console.log(r)
+                        $scope.sellingStatisticsHouse.push(r);
+                    });
+                });
+            }
         });
 
-        // if (!$scope.currentUserInfo.id==null){delete $scope.sellingStatisticsHouse}
-
-
-        // вывод статистики в личном кабинете дома
-        if ($stateParams.tab ==='historyOfAuctions' && $scope.currentUserInfo.id) {
-            ngSocket.on('catchSellingStatistics', function (result) {
-                $scope.sellingStatisticsHouse = [];
-                result.sellingStatistics.forEach(function (r) {
-                    // console.log(r)
-                    $scope.sellingStatisticsHouse.push(r);
-                });
-            });
-        }
-
         // вывод статистики в личном кабинете покупателя
-        if ($stateParams.tab ==='historyOfAuctionsCustomer' && $scope.currentUserInfo.id) {
+        if ($stateParams.tab === 'historyOfAuctionsCustomer' && $scope.currentUserInfo.id) {
             ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
             ngSocket.on('catchSellingStatistics', function (result) {
                 $scope.sellingStatistics = [];

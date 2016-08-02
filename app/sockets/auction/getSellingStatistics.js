@@ -6,8 +6,8 @@ let SellingStatistics = require('../../models/').SellingStatistics;
 let AuctionUser = require('../../models/').AuctionUser;
 module.exports = function(socket, data) {
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
-    console.log(data);
+    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
+    // console.log(data);
 
     let where = {
         // auctionId: data.auctionId
@@ -16,6 +16,7 @@ module.exports = function(socket, data) {
 
     if (data.auctionId){where.auctionId = data.auctionId;}
     if (data.userId){where.userId = data.userId;}
+    // if (data.isSold){where.isSold = data.isSold;}
 
 
     SellingStatistics.findAll({

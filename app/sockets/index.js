@@ -27,7 +27,7 @@ module.exports = function(io,passportSocketIo) {
 
         //список событий в виде массива (указать имя файла-обработчика)
         const events=[
-            //User
+            // User
             {event:'getUserInfo', access:0, comment: "получение информации о пользователе" },
             {event:'createNewUser', access:0, comment: "создание нового пользователя"},
             {event:'editUser', access:0, comment: "редактирование пользователя"},
@@ -36,7 +36,7 @@ module.exports = function(io,passportSocketIo) {
             {event:'getUser', access:0, comment: "получение информации пользователя"},
             {event:'getUserRoles', access:0, comment: "получение списка ролей пользователей"},
             {event:'user/getUserAuction', access:0, comment: "запрос списка аукционов пользователя"},
-            //аукционы
+            // аукционы
             {event:'auction/create', access:0, comment: "создание аукциона"},
             {event:'auction/room', access:0, comment: "комната аукциона"},
             {event:'auction/list', access:0, comment: "получение списка аукционов"},
@@ -48,24 +48,26 @@ module.exports = function(io,passportSocketIo) {
             {event:'auction/getAuction', access:0, comment: "запрос аукциона по id"},
             {event:'auction/updateAuction', access:0, comment: "обновление аукциона"},
             {event:'auction/auctionStop', access:0, comment: "завершение аукциона"},
+            // статистика
             {event:'auction/createSellingStatistics', access:0, comment: "добавление факта продажи в таблицу статистики продаж"},
             {event:'auction/getSellingStatistics', access:0, comment: "получение статистики продаж"},
+            {event:'auction/sendStatisticByEmail', access:0, comment: "отправка статистики покупок по мейлу пользователям после завершения аукциона"},
             // {event:'auction/getAuctionUsers', access:0, comment: "получение списка аукционов на которые зарегистрирован юзер"},
             // картинки
             {event:'auction/getPictureList', access:0, comment: "получение списка картинок"},
             {event:'userAuction', access:0, comment: "регистрация пользователя для аукциона"},
             {event:'auction/createLotPicture', access:0, comment: "добавление картинок вручную"},
-            //лоты
+            // лоты
             {event:'auction/updateLot', access:0, comment: "обновление лотов"},
             {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"},
-            //биды
+            // биды
             {event:'auction/getListBids', access:0, comment: "запуск разыгрываемого первого лота"},
             // чат
             {event:'auction/pasteChatMessage', access:0, comment: "добавление сообщений в чат"},
             {event:'auction/getChatMessages', access:0, comment: "получение сообщений из чата определенного аукциона"},
             //video
             {event:'video/newVideo', access:0, comment: "обновление информации о трансляции"},
-            //email
+            // email
             {event:'mailer', access:0, comment: "отправка мейла"}
         ];
 

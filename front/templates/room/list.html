@@ -179,8 +179,8 @@
                                  class="lot-table"
                                  ng-class="{'lot-user-internet': classLot,
                                             'class-Of-Lot-I': r.auction_user.number === userCurrentNumber,
-                                            'class-blue-bid': r.auction_user.number === userNumber && timeoutBidUser === true,
-                                            'class-red-bid': r.auction_user.number === userNumber && timeoutRedBidUser === true}"
+                                            'class-blue-bid': r.auction_user.number === userNumber && timeoutBidUser,
+                                            'class-red-bid': r.auction_user.number === userNumber && timeoutRedBidUser}"
                                  ng-repeat="r in auction_params.users"
                                  ng-click='setPopup($index)'>
                                 <!--<div class="class-red-text-bid-none"-->
@@ -196,9 +196,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="class-red-bid-external">
-                        <div class="class-red-bid-text-none" ng-class="{'class-red-bid-text': $index+2 === userNumber
-                                    && timeoutRedBidUser === true}">
+                    <div class="class-red-bid-external" ng-if="timeoutRedBidUser">
+                        <div class="class-red-bid-text-none" ng-class="{'class-red-bid-text': timeoutRedBidUser}">
                             ставка!
                         </div>
                     </div>

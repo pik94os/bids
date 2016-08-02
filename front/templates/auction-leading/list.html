@@ -53,7 +53,6 @@
                                    class="form-control">
                         </div>
                         <div class="pageAuctionLeading-right-top-right-bottom">
-                            <!--40 000 100-->
                             {{(lot.sellingPrice+calcStep(lot.sellingPrice)).toLocaleString()}}
                         </div>
                         <br>
@@ -118,6 +117,7 @@
                             <button ng-click="start()">Начать аукцион</button>
                             <button ng-click="reloadPage()">Завершить аукцион</button>
                         </div>
+                        {{mailStatistics.sellingStatistics}}
                         <div class="pageAuctionLeading-right-center-right-textBottom"
                              ng-if="userNumber && userData && price">
                             <div class="top">Зал</div>
