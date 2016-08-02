@@ -65,6 +65,7 @@ class Initiator {
         this.Right.belongsToMany(this.Role, {through: this.RoleRight});
         this.Auction.belongsToMany(this.User, {through: this.AuctionUser});
         this.User.belongsToMany(this.Auction, {through: this.AuctionUser});
+
         // this.Auction.belongsTo(this.User);
         this.User.hasMany(this.Auction);
         this.Auction.hasMany(this.Lot);
@@ -80,6 +81,8 @@ class Initiator {
        // this.Notification.belongsTo(this.Lot, {as: "lot"});
        // this.Notification.belongsTo(this.User, {as: "users"});
         this.Chat.belongsTo(this.User);
+        this.AuctionUser.belongsTo(this.User);
+        this.User.hasMany(this.AuctionUser);
         // this.SellingStatistics.hasMany(this.User);
 
 
