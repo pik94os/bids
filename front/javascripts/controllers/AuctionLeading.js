@@ -13,6 +13,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         $scope.videoName = 'video:' + Date.now();
 
+
         // функционал чата на странице ведущего
         // socket.join('lesson:' + +$stateParams.auctionId);
         ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
@@ -23,9 +24,6 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         ngSocket.on('chatMessagesList', function (result) {
-            // $scope.chatMessagesArr = result.resp;
-            // console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
-            // console.log(result.chatMessagesList);
             result.chatMessagesList.forEach(function (i) {
                 $scope.chat.messages.unshift(i);
             });
@@ -267,7 +265,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
         ngSocket.on('room', function (auction) {
             $scope.users = auction.auction.users;
-            console.log(auction.auction.users);
             $scope.auctionOn = auction.auction.start ? 1 : 0;
 
         });
@@ -359,6 +356,13 @@ define(['./module', 'jquery'], function (controllers, $) {
             });
             }
         });
+
+        //обновление списка пользователей при регистрации на аук
+        ngSocket.emit('userAuction',{});
+        ngSocket.on('newUserRoom', function () {
+            ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
+        });
+
         ngSocket.on('auctionState', function (data) {
             setLotInfo(data.lot);
             setTimeout(function () {

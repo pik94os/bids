@@ -122,6 +122,11 @@ define(['./module','jquery'],function(controllers,$){
             t.detach().appendTo('.gallery-carousel');
         };
 
+        ngSocket.on('newUserRoom', function () {
+            ngSocket.emit('auction/room', {
+                id: $stateParams.auctionId
+            });
+        });
 
             ngSocket.on('room',function (data) {
                 // $scope.t = Date.now() - new Date(data.auction.start);

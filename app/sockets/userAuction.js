@@ -43,6 +43,7 @@ module.exports = function (socket, data) {
                 isArchive: false
             }).then((auctionUser) => {
                 socket.emit('auctionUser',{err:0,info});
+                socket.to('auction:' + (+auctionUser.auctionId)).emit('newUserRoom');
             })
         });
     }
