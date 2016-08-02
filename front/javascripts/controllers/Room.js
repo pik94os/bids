@@ -136,7 +136,6 @@ define(['./module','jquery'],function(controllers,$){
                         $scope.countdown = 1;
                     }
                 }
-
                 ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId});
 
                 ngSocket.on('auctionUserStop', function (data) {
@@ -157,8 +156,6 @@ define(['./module','jquery'],function(controllers,$){
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
                 $scope.auction_params.lots = data.auction.lots;
-                console.log(data.auction.lots[1]);
-                console.log('hjhgjhkghjghj');
                 $scope.auction_params.lot_pictures = [];
                 if (data.lotPictures != undefined && data.lotPictures.length){
                     data.lotPictures.forEach(function (pic) {
@@ -314,7 +311,8 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.$apply();
                 } else {}
 
-
+                
+                ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId, lotConfirmed: true, userId: data.bids[0].userId});
 
                 //TODO: странная штука не удалять
                 // else {
@@ -430,7 +428,6 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.sellingStatistics.unshift(i);
             });
         });
-
         ngSocket.emit('confirmLot', {lotId: $stateParams.auctionId});
         ngSocket.on('lotConfirmed', function (data) {
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
@@ -442,7 +439,6 @@ define(['./module','jquery'],function(controllers,$){
                 alert(data.message);
             }
             ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId, lotConfirmed: true, userId: data.bid.userId});
-
             $scope.setButtonTimeout();
             // $scope.userNumber = data.bid.userId;
             //$scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
@@ -451,10 +447,10 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
                     $scope.current_lot.sellingPrice = data.bid.price;
                     $scope.bidPrice = $scope.current_lot.sellingPrice + calcStep($scope.current_lot.sellingPrice);
-                    $scope.timeoutBidUser = true;
                     $scope.timeoutRedBidUser = true;
-                    setTimeout(function () {
-                        $scope.timeoutRedBidUser = false
+                    $scope.timeoutBidUser = true;
+                setTimeout(function () {
+                        $scope.timeoutRedBidUser = false;
                     }, 3000);
                 }
                 $scope.confirm = data;
