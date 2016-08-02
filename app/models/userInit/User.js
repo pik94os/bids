@@ -45,7 +45,8 @@ var attributes = {
     // прочее
     acceptTerms: {type: Sequelize.BOOLEAN},
     receiveMessages: {type: Sequelize.BOOLEAN},
-    isArchive: {type: Sequelize.BOOLEAN}
+    isArchive: {type: Sequelize.BOOLEAN},
+    state: {type: Sequelize.INTEGER, default: null}
 };
 
 var options = {
