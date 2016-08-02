@@ -1,7 +1,8 @@
 'use strict';
 
-module.exports = function (socket, passportSocketIo, io) {
+module.exports = function (socket, passportSocketIo, io, state) {
     const AuctionUser = require('../models').AuctionUser;
+    // const User = require('../models').User;
     let user = socket.request.user;
     if(socket.request.user.logged_in) {
         let usrs = passportSocketIo.filterSocketsByUser(io, function (u) {
@@ -10,15 +11,21 @@ module.exports = function (socket, passportSocketIo, io) {
             }
             return false;
         });
-        console.log('>>>>>>users>>>>>>', usrs.length, user.id);
-        if(!usrs.length){
+        if(!usrs.length || state!==1){
             AuctionUser.findOne({
                 where: {
                     userId: user.id
                 }
             }).then((auction)=> {
-                console.log('>>>>>>auction>>>>>>', usrs.length, user.id);
-
+                socket.to('auction:' + (+auction.auctionId)).emit('changeUserState');
+                if(auction.isArchive) {
+                    user.state = 2
+                } else {
+                    user.state = state;
+                }
+                return user.save();
+            }).catch(()=> {
+                socket.emit('userDisconnect', {err: 1, message: 'ERROR: user banner'})
             })
         }
     }

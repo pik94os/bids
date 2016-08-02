@@ -16,7 +16,7 @@ module.exports = function(socket, data) {
     let where = data.userAuction ? {auctionId: data.id} : '';
     let attributes = [];
         if(data.userAuction) {
-            attributes = ["firstName", "lastName", "patronymic", "id"]
+            attributes = ["firstName", "lastName", "patronymic", "id", 'state', 'isArchive']
         } else {
             attributes = ["id", "username"]
         }

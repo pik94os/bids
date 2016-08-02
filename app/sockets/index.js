@@ -5,7 +5,7 @@ let rooms = {},
     userIds = {};
 module.exports = function(io,passportSocketIo) {
     io.on('connection', function(socket){
-        const user=socket.request.user;
+        require('./changeUserState')(socket, passportSocketIo, io, null);
         // socket.io=io;
         // if(socket.request.user.logged_in){
         //     socket.passport=passportSocketIo;
@@ -119,7 +119,7 @@ module.exports = function(io,passportSocketIo) {
         });
 
         socket.on('disconnect', function () {
-            require('./disconnect')(socket, passportSocketIo, io);
+            require('./changeUserState')(socket, passportSocketIo, io, 1);
         });
     });
 };

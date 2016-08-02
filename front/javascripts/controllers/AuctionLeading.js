@@ -31,6 +31,10 @@ define(['./module', 'jquery'], function (controllers, $) {
             });
         });
 
+        ngSocket.on('changeUserState', function () {
+            ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
+        });
+
         $scope.chat.keyUp = function (e) {
             if (e.keyCode === 13) {
                 if ($scope.chat.message) {
@@ -263,6 +267,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
         ngSocket.on('room', function (auction) {
             $scope.users = auction.auction.users;
+            console.log(auction.auction.users);
             $scope.auctionOn = auction.auction.start ? 1 : 0;
 
         });
