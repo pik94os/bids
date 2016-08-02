@@ -9,6 +9,21 @@
 	</head>
 	<body class="row-block ng-cloak scrollUp" ng-controller="Main">
 	<!--{{currentUserInfo}}<br>-->
+
+	<!--TODO: заглушка начало-->
+	<div style="height: 750px;
+	  background: url(/images/404bg.png) no-repeat;
+	  -webkit-background-size: 100%;
+        -moz-background-size: 100%;
+        -o-background-size: 100%;
+        background-size: 100%;
+        text-align: center;" class="zaglushka">
+		<b style="font-size: 65px; margin-top: 250px">ERROR</b><br>
+		<b style="font-size: 30px;"> Please contact support</b><br>
+		<a style="font-size: 22px;" href="mailto:moriss.m@yahoo.com">moriss.m@yahoo.com</a>
+	</div>
+	<!--TODO: заглушка конец-->
+
 		<a name="top"></a>
 		<header class="row-block">
 			<div class="header-top row-block">
@@ -22,7 +37,7 @@
 								<div class="avatar-hover">
 									<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>
 									<div class="paddindRight10px" ng-show="currentUserInfo.id">
-											<!--{{currentUserInfo.patronymic}}--> {{currentUserInfo.firstName}} {{currentUserInfo.lastName}} 
+											<!--{{currentUserInfo.patronymic}}--> {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}
 									</div>
 								</div>
 							</div>

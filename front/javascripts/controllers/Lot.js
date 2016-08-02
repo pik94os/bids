@@ -118,7 +118,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.sellingPrice = data.bid.price;
             $scope.bidPrice = $scope.sellingPrice + calcStep($scope.sellingPrice);
         });
-
         ngSocket.on('lotSelected', function (data) {
             $scope.sellingPrice = data.lot.sellingPrice;
             ngSocket.emit('auction/getPictureList', {lotId: data.lot.id});
@@ -346,7 +345,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         $scope.decrementBid = function () {
-            var step = calcStep($scope.bidPrice);
+            var step = calcStep($scope.bidPrice - calcStep($scope.bidPrice));
             if ($scope.bidPrice > 0)
                 $scope.bidPrice -= Number(step);
 

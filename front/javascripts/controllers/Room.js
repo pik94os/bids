@@ -1,6 +1,6 @@
 define(['./module','jquery'],function(controllers,$){
     'use strict';
-    controllers.controller('RoomHeader',['ngSocket','$scope','$http', '$rootScope', '$stateParams', function(ngSocket,$scope,$http,$rootScope,$stateParams){
+    controllers.controller('RoomHeader',['ngSocket','$scope','$state','$http', '$rootScope', '$stateParams', function(ngSocket,$scope,$state,$http,$rootScope,$stateParams){
        // получение одного аукциона по ID
             ngSocket.emit('auction/room', {
                 id: $stateParams.auctionId
@@ -85,6 +85,7 @@ define(['./module','jquery'],function(controllers,$){
                 current_user: null,
                 lots_length:  0,
                 lots: [],
+                lotToShow: [],
                 lots_isPlayOuted: [],
                 lots_isPlayOutedPercent: 0,
                 lot_pictures: [],
@@ -123,7 +124,8 @@ define(['./module','jquery'],function(controllers,$){
 
 
             ngSocket.on('room',function (data) {
-                $scope.t = Date.now() - new Date(data.auction.start);
+                // $scope.t = Date.now() - new Date(data.auction.start);
+                $scope.t = new Date(srvTime()) - new Date(data.auction.start);
                 var date;
                 date = new Date(data.auction.date);
                 $scope.auctionTime = data.auction.start;
@@ -134,14 +136,23 @@ define(['./module','jquery'],function(controllers,$){
                         $scope.countdown = 1;
                     }
                 }
+
+                ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId});
+
+                ngSocket.on('auctionUserStop', function (data) {
+                    $scope.userNumber = data.info.number;
+                });
+                ngSocket.on('auctionCurrentUserNumber', function (data) {
+                    $scope.userCurrentNumber = data.info.number;
+                });
+
                 $scope.auction_params.users = data.auction.users;
                 $scope.auction_params.users_length.internet_users = data.auction.users.length;
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
                 $scope.auction_params.current_user = data.authUser;
                 $scope.videoName = data.auction.webcam;
                 $scope.initPlayer();
-
-
+                
                 //таймер
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
@@ -163,15 +174,17 @@ define(['./module','jquery'],function(controllers,$){
 
                 //находим количество пройденных лотов
                 data.auction.lots.map(function (e) {
-                    if (e.isSold == true) {
+                    if (e.isSold || e.isCl) {
                         return $scope.auction_params.lots_isPlayOuted.push(e)
                     }
                 });
+                $scope.auction_params.lots_isPlayOutedLength = $scope.auction_params.lots_isPlayOuted.length;
                 if ($scope.auction_params.lots_length != 0)
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
+
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
-                // $scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'};
+                //$scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'};
                 
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
@@ -237,6 +250,9 @@ define(['./module','jquery'],function(controllers,$){
 
                 $scope.min = Math.floor($scope.t / 1000 / 60);
                 $scope.sec = Math.floor($scope.t / 1000) - $scope.min * 60;
+                if ($scope.sec < 10) {
+                    $scope.sec = '0' + $scope.sec;
+                }
                 $scope.$apply();
 
                 var stopTime = $interval(function () {
@@ -267,9 +283,9 @@ define(['./module','jquery'],function(controllers,$){
 
                 // чупачупс с классом I
                 $scope.classOfLotI = false;
-                $scope.auction_params.users_number.forEach(function(item,i) {
-                    if ( +item === +$scope.currentUserInfo.id ) {
-                        $scope.classOfLotI = i;
+                $scope.auction_params.users.forEach(function(item,i) {
+                    if (+item.auction_user.number === i+1) {
+                        $scope.classOfLotI = true;
                     }
                 });
                 // чупачупс с классом red ставка
@@ -297,6 +313,8 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.bidPrice = +$scope.current_lot.sellingPrice + calcStep(+$scope.current_lot.sellingPrice);
                     $scope.$apply();
                 } else {}
+
+
 
                 //TODO: странная штука не удалять
                 // else {
@@ -331,14 +349,16 @@ define(['./module','jquery'],function(controllers,$){
 
 
             $scope.incrementBid = function () {
-                $scope.bidPrice += Number($scope.current_lot.step);
+                var step = calcStep($scope.bidPrice);
+                $scope.bidPrice += Number(step);
             }
 
             $scope.decrementBid = function () {
+                var step = calcStep($scope.bidPrice - calcStep($scope.bidPrice));
                 if ($scope.bidPrice > 0)
-                    $scope.bidPrice -= Number($scope.current_lot.step);
+                    $scope.bidPrice -= Number(step);
             }
-
+        
 
         $scope.getPicById = function (id) {
             var idPic = $scope.auction_params.lot_pictures.map(function (e) {
@@ -346,15 +366,13 @@ define(['./module','jquery'],function(controllers,$){
             }).indexOf(id);
             return $scope.auction_params.lot_pictures[idPic];
         }
-        $scope.getUserNumber = function (id) {
-            var userNum = $scope.auction_params.users.map(function (e) {
-                    return e.id;
-                }).indexOf(id) + 1;
-            return userNum;
-        }
-
+        // $scope.getUserNumber = function (id) {
+        //     var userNum = $scope.auction_params.users.map(function (e) {
+        //             return e.id;
+        //         }).indexOf(id) + 1;
+        //     return userNum;
+        // }
         //форматирование цены
-
             $scope.formatBid = function () {
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
@@ -406,7 +424,6 @@ define(['./module','jquery'],function(controllers,$){
             if(result.err) {
                 alert(result.message)
             }
-            console.log(result);
             $scope.sellingStatistics = [];
             result.sellingStatistics.forEach(function (i) {
                 i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
@@ -415,7 +432,6 @@ define(['./module','jquery'],function(controllers,$){
         });
 
         ngSocket.emit('confirmLot', {lotId: $stateParams.auctionId});
-
         ngSocket.on('lotConfirmed', function (data) {
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             // $scope.price = data.bid.price;
@@ -425,9 +441,11 @@ define(['./module','jquery'],function(controllers,$){
             if (data.err) {
                 alert(data.message);
             }
+            ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId, lotConfirmed: true, userId: data.bid.userId});
+
             $scope.setButtonTimeout();
             // $scope.userNumber = data.bid.userId;
-            $scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
+            //$scope.userNumber = $scope.getUserNumber(data.bid.userId)+1;
             if (data.err == 0) {
                     $scope.confirm = data;
                     $scope.confirm.message ='Бид '+data.bid.price+' успешно добавлен';
@@ -541,7 +559,19 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getLot', {
                 lotId: +data.lotId
             });
-            
+            ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId});
+
+
+            //обновить список проданных и закрытых лотов
+            if ((typeof data.oldLot.isSold != 'undefined' && data.oldLot.isSold) || (typeof data.oldLot.isCl != 'undefined' && data.oldLot.isCl)) {
+                $scope.auction_params.lots_isPlayOuted.push(data.oldLot);
+            } else {
+                $scope.auction_params.lots_isPlayOuted.splice($scope.auction_params.lots_isPlayOuted.indexOf(data.oldLot), 1);
+            }
+            $scope.auction_params.lots_isPlayOutedLength = $scope.auction_params.lots_isPlayOuted.length;
+            if ($scope.auction_params.lots_length != 0)
+                $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
+
             //Обновить auction_params
             for (var lot in $scope.auction_params.lots) {
                 if ($scope.auction_params.lots[lot].id === data.oldLotId) {
@@ -553,7 +583,6 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 }
             }
-
             $scope.userNumber = '';
             $scope.bidPrice = +data.lot.sellingPrice + calcStep(+data.lot.sellingPrice);
             $scope.numberLot = data.lot.number;
@@ -724,4 +753,38 @@ define(['./module','jquery'],function(controllers,$){
         }
         return step;
     }
+
+
+    var xmlHttp;
+
+    /**
+     * Возвращает серверное время по AJAX запросу
+     * @returns {string} - серверное время в стороковом формате
+     */
+    function srvTime(){
+        try {
+            //FF, Opera, Safari, Chrome
+            xmlHttp = new XMLHttpRequest();
+        }
+        catch (err1) {
+            //IE
+            try {
+                xmlHttp = new ActiveXObject('Msxml2.XMLHTTP');
+            }
+            catch (err2) {
+                try {
+                    xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+                catch (eerr3) {
+                    //AJAX not supported, use CPU time.
+                    alert("AJAX not supported");
+                }
+            }
+        }
+        xmlHttp.open('HEAD',window.location.href.toString(),false);
+        xmlHttp.setRequestHeader("Content-Type", "text/html");
+        xmlHttp.send('');
+        return xmlHttp.getResponseHeader("Date");
+    }
+
 });

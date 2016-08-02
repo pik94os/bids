@@ -6,7 +6,7 @@ define(['./app'], function (app) {
         $stateProvider
             //Стартовая страница
             .state('front-page', {
-                url: "/",
+                url: "/?dev",
                 views:{
                     '': {
                         templateUrl: "/templates/front-page/list.html",
@@ -80,7 +80,7 @@ define(['./app'], function (app) {
             })
             //Комната торгов
             .state('room', {
-                url: '/room?auctionId',
+                url: '/room?auctionId&offset',
                 views:{
                     '': {
                         templateUrl: "/templates/room/list.html",
