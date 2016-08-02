@@ -5,7 +5,7 @@
 let SellingStatistics = require('../../models/').SellingStatistics;
 let AuctionUser = require('../../models/').AuctionUser;
 const User = require('../../models/').User;
-var mailSender = require("../mailSender");
+var mailSender = require("../../mailSender");
 
 module.exports = function (socket, data) {
     // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
@@ -15,7 +15,9 @@ module.exports = function (socket, data) {
         isSold: true
     };
 
-    if (data.auctionId){where.auctionId = data.auctionId;}
+    if (data.auctionId) {
+        where.auctionId = data.auctionId;
+    }
     // if (data.userId){where.userId = data.userId;}
 
 
@@ -26,7 +28,7 @@ module.exports = function (socket, data) {
         let statisticForSending = {};
 
         result.forEach(function (r) {
-            if (!statisticForSending[r.user.id]){
+            if (!statisticForSending[r.user.id]) {
                 statisticForSending[r.user.id] = [];
             }
             statisticForSending[r.user.id].push({
@@ -41,21 +43,34 @@ module.exports = function (socket, data) {
             });
         });
 
-        for (var i in statisticForSending){
-            statisticForSending[i].forEach(function (row) {
-                console.log('>+++++++++++++++');
-                console.log(row);
 
-                mailSender.send(data,(err) => {
-                    if(err){
-                        console.log('Error occurred');
-                        console.log(error.message);
-                    }
-                })
+        for (var i in statisticForSending) {
+            let t = '';
+            let receiver = '';
+            let textHead = '';
+            statisticForSending[i].forEach(function (e) {
+                receiver = e.email;
+                textHead = 'Уважаемый ' + e.firstName + ' ' + e.patronymic + ' ' + e.lastName + ', Вас приветствует антикварный книжный клуб ART-BID.RU.<br>' +
+                    'На аукционе №: ' + e.auctionId + ', ' + e.createdAt + 'Вы приобрели следующие лоты: <br>';
+                t = t + 'Номер лота ' + e.lotNumber + ' цена ' + e.price.toLocaleString() + 'руб. <br>';
+            });
+            console.log('>+++++++++++++++');
+            console.log(receiver + textHead + t);
 
+            let dataToSend = {
+                receiverMailer: receiver,
+                subjectMailer: 'ART-BID.RU (Ваши покупки) ✔',
+                textMailer: textHead + t,
+                htmlMailer: textHead + t
+            };
+
+            mailSender.send(dataToSend, (err) => {
+                if (err) {
+                    console.log('Error occurred');
+                    console.log(error.message);
+                }
             })
         }
-
 
         socket.emit('catchSellingStatisticsEmail', {
             'err': 0,
