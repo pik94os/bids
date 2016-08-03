@@ -223,7 +223,8 @@
 
                     <div class="room-chat">
                         <div ng-repeat="chatMessage in chat.messages">
-                            <div class="black"><b>{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}</b>
+                            <div class="black"><b ng-if="currentUserInfo.role === 5">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}</b>
+                                <b ng-if="currentUserInfo.role !== 5"> №{{chatMessage.user.auction_users[0].number}}</b>
                                 <!--{{chatMessage.user.patronymic}}-->
                                 : {{chatMessage.message}}
                                 <!--&gt; <div class="black">все</div>-->
@@ -247,11 +248,11 @@
                         <div class="room-small-books-container">
                             <div class="room-arrow_left">
                                 <img src="../../images/arrow-left-b.png"
-                                     ng-click="goPreviousPage()">
+                                     ng-click="lastPhotos()">
                             </div>
                             <div class="room-arrow-right">
                                 <img src="../../images/arrow-right-b.png"
-                                     ng-click="goNextPage()">
+                                     ng-click="firstPhotos()">
                             </div>
                             <div class="gallery-carousel">
                                 <a emit-last-repeater-element

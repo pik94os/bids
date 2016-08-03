@@ -25,7 +25,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         ngSocket.on('chatMessagesList', function (result) {
             result.chatMessagesList.forEach(function (i) {
-                $scope.chat.messages.unshift(i);
+                $scope.chat.messages.push(i);
             });
         });
 
@@ -358,7 +358,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         //обновление списка пользователей при регистрации на аук
-        ngSocket.emit('userAuction',{});
+        ngSocket.emit('userAuction',{auctionId: $stateParams.auctionId});
         ngSocket.on('newUserRoom', function () {
             ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
         });

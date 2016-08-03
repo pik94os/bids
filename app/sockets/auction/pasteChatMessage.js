@@ -3,7 +3,7 @@
  */
 'use strict';
 let Chat = require('../../models/').Chat;
-
+const AuctionUser = require('../../models/').AuctionUser;
 module.exports = function(socket, data) {
     if (!data.auctionId) {
         socket.emit('lotList',
@@ -19,18 +19,24 @@ module.exports = function(socket, data) {
     };
 
     Chat.create(_chatData).then(function (message) {
-        const resp = {
-            err:0,
-            message: message,
-            user: {
-                firstName:socket.request.user.firstName,
-                lastName:socket.request.user.lastName,
-                patronymic:socket.request.user.patronymic
-            }
-        };
-        socket.to('auction:'+(+data.auctionId)).emit('catchMessageRow', resp);
-        //пока возвращаем то же, что и для всех остальных
-        socket.emit('catchMessageRow', resp);
+        console.log(data.auctionId);
+        AuctionUser.findOne({where: {
+            auctionId:data.auctionId,
+            userId: data.userId
+        }}).then((auction)=> {
+            const resp = {
+                err:0,
+                message: message,
+                user: {
+                    firstName:socket.request.user.firstName,
+                    lastName:socket.request.user.lastName,
+                    auction_users: [{number: +auction.number}]
+                }
+            };
+            socket.to('auction:'+(+data.auctionId)).emit('catchMessageRow', resp);
+            //пока возвращаем то же, что и для всех остальных
+            socket.emit('catchMessageRow', resp);
+        })
     }).catch(function (err) {
         socket.emit('catchMessageRow', {
             err:1,

@@ -415,12 +415,16 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         // ngSocket.emit('auction/getChatMessages', {auctionId: +$stateParams.auctionId});
         ngSocket.on('chatMessagesList', function (result) {
+            if(result.err) {
+                alert(result.message);
+            }
             // $scope.chatMessagesArr = result.resp;
             // console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
             // console.log(result.chatMessagesList);
             result.chatMessagesList.forEach(function (i) {
                 $scope.chat.messages.push(i);
             });
+            console.log(result);
         });
         
         $scope.chat.keyUp = function (e) {

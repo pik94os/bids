@@ -5,8 +5,8 @@
 
 let Chat = require('../../models/').Chat;
 let User = require('../../models/').User;
-
-module.exports = function(socket, data) {
+const AuctionUser = require('../../models/').AuctionUser;
+module.exports = function (socket, data) {
     // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
     if (!data.auctionId) {
         socket.emit('chatMessagesList',
@@ -14,12 +14,27 @@ module.exports = function(socket, data) {
         );
         return
     }
-    
-    Chat.findAll({where: {auctionId: +data.auctionId}, order: [["id", "desc"]], include: {model: User, attributes: ['firstName', 'lastName']}})
-        .then(function(chatMessagesList) {
+
+    Chat.findAll({
+        where: {auctionId: +data.auctionId},
+        order: [["id", "desc"]],
+        include: [{
+            model: User,
+            attributes: ['firstName', 'lastName','id'],
+            include:[{
+                model: AuctionUser,
+                attributes: ['number'],
+                where: {auctionId: +data.auctionId}
+            }]
+        }]
+    }).then(function (chatMessagesList) {
             socket.emit('chatMessagesList', {
                 'err': 0,
                 chatMessagesList: chatMessagesList
             });
-        });
+        }).catch((err)=> {
+        socket.emit('chatMessagesList',
+            {err: 1, message: err.message }
+        );
+    });
 };

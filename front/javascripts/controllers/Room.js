@@ -316,9 +316,10 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.$apply();
                 } else {}
 
-                
+                console.log(data);
+                if(data.bids !== undefined) {
                 ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId, lotConfirmed: true, userId: data.bids[0].userId});
-
+                }
                 //TODO: странная штука не удалять
                 // else {
                 //
@@ -590,15 +591,6 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
 
         });
-
-
-
-            /*$scope.$on('LastRepeaterElement', function(){
-                moveToTheRigh();
-            });
-            $(window).resize( function(){
-                moveToTheRigh();
-            });*/
 
         $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
             $scope.joinedRoom = false;
