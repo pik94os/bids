@@ -1,6 +1,6 @@
-<div class="rom-container" ng-switch on="countdown">
+<div class="rom-container">
     <!--первая подстраница с прогресс-барами круглыми-->
-    <div ng-switch-when="1">
+    <div ng-if="countdown == 1">
         <div class="room-list" ng-class="{'ll-open':open}">
             <!--прогресс-бар наверху-->
             <div class="room-progress-bar-container">
@@ -140,7 +140,7 @@
         <!--<br>-->
     <!--</div>-->
     <!--вторая подстраница непосредственно с аукционом-->
-    <div ng-switch-when="2" class="container">
+    <div ng-if="countdown == 2" class="container">
         <div class="row">
             <div class="room-list">
                 <!--прогресс-бар наверху-->
@@ -248,16 +248,16 @@
                         <div class="room-small-books-container">
                             <div class="room-arrow_left">
                                 <img src="../../images/arrow-left-b.png"
-                                     ng-click="lastPhotos()">
+                                     ng-click="prevItem()">
                             </div>
                             <div class="room-arrow-right">
                                 <img src="../../images/arrow-right-b.png"
-                                     ng-click="firstPhotos()">
+                                     ng-click="nextItem()">
                             </div>
                             <div class="gallery-carousel">
                                 <a emit-last-repeater-element
                                    class="pull-left width100"
-                                   ng-repeat="r in auction_params.lots | orderBy: '+isCl+isSold' "
+                                   ng-repeat="r in auction_params.lotsToShow"
                                    ui-sref="lot({lotId:r.id})"
                                    target="_blank">
                                     <div class="page-numbers-single"
@@ -426,7 +426,7 @@
         <br>
     </div>
 </div>
-<div class="room-auction-title" ng-switch-when="3">
+<div class="room-auction-title" ng-if="countdown == 3">
     <div class="room-auction-title-auction">
         <p style="font-size: 60px;text-align: center;padding-top: 150px";><b>АУКЦИОН ЗАВЕРШЕН</b></p>
         <p style="font-size: 60px;text-align: center;";><b>СПАСИБО ЗА ВНИМАНИЕ!</b></p>
