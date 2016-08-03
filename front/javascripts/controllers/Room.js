@@ -177,7 +177,11 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.lots = data.auction.lots;
 
                 $scope.auction_params.lots.sort(function (a, b) {
-                    return +(a.isCl || a.isSold) - (b.isCl || b.isSold);
+                    if (+(a.isCl || a.isSold) > (+(b.isCl || b.isSold))) return 1;
+                    if (+(a.isCl || a.isSold) < (+(b.isCl || b.isSold))) return -1;
+                    if (a.number > b.number) return 1;
+                    if (a.number < b.number) return -1;
+                    return 0;
                 });
 
                 $scope.auction_params.lot_pictures = [];
