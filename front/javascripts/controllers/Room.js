@@ -316,10 +316,10 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.$apply();
                 } else {}
 
-                console.log(data);
-                if(data.bids !== undefined) {
-                ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId, lotConfirmed: true, userId: data.bids[0].userId});
+                if(data.bids !== undefined && data.bids.length) {
+                    ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId, lotConfirmed: true, userId: data.bids[0].userId});
                 }
+
                 //TODO: странная штука не удалять
                 // else {
                 //
@@ -330,6 +330,7 @@ define(['./module','jquery'],function(controllers,$){
                 //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
 
                 $scope.current_lot.lot_pictures = [];
+                console.log(data.lot_pictures);
                 if (data.lotPictures != undefined && data.lotPictures.length){
                     data.lotPictures.forEach(function (pic,incr) {
                         if(pic.fileName){
