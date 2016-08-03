@@ -28,6 +28,7 @@ module.exports = function(socket, data) {
                 err:0,
                 message: message,
                 user: {
+                    roleId: socket.request.user.roleId,
                     firstName:socket.request.user.firstName,
                     lastName:socket.request.user.lastName,
                     auction_users: [{number: +auction.number}]

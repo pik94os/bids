@@ -5,7 +5,7 @@
 let Auction = require('../../models/').Auction;
 
 module.exports = function(socket, data) {
-    if(socket.request.user.roleId !== 3 && !socket.request.user.id) {
+    if(socket.request.user.roleId !== 5 && !socket.request.user.id) {
         return false
     } else {
         if (!data.id) {

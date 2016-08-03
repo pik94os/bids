@@ -268,7 +268,6 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.timer.ch = $scope.timer.days = $scope.timer.min = $scope.timer.sec = 0;
                 }
 
-
                 ngSocket.on('auctionRun', function () {
                     $scope.countdown =  2;
                 });

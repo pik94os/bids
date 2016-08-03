@@ -424,7 +424,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             result.chatMessagesList.forEach(function (i) {
                 $scope.chat.messages.push(i);
             });
-            console.log(result);
         });
         
         $scope.chat.keyUp = function (e) {
