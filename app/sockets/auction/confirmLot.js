@@ -29,20 +29,14 @@ module.exports = function(socket, data) {
         if (err) return emitError(socket, err);
             findUser(user.id, function (err, user){
                 if (err) return emitError(socket, err);
-                checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, function(err){
+                checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom,lot.auction.start, function(err){
                     if (err) return emitError(socket, err);
                 Bid.create({price: data.bidPrice, lotId: lot.id, userId: user.id, auctionId: data.auctionId})
                     .then(function (bid){
-                        if (lot.isPlayOut) {
-                            lot.sellingPrice = data.bidPrice;
-                        } else if (data.extramural) {
-                            lot.sellingPrice = data.bidPrice;
-                            console.log(data.extramural, data.bidPrice);
-                        }
+                        if (lot.isPlayOut) { lot.sellingPrice = data.bidPrice; }
                         return lot.save().then(function (lot) {
                             socket.emit('lotConfirmed',
                                 {err: 0, bid: bid});
-                            console.log(lot.sellingPrice);
                             socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
                                 err: 0,
                                 bid: bid,
@@ -91,14 +85,16 @@ module.exports = function(socket, data) {
             {err: 1, message: err.message})
 
     }
-    function checkBid(bid, currentPrice, estimateFrom, cb){
+    function checkBid(bid, currentPrice, estimateFrom, start, cb){
         var step = calcStep(currentPrice);
         if (Number(bid) - Number(estimateFrom) < 0)
             return cb({message: "Бид ниже минимальной цены"});
         // if (Number(bid) - Number(estimateFrom) < step)
         //     return cb({message: "Бид ниже минимального шага"});
-        if (Number(bid) - Number(currentPrice) < step)
+        if(start) {
+            if (Number(bid) - Number(currentPrice) < step)
             return cb({message: "Бид ниже текущей цены"});
+        }
         return cb (null);
     }
 

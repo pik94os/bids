@@ -20,7 +20,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotSelected', function (data) {
-            console.log(data);
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
             $scope.isPlayOut = $scope.lot.isPlayOut;
@@ -76,21 +75,19 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         // подтверждение бида
         $scope.confirmLot = function () {
-            if ($scope.bidPrice > $scope.sellingPrice) {
+            if($scope.bidPrice >= $scope.estimateFrom) {
                 ngSocket.emit('auction/confirmLot', {
-                    lotId: $stateParams.lotId,
+                    lotId: +$stateParams.lotId,
                     bidPrice: +$scope.bidPrice,
-                    extramural: true
+                    auctionId: $scope.auctionId
                 });
+            } else {
+                $scope.confirm.err = 1;
+                $scope.confirm.message = 'Бид ниже минимальной цены'
             }
-            ngSocket.emit('auction/confirmLot', {
-                lotId: $scope.lotId,
-                bidPrice: $scope.bidPrice
-            });
         };
 
         ngSocket.on('auctionState', function (data) {
-            console.log(data);
             if(data.oldLotId==$scope.lot.id || data.lotId==$scope.lot.id){
                 ngSocket.emit('auction/getLot', {
                     lotId: $stateParams.lotId
@@ -98,9 +95,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
 
         });
-
         ngSocket.on('lotConfirmed', function (data) {
-            console.log(data);
             if (data.err == 0) {
                 $scope.confirm = data;
                 if(data.userName!==undefined && data.userName){
@@ -112,11 +107,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             }else{
                 $scope.confirm = data
             }
-
-
-            console.log(data);
-            $scope.sellingPrice = data.bid.price;
-            $scope.bidPrice = $scope.sellingPrice + calcStep($scope.sellingPrice);
         });
         ngSocket.on('lotSelected', function (data) {
             $scope.sellingPrice = data.lot.sellingPrice;
@@ -128,16 +118,9 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.isPlayOut = $scope.lot.isPlayOut;
             $scope.open = ($scope.lot.isSold || $scope.lot.isCl) ? 2 : 1;
             $scope.bidPrice = 0;
-
-            if (data.lot.sellingPrice == data.lot.estimateFrom) {
-                $scope.bidPrice = +data.lot.sellingPrice;
-                $scope.$apply();
-            }
-            else {
-                $scope.bidPrice = +data.lot.sellingPrice + calcStep($scope.sellingPrice);
-                $scope.$apply();
-
-            }
+            $scope.auctionId = data.lot.auctionId;
+            $scope.bidPrice = +data.lot.estimateFrom;
+            $scope.$apply();
             initLotParams($scope, params, $scope.lot);
             calcStep();
         });
@@ -271,10 +254,9 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         $scope.formatBid = function () {
             var bid = $scope.bidPrice;
-            var step = calcStep($scope.bidPrice);
             bid = bid.replace(/[A-z, ]/g, '');
             $scope.bidPrice = bid;
-            if ($scope.bidPrice < (+$scope.lot.estimateFrom + step)) {
+            if ($scope.bidPrice < (+$scope.lot.estimateFrom)) {
                 $scope.minus = false;
             } else {
                 $scope.minus = true;
