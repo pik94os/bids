@@ -270,10 +270,10 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         $scope.formatBid = function () {
-            var bid = $scope.bidPrice;
+            var bid = $scope.bidPrice+'';
+            bid = bid.replace(/[^0-9]/g, '');
+            $scope.bidPrice = Number(bid);
             var step = calcStep($scope.bidPrice);
-            bid = bid.replace(/[A-z, ]/g, '');
-            $scope.bidPrice = bid;
             if ($scope.bidPrice < (+$scope.lot.estimateFrom + step)) {
                 $scope.minus = false;
             } else {

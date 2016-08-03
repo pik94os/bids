@@ -407,8 +407,8 @@ define(['./module','jquery'],function(controllers,$){
         // }
         //форматирование цены
             $scope.formatBid = function () {
-                var bid = $scope.bidPrice;
-                bid = bid.replace(/[A-z, ]/g,'');
+                var bid = $scope.bidPrice+'';
+                bid = bid.replace(/[^0-9]/g,'');
                 $scope.bidPrice = Number(bid);
 
             }
