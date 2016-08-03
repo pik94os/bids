@@ -7,7 +7,6 @@ const User = require('../../models/').User;
 const Bid = require('../../models/').Bid;
 const Auction = require('../../models/').Auction;
 
-
 module.exports = function(socket, data) {
     if (!data.lotId) {
         socket.emit('lotConfirmed',
@@ -15,7 +14,6 @@ module.exports = function(socket, data) {
         );
         return
     }
-
     const user = socket.request.user;
 
     if(!user.logged_in){
@@ -65,7 +63,8 @@ module.exports = function(socket, data) {
     function findLot(lotId, cb){
         Lot.findById(lotId, {
             include: [{model: Auction, attributes: ['id', 'start']}]
-        }).then(function (lot) {
+        })
+            .then(function(lot) {
                 if (lot.auction.start && !lot.isPlayOut) {
                     return cb({message: "Аукцион начат, но лот ещё не разыгрывается"});
                 }

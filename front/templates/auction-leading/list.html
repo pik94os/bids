@@ -52,10 +52,9 @@
                                 {{(priceNext).toLocaleString()}} руб
                             </div>
                             <div style="margin-top:30px">ВЕРНУТЬСЯ К СНЯТОМУ ЛОТУ</div>
-                            <input type="text"
-                                   ng-model="numberLot"
-                                   ng-keyup="sendFilter($event, numberLot)"
-                                   class="form-control">
+                            <select ng-model="numberLot" ng-options="item as item for item in closedLots"></select>
+                            <!--magic-->
+                            <button ng-click="sendFilter(numberLot)">Перейти</button>
                         </div>
                         <div class="pageAuctionLeading-right-top-right-bottom">
                             {{(lot.sellingPrice+calcStep(lot.sellingPrice)).toLocaleString()}}
