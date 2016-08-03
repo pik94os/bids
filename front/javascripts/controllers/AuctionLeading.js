@@ -13,6 +13,19 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         $scope.videoName = 'video:' + Date.now();
 
+        $scope.lots = [];
+        $scope.closedLots = [];
+        ngSocket.on('room',function (data) {
+            if(data.err){
+                return console.log(data);
+            }
+            $scope.lots = data.auction.lots;
+            $scope.lots.forEach(function (lot) {
+                if(lot.isCl) {
+                    $scope.closedLots.push(lot.number);
+                }
+            });
+        });
 
         // функционал чата на странице ведущего
         // socket.join('lesson:' + +$stateParams.auctionId);
@@ -46,6 +59,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         ngSocket.on('lotSelected', function (data) {
             $scope.estimateFrom = data.lot.estimateFrom;
             $scope.estimateTo = data.lot.estimateTo;
+            console.log(data);
         });
 
 
@@ -144,25 +158,22 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         //TODO: по возможности исправить связывание с моделью
-        $scope.sendFilter = function (e, numberLot) {
-            if (e.keyCode === 13) {
-                ngSocket.emit('auction/getLotList', {
-                    auctionId: $stateParams.auctionId,
-                    numberLot: numberLot,
-                    lotId: $scope.lotId
+        $scope.sendFilter = function (numberLot) {
+            ngSocket.emit('auction/getLotList', {
+                auctionId: $stateParams.auctionId,
+                numberLot: numberLot,
+                lotId: $scope.lotId
+            });
+            $scope.price = false;
+            this.numberLot = '';
+            setTimeout(function () {
+                ngSocket.emit('auction/updateLot', {
+                    lotId: +$scope.lotId,
+                    isPlayOut: true,
+                    isCl: false,
+                    auctionId: $stateParams.auctionId
                 });
-                $scope.price = false;
-                this.numberLot = '';
-                setTimeout(function () {
-                    ngSocket.emit('auction/updateLot', {
-                        lotId: +$scope.lotId,
-                        isPlayOut: true,
-                        isCl: false,
-                        auctionId: $stateParams.auctionId
-                    });
-                }, 500);
-
-            }
+            }, 500);
         };
 
         $scope.start = function start() {
@@ -364,6 +375,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('auctionState', function (data) {
+            console.log(data);
             setLotInfo(data.lot);
             setTimeout(function () {
                 $scope.cleanLot = true;
@@ -372,6 +384,23 @@ define(['./module', 'jquery'], function (controllers, $) {
             }, 1000);
             ngSocket.emit('auction/getLot', {lotId: +$scope.lotId});
 
+            for (var lot in $scope.lots) {
+                if ($scope.lots[lot].id === data.oldLotId) {
+                    if (!(typeof data.oldLot.isCl === "undefined")) {
+                        $scope.lots[lot].isCl = data.oldLot.isCl;
+                    }
+                    if (!(typeof data.oldLot.isSold === "undefined")) {
+                        $scope.lots[lot].isSold = data.oldLot.isSold;
+                    }
+                }
+            }
+
+            $scope.closedLots = [];
+            $scope.lots.forEach(function (lot) {
+                if(lot.isCl) {
+                    $scope.closedLots.push(lot.number);
+                }
+            });
         });
 
 
