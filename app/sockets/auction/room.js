@@ -3,7 +3,7 @@ const Auction = require('../../models/').Auction;
 const Lot = require('../../models/').Lot;
 const LotPicture = require('../../models/').LotPicture;
 const User = require('../../models/').User;
-
+const AuctionUser = require('../../models/').AuctionUser;
 
 module.exports = function(socket, data) {
     if (!data.id) {
@@ -30,10 +30,7 @@ module.exports = function(socket, data) {
                 attributes: attributes
             }
         ],
-        order: [
-            [Lot, 'number', 'ASC'],
-            [User, 'id', 'ASC']
-        ]
+        order: '"lots"."number" ASC, "users.auction_user"."number" ASC'
     }).then(function(auction) {
             getPicturesTitle(auction.lots, function(err, LotPictures){
                 socket.emit('room', {

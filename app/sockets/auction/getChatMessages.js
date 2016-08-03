@@ -7,7 +7,6 @@ let Chat = require('../../models/').Chat;
 let User = require('../../models/').User;
 const AuctionUser = require('../../models/').AuctionUser;
 module.exports = function (socket, data) {
-    // console.log('>>>>>>>>>>>>>>>>>>>>>>>>>');
     if (!data.auctionId) {
         socket.emit('chatMessagesList',
             {err: 1, message: 'Undefined auction identifier'}
@@ -20,7 +19,7 @@ module.exports = function (socket, data) {
         order: [["id", "desc"]],
         include: [{
             model: User,
-            attributes: ['firstName', 'lastName','id'],
+            attributes: ['firstName', 'lastName','id', 'roleId'],
             include:[{
                 model: AuctionUser,
                 attributes: ['number'],
