@@ -611,9 +611,16 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 }
             }
+            console.log($scope.auction_params.lots);
             $scope.auction_params.lots.sort(function (a, b) {
-                return +(a.isCl || a.isSold) - (b.isCl || b.isSold);
+                if (+(a.isCl || a.isSold) > (+(b.isCl || b.isSold))) return 1;
+                if (+(a.isCl || a.isSold) < (+(b.isCl || b.isSold))) return -1;
+                if (a.number > b.number) return 1;
+                if (a.number < b.number) return -1;
+                return 0;
             });
+
+            console.log($scope.auction_params.lots);
 
             //Обновить auction_params.lotsToShow
 
