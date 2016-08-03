@@ -18,7 +18,9 @@ module.exports = function (socket, data) {
             auctionId: data.auctionId
         }
     }).then(function (info) {
-        createAuctionUser(info.length + 1);
+        if(socket.request.user && socket.request.user.id){
+            createAuctionUser(info.length + 1);
+        }
     }).catch(function (err) {
         socket.emit('auctionUserStop',
             {err: 1, message: err.message}
