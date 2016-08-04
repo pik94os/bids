@@ -880,11 +880,15 @@
     }
     .room-arrow_left {
       position: absolute;
-      left: 0;
+      left: -10px;
+      width: 20px;
+      text-align: center;
     }
     .room-arrow-right {
       position: absolute;
-      right: 0;
+      right: -10px;
+      width: 20px;
+      text-align: center;
     }
     .room-video {
       text-align: center;

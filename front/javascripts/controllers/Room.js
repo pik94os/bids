@@ -406,10 +406,11 @@ define(['./module','jquery'],function(controllers,$){
         //     return userNum;
         // }
         //форматирование цены
+        $scope.hardObj = {};
             $scope.formatBid = function () {
                 var bid = $scope.bidPrice;
-                bid = bid.replace(/[A-z, ]/g,'');
-                $scope.bidPrice = Number(bid);
+                $scope.bidPrice = +(bid.replace(/[^0-9]/g,''));
+                console.log($scope.bidPrice);
             };
         //подтвердить лот
             $scope.confirmLot = function () {
@@ -742,6 +743,7 @@ define(['./module','jquery'],function(controllers,$){
      * @returns step - шаг изменения цены
      */
     function calcStep(price) {
+        price = +price;
         var step = 1;
         if (price < 5) {
             return step = 1;
