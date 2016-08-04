@@ -410,7 +410,7 @@ define(['./module','jquery'],function(controllers,$){
                 var bid = $scope.bidPrice;
                 bid = bid.replace(/[A-z, ]/g,'');
                 $scope.bidPrice = Number(bid);
-            }
+            };
         //подтвердить лот
             $scope.confirmLot = function () {
                 ngSocket.emit('auction/confirmLot', {
