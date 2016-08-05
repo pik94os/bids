@@ -1,4 +1,5 @@
 define([
     './emitLastRepeaterElement',
-    './modal'
+    './modal',
+    './ngThumb'
 ], function () {});

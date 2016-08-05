@@ -325,8 +325,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         lotPicUploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
             // alert('Файлы загружены');
-            $scope.addedPic = response;
-            console.log('>>>>>>>>>>>');
+            // $scope.addedPic = response;
+            // console.log('>>>>>>>>>>>');
         };
         lotPicUploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);

@@ -67,6 +67,9 @@ exports.lotPic = function (req, res, next) {
         var fileName = Date.now() + '.jpg';
         uploadFile.path = './public/images/lot-images/' + fileName;
 
+        // console.log('>>>>>>>>>>>>>>>>>>>>>>>>');
+        // console.log(uploadFile);
+
         //проверяем размер файла, он не должен быть больше максимального размера
         // if(uploadFile.size > maxSize) {
         //     errors.push('File size is ' + uploadFile.size + '. Limit is' + (maxSize / 1024 / 1024) + 'MB.');
@@ -88,11 +91,7 @@ exports.lotPic = function (req, res, next) {
                     originalName:part.filename
                 }
             });
-            //     .then(function (result) {
-            //     socket.emit('pictureUpdatedReport', {
-            //         pictureUpdatedName: result
-            //     });
-            // });
+
             part.pipe(out);
         }
         // else {
