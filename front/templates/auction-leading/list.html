@@ -25,14 +25,20 @@
             </div>
 
             <div class="pageAuctionLeading-right col-xs-9">
-                <div>
+                <div ng-show="isBids">
                     <!--2-е кнопки наверху страницы - лот продан, снять лот-->
                     <div class="auction-button-remove" ng-click="sold(isSold, true)" ng-show="cleanLot && !price">Снять лот</div>
                     <div class="auction-button-remove-inactive" ng-show="price">Снять лот</div>
                     <!--<div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn">Лот продан</div>-->
-                    <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn && price">Лот продан</div>
-                    <div class="auction-button-sale-inactive" ng-show="auctionOn && !price">Ставок нет</div>
+                    <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="price && auctionOn && (!extramuralBid || sellingExtramuralBid || price > extramuralBid.price)">Лот продан</div>
+                    <div class="auction-button-sale" ng-click="confirmLot()" ng-if="extramuralBid && (!price || price < extramuralBid.price && !sellingExtramuralBid)">Увеличить ставку</div>
+                    <div class="auction-button-sale-inactive" ng-show="auctionOn && !price && !extramuralBid">Ставок нет</div>
                 </div>
+                <div ng-if="numberExtramuralBid && extramuralBid.price">
+                <div class="div-number"><b>Заочный бид от № {{numberExtramuralBid}} {{extramuralBid.user.lastName}} {{extramuralBid.user.firstName}} {{extramuralBid.price.toLocaleString() + 'руб'}}<b></b></div>
+                <div class="div-text"></div>
+                </div>
+                <div class="div-number"></div>
                 <div class="pageAuctionLeading-right-top row">
                     <div class="pageAuctionLeading-right-top-left col-md-8">
                         <div class="pageAuctionLeading-right-top-left-top" ng-if="price && userNumber">
@@ -165,7 +171,7 @@
                         </div>
                     </div>
                     <div class="pageAuctionLeading-right-bottom-right col-md-5">
-                        <div class="grey" ng-repeat="bid in bids">
+                        <div class="grey" ng-repeat="bid in bids" style="overflow: auto;">
                             <div>
                                 Лот {{bid.lot.number}}
                             </div>
@@ -173,7 +179,7 @@
                                 Интернет
                             </div>
                             <div>
-                                № {{getUserNumber(user.id)}}
+                                &nbsp;№ {{user_number[bid.userId]}}
                             </div>
 
                             <div class="name">

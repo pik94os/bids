@@ -15,13 +15,20 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         $scope.lots = [];
         $scope.closedLots = [];
-        ngSocket.on('room',function (data) {
-            if(data.err){
+        ngSocket.on('room', function (data) {
+            if (data.err) {
                 return console.log(data);
             }
+            $scope.users = data.auction.users;
+            $scope.user_number = {};
+            $scope.users.forEach(function (user) {
+                $scope.user_number[user.id] = user.auction_user.number
+            });
+            $scope.auctionOn = data.auction.start ? 1 : 0;
+            $scope.auctionStart = data.auction.start;
             $scope.lots = data.auction.lots;
             $scope.lots.forEach(function (lot) {
-                if(lot.isCl) {
+                if (lot.isCl) {
                     $scope.closedLots.push(lot.number);
                 }
             });
@@ -59,7 +66,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         ngSocket.on('lotSelected', function (data) {
             $scope.estimateFrom = data.lot.estimateFrom;
             $scope.estimateTo = data.lot.estimateTo;
-            console.log(data);
         });
 
 
@@ -166,6 +172,11 @@ define(['./module', 'jquery'], function (controllers, $) {
             });
             $scope.price = false;
             this.numberLot = '';
+            ngSocket.emit('auction/updateLot', {
+                lotId: +$scope.lotId,
+                isPlayOut: false,
+                auctionId: $stateParams.auctionId
+            });
             setTimeout(function () {
                 ngSocket.emit('auction/updateLot', {
                     lotId: +$scope.lotId,
@@ -225,6 +236,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             });
         });
 
+
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('catchAuction', function (data) {
@@ -270,14 +282,10 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
 
+
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);
             ngSocket.emit('auction/getLot', {lotId: +$scope.lotId});
-        });
-        ngSocket.on('room', function (auction) {
-            $scope.users = auction.auction.users;
-            $scope.auctionOn = auction.auction.start ? 1 : 0;
-
         });
         ngSocket.on('auctionUserStop', function (data) {
             $scope.userNumber = data.info.number;
@@ -331,19 +339,23 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         ngSocket.on('lotConfirmed', function (data) {
+            $scope.isBids = false;
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             $scope.price = data.bid.price;
+            $scope.priceBidFrom = data.bid.price + calcStep(data.bid.price);
             $scope.priceNext = $scope.price + calcStep(data.bid.price);
-            $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
-            $scope.userfirstName = data.userName.firstName;
-            $scope.userlastName = data.userName.lastName;
-            $scope.userpatronymic = data.userName.patronymic;
+            if(data.userName !== undefined) {
+                $scope.userData = data.userName.firstName + ' ' + data.userName.lastName + ' ' + data.userName.patronymic;
+                $scope.userfirstName = data.userName.firstName;
+                $scope.userlastName = data.userName.lastName;
+                $scope.userpatronymic = data.userName.patronymic;
+            }
             $scope.realUserId = data.bid.userId;
         });
 
         $scope.dateStartAuction = function () {
-            var date_arr_new = $scope.dateStart.split('.');
-            var time_arr_new = $scope.timeStart.split(':');
+            var date_arr_new = this.dateStart.split('.');
+            var time_arr_new = this.timeStart.split(':');
             $scope.date = date_arr_new[2] + '-' + date_arr_new[1] + '-' + date_arr_new[0] + 'T' + (+time_arr_new[0] - 3) + ':' + time_arr_new[1] + ':00';
             ngSocket.emit('auction/updateAuction', {
                 date: $scope.date,
@@ -356,34 +368,68 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (bid.err) {
                 alert(bid.message);
             }
-            if(bid.bids[0] !== undefined) {
-            $scope.userData = bid.bids[0].user.firstName + ' ' + bid.bids[0].user.lastName + ' ' + bid.bids[0].user.patronymic;
-            $scope.bids = bid.bids;
-            $scope.price = bid.bids[0].price;
-            ngSocket.emit('userAuction', {
-                auctionId: $stateParams.auctionId,
-                lotConfirmed: true,
-                userId: bid.bids[0].userId
-            });
+            $scope.isBids = true;
+            $scope.extramuralBid = false;
+            if (bid.bids.length) {
+                var tempPrice = 0;
+                var tempDate = new Date(bid.bids[0].createdAt);
+
+                bid.bids.forEach(function (item) {
+                    if (new Date(item.createdAt) < new Date($scope.auctionStart)) {
+                        if (+item.price > +tempPrice) {
+                            tempDate = new Date(item.createdAt);
+                            tempPrice = +item.price;
+                            $scope.extramuralBid = item;
+                            console.log($scope.extramuralBid.price);
+                        }
+                    }
+                });
+                ngSocket.emit('userAuction', {
+                    auctionId: $stateParams.auctionId,
+                    lotConfirmed: true,
+                    userId: bid.bids[0].userId
+                });
+                $scope.numberExtramuralBid = $scope.user_number[$scope.extramuralBid.userId];
+                $scope.sellingExtramuralBid = $scope.extramuralBid.userId === bid.bids[0].userId ? 1 : 0;
+
             }
+            if (bid.bids.length && new Date(bid.bids[0].createdAt) > new Date($scope.auctionStart)) {
+                $scope.userData = bid.bids[0].user.firstName + ' ' + bid.bids[0].user.lastName + ' ' + bid.bids[0].user.patronymic;
+                $scope.bids = bid.bids;
+                $scope.priceBidFrom = bid.bids[0].price + calcStep(bid.bids[0].price);
+                $scope.price = bid.bids[0].price;
+
+            } else {
+                $scope.priceBidFrom = $scope.lotList.estimateFrom;
+            }
+            $scope.confirmLot = function () {
+                console.log($scope.extramuralBid.price);
+                ngSocket.emit('auction/confirmLot', {
+                    lotId: $scope.lotId,
+                    bidPrice: $scope.priceBidFrom,
+                    auctionId: $stateParams.auctionId,
+                    extramuralBid: true,
+                    userId: $scope.extramuralBid.userId
+                });
+
+            };
         });
 
         //обновление списка пользователей при регистрации на аук
-        ngSocket.emit('userAuction',{auctionId: $stateParams.auctionId});
+        ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId});
         ngSocket.on('newUserRoom', function () {
             ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
         });
 
         ngSocket.on('auctionState', function (data) {
-            console.log(data);
             setLotInfo(data.lot);
             setTimeout(function () {
                 $scope.cleanLot = true;
                 $scope.soldLot = true;
                 $scope.$apply();
             }, 1000);
+            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             ngSocket.emit('auction/getLot', {lotId: +$scope.lotId});
-
             for (var lot in $scope.lots) {
                 if ($scope.lots[lot].id === data.oldLotId) {
                     if (!(typeof data.oldLot.isCl === "undefined")) {
@@ -397,7 +443,7 @@ define(['./module', 'jquery'], function (controllers, $) {
 
             $scope.closedLots = [];
             $scope.lots.forEach(function (lot) {
-                if(lot.isCl) {
+                if (lot.isCl) {
                     $scope.closedLots.push(lot.number);
                 }
             });
