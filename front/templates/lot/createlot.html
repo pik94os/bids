@@ -18,11 +18,19 @@
             </div>
 
             <div class="col col-sm-6">
+
                 <div class="big-photo">
-                    <img ng-src="/images/lot-images/{{bigPhoto}}" ng-if="bigPhoto">
-                    <img ng-src="/images/no-photo.jpg" ng-if="!bigPhoto" class="big-photo_no-photo">
-                    <div class="cclose"></div>
-                    <div class="edit"></div>
+
+                    <!--<img ng-src="/images/lot-images/{{bigPhoto}}" ng-if="bigPhoto">-->
+                    <!--<img ng-src="/images/no-photo.jpg" ng-if="!bigPhoto" class="big-photo_no-photo">-->
+                    <!--<div class="" style="width: 100px; height: 100px; background: black" onclick="$('#selectTopPhoto').click()"></div>-->
+                    <div class="add-top-lot-photo" onclick="$('#selectTopPhoto').click()" ng-show="newLotNumber && newLotDescriptionPrev && newLotEstimateFrom && newLotEstimateTo && newLotYear"></div>
+
+                    <input id="selectTopPhoto" type="file" nv-file-select uploader="topLotPicUploader" multiple name="PhotoFiles" ng-hide="true"/>
+                    <div ng-repeat="item in topLotPicUploader.queue">
+                        <div class="cclose" ng-click="item.remove()"></div>
+                        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 450 }"></div>
+                    </div>
                 </div>
                 <div class="big-photo-under">
                     <img class="li4077" src="images/arrow_galery_left.svg" ng-click="lastPhotos()"
@@ -31,34 +39,14 @@
                 </div>
                 <div class="gallery">
                     <div class="small-photo" ng-repeat="item in singleLotPicUploader.queue" ng-click="setBigPhoto(img.fileName)">
-                        <div class="cclose"></div>
+                        <div class="cclose" ng-click="item.remove()"></div>
                         <div>
                             <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 87 }" class="pull-left"></div>
                         </div>
                     </div>
-                    <!--<div class="small-photo" ng-repeat="img in gallery" ng-click="setBigPhoto(img.fileName)"-->
-                         <!--ng-if="img.fileName">-->
-                        <!--<div class="cclose"></div>-->
-                        <!--<div>-->
-                            <!--<img ng-src="/images/lot-images/{{img.fileName}}">-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <div class="add" onclick="$('#selectMultiplePhoto').click()" ng-show="newLotNumber && newLotDescriptionPrev && newLotEstimateFrom && newLotEstimateTo && newLotYear">
-                        <div>
-                            <div></div>
-                        </div>
-                    </div>
+                    <div class="add" onclick="$('#selectMultiplePhoto').click()" ng-show="newLotNumber && newLotDescriptionPrev && newLotEstimateFrom && newLotEstimateTo && newLotYear"><div><div></div></div></div>
                 </div>
                 <input id="selectMultiplePhoto" type="file" nv-file-select uploader="singleLotPicUploader" multiple name="PhotoFiles" ng-hide="true"/>
-
-                <!--<div ng-repeat="item in singleLotPicUploader.queue">-->
-                    <!--<div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }" class="pull-left"></div>-->
-                <!--</div>-->
-                <!--<div class="button custom-title-block col-sm-offset-4 col-sm-4" onclick="$('#selectMultiplePhoto').click()">Выбрать фотографии</div>-->
-                <!--<button class="lot-price" ng-click="singleLotPicUploader.uploadAll()">-->
-                    <!--Добавить фотографии-->
-                <!--</button>-->
-
             </div>
             <div class="col col-sm-12 txt-edit-parent">
                 <div class="txt-edit">

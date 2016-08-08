@@ -3,10 +3,10 @@
  */
 'use strict';
 let LotPicture = require('../../models/').LotPicture;
+let Lot = require('../../models/').Lot;
 
 module.exports = function(socket, data) {
-    // console.log('>>>>>>>>>>>');
-    // console.log(data);
+
     let _lotPicture = {
         originalName: data.originalName,
         fileName: data.fileName,
@@ -16,18 +16,12 @@ module.exports = function(socket, data) {
 
     if (data.lotId){_lotPicture.lotId = data.lotId}
 
-    LotPicture.create(_lotPicture);
-
-    // LotPicture.findOne({where: {originalName: data.filename}}).then(function (result) {
-    //     if (result){
-    //         _lotPicture.update();
-    //     } else {
-    //         LotPicture.create(_lotPicture);
-    //     }
-    // }).then(function (result) {
-    //     socket.emit('createCSVPicturesReport', {
-    //             pictureRow: result
-    //         }
-    //     );
-    // });
+    LotPicture.create(_lotPicture).then(function (result) {
+        if (data.topPic){
+            let lotTopPic = {
+              titlePicId: result.id
+            };
+            Lot.update(lotTopPic, {where: {id: data.lotId}});
+        }
+    });
 };

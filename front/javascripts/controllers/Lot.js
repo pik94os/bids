@@ -170,10 +170,35 @@ define(['./module', 'jquery'], function (controllers, $) {
                 //     $scope.multipleLotPicUploader.uploadAll();
                 // });
                 singleLotPicUploader.uploadAll();
+                topLotPicUploader.uploadAll();
             }
         });
 
-        // загрузка картинок на сервер
+        // загрузка главной картинки лота на сервер
+        // angular-file-upload
+        // https://github.com/nervgh/angular-file-upload/wiki/Module-API#directives
+        var topLotPicUploader = $scope.topLotPicUploader = new FileUploader({
+            url: '/api/upload/lotPic',
+            queueLimit: 1,
+            // autoUpload: true,
+            removeAfterUpload: true
+        });
+
+        // CALLBACKS
+
+        topLotPicUploader.onSuccessItem = function (fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+            ngSocket.emit('auction/createLotPicture', {
+                topPic: true,
+                originalName: response.uploadFile.path.split('/')[4],
+                fileName: response.uploadFile.path.split('/')[4],
+                lotId: $scope.newLotInfo.newLot.lot.id
+            });
+        };
+
+        console.info('lotPicUploader', topLotPicUploader);
+
+        // загрузка глереи картинок лота на сервер
         // angular-file-upload
         // https://github.com/nervgh/angular-file-upload/wiki/Module-API#directives
         var singleLotPicUploader = $scope.singleLotPicUploader = new FileUploader({
