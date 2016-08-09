@@ -48,7 +48,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
             $scope.isBids = true;
             $scope.extramuralBid = false;
-            console.log($scope.auctionStart, 'bids');
             if (bid.bids.length) {
                 var tempPrice = 0;
                 var tempDate = new Date(bid.bids[0].createdAt);

@@ -59,7 +59,8 @@ module.exports = function(socket, data) {
                                         return bid.save().then(()=>{
                                             return User.findById(bid.userId);
                                         }).then((newUser)=>{
-                                            if(bid.userId !== newUser.id) {
+                                            console.log(bid.userId,newUser.id,user.id);
+                                            if(user.id !== newUser.id) {
                                                 socket.emit('lotConfirmed',
                                                     {err: 1, message: "Ваша ставка была перебита другим игроком"});
                                                 socket.emit('lotConfirmed',
