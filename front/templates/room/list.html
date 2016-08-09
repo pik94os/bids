@@ -246,13 +246,13 @@
                 <div class="right-column col-sm-6">
                     <div class="row">
                         <div class="room-small-books-container">
-                            <div class="room-arrow_left">
-                                <img src="../../images/arrow-left-b.png"
-                                     ng-click="prevItem()">
+                            <div class="room-arrow_left"
+                                 ng-click="prevItem()">
+                                <img src="../../images/arrow-left-b.png">
                             </div>
-                            <div class="room-arrow-right">
-                                <img src="../../images/arrow-right-b.png"
-                                     ng-click="nextItem()">
+                            <div class="room-arrow-right"
+                                 ng-click="nextItem()">
+                                <img src="../../images/arrow-right-b.png">
                             </div>
                             <div class="gallery-carousel">
                                 <a emit-last-repeater-element
@@ -346,8 +346,8 @@
                                     <br>
                                 </div>
                                 <hr>
-                                <div class="rate-from-inet" >
-                                    <span>СТАВКА</span>
+                                <div class="rate-from-inet">
+                                    <span  ng-show="userNumber">СТАВКА</span>
                                     <div class="rate-from-inet-sec-row">
                                         <p ng-if="userNumber">ИЗ ИНТЕРНЕТА</p>
                                         <p class="rate-from-inet-third-row" ng-if="userNumber">ОТ # {{userNumber}}</p>
@@ -387,9 +387,8 @@
 
                     <div class="row">
 
-                        <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="bidPrice"
-                                                                  placeholder="Сделайте шаг / впишите свой"
-                                                                  value="{{bidPrice}}" ng-change="formatBid()">
+                        <div class="insert-your col-sm-12"><input class="lot-priceinput" ng-model="$parent.bidPrice"
+                                                                  placeholder="Сделайте шаг / впишите свой" ng-change="formatBid()">
                             <div class="lot-pricediv1-2-2" ng-click="incrementBid()"></div>
                             <div class="lot-pricediv1-2-1" ng-click="decrementBid()"></div>
                         </div>
@@ -410,7 +409,7 @@
                     <!--{{sellingStatistics}}-->
                     <div class="row statistics">
                         <div class="room-chat" ng-repeat="row in sellingStatistics">
-                            <div class="color-red" ng-show="row.isSold">ЛОТ {{row.lotNumber}} купил №{{row.userId}} за {{row.price.toLocaleString()}} руб. {{row.createdAt}}</div>
+                            <div class="color-red" ng-show="row.isSold">ЛОТ {{row.lotNumber}} купил №{{row.auction_user}} за {{row.price.toLocaleString()}} руб. {{row.createdAt}}</div>
                             <div ng-show="row.isCl" class="lotCl">Лот {{row.lotNumber}} СНЯТ {{row.createdAt}}</div>
                             <!--<div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> купил лот <b>№ {{row.lotNumber}} </b> за {{row.price}} руб.</div>-->
                             <!--<div ng-show="row.isCl"><b>Лот № {{row.lotNumber}}</b> снят с продажи</div>-->

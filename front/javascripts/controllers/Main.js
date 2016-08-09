@@ -325,8 +325,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         lotPicUploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
             // alert('Файлы загружены');
-            $scope.addedPic = response;
-            console.log('>>>>>>>>>>>');
+            // $scope.addedPic = response;
+            // console.log('>>>>>>>>>>>');
         };
         lotPicUploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
@@ -395,6 +395,9 @@ define(['./module', 'jquery'], function (controllers, $) {
         // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
             var mas = [];
+            if(!text || !(text.indexOf("<p>") + 1)){
+                return mas;
+            }
             while (text !== undefined && text && text.indexOf("<p>") + 1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
 
