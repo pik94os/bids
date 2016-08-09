@@ -19,7 +19,6 @@ module.exports = function(socket, data) {
     };
 
     Chat.create(_chatData).then(function (message) {
-        console.log(data.auctionId);
         AuctionUser.findOne({where: {
             auctionId:data.auctionId,
             userId: data.userId

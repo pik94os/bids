@@ -11,7 +11,6 @@ module.exports = function (socket, data) {
     Lot.findOne({
         where: {id: data.id}
     }).then((lot)=> {
-
         return Auction.update({
             start: new Date()
         }, {
@@ -21,7 +20,7 @@ module.exports = function (socket, data) {
         }).then((auction)=> {
             lot.isPlayOut = true;
             return lot.save().then(()=> {
-                socket.to('auction:' + lot.auctionId).emit('auctionRun', {});
+                socket.to('auction:' + lot.auctionId).emit('auctionRun');
                 socket.emit('auctionStart', {
                     err: 0,
                     data: lot

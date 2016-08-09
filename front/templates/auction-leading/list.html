@@ -31,11 +31,12 @@
                     <div class="auction-button-remove-inactive" ng-show="price">Снять лот</div>
                     <!--<div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="auctionOn">Лот продан</div>-->
                     <div class="auction-button-sale" ng-click="sold(true,isClean)"ng-show="price && auctionOn && (!extramuralBid || sellingExtramuralBid || price > extramuralBid.price)">Лот продан</div>
-                    <div class="auction-button-sale" ng-click="confirmLot()" ng-if="extramuralBid && (!price || price < extramuralBid.price && !sellingExtramuralBid)">Увеличить ставку</div>
+                    <div class="auction-button-sale" ng-click="confirmLot()" ng-show="auctionOn && extramuralBid && (!price || price < extramuralBid.price && !sellingExtramuralBid)">Увеличить ставку</div>
                     <div class="auction-button-sale-inactive" ng-show="auctionOn && !price && !extramuralBid">Ставок нет</div>
+                    <div class="auction-button-sale-inactive" ng-show="!auctionOn">Аукцион не начат</div>
                 </div>
-                <div ng-if="numberExtramuralBid && extramuralBid.price">
-                <div class="div-number"><b>Заочный бид от № {{numberExtramuralBid}} {{extramuralBid.user.lastName}} {{extramuralBid.user.firstName}} {{extramuralBid.price.toLocaleString() + 'руб'}}<b></b></div>
+                <div ng-show="numberExtramuralBid && extramuralBid.price">
+                <div class="div-number"><b>Заочный бид от № {{numberExtramuralBid}} {{extramuralBid.user.lastName}} {{extramuralBid.user.firstName}} {{extramuralBid.price.toLocaleString() + 'руб'}}</b></div>
                 <div class="div-text"></div>
                 </div>
                 <div class="div-number"></div>

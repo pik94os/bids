@@ -19,13 +19,20 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (data.err) {
                 return console.log(data);
             }
+            $scope.auctionStart = data.auction.start;
             $scope.users = data.auction.users;
             $scope.user_number = {};
             $scope.users.forEach(function (user) {
                 $scope.user_number[user.id] = user.auction_user.number
             });
-            $scope.auctionOn = data.auction.start ? 1 : 0;
-            $scope.auctionStart = data.auction.start;
+            $scope.auctionOn = data.auction.start||!$scope.fuckStop ? 1 : 0;
+            if(data.auction.start !== null) {
+                ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: +$scope.lotId});
+            } else if(data.auction.start === null && !$scope.fuckStop) {
+                $scope.auctionStart = new Date();
+                ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: +$scope.lotId});
+                console.log(data.auction.start,'||', $scope.fuckStop,'||',$scope.auctionStart)
+            }
             $scope.lots = data.auction.lots;
             $scope.lots.forEach(function (lot) {
                 if (lot.isCl) {
@@ -33,6 +40,59 @@ define(['./module', 'jquery'], function (controllers, $) {
                 }
             });
         });
+
+
+        ngSocket.on('bidList', function (bid) {
+            if (bid.err) {
+                alert(bid.message);
+            }
+            $scope.isBids = true;
+            $scope.extramuralBid = false;
+            console.log($scope.auctionStart, 'bids');
+            if (bid.bids.length) {
+                var tempPrice = 0;
+                var tempDate = new Date(bid.bids[0].createdAt);
+                bid.bids.forEach(function (item) {
+                    if (new Date(item.createdAt) < new Date($scope.auctionStart === null ?  new Date() : $scope.auctionStart)) {
+                        if (+item.price > +tempPrice) {
+                            tempDate = new Date(item.createdAt);
+                            tempPrice = +item.price;
+                            $scope.extramuralBid = item;
+                        }
+                    }
+                });
+                ngSocket.emit('userAuction', {
+                    auctionId: $stateParams.auctionId,
+                    lotConfirmed: true,
+                    userId: bid.bids[0].userId
+                });
+                $scope.numberExtramuralBid = $scope.user_number[$scope.extramuralBid.userId];
+                $scope.sellingExtramuralBid = $scope.extramuralBid.userId === bid.bids[0].userId ? 1 : 0;
+            }
+            if (bid.bids.length && $scope.auctionStart && new Date(bid.bids[0].createdAt) > new Date($scope.auctionStart)) {
+                $scope.userData = bid.bids[0].user.firstName + ' ' + bid.bids[0].user.lastName + ' ' + bid.bids[0].user.patronymic;
+                $scope.bids = bid.bids;
+                $scope.priceBidFrom = bid.bids[0].price + calcStep(bid.bids[0].price);
+                $scope.price = bid.bids[0].price;
+
+            } else {
+                $scope.priceBidFrom = $scope.lotList.estimateFrom;
+            }
+            $scope.confirmLot = function () {
+                ngSocket.emit('auction/confirmLot', {
+                    lotId: $scope.lotId,
+                    bidPrice: $scope.priceBidFrom,
+                    auctionId: $stateParams.auctionId,
+                    extramuralBid: true,
+                    userId: $scope.extramuralBid.userId
+                });
+
+            };
+        });
+
+
+
+
 
         // функционал чата на странице ведущего
         // socket.join('lesson:' + +$stateParams.auctionId);
@@ -102,7 +162,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             var ErrCounter = 0;
 
             f.addListener(WCSEvent.ConnectionStatusEvent, function () {
-                //После инициализации
+                //После инициализаци2016-08-08 19:21:27.080000и
                 //опубликовать поток с вебки ведущего
                 $scope.f.publishStream({
                     name: $scope.videoName,
@@ -193,6 +253,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 name: $scope.videoName
             });
             ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
+            ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
             $scope.fuckStop = false;
         };
         $scope.reloadPage = function reloadPage() {
@@ -221,14 +282,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.sellingStatistics = [];
 
 
-        ngSocket.on('lotConfirmed', function (data) {
-            if (data.err) {
-                alert(data.message);
-            }
-            $scope.startAuction = true;
-            ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
-        });
-
         ngSocket.on('catchSellingStatistics', function (result) {
             result.sellingStatistics.forEach(function (i) {
                 i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
@@ -236,14 +289,12 @@ define(['./module', 'jquery'], function (controllers, $) {
             });
         });
 
-
         ngSocket.emit('auction/getAuction', {id: $stateParams.auctionId});
 
         ngSocket.on('catchAuction', function (data) {
             if (data.err) {
                 alert(data.message);
             }
-
             $scope.dateAuction = data.data.date;
             if (new Date(data.data.date) <= new Date()) {
                 ngSocket.emit('auction/updateLot', {
@@ -277,12 +328,9 @@ define(['./module', 'jquery'], function (controllers, $) {
             }
             $scope.lotId = lot.id;
             $scope.lotIdSelect = lot.id;
-            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: lot.id});
+            ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
         }
-
         ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
-
-
         ngSocket.on('lotList', function (data) {
             setLotInfo(data.lotList[0]);
             ngSocket.emit('auction/getLot', {lotId: +$scope.lotId});
@@ -306,8 +354,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 auctionId: $stateParams.auctionId,
                 lastBid: $scope.lastBid
             });
-            ngSocket.emit('auction/getLot', {lotId: +$scope.lotId});
-
             // запись статистики проданного лота в таблицу статистики
 
             var _SellingStatisticsData = {
@@ -339,6 +385,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         ngSocket.on('lotConfirmed', function (data) {
+            $scope.startAuction = true;
+            ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
             $scope.isBids = false;
             ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: $scope.lotId});
             $scope.price = data.bid.price;
@@ -364,56 +412,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.timeStart = '';
             $scope.dateStart = '';
         };
-        ngSocket.on('bidList', function (bid) {
-            if (bid.err) {
-                alert(bid.message);
-            }
-            $scope.isBids = true;
-            $scope.extramuralBid = false;
-            if (bid.bids.length) {
-                var tempPrice = 0;
-                var tempDate = new Date(bid.bids[0].createdAt);
-
-                bid.bids.forEach(function (item) {
-                    if (new Date(item.createdAt) < new Date($scope.auctionStart)) {
-                        if (+item.price > +tempPrice) {
-                            tempDate = new Date(item.createdAt);
-                            tempPrice = +item.price;
-                            $scope.extramuralBid = item;
-                            console.log($scope.extramuralBid.price);
-                        }
-                    }
-                });
-                ngSocket.emit('userAuction', {
-                    auctionId: $stateParams.auctionId,
-                    lotConfirmed: true,
-                    userId: bid.bids[0].userId
-                });
-                $scope.numberExtramuralBid = $scope.user_number[$scope.extramuralBid.userId];
-                $scope.sellingExtramuralBid = $scope.extramuralBid.userId === bid.bids[0].userId ? 1 : 0;
-
-            }
-            if (bid.bids.length && new Date(bid.bids[0].createdAt) > new Date($scope.auctionStart)) {
-                $scope.userData = bid.bids[0].user.firstName + ' ' + bid.bids[0].user.lastName + ' ' + bid.bids[0].user.patronymic;
-                $scope.bids = bid.bids;
-                $scope.priceBidFrom = bid.bids[0].price + calcStep(bid.bids[0].price);
-                $scope.price = bid.bids[0].price;
-
-            } else {
-                $scope.priceBidFrom = $scope.lotList.estimateFrom;
-            }
-            $scope.confirmLot = function () {
-                console.log($scope.extramuralBid.price);
-                ngSocket.emit('auction/confirmLot', {
-                    lotId: $scope.lotId,
-                    bidPrice: $scope.priceBidFrom,
-                    auctionId: $stateParams.auctionId,
-                    extramuralBid: true,
-                    userId: $scope.extramuralBid.userId
-                });
-
-            };
-        });
 
         //обновление списка пользователей при регистрации на аук
         ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId});

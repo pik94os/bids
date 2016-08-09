@@ -268,8 +268,11 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.timer.ch = $scope.timer.days = $scope.timer.min = $scope.timer.sec = 0;
                 }
 
-                ngSocket.on('auctionRun', function () {
+                ngSocket.on('auctionRun', function (lot) {
                     $scope.countdown =  2;
+                    console.log(lot);
+                    ngSocket.emit('startAuction', {id: $scope.lotId});
+                    ngSocket.emit('auction/room', {id: $stateParams.auctionId})                
                 });
 
                 $scope.min = Math.floor($scope.t / 1000 / 60);
@@ -299,7 +302,6 @@ define(['./module','jquery'],function(controllers,$){
                         $interval.cancel(stop);
                         stop = undefined;
                     }
-                    ngSocket.emit('startAuction', {id: $scope.lotId});
                 };
                 $scope.$on('$destroy', function() {
                     $scope.stopFight();
@@ -378,7 +380,7 @@ define(['./module','jquery'],function(controllers,$){
 
         $scope.maxEstimate = function () {
             $scope.bidPrice = $scope.current_lot.estimateTo;
-        }
+        };
 
 
             $scope.incrementBid = function () {
