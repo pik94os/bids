@@ -395,6 +395,9 @@ define(['./module', 'jquery'], function (controllers, $) {
         // удаление <p></p> из текста и удаление @ нач
         $scope.deleteTegP = function (text) {
             var mas = [];
+            if(!text || !(text.indexOf("<p>") + 1)){
+                return mas;
+            }
             while (text !== undefined && text && text.indexOf("<p>") + 1) {
                 var text1 = text.substring(text.indexOf("<p>") + 3, text.indexOf("</p>"));
 
