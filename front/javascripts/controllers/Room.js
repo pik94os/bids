@@ -54,12 +54,10 @@ define(['./module','jquery'],function(controllers,$){
         var mediaProvider;
         var replay = true;
         var reinit = false;
-        var playerHeight = 130;
-        var playerWidth = 106;
-        var nativeResolution;
-        var lastResolution;
+        var playerHeight = 106;
+        var playerWidth = 130;
         var lastStream;
-        var lastVolumeValue = 50;
+        var lastVolumeValue = 100;
 // swfobject params
         var pparams = {};
         pparams.bgcolor = "696969";
@@ -683,14 +681,13 @@ define(['./module','jquery'],function(controllers,$){
         $scope.swap = false;
 
         $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
-            var video = $("#remoteVideo")[0];
             $scope.classSoundOnOff =! $scope.classSoundOnOff;
-            if (video.muted) {
-                video.muted = false;
-                console.log('Sound off');
-            } else {
-                video.muted = true;
+            if (!$scope.classSoundOnOff) {
+                setVolume(100);
                 console.log('Sound on');
+            } else {
+                setVolume(0);
+                console.log('Sound off');
             }
         };
 
@@ -704,19 +701,6 @@ define(['./module','jquery'],function(controllers,$){
 
             f.addListener(WCSEvent.ErrorStatusEvent, errorEvent);
             f.addListener(WCSEvent.ConnectionStatusEvent, connectionStatusListener);
-            // f.addListener(WCSEvent.StreamStatusEvent, streamStatusListener);
-            f.addListener(WCSEvent.OnVideoFormatEvent, videoFormatListener);
-/*            f.addListener(WCSEvent.ConnectionStatusEvent, function () {
-                //После инициализации
-                //опубликовать поток с вебки ведущего
-                console.log($scope.videoName);
-                $scope.f.playStream({
-                    name:  $scope.videoName,
-                    remoteMediaElementId: 'remoteVideo'
-                });
-            });*/
-
-
             f.addListener(WCSEvent.StreamStatusEvent, function (event) {
                 switch (event.status) {
                     //Если возникли ошибки
@@ -725,8 +709,6 @@ define(['./module','jquery'],function(controllers,$){
                 }
             });
             cleanInstance();
-            // mediaProvider = MediaProvider.WSPlayer;
-            mediaProvider = MediaProvider.Flash;
             var proto;
             var url;
             var port;
@@ -738,19 +720,11 @@ define(['./module','jquery'],function(controllers,$){
                 port = "8443";
             }
             url = proto + ":" + port;
+            //TODO: Сделать автоматический выбор способа вещания
             // initCanvasPlayer(url);
-            initFlashRTMP(url);
+            // initFlashRTMP(url);
+            initVideoRTC(url);
             return false;
-         /*   var configuration = new Configuration();
-            configuration.remoteMediaElementId = 'remoteVideo';
-            configuration.localMediaElementId = 'localVideo';
-            configuration.elementIdForSWF = "flashVideoDiv";
-            // (видеовидео) уменьшаем размер картинки для уменьшения потока
-            configuration.videoWidth=176;
-            configuration.videoHeight=144;
-            f.init(configuration);
-            // $scope.f.getAccessToAudioAndVideo();
-            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});*/
         };
         ngSocket.on('webcam',function (data) {
             console.log(data.name);
@@ -775,7 +749,9 @@ define(['./module','jquery'],function(controllers,$){
          */
 // Init Flash
         function initFlashRTMP(url) {
+            mediaProvider = MediaProvider.Flash;
             $("#videoCanvas").hide();
+            $("#remoteVideo").hide();
             $videoElement = $("#flashVideoWrapper");
             $videoElement.show();
 
@@ -796,37 +772,31 @@ define(['./module','jquery'],function(controllers,$){
         }
 
 // Init WebRTC
-        function initVideoRTC() {
+        function initVideoRTC(url) {
+            mediaProvider = MediaProvider.WebRTC;
+            $("#flashVideoWrapper").hide();
             $("#videoCanvas").hide();
             $("#remoteVideo").show();
 
             var configuration = new Configuration();
             configuration.remoteMediaElementId = 'remoteVideo';
-            configuration.elementIdForSWF = "flashVideoDiv";
-            configuration.pathToSWF = "../../../dependencies/flash/MediaManager.swf";
-            configuration.swfParams = pparams;
-
+            // (видеовидео) уменьшаем размер картинки для уменьшения потока
             f.init(configuration);
 
-            if (webrtcDetectedBrowser) {
-                document.getElementById('flashVideoWrapper').style.visibility = "hidden";
-                document.getElementById('flashVideoDiv').style.visibility = "hidden";
-                document.getElementById('remoteVideo').style.visibility = "visible";
-                $videoElement = $("#remoteVideo");
-            } else {
-                document.getElementById('remoteVideo').style.visibility = "hidden";
-                document.getElementById('flashVideoWrapper').style.visibility = "visible";
-                mediaProvider = MediaProvider.Flash;
-                $videoElement = $("#flashVideoWrapper");
-            }
+            document.getElementById('flashVideoWrapper').style.visibility = "hidden";
+            document.getElementById('flashVideoDiv').style.visibility = "hidden";
+            document.getElementById('remoteVideo').style.visibility = "visible";
+            $videoElement = $("#remoteVideo");
 
-            f.connect({urlServer: setURL(), appKey: 'defaultApp', width: 0, height: 0});
+            f.connect({urlServer: url, appKey: 'defaultApp', width: 0, height: 0});
         }
 
 // Init WebSocket
         function initCanvasPlayer(url) {
+            mediaProvider = MediaProvider.WSPlayer;
+            $("#flashVideoWrapper").hide();
+            $("#remoteVideo").hide();
             $videoElement = $("#videoCanvas");
-            mediaProvider = "WSPlayer";
 
             $videoElement.show();
 
@@ -841,8 +811,8 @@ define(['./module','jquery'],function(controllers,$){
                 appKey: 'defaultApp',
                 useWsTunnel: true,
                 useBase64BinaryEncoding: false,
-                width: width,
-                height: height
+                width: playerWidth,
+                height: playerHeight
             });
         }
 
@@ -872,6 +842,10 @@ define(['./module','jquery'],function(controllers,$){
                 stream.height = height;
                 f.playStream(stream);
             } else {
+                if(mediaProvider == MediaProvider.WSPlayer){
+                    stream.width = playerWidth;
+                    stream.height = playerHeight;
+                }
                 stream.width = 0;
                 stream.height = 0;
                 f.playStream(stream);
@@ -918,16 +892,15 @@ define(['./module','jquery'],function(controllers,$){
                             }, 1000);
                         }, 3000);
                     } else {
-                        playStream(playerWidth,playerHeight);
+                        playStream();
                     }
                 }
             } else if (event.status == ConnectionStatus.Failed) {
                 $("#playStatus").show().text("Connection failed!");
                 $("#playButton").show();
                 $("#waiting").hide();
-                unmuteFooterElements();
             } else if (event.status == ConnectionStatus.Disconnected && reinit) {
-                setTimeout(initAPI,2000);
+                setTimeout(initPlayer,2000);
             }
         }
 
@@ -950,59 +923,6 @@ define(['./module','jquery'],function(controllers,$){
             }
         }
 
-        function videoFormatListener(event) {
-            nativeResolution = event.playerVideoWidth + "x" + event.playerVideoHeight;
-            trace("Got native resolution from publisher " + nativeResolution + " ; useNativeResolution: " + useNativeResolution);
-            if (useNativeResolution && mediaProvider != MediaProvider.WSPlayer) {
-                var marginLeft, marginTop;
-                // Correct height
-                if (event.playerVideoHeight > playerHeight) {
-                    trace("Native height [" + event.playerVideoHeight + "] greater than player's [" + playerHeight + "]");
-                    $videoElement.removeAttr('class').addClass('fp-remoteVideo');
-                    if (mediaProvider == MediaProvider.Flash) {
-                        $videoElement.css('height', playerHeight);
-                    } else {
-                        $videoElement.prop('height', playerHeight);
-                    }
-                } else {
-                    trace("Set native height [" + event.playerVideoHeight + "]");
-                    $videoElement.removeAttr('class').addClass('fp-remoteVideo-sm');
-                    marginLeft = (playerWidth - event.playerVideoWidth) / 2 + 'px';
-                    marginTop = (playerHeight - event.playerVideoHeight) / 2 + 'px';
-                    $videoElement.css({'margin-left' : marginLeft, 'margin-top' : marginTop});
-                    if (mediaProvider == MediaProvider.Flash) {
-                        $videoElement.css('height', event.playerVideoHeight);
-                    } else {
-                        $videoElement.prop('height', event.playerVideoHeight);
-                    }
-                }
-
-                // Correct width
-                if (event.playerVideoWidth > playerWidth) {
-                    trace("Native width [" + event.playerVideoWidth + "] greater than player's [" + playerWidth + "]");
-                    if (mediaProvider == MediaProvider.Flash) {
-                        $videoElement.css('width', playerWidth)
-                    } else {
-                        $videoElement.prop('width', playerWidth);
-                    }
-                } else {
-                    trace("Set native width [" + event.playerVideoWidth + "]");
-                    $videoElement.removeAttr('class').addClass('fp-remoteVideo-sm');
-                    marginLeft = (playerWidth - event.playerVideoWidth) / 2 + 'px';
-                    marginTop = (playerHeight - event.playerVideoHeight) / 2 + 'px';
-                    $videoElement.css({'margin-left' : marginLeft, 'margin-top' : marginTop});
-                    if (mediaProvider == MediaProvider.Flash) {
-                        $videoElement.css('width', event.playerVideoWidth);
-                    } else {
-                        $videoElement.prop('width', event.playerVideoWidth);
-                    }
-                }
-
-                trace("Set video element size to " + $videoElement.width() + "x" + $videoElement.height());
-
-            }
-        }
-
 //Error
         function errorEvent(event) {
             trace(event.info);
@@ -1022,7 +942,6 @@ define(['./module','jquery'],function(controllers,$){
 ///////////////////////////////////
 
         function onPlayActions() {
-            unmuteFooterElements();
             $("#playStatus").hide();
             $("#playButton").hide();
             $("#waiting").hide();
@@ -1080,7 +999,6 @@ define(['./module','jquery'],function(controllers,$){
         }
 
         function onFailedActions() {
-            unmuteFooterElements();
             $("#playStream").removeProp('disabled');
             $("#playStatus").show().text("Playback failed!").removeClass().attr("class","text-danger");
             $("#playButton").show();
@@ -1168,16 +1086,6 @@ define(['./module','jquery'],function(controllers,$){
                     swfobject = undefined;
                     break;
             }
-        }
-
-        function muteFooterElements() {
-            $("#proto").prop('disabled','disabled');
-            $("#stopButton").prop('disabled','disabled');
-        }
-
-        function unmuteFooterElements() {
-            $("#proto").removeProp('disabled');
-            $("#stopButton").removeProp('disabled');
         }
 
         function trace(message) {
