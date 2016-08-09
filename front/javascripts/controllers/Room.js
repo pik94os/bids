@@ -54,8 +54,8 @@ define(['./module','jquery'],function(controllers,$){
         var mediaProvider;
         var replay = true;
         var reinit = false;
-        var playerHeight = 480;
-        var playerWidth = 864;
+        var playerHeight = 130;
+        var playerWidth = 106;
         var nativeResolution;
         var lastResolution;
         var lastStream;
@@ -710,7 +710,8 @@ define(['./module','jquery'],function(controllers,$){
                 }
             });
             cleanInstance();
-            mediaProvider = MediaProvider.WSPlayer;
+            // mediaProvider = MediaProvider.WSPlayer;
+            mediaProvider = MediaProvider.Flash;
             var proto;
             var url;
             var port;
@@ -722,9 +723,10 @@ define(['./module','jquery'],function(controllers,$){
                 port = "8443";
             }
             url = proto + ":" + port;
-            initWSPlayer(url,176,144);
+            // initCanvasPlayer(url);
+            initFlashRTMP(url);
             return false;
-            var configuration = new Configuration();
+         /*   var configuration = new Configuration();
             configuration.remoteMediaElementId = 'remoteVideo';
             configuration.localMediaElementId = 'localVideo';
             configuration.elementIdForSWF = "flashVideoDiv";
@@ -733,7 +735,7 @@ define(['./module','jquery'],function(controllers,$){
             configuration.videoHeight=144;
             f.init(configuration);
             // $scope.f.getAccessToAudioAndVideo();
-            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
+            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});*/
         };
         ngSocket.on('webcam',function (data) {
             console.log(data.name);
@@ -744,42 +746,20 @@ define(['./module','jquery'],function(controllers,$){
             $scope.videoName = data.name;
         });
 
-        $scope.$on('$viewContentLoaded', function(event){
+        setTimeout(function(){
             init.html = true;
             if(init.html && init.room){
-                console.log('>>>>>>>>>>>>>',init);
+
                 $scope.initPlayer();
             }
-        });
+        },2000);
 
 
         /**
          * Для видео
          */
-        /////////////////////////////////////////////////////
-///////////////Page visibility///////////////////////
-/////////////////////////////////////////////////////
-        function visibilityHandler() {
-            if (document[this.hidden]) {
-                console.log("Document hidden, mute player");
-                f.mute(MediaProvider.WSPlayer);
-            } else {
-                console.log("Document active, unmute player");
-                f.unmute(MediaProvider.WSPlayer);
-            }
-        }
-        // Init HLS
-        function initHLS() {
-            trace("Init " + $("#proto").val());
-            $("#videoCanvas").hide();
-            $("#remoteVideo").show();
-            $videoElement = $("#remoteVideo");
-            $videoElement.attr('src',getHLSUrl());
-        }
-
 // Init Flash
-        function initRTMP() {
-            trace("Init " + $("#proto").val());
+        function initFlashRTMP(url) {
             $("#videoCanvas").hide();
             $videoElement = $("#flashVideoWrapper");
             $videoElement.show();
@@ -787,24 +767,21 @@ define(['./module','jquery'],function(controllers,$){
             var configuration = new Configuration();
             configuration.remoteMediaElementId = 'remoteVideo';
             configuration.elementIdForSWF = "flashVideoDiv";
-            configuration.pathToSWF = "../../../dependencies/flash/MediaManager.swf";
+            configuration.pathToSWF = "/images/swf/MediaManager.swf";
             configuration.forceFlashForWebRTCBrowser = true;
             configuration.swfParams = pparams;
+            // configuration.videoWidth=playerWidth;
+            // configuration.videoHeight=playerHeight;
 
-            if ($("#proto").val() == "RTMP")
-                configuration.urlFlashServer = conf.urlFlashServer.replace('rtmfp','rtmp');
+            // if ($("#proto").val() == "RTMP")
+            //     configuration.urlFlashServer = conf.urlFlashServer.replace('rtmfp','rtmp');
 
             f.init(configuration);
-
-            document.getElementById('remoteVideo').style.visibility = "hidden";
-            document.getElementById('flashVideoWrapper').style.visibility = "visible";
-            document.getElementById('flashVideoDiv').style.visibility = "visible";
-            f.connect({urlServer: setURL(), appKey: 'defaultApp'});
+            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
         }
 
 // Init WebRTC
-        function initRTC() {
-            trace("Init " + $("#proto").val());
+        function initVideoRTC() {
             $("#videoCanvas").hide();
             $("#remoteVideo").show();
 
@@ -832,16 +809,17 @@ define(['./module','jquery'],function(controllers,$){
         }
 
 // Init WebSocket
-        function initWSPlayer(url,width,height) {
+        function initCanvasPlayer(url) {
             $videoElement = $("#videoCanvas");
             mediaProvider = "WSPlayer";
 
             $videoElement.show();
 
             var configuration = new Configuration();
-            configuration.wsPlayerCanvas = $videoElement;
-            console.log('>>>>>>>>>',$videoElement);
+            configuration.wsPlayerCanvas = $videoElement[0];
             configuration.wsPlayerReceiverPath = "/javascripts/libs/flashphoner/WSReceiver.js";
+            configuration.videoWidth=playerWidth;
+            configuration.videoHeight=playerHeight;
             $scope.f.init(configuration);
             $scope.f.connect({
                 urlServer: url,
@@ -855,8 +833,6 @@ define(['./module','jquery'],function(controllers,$){
 
 // Disconnect
         function disconnect() {
-            $("#playButton").hide();
-            $("#waiting").show();
             f.disconnect();
         }
 ///////////////////////////////////
@@ -870,25 +846,20 @@ define(['./module','jquery'],function(controllers,$){
                 useNativeResolution = true;
             }
             lastStream = $scope.videoName;
-            if (false) {
-                $videoElement.attr('src',getHLSUrl()+"/"+$scope.videoName+"/"+$scope.videoName+".m3u8");
-                $videoElement.load();
+            var stream = new Stream();
+            stream.name = $scope.videoName;
+            stream.hasVideo = true;
+            stream.mediaProvider = mediaProvider;
+            if (width != null && height != null) {
+                trace("Request for stream with resolution - " + width + "x" + height);
+                useNativeResolution = false;
+                stream.width = width;
+                stream.height = height;
+                f.playStream(stream);
             } else {
-                var stream = new Stream();
-                stream.name = $scope.videoName;
-                stream.hasVideo = true;
-                stream.mediaProvider = mediaProvider;
-                if (width != null && height != null) {
-                    trace("Request for stream with resolution - " + width + "x" + height);
-                    useNativeResolution = false;
-                    stream.width = width;
-                    stream.height = height;
-                    f.playStream(stream);
-                } else {
-                    stream.width = 0;
-                    stream.height = 0;
-                    f.playStream(stream);
-                }
+                stream.width = 0;
+                stream.height = 0;
+                f.playStream(stream);
             }
         }
 
@@ -932,7 +903,7 @@ define(['./module','jquery'],function(controllers,$){
                             }, 1000);
                         }, 3000);
                     } else {
-                        playStream(320,180);
+                        playStream(playerWidth,playerHeight);
                     }
                 }
             } else if (event.status == ConnectionStatus.Failed) {
@@ -1088,7 +1059,6 @@ define(['./module','jquery'],function(controllers,$){
         }
 
         function onStopActions() {
-            $("#playStream").removeProp('disabled');
             if (replay) {
                 disconnect();
             }
@@ -1139,11 +1109,11 @@ define(['./module','jquery'],function(controllers,$){
         function fullScreenMode() {
             var video;
             if (mediaProvider == MediaProvider.WebRTC) {
-                video = $('#remoteVideo');
+                video = $('#remoteVideo')[0];
             } else if (mediaProvider == MediaProvider.WSPlayer) {
-                video = $('#videoCanvas');
+                video = $('#videoCanvas')[0];
             } else {
-                video = $('#flashVideoWrapper');
+                video = $('#flashVideoWrapper')[0];
             }
 
             if (video.requestFullscreen) {
