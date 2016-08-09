@@ -54,8 +54,8 @@ module.exports = function (socket, data) {
                     'На аукционе №: ' + e.auctionId + ', ' + e.createdAt + 'Вы приобрели следующие лоты: <br>';
                 t = t + 'Номер лота ' + e.lotNumber + ' цена ' + e.price.toLocaleString() + 'руб. <br>';
             });
-            console.log('>+++++++++++++++');
-            console.log(receiver + textHead + t);
+            // console.log('>+++++++++++++++');
+            // console.log(receiver + textHead + t);
 
             let dataToSend = {
                 receiverMailer: receiver,

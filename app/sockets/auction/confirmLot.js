@@ -22,42 +22,116 @@ module.exports = function(socket, data) {
         );
         return
     }
-
     findLot(data.lotId, function(err, lot){
         if (err) return emitError(socket, err);
-            findUser(user.id, function (err, user){
                 if (err) return emitError(socket, err);
-                checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, function(err){
+                checkBid(data.bidPrice, lot.sellingPrice, lot.estimateFrom, lot.auction.start, function(err){
                     if (err) return emitError(socket, err);
-                Bid.create({price: data.bidPrice, lotId: lot.id, userId: user.id, auctionId: data.auctionId})
+                Bid.create({ price: data.bidPrice,
+                    lotId: lot.id,
+                    userId: data.extramuralBid ? data.userId : user.id,
+                    auctionId: data.auctionId
+                })
                     .then(function (bid){
                         if (lot.isPlayOut) {
-                            lot.sellingPrice = data.bidPrice;
-                        } else if (data.extramural) {
-                            lot.sellingPrice = data.bidPrice;
-                            console.log(data.extramural, data.bidPrice);
-                        }
-                        return lot.save().then(function (lot) {
-                            socket.emit('lotConfirmed',
-                                {err: 0, bid: bid});
-                            console.log(lot.sellingPrice);
-                            socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
-                                err: 0,
-                                bid: bid,
-                                // lot: lot,
-                                userName: {
-                                    id:user.id,
-                                    firstName:user.firstName,
-                                    lastName:user.lastName,
-                                    patronymic:user.patronymic
+                            return Bid.findOne({
+                                where: {
+                                    createdAt: {$lte: lot.auction.start},
+                                    lotId: data.lotId
+                                },
+                                order:[['price', 'DESC'],['createdAt', 'ASC']]
+                            }).then((maxExtramuralBid)=>{
+                                let tempBid = false;
+                                lot.sellingPrice = data.bidPrice;
+                                if(maxExtramuralBid !== null){
+                                    let bidRazn = +maxExtramuralBid.price - bid.price;
+                                    if (bidRazn > 0 && bidRazn <= calcStep(bid.price)) {
+                                        tempBid = true;
+                                        lot.sellingPrice = +maxExtramuralBid.price;
+                                        bid.price = +maxExtramuralBid.price;
+                                        lot.userId = +maxExtramuralBid.userId;
+                                        bid.userId = +maxExtramuralBid.userId;
+                                    }
                                 }
+                                
+                                return lot.save().then(function (lot) {
+                                    if(tempBid) {
+                                        return bid.save().then(()=>{
+                                            return User.findById(bid.userId);
+                                        }).then((newUser)=>{
+                                            if(bid.userId !== newUser.id) {
+                                                socket.emit('lotConfirmed',
+                                                    {err: 1, message: "Ваша ставка была перебита другим игроком"});
+                                                socket.emit('lotConfirmed',
+                                                    {err: 0, bid: bid});
+                                                socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
+                                                    err: 0,
+                                                    bid: bid,
+                                                    userName: {
+                                                        id:newUser.id,
+                                                        firstName:newUser.firstName,
+                                                        lastName:newUser.lastName,
+                                                        patronymic:newUser.patronymic
+                                                    }
+                                                });
+                                            } else {
+                                                socket.emit('lotConfirmed',
+                                                    {err: 0, bid: bid});
+                                                socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
+                                                    err: 0,
+                                                    bid: bid,
+                                                    userName: {
+                                                        id:newUser.id,
+                                                        firstName:newUser.firstName,
+                                                        lastName:newUser.lastName,
+                                                        patronymic:newUser.patronymic
+                                                    }
+                                                });
+                                            }
+                                        });                                        
+                                    }else{
+                                        return lot.save().then(function (lot) {
+                                            socket.emit('lotConfirmed',
+                                                {err: 0, bid: bid});
+                                            socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
+                                                err: 0,
+                                                bid: bid,
+                                                // lot: lot,
+                                                userName: {
+                                                    id:user.id,
+                                                    firstName:user.firstName,
+                                                    lastName:user.lastName,
+                                                    patronymic:user.patronymic
+                                                }
+                                            });
+                                        });
+                                    }
+                                });
                             });
-                        });
+
+                        } else {
+                            return lot.save().then(function (lot) {
+                                socket.emit('lotConfirmed',
+                                    {err: 0, bid: bid});
+                                socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
+                                    err: 0,
+                                    bid: bid,
+                                    // lot: lot,
+                                    userName: {
+                                        id:user.id,
+                                        firstName:user.firstName,
+                                        lastName:user.lastName,
+                                        patronymic:user.patronymic
+                                    }
+                                });
+                            });
+                        }
+
+
                     }).catch(function (err) {
                         return emitError(socket, err);
                     })
                 })
-            })
     });
 
     function findLot(lotId, cb){
@@ -75,30 +149,41 @@ module.exports = function(socket, data) {
             })
 
     }
-    function findUser(userId, cb){
-        User.findById(userId)
-            .then(function(user){
-                    return cb(null, user)
-            })
-            .catch(function (err) {
-                    return cb (err);
-            })
-    }
 
     function emitError(socket, err){
         socket.emit('lotConfirmed',
             {err: 1, message: err.message})
 
     }
-    function checkBid(bid, currentPrice, estimateFrom, cb){
+    function checkBid(bid, currentPrice, estimateFrom, start, cb){
         var step = calcStep(currentPrice);
         if (Number(bid) - Number(estimateFrom) < 0)
             return cb({message: "Бид ниже минимальной цены"});
         // if (Number(bid) - Number(estimateFrom) < step)
         //     return cb({message: "Бид ниже минимального шага"});
-        if (Number(bid) - Number(currentPrice) < step)
+        if(start) {
+            if (Number(bid) - Number(currentPrice) < step)
             return cb({message: "Бид ниже текущей цены"});
+        }
         return cb (null);
+    }
+
+    function lotSave(socket,lot,bid,user,cb) {
+        return lot.save().then(function (lot) {
+            socket.emit('lotConfirmed',
+                {err: 0, bid: bid});
+            socket.to('auction:' + (+lot.auctionId)).emit('lotConfirmed', {
+                err: 0,
+                bid: bid,
+                // lot: lot,
+                userName: {
+                    id:user.id,
+                    firstName:user.firstName,
+                    lastName:user.lastName,
+                    patronymic:user.patronymic
+                }
+            });
+        });
     }
 
 

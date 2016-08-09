@@ -206,7 +206,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.lots_isPlayOutedLength = $scope.auction_params.lots_isPlayOuted.length;
                 if ($scope.auction_params.lots_length != 0)
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
-
+                $scope.aa = true;
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
                 //$scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'};
@@ -227,7 +227,7 @@ define(['./module','jquery'],function(controllers,$){
                         return true;
                     }
                 };
-                var date = new Date($scope.auctionDate);
+                var date = new Date(data.auction.date);
                 var razn = +date - +curDate;
                 $scope.timer = {};
                 $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
@@ -268,8 +268,11 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.timer.ch = $scope.timer.days = $scope.timer.min = $scope.timer.sec = 0;
                 }
 
-                ngSocket.on('auctionRun', function () {
+                ngSocket.on('auctionRun', function (lot) {
                     $scope.countdown =  2;
+                    console.log(lot);
+                    ngSocket.emit('startAuction', {id: $scope.lotId});
+                    ngSocket.emit('auction/room', {id: $stateParams.auctionId})                
                 });
 
                 $scope.min = Math.floor($scope.t / 1000 / 60);
@@ -280,9 +283,9 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.$apply();
 
                 var stopTime = $interval(function () {
-                    $scope.sec += 1;
+                    $scope.sec++;
                     if($scope.sec == 60) {
-                        $scope.min += 1;
+                        $scope.min ++;
                         $scope.sec = 0;
                     }
                 }, 1000);
@@ -352,7 +355,6 @@ define(['./module','jquery'],function(controllers,$){
                 //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
 
                 $scope.current_lot.lot_pictures = [];
-                console.log(data.lot_pictures);
                 if (data.lotPictures != undefined && data.lotPictures.length){
                     data.lotPictures.forEach(function (pic,incr) {
                         if(pic.fileName){
@@ -378,13 +380,12 @@ define(['./module','jquery'],function(controllers,$){
 
         $scope.maxEstimate = function () {
             $scope.bidPrice = $scope.current_lot.estimateTo;
-        }
+        };
 
 
             $scope.incrementBid = function () {
                 var step = calcStep($scope.bidPrice);
                 $scope.bidPrice += Number(step);
-                console.log(step,$scope.bidPrice);
             }
 
             $scope.decrementBid = function () {
@@ -407,12 +408,12 @@ define(['./module','jquery'],function(controllers,$){
         //     return userNum;
         // }
         //форматирование цены
-        $scope.hardObj = {};
             $scope.formatBid = function () {
                 var bid = $scope.bidPrice;
-                $scope.bidPrice = +(bid.replace(/[^0-9]/g,''));
-                console.log($scope.bidPrice);
-            };
+                bid = bid.replace(/[A-z, ]/g,'');
+                $scope.bidPrice = Number(bid);
+
+            }
         //подтвердить лот
             $scope.confirmLot = function () {
                 ngSocket.emit('auction/confirmLot', {
@@ -615,7 +616,6 @@ define(['./module','jquery'],function(controllers,$){
                     }
                 }
             }
-            console.log($scope.auction_params.lots);
             $scope.auction_params.lots.sort(function (a, b) {
                 if (+(a.isCl || a.isSold) > (+(b.isCl || b.isSold))) return 1;
                 if (+(a.isCl || a.isSold) < (+(b.isCl || b.isSold))) return -1;
@@ -623,8 +623,6 @@ define(['./module','jquery'],function(controllers,$){
                 if (a.number < b.number) return -1;
                 return 0;
             });
-
-            console.log($scope.auction_params.lots);
 
             //Обновить auction_params.lotsToShow
 
@@ -744,7 +742,6 @@ define(['./module','jquery'],function(controllers,$){
      * @returns step - шаг изменения цены
      */
     function calcStep(price) {
-        price = +price;
         var step = 1;
         if (price < 5) {
             return step = 1;

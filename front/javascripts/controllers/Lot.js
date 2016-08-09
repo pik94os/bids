@@ -76,21 +76,22 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         // подтверждение бида
         $scope.confirmLot = function () {
-            if ($scope.bidPrice > $scope.sellingPrice) {
-                ngSocket.emit('auction/confirmLot', {
-                    lotId: $stateParams.lotId,
-                    bidPrice: +$scope.bidPrice,
-                    extramural: true
-                });
+            if ($scope.$state.current.name === 'lot') {
+                ngSocket.emit('userAuction', {auctionId: $scope.auctionId});
             }
-            ngSocket.emit('auction/confirmLot', {
-                lotId: $scope.lotId,
-                bidPrice: $scope.bidPrice
-            });
+            if($scope.bidPrice >= $scope.estimateFrom) {
+                ngSocket.emit('auction/confirmLot', {
+                    lotId: +$stateParams.lotId,
+                    bidPrice: +$scope.bidPrice,
+                    auctionId: $scope.auctionId
+                });
+            } else {
+                $scope.confirm.err = 1;
+                $scope.confirm.message = 'Бид ниже минимальной цены'
+            }
         };
 
         ngSocket.on('auctionState', function (data) {
-            console.log(data);
             if(data.oldLotId==$scope.lot.id || data.lotId==$scope.lot.id){
                 ngSocket.emit('auction/getLot', {
                     lotId: $stateParams.lotId
@@ -100,7 +101,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotConfirmed', function (data) {
-            console.log(data);
             if (data.err == 0) {
                 $scope.confirm = data;
                 if(data.userName!==undefined && data.userName){
@@ -112,9 +112,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             }else{
                 $scope.confirm = data
             }
-
-
-            console.log(data);
             $scope.sellingPrice = data.bid.price;
             $scope.bidPrice = $scope.sellingPrice + calcStep($scope.sellingPrice);
         });
@@ -128,16 +125,9 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.isPlayOut = $scope.lot.isPlayOut;
             $scope.open = ($scope.lot.isSold || $scope.lot.isCl) ? 2 : 1;
             $scope.bidPrice = 0;
-
-            if (data.lot.sellingPrice == data.lot.estimateFrom) {
-                $scope.bidPrice = +data.lot.sellingPrice;
-                $scope.$apply();
-            }
-            else {
-                $scope.bidPrice = +data.lot.sellingPrice + calcStep($scope.sellingPrice);
-                $scope.$apply();
-
-            }
+            $scope.auctionId = data.lot.auctionId;
+            $scope.bidPrice = +data.lot.estimateFrom;
+            $scope.$apply();
             initLotParams($scope, params, $scope.lot);
             calcStep();
         });

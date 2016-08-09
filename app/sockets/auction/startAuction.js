@@ -7,13 +7,10 @@
 const Lot = require('../../models').Lot;
 const Auction = require('../../models').Auction;
 module.exports = function (socket, data) {
-    if(socket.request.user.roleId !== 5 && !socket.request.user.id) {
-        return false
-    } else {
+
     Lot.findOne({
         where: {id: data.id}
     }).then((lot)=> {
-
         return Auction.update({
             start: new Date()
         }, {
@@ -23,7 +20,7 @@ module.exports = function (socket, data) {
         }).then((auction)=> {
             lot.isPlayOut = true;
             return lot.save().then(()=> {
-                socket.to('auction:' + lot.auctionId).emit('auctionRun', {});
+                socket.to('auction:' + lot.auctionId).emit('auctionRun');
                 socket.emit('auctionStart', {
                     err: 0,
                     data: lot
@@ -41,5 +38,4 @@ module.exports = function (socket, data) {
             message: err.message
         });
     })
-    }
 };

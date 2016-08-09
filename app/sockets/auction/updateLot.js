@@ -19,37 +19,39 @@ module.exports = function (socket, data) {
                 data: auction
             });
             //TODO: если что поправить auction на data
-            return Lot.findOne({
-                where: {
-                    isSold: false,
-                    isCl: false,
-                    auctionId: +auction.auctionId
-                },
-                include: [LotPicture],
-                order: [['id', 'ASC']]
-            }).then((lot)=>{
-                lot.isPlayOut = true;
-                return lot.save().then((lot)=>{
-                    socket.to('auction:'+(+data.auctionId)).emit('auctionState', {
-                        lot: lot,
-                        lotId: lot.id,
-                        oldLotId: result.id,
-                        oldLot: result,
-                        isSold: auction.isSold,
-                        isCl: auction.isCl,
-                        lastBid: data.lastBid
-                    });
-                    socket.emit('auctionState', {
-                        oldLotId: result.id,
-                        oldLot: result,
-                        lotId: lot.id,
-                        lot:lot,
-                        isSold:data.isSold,
-                        isCl: data.isCl,
-                        lastBid: data.lastBid
-                    });
-                })
-            });
+            if(data.isPlayOut!==false) {
+                return Lot.findOne({
+                    where: {
+                        isSold: false,
+                        isCl: false,
+                        auctionId: +auction.auctionId
+                    },
+                    include: [LotPicture],
+                    order: [['id', 'ASC']]
+                }).then((lot)=> {
+                    lot.isPlayOut = true;
+                    return lot.save().then((lot)=> {
+                        socket.to('auction:' + (+data.auctionId)).emit('auctionState', {
+                            lot: lot,
+                            lotId: lot.id,
+                            oldLotId: result.id,
+                            oldLot: result,
+                            isSold: auction.isSold,
+                            isCl: auction.isCl,
+                            lastBid: data.lastBid
+                        });
+                        socket.emit('auctionState', {
+                            oldLotId: result.id,
+                            oldLot: result,
+                            lotId: lot.id,
+                            lot: lot,
+                            isSold: data.isSold,
+                            isCl: data.isCl,
+                            lastBid: data.lastBid
+                        });
+                    })
+                });
+            }
         }).catch((err)=> {
             socket.emit('lotUpdate', {
                 err: 1,
