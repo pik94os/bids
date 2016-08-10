@@ -27,6 +27,7 @@ module.exports = function(socket, data) {
                     order: [
                         ['price', 'DESC']
                     ]
+                    
                 }).then(function (bids) {
                     if(!lot.sellingPrice){
                         lot.sellingPrice = lot.estimateFrom;
@@ -37,7 +38,7 @@ module.exports = function(socket, data) {
                         lotPictures: lotPictures,
                         bids: bids
                     });
-
+                    
                 })
             })
         }).catch(function (err) {
