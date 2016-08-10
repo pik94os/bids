@@ -5,23 +5,26 @@ module.exports = function (socket, passportSocketIo, io, state) {
     const Lot = require('../models').Lot;
     let auction_id;
     let lot_id;
-    if(socket.handshake.query.loc.indexOf('/auction')+1){
-        auction_id = getParameterByName('auctionId',socket.handshake.query.loc);
+    if(socket.handshake.query.loc){
+        if(socket.handshake.query.loc.indexOf('/auction')+1){
+            auction_id = getParameterByName('auctionId',socket.handshake.query.loc);
+        }
+        if(socket.handshake.query.loc.indexOf('/room')+1){
+            auction_id = getParameterByName('auctionId',socket.handshake.query.loc);
+        }
+        if(socket.handshake.query.loc.indexOf('/auction-leading')+1){
+            auction_id = getParameterByName('auctionId',socket.handshake.query.loc);
+        }
+        if(socket.handshake.query.loc.indexOf('/lot')+1){
+            lot_id = getParameterByName('lotId',socket.handshake.query.loc);
+        }
+        if(lot_id){
+            Lot.findById(+lot_id).then( (lot)=> socket.join('auction:' + lot.auctionId) );
+        }else{
+            socket.join('auction:' + auction_id);
+        }
     }
-    if(socket.handshake.query.loc.indexOf('/room')+1){
-        auction_id = getParameterByName('auctionId',socket.handshake.query.loc);
-    }
-    if(socket.handshake.query.loc.indexOf('/auction-leading')+1){
-        auction_id = getParameterByName('auctionId',socket.handshake.query.loc);
-    }
-    if(socket.handshake.query.loc.indexOf('/lot')+1){
-        lot_id = getParameterByName('lotId',socket.handshake.query.loc);
-    }
-    if(lot_id){
-        Lot.findById(+lot_id).then( (lot)=> console.log('>>>>>>>>>>+++>>', socket.join('auction:' + lot.auctionId)) );
-    }else{
-        socket.join('auction:' + auction_id);
-    }
+
 
     // const User = require('../models').User;
     let user = socket.request.user;

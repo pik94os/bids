@@ -721,10 +721,14 @@ define(['./module','jquery'],function(controllers,$){
             }
             url = proto + ":" + port;
             //TODO: Сделать автоматический выбор способа вещания
-            // initCanvasPlayer(url);
-            // initFlashRTMP(url);
-            initVideoRTC(url);
-            return false;
+
+            if(supports_video()){
+                initVideoRTC(url);
+            }else if(supports_flash()){
+                initFlashRTMP(url)
+            }else{
+                initCanvasPlayer(url);
+            }
         };
         ngSocket.on('webcam',function (data) {
             console.log(data.name);
@@ -761,11 +765,6 @@ define(['./module','jquery'],function(controllers,$){
             configuration.pathToSWF = "/images/swf/MediaManager.swf";
             configuration.forceFlashForWebRTCBrowser = true;
             configuration.swfParams = pparams;
-            // configuration.videoWidth=playerWidth;
-            // configuration.videoHeight=playerHeight;
-
-            // if ($("#proto").val() == "RTMP")
-            //     configuration.urlFlashServer = conf.urlFlashServer.replace('rtmfp','rtmp');
 
             f.init(configuration);
             f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
@@ -1193,4 +1192,13 @@ define(['./module','jquery'],function(controllers,$){
         xmlHttp.send('');
         return xmlHttp.getResponseHeader("Date");
     }
+
+    function supports_video() {
+        return !!document.createElement('video').canPlayType;
+    }
+
+    function supports_flash() {
+        return ((typeof navigator.plugins !== "undefined" && typeof navigator.plugins["Shockwave Flash"] === "object") || (window.ActiveXObject && (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) !== false));
+    }
+
 });

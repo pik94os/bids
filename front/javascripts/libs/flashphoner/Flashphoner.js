@@ -934,6 +934,7 @@ Flashphoner.prototype = {
 
     setVolumeOnStreaming: function (provider, value) {
         if (provider == MediaProvider.WSPlayer) {
+            console.log('>>>>>++>',this.mediaProviders.get(provider).setVolume(50));
             this.mediaProviders.get(provider).setVolume(value/100);
         } else if (provider == MediaProvider.Flash) {
             this.mediaProviders.get(provider).setVolume(0, value);
