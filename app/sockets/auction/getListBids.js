@@ -13,7 +13,6 @@ module.exports = function(socket, data) {
         );
         return
     }
-    console.log(data.lotId);
     let include = [{model: User, attributes: ['id', 'firstName', 'lastName', 'patronymic']},
         {model: Lot}];
     Bid.findAll({
