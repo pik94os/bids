@@ -21,7 +21,7 @@ module.exports = function(socket, data) {
 
     SellingStatistics.findAll({
         where,
-        include: [AuctionUser]
+        include: [AuctionUser],
     }).then(function (result) {
         socket.emit('catchSellingStatistics', {
             'err': 0,

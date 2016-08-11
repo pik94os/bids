@@ -409,7 +409,7 @@
                     <!--{{sellingStatistics}}-->
                     <div class="row statistics">
                         <div class="room-chat" ng-repeat="row in sellingStatistics">
-                            <div class="color-red" ng-show="row.isSold">ЛОТ {{row.lotNumber}} купил №{{row.auction_user}} за {{row.price.toLocaleString()}} руб. {{row.createdAt}}</div>
+                            <div class="color-red" ng-show="row.isSold">ЛОТ {{row.lotNumber}} купил №{{user_number[row.userId]}} за {{row.price.toLocaleString()}} руб. {{row.createdAt}}</div>
                             <div ng-show="row.isCl" class="lotCl">Лот {{row.lotNumber}} СНЯТ {{row.createdAt}}</div>
                             <!--<div ng-show="row.isSold"><b>{{row.firstName}} {{row.lastName}}</b> купил лот <b>№ {{row.lotNumber}} </b> за {{row.price}} руб.</div>-->
                             <!--<div ng-show="row.isCl"><b>Лот № {{row.lotNumber}}</b> снят с продажи</div>-->

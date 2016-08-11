@@ -51,8 +51,8 @@ module.exports = function (socket, data) {
             statisticForSending[i].forEach(function (e) {
                 receiver = e.email;
                 textHead = 'Уважаемый ' + e.firstName + ' ' + e.patronymic + ' ' + e.lastName + ', Вас приветствует антикварный книжный клуб ART-BID.RU.<br>' +
-                    'На аукционе №: ' + e.auctionId + ', ' + e.createdAt + 'Вы приобрели следующие лоты: <br>';
-                t = t + 'Номер лота ' + e.lotNumber + ' цена ' + e.price.toLocaleString() + 'руб. <br>';
+                    'На аукционе №: ' + e.auctionId + ', Вы приобрели следующие лоты: <br>';
+                t = t + 'Номер лота ' + e.lotNumber + ' цена ' + e.price.toLocaleString() + ' руб.' + ' [' + e.createdAt.toLocaleString() + '] <br>';
             });
             // console.log('>+++++++++++++++');
             // console.log(receiver + textHead + t);
