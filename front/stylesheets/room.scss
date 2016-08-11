@@ -898,6 +898,12 @@
     }
   }
   .classForVideo {
+    &-big {
+      canvas{
+        width: 100%;
+        height: 100%;
+      }
+    }
     &-small {
       height: 106px;
       width: 130px;
@@ -1076,5 +1082,12 @@
 
   p.ng-binding.ng-scope {
     margin-top: 0px;
+  }
+  #updateBrowser{
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+    border: solid;
   }
 }

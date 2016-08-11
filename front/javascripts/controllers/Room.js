@@ -37,6 +37,31 @@ define(['./module','jquery'],function(controllers,$){
             $scope.countdown = 1;
         });
     }]).controller('Room',['ngSocket','$scope','$http', '$rootScope', '$stateParams','$interval', function(ngSocket,$scope,$http,$rootScope,$stateParams,$interval){
+        //Init WCS JavaScript API
+        var f;
+        var timer;
+        var useNativeResolution = true;
+        var streamStatus;
+// This element will be used for playing video (canvas or video)
+        var $videoElement;
+        var init={
+            room : false,
+            html : false
+        };
+//
+        var isIE = false;
+        var isMobile = false;
+        var mediaProvider;
+        var replay = true;
+        var reinit = false;
+        var playerHeight = 106;
+        var playerWidth = 130;
+        var lastStream;
+        var lastVolumeValue = 100;
+// swfobject params
+        var pparams = {};
+        pparams.bgcolor = "696969";
+        pparams.wmode = "opaque";
 
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
@@ -169,7 +194,11 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.users_number = data.auction.users.map(function(e) { return e.id });
                 $scope.auction_params.current_user = data.authUser;
                 $scope.videoName = data.auction.webcam;
-                $scope.initPlayer();
+                init.room = true;
+                if(init.room && init.html){
+                    $scope.initPlayer();
+                }
+
                 
                 //таймер
                 //инициализация лотов аукциона
@@ -649,29 +678,16 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
 
         });
-
-        $scope.roomName = 'jhcde36yhn099illl"km./;hg' + $stateParams.auctionId + window.location.host + window.location.host;
-            $scope.joinedRoom = false;
-            $scope.joinRoom = function () {
-                $scope.$broadcast('joinRoom');
-            };
-            $scope.leaveRoom = function () {
-                $scope.$broadcast('leaveRoom');
-            };
-            setTimeout(function () {
-                $scope.initPlayer
-            },2000);
         $scope.swap = false;
 
         $scope.soundOnOff = function () { // Переключаем состояние "звук включен/выключен"
-            var video = $("#remoteVideo")[0];
             $scope.classSoundOnOff =! $scope.classSoundOnOff;
-            if (video.muted) {
-                video.muted = false;
-                console.log('Sound off');
-            } else {
-                video.muted = true;
+            if (!$scope.classSoundOnOff) {
+                setVolume(100);
                 console.log('Sound on');
+            } else {
+                setVolume(0);
+                console.log('Sound off');
             }
         };
 
@@ -679,21 +695,12 @@ define(['./module','jquery'],function(controllers,$){
             if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f==undefined && $scope.f)) {
                 return false
             }
-            var f = $scope.f = Flashphoner.getInstance();
+            f = $scope.f = Flashphoner.getInstance();
             //счетчик ошибок перезапуска
             var ErrCounter = 0;
 
-            f.addListener(WCSEvent.ConnectionStatusEvent, function () {
-                //После инициализации
-                //опубликовать поток с вебки ведущего
-                console.log($scope.videoName);
-                $scope.f.playStream({
-                    name:  $scope.videoName,
-                    remoteMediaElementId: 'remoteVideo'
-                });
-            });
-
-
+            f.addListener(WCSEvent.ErrorStatusEvent, errorEvent);
+            f.addListener(WCSEvent.ConnectionStatusEvent, connectionStatusListener);
             f.addListener(WCSEvent.StreamStatusEvent, function (event) {
                 switch (event.status) {
                     //Если возникли ошибки
@@ -701,14 +708,8 @@ define(['./module','jquery'],function(controllers,$){
                         break;
                 }
             });
-            var configuration = new Configuration();
-            configuration.remoteMediaElementId = 'remoteVideo';
-            configuration.localMediaElementId = 'localVideo';
-            configuration.elementIdForSWF = "flashVideoDiv";
-            // (видеовидео) уменьшаем размер картинки для уменьшения потока
-            configuration.videoWidth=176;
-            configuration.videoHeight=144;
-            var proto; 
+            cleanInstance();
+            var proto;
             var url;
             var port;
             if (window.location.protocol == "http:") {
@@ -719,9 +720,15 @@ define(['./module','jquery'],function(controllers,$){
                 port = "8443";
             }
             url = proto + ":" + port;
-            f.init(configuration);
-            // $scope.f.getAccessToAudioAndVideo();
-            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
+            if(supports_video()){
+                initVideoRTC(url);
+            }else if(supports_flash()){
+                $scope.updateBrowser = true;
+                initFlashRTMP(url)
+            }else{
+                $scope.updateBrowser = true;
+                initCanvasPlayer(url);
+            }
         };
         ngSocket.on('webcam',function (data) {
             console.log(data.name);
@@ -732,9 +739,357 @@ define(['./module','jquery'],function(controllers,$){
             $scope.videoName = data.name;
         });
 
-        $(function () {
-            $scope.initPlayer();
-        });
+        setTimeout(function(){
+            init.html = true;
+            if(init.html && init.room){
+
+                $scope.initPlayer();
+            }
+        },2000);
+
+
+        /**
+         * Для видео
+         */
+// Init Flash
+        function initFlashRTMP(url) {
+            mediaProvider = MediaProvider.Flash;
+            $("#videoCanvas").hide();
+            $("#remoteVideo").hide();
+            $videoElement = $("#flashVideoWrapper");
+            $videoElement.show();
+
+            var configuration = new Configuration();
+            configuration.remoteMediaElementId = 'remoteVideo';
+            configuration.elementIdForSWF = "flashVideoDiv";
+            configuration.pathToSWF = "/images/swf/MediaManager.swf";
+            configuration.forceFlashForWebRTCBrowser = true;
+            configuration.swfParams = pparams;
+
+            f.init(configuration);
+            f.connect({width:0,height:0,urlServer: url, appKey: 'defaultApp'});
+        }
+
+// Init WebRTC
+        function initVideoRTC(url) {
+            mediaProvider = MediaProvider.WebRTC;
+            $("#flashVideoWrapper").hide();
+            $("#videoCanvas").hide();
+            $("#remoteVideo").show();
+
+            var configuration = new Configuration();
+            configuration.remoteMediaElementId = 'remoteVideo';
+            // (видеовидео) уменьшаем размер картинки для уменьшения потока
+            f.init(configuration);
+
+            document.getElementById('flashVideoWrapper').style.visibility = "hidden";
+            document.getElementById('flashVideoDiv').style.visibility = "hidden";
+            document.getElementById('remoteVideo').style.visibility = "visible";
+            $videoElement = $("#remoteVideo");
+
+            f.connect({urlServer: url, appKey: 'defaultApp', width: 0, height: 0});
+        }
+
+// Init WebSocket
+        function initCanvasPlayer(url) {
+            mediaProvider = MediaProvider.WSPlayer;
+            $("#flashVideoWrapper").hide();
+            $("#remoteVideo").hide();
+            $videoElement = $("#videoCanvas");
+
+            $videoElement.show();
+
+            var configuration = new Configuration();
+            configuration.wsPlayerCanvas = $videoElement[0];
+            configuration.wsPlayerReceiverPath = "/javascripts/libs/flashphoner/WSReceiver.js";
+            configuration.videoWidth=playerWidth;
+            configuration.videoHeight=playerHeight;
+            $scope.f.init(configuration);
+            $scope.f.connect({
+                urlServer: url,
+                appKey: 'defaultApp',
+                useWsTunnel: true,
+                useBase64BinaryEncoding: false,
+                width: playerWidth,
+                height: playerHeight
+            });
+        }
+
+// Disconnect
+        function disconnect() {
+            f.disconnect();
+        }
+///////////////////////////////////
+///////////// Controls ////////////
+///////////////////////////////////
+
+//Play stream
+        function playStream(width,height) {
+            trace("Play stream " + $scope.videoName);
+            if (lastStream != $scope.videoName) {
+                useNativeResolution = true;
+            }
+            lastStream = $scope.videoName;
+            var stream = new Stream();
+            stream.name = $scope.videoName;
+            stream.hasVideo = true;
+            stream.mediaProvider = mediaProvider;
+            if (width != null && height != null) {
+                trace("Request for stream with resolution - " + width + "x" + height);
+                useNativeResolution = false;
+                stream.width = width;
+                stream.height = height;
+                f.playStream(stream);
+            } else {
+                if(mediaProvider == MediaProvider.WSPlayer){
+                    stream.width = playerWidth;
+                    stream.height = playerHeight;
+                }
+                stream.width = 0;
+                stream.height = 0;
+                f.playStream(stream);
+            }
+        }
+
+//Stop stream playback
+        function stopStream(reinit) {
+            var streamName = field("playStream");
+            f.stopStream({name: streamName});
+            if (reinit) {
+                $("#playButton").hide();
+                $("#waiting").show();
+            } else {
+                $("#playButton").show();
+                $("#waiting").hide();
+            }
+
+            clearInterval(timer);
+            timer = null;
+        }
+///////////////////////////////////
+///////////// Listeners ///////////
+///////////////////////////////////
+
+//Connection Status
+        function connectionStatusListener(event) {
+            trace(event.status);
+            if (event.status == ConnectionStatus.Established) {
+                trace('Connection has been established. You can start a new call.');
+                // replay stream on connect
+                if (replay) {
+                    if (mediaProvider == MediaProvider.Flash) {
+                        replay = false;
+                        // Wait for FlashAPI loading
+                        setTimeout(function () {
+                            var waitForFlashInit = setInterval(function () {
+                                if (isFlashphonerAPILoaded) {
+                                    clearInterval(waitForFlashInit);
+                                    setTimeout(playStream, 2000);
+                                } else {
+                                    setInterval(waitForFlashInit, 1000);
+                                }
+                            }, 1000);
+                        }, 3000);
+                    } else {
+                        playStream();
+                    }
+                }
+            } else if (event.status == ConnectionStatus.Failed) {
+                $("#playStatus").show().text("Connection failed!");
+                $("#playButton").show();
+                $("#waiting").hide();
+            } else if (event.status == ConnectionStatus.Disconnected && reinit) {
+                setTimeout(initPlayer,2000);
+            }
+        }
+
+//Connection Status
+        function streamStatusListener(event) {
+            trace("streamStatusListener >> " + event.status);
+            streamStatus = event.status;
+            switch (event.status) {
+                case StreamStatus.Playing:
+                    onPlayActions();
+                    break;
+                case StreamStatus.Stoped:
+                    onStopActions();
+                    break;
+                case StreamStatus.Failed:
+                    onFailedActions();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+//Error
+        function errorEvent(event) {
+            trace(event.info);
+        }
+
+///////////////////////////////////
+
+        function cleanInstance() {
+            isFlashphonerAPILoaded = false;
+            f.wsPlayerMediaManager = undefined;
+            f.flashMediaManager = undefined;
+            f.userData = undefined;
+        }
+
+///////////////////////////////////
+///////////// Actions /////////////
+///////////////////////////////////
+
+        function onPlayActions() {
+            $("#playStatus").hide();
+            $("#playButton").hide();
+            $("#waiting").hide();
+
+            $("#playStream").css('background','#EEEEEE').hide().prop('disabled',true);
+            $("#footer").css('background','#EEEEEE').hide();
+            $("#player").
+            css('background','dimgray').
+            mouseenter(function(e) {
+                $("#footer").show();
+                $("#playStream").show();
+            }).
+            mouseleave(function(e) {
+                if ($(e.target).attr('id') == 'proto')
+                    return;
+                $("#footer").hide();
+                $("#playStream").hide();
+            });
+            if (isMobile) {
+                $("#player").click(function(e) {
+                    var target = $(e.target);
+                    if ((target.is($videoElement) || target.is("#player")) && typeof target != 'undefined') {
+                        if ($("#footer").is(':visible') && $("#playStream").is(':visible')) {
+                            $("#footer").hide();
+                            $("#playStream").hide();
+                        } else {
+                            $("#footer").show();
+                            $("#playStream").show();
+                        }
+                    }
+                });
+            }
+            $("#timer").text("00:00:00");
+            if (!timer)
+                timer = setInterval(startCallTimer, 1000);
+            if ($("#playStream").val().indexOf("rtsp://") != -1) {
+                if (detectBrowser() == "Safari" || detectBrowser() == "iOS") {
+                    $("#proto option[value='HLS']").prop('disabled', true);
+                } else {
+                    $("#proto option[value='HLS']").hide();
+                }
+            } else {
+                if (detectBrowser() == "Safari" || detectBrowser() == "iOS") {
+                    $("#proto option[value='HLS']").removeProp('disabled');
+                } else {
+                    $("#proto option[value='RTMP']").show();
+                }
+            }
+        }
+
+        function onStopActions() {
+            if (replay) {
+                disconnect();
+            }
+        }
+
+        function onFailedActions() {
+            $("#playStream").removeProp('disabled');
+            $("#playStatus").show().text("Playback failed!").removeClass().attr("class","text-danger");
+            $("#playButton").show();
+            $("#waiting").hide();
+        }
+
+///////////////////////////////////
+///////////// Other ///////////////
+///////////////////////////////////
+
+        function startCallTimer() {
+            var $t = $("#timer");
+            var arr = $t.text().split(":");
+            var h = arr[0];
+            var m = arr[1];
+            var s = arr[2];
+
+            if (s == '00') s = 0;
+
+            if (s == 59) {
+                if (m == 59) {
+                    h++;
+                    m = 0;
+                    if (h < 10) h = "0" + h;
+                }
+                m++;
+                if (m < 10) m = "0" + m;
+                s = 0;
+            }
+            else s++;
+            if (s < 10) s = "0" + s;
+
+            $t.text(h + ":" + m + ":" + s);
+        }
+
+        function setVolume(value) {
+            lastVolumeValue = value;
+            f.setVolumeOnStreaming(mediaProvider, value);
+        }
+
+        function fullScreenMode() {
+            var video;
+            if (mediaProvider == MediaProvider.WebRTC) {
+                video = $('#remoteVideo')[0];
+            } else if (mediaProvider == MediaProvider.WSPlayer) {
+                video = $('#videoCanvas')[0];
+            } else {
+                video = $('#flashVideoWrapper')[0];
+            }
+
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            }
+        }
+// Hide unsupported technologies
+        function hideProto() {
+            switch (detectBrowser()) {
+                case "IE":
+                    isIE = true;
+                    $("#proto").find('option').not("option[value='RTMP'],option[value='RTMFP']").remove();
+                    $("#proto option[value='RTMP']").attr('selected','selected');
+                    break;
+                case "Firefox":
+                    $("#proto").find('option').not("option[value='WebRTC'],option[value='RTMP'],option[value='RTMFP']").hide();
+                    $("#proto option[value='WebRTC']").attr('selected','selected');
+                    break;
+                case "Chrome":
+                    break;
+                case "Android":
+                    isMobile = true;
+                    $("#proto").find('option').not("option[value='WebRTC'],option[value='HLS']").hide();
+                    $("#proto option[value='WebRTC']").attr('selected','selected');
+                    break;
+                case "iOS":
+                    isMobile = true;
+                case "Safari":
+                    $("#proto").find('option').not("option[value='WebSocket'],option[value='HLS']").remove();
+                    $("#flashVideoWrapper").remove();
+                    $("#flashVideoDiv").remove();
+                    $("#proto option[value='WebSocket']").attr('selected','selected');
+                    swfobject = undefined;
+                    break;
+            }
+        }
+
+        function trace(message) {
+            console.log("> " + message);
+        }
 
     }]);
             function initLotParams(scope, params, values){
@@ -836,6 +1191,14 @@ define(['./module','jquery'],function(controllers,$){
         xmlHttp.setRequestHeader("Content-Type", "text/html");
         xmlHttp.send('');
         return xmlHttp.getResponseHeader("Date");
+    }
+
+    function supports_video() {
+        return !!document.createElement('video').canPlayType;
+    }
+
+    function supports_flash() {
+        return ((typeof navigator.plugins !== "undefined" && typeof navigator.plugins["Shockwave Flash"] === "object") || (window.ActiveXObject && (new ActiveXObject("ShockwaveFlash.ShockwaveFlash")) !== false));
     }
 
 });
