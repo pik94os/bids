@@ -10,6 +10,10 @@ define(['./module','jquery'],function(controllers,$){
             var d = (data.data.date.split('T')[0].split('-'));
             $scope.date = d[2] + '.' + d[1] + '.' + d[0];
             $scope.number = data.data.number;
+            if($scope.currentUserInfo.role != 3) {
+                $stateParams.open = 1;
+                $scope.open = 1;
+            }
         });
 
     }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function($scope,$http,$rootScope,$stateParams,ngSocket,FileUploader){
@@ -36,6 +40,10 @@ define(['./module','jquery'],function(controllers,$){
             // console.log('>>>>>>>>>>>'+data);
             if(+$scope.currentUserInfo.id){
                 $scope.notRegistr = true;
+            }
+            if($scope.currentUserInfo.role != 3) {
+                $stateParams.open = 1;
+                $scope.open = 1;
             }
         });
 
