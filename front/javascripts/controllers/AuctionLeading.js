@@ -39,6 +39,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     $scope.closedLots.push(lot.number);
                 }
             });
+            console.log($scope.closedLots);
         });
 
 
@@ -256,7 +257,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.fuckStop = false;
         };
         $scope.reloadPage = function reloadPage() {
-            ngSocket.emit('auction/sendStatisticByEmail', {id: +$stateParams.auctionId});
+            ngSocket.emit('auction/sendStatisticByEmail', {auctionId: +$stateParams.auctionId});
             ngSocket.emit('auction/auctionStop', {id: +$stateParams.auctionId});
         };
 

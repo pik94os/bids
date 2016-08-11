@@ -1,7 +1,7 @@
 <div class="tab-pane fade" ng-class="{'in active':tab==='resultsOfAuctionsLeader'}">
     <!--3)Результаты аукционов:-->
     <!--Наименование - Завершился - Всего лотов- Продано лотов - Участников-->
-    <br><br>
+    <!--<br><br>-->
     <!--{{auctionList}}-->
     <div class="page-leading-list uppercase">
         <div class="row">
@@ -12,8 +12,9 @@
             <div class="hidden-xs col-sm-2">Участников</div>
         </div>
 
-        <div class="page-leading-list-div row" ng-repeat="auctionRow in auctionList">
+        <div class="page-leading-list-div row" ng-repeat="auctionRow in auctionListForLeader">
             <!--{{auctionRow}}-->
+            <!--{{sellingStatistics}}-->
             <div ng-click="getAuctionSellingStatistics(+auctionRow.id)">
                 <div class="col-xs-12 col-sm-3">
                     <div class="page-leading-list-div-div2">
@@ -29,7 +30,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-2">
                     <div class="page-leading-list-div-div2">
-                        {{auctionRow.lots.length}}
+                        {{auctionRow.lots_count}}
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-2">
@@ -39,7 +40,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-2">
                     <div class="page-leading-list-div-div2">
-                        {{userAuction.length}}
+                        {{auctionRow.users_count}}
                     </div>
                 </div>
 
