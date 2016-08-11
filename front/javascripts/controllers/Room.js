@@ -720,13 +720,13 @@ define(['./module','jquery'],function(controllers,$){
                 port = "8443";
             }
             url = proto + ":" + port;
-            //TODO: Сделать автоматический выбор способа вещания
-
             if(supports_video()){
                 initVideoRTC(url);
             }else if(supports_flash()){
+                $scope.updateBrowser = true;
                 initFlashRTMP(url)
             }else{
+                $scope.updateBrowser = true;
                 initCanvasPlayer(url);
             }
         };
