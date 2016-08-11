@@ -133,7 +133,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
         var addPicturesPromises = [];
         // создание нового лота вручную
-        $scope.createNewLot = function () {
+        $scope.createNewLot = function (t) {
             ngSocket.emit('auction/createLot', {
                 number: $scope.newLotNumber,
                 descriptionPrev: $scope.newLotDescriptionPrev,
@@ -145,6 +145,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 year: $scope.newLotYear,
                 titlePicId: null
             });
+            $scope.afterSaveLotAction = t;
         };
 
         ngSocket.on('lotCreated', function (data) {
@@ -155,10 +156,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (data.newLot) {
                 $scope.newLotSaved = true;
                 $scope.newLotInfo = data;
-                // alert('Лот успешно сохранен в базу');
-                // Promise.all(addPicturesPromises).then(function () {
-                //     $scope.multipleLotPicUploader.uploadAll();
-                // });
                 singleLotPicUploader.uploadAll();
                 topLotPicUploader.uploadAll();
             }

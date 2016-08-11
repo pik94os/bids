@@ -69,6 +69,7 @@ class Initiator {
         // this.Auction.belongsTo(this.User);
         this.User.hasMany(this.Auction);
         this.Auction.hasMany(this.Lot);
+        this.Auction.hasMany(this.AuctionUser);
         this.Lot.belongsTo(this.Auction);
         this.Lot.hasMany(this.LotPicture);
         this.Bid.belongsTo(this.Lot);

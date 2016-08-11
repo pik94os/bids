@@ -75,7 +75,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id});
                 });
             }
-            // вывод статистики в личном кабинете дома
+            // вывод статистики в личном кабинете аукционного дома
             if ($stateParams.tab === 'historyOfAuctions' && $scope.currentUserInfo.id) {
                 $scope.sellingStatisticsHouse = [];
                 ngSocket.on('catchSellingStatistics', function (result) {
@@ -90,6 +90,35 @@ define(['./module', 'jquery'], function (controllers, $) {
         // вывод статистики в личном кабинете покупателя
         if ($stateParams.tab === 'historyOfAuctionsCustomer' && $scope.currentUserInfo.id) {
             ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
+            ngSocket.on('catchSellingStatistics', function (result) {
+                $scope.sellingStatistics = [];
+                result.sellingStatistics.forEach(function (i) {
+                    $scope.sellingStatistics.unshift(i);
+                });
+            });
+        }
+
+        // вывод статистики в личном кабинете ведущего
+        if ($stateParams.tab === 'resultsOfAuctionsLeader') {
+            ngSocket.emit('auction/list', {forLeader: true});
+            ngSocket.on('auctionListForLeader', function (result) {
+               $scope.auctionListForLeader = JSON.parse(JSON.stringify(result.auctionList));
+                console.log('>>>>>>>>>>>>>>>>>')
+                console.log(result)
+                // result.auctionList.forEach(function (i) {
+                //     console.log('>>>>>>>>>>>>>>>');
+                //     console.log(i);
+                //     ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id, isSold: true});
+                //     ngSocket.emit('user/getUserAuction', {auctionId: i.id});
+                // });
+
+            });
+            $scope.getAuctionSellingStatistics = function (req) {
+                ngSocket.emit('auction/getSellingStatistics', {auctionId: req, isSold: true});
+                // ngSocket.emit('user/getUserAuction', {auctionId: req});
+                delete $scope.sellingStatistics;
+            };
+            // ngSocket.on('catchUserAuction', function (result) {$scope.userAuction = result.userAuction;});
             ngSocket.on('catchSellingStatistics', function (result) {
                 $scope.sellingStatistics = [];
                 result.sellingStatistics.forEach(function (i) {

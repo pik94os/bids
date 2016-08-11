@@ -1,0 +1,82 @@
+<div class="tab-pane fade" ng-class="{'in active':tab==='resultsOfAuctionsLeader'}">
+    <!--3)Результаты аукционов:-->
+    <!--Наименование - Завершился - Всего лотов- Продано лотов - Участников-->
+    <!--<br><br>-->
+    <!--{{auctionList}}-->
+    <div class="page-leading-list uppercase">
+        <div class="row">
+            <div class="hidden-xs col-sm-3">Наименование</div>
+            <div class="hidden-xs col-sm-3">Завершился</div>
+            <div class="hidden-xs col-sm-2">Всего лотов</div>
+            <div class="hidden-xs col-sm-2">Продано лотов</div>
+            <div class="hidden-xs col-sm-2">Участников</div>
+        </div>
+
+        <div class="page-leading-list-div row" ng-repeat="auctionRow in auctionListForLeader">
+            <!--{{auctionRow}}-->
+            <!--{{sellingStatistics}}-->
+            <div ng-click="getAuctionSellingStatistics(+auctionRow.id)">
+                <div class="col-xs-12 col-sm-3">
+                    <div class="page-leading-list-div-div2">
+                        {{auctionRow.name}}
+                        <!--{{auctionRow.id}}-->
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <div class="page-leading-list-div-div2">
+                        <!--{{auctionRow.isClose}}-->
+                        {{auctionRow.isClose.split('T')[0].split('-')[2] + '.' + auctionRow.isClose.split('T')[0].split('-')[1] + '.' + auctionRow.isClose.split('T')[0].split('-')[0] + ' / ' + auctionRow.isClose.split('T')[1].split('.')[0]}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    <div class="page-leading-list-div-div2">
+                        {{auctionRow.lots_count}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    <div class="page-leading-list-div-div2">
+                        {{sellingStatistics.length}}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    <div class="page-leading-list-div-div2">
+                        {{auctionRow.users_count}}
+                    </div>
+                </div>
+
+            </div>
+            <!--{{sellingStatistics}}-->
+            <div class="div-table-historyofauctions" ng-show="auctionRow.id === sellingStatistics[0].auctionId">
+                <br>
+                <br>
+                <br>
+                <table class="table-historyofauctions">
+                    <tr class="tr-top">
+                        <td class="td01">Аукцион №</td>
+                        <td class="td02">Покупатель</td>
+                        <td class="td03">Лот №</td>
+                        <td class="td04">Цена покупки</td>
+                        <td class="td05">Статус</td>
+                        <td class="td06">Дата</td>
+                    </tr>
+                    <tr class="tr-bottom" ng-repeat="row in sellingStatistics">
+                        <!--{{row}}-->
+                        <td class="td01">{{row.auctionId}}</td>
+                        <td class="td02">{{row.firstName}} {{row.lastName}} {{row.patronymic}}</td>
+                        <td class="td03">{{row.lotNumber}}</td>
+                        <td class="td04" ng-show="!row.isCl">{{row.price.toLocaleString()}} Р</td>
+                        <td class="td04" ng-show="row.isCl">Лот снят</td>
+                        <td class="td05" ng-show="!row.isCl">Ожидаем оплаты</td>
+                        <td class="td05" ng-show="row.isCl"></td>
+                        <td class="td06">{{row.createdAt.split('T')[0].split('-')[2] + '.' + row.createdAt.split('T')[0].split('-')[1] + '.' + row.createdAt.split('T')[0].split('-')[0] + ' / ' + row.createdAt.split('T')[1].split('.')[0]}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
+<br>

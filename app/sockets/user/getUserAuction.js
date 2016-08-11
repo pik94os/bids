@@ -18,4 +18,16 @@ module.exports = function (socket, data) {
         })
     }
 
+    if (data.auctionId){
+        AuctionUser.findAll({
+            where:{
+                auctionId : data.auctionId,
+            }
+        }).then(function(result){
+            socket.emit('catchUserAuction', {
+                'err': 0,
+                userAuction: result
+            });
+        })
+    }
 };
