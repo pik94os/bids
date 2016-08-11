@@ -39,6 +39,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     $scope.closedLots.push(lot.number);
                 }
             });
+            console.log($scope.closedLots);
         });
 
 

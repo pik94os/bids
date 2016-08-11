@@ -1,5 +1,4 @@
 ﻿﻿<div class="auction-list" ng-class="{'al-open':open}">
-
     <div class="preview-auction auction row" ng-if="open == 1">
         <div class="">
             <div class="col-md-9 col-xs-12" ui-sref="room({auctionId:auction.id})">
@@ -95,38 +94,38 @@
     <div class="tabs">
         <div class="row">
             <!--{{lotList}}-->
-                <div class="col-xs-6 col-sm-4 col-md-3 col-tab-add"><div class="tab-add" ui-sref="createlot({auctionId: currentAuctionId})">ДОБАВИТЬ НОВЫЙ ЛОТ</div></div>
-                <!--<div class="col-xs-6 col-sm-4 col-md-3">-->
-                    <!--<div class="tab">-->
-                        <!--<div class="over">-->
-                            <!--<div class="view" ui-sref="lot({open:2})"></div>-->
-                            <!--<div class="unfav"></div>-->
-                            <!--<div class="edit" ui-sref="lot"></div>-->
-                            <!--<div class="delete"></div>-->
-                        <!--</div>-->
-                        <!--<div class="img222"><img src="images/image-body-in.png"></div>-->
-                        <!--<div class="img222-under1">Лот 2</div>-->
-                        <!--<div class="img222-under2">Пушкин. А.С. Сочинения Александра Пушкина. Т.1-8. СПб.:Типография ...</div>-->
-                        <!--<div class="img222-under3">Эстимейст</div>-->
-                        <!--<div class="img222-under41">1 600 000 - 1 700 000 р</div><div class="img222-under42">7</div>-->
-                        <!--<div class="info"><p class="top">Продано за</p> <p class="bottom">10 000 000 Р</p></div>-->
+            <div class="col-xs-6 col-sm-4 col-md-3 col-tab-add"><div class="tab-add" ui-sref="createlot({auctionId: currentAuctionId})">ДОБАВИТЬ НОВЫЙ ЛОТ</div></div>
+            <!--<div class="col-xs-6 col-sm-4 col-md-3">-->
+            <!--<div class="tab">-->
+            <!--<div class="over">-->
+            <!--<div class="view" ui-sref="lot({open:2})"></div>-->
+            <!--<div class="unfav"></div>-->
+            <!--<div class="edit" ui-sref="lot"></div>-->
+            <!--<div class="delete"></div>-->
+            <!--</div>-->
+            <!--<div class="img222"><img src="images/image-body-in.png"></div>-->
+            <!--<div class="img222-under1">Лот 2</div>-->
+            <!--<div class="img222-under2">Пушкин. А.С. Сочинения Александра Пушкина. Т.1-8. СПб.:Типография ...</div>-->
+            <!--<div class="img222-under3">Эстимейст</div>-->
+            <!--<div class="img222-under41">1 600 000 - 1 700 000 р</div><div class="img222-under42">7</div>-->
+            <!--<div class="info"><p class="top">Продано за</p> <p class="bottom">10 000 000 Р</p></div>-->
 
-                        <!--&lt;!&ndash;<div class="img222"><img src="images/image-body-in.png"></div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="img222-under1">Лот {{singleLot.number}}</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="img222-under2">{{singleLot.description}}</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="img222-under3">Эстимейт</div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="img222-under41">{{singleLot.estimateFrom}} - {{singleLot.estimateTo}} р</div><div class="img222-under42"></div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<div class="info" ng-if="singleLot.sellingPrice"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice}} Р</p></div>&ndash;&gt;-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--&lt;!&ndash;<div class="img222"><img src="images/image-body-in.png"></div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="img222-under1">Лот {{singleLot.number}}</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="img222-under2">{{singleLot.description}}</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="img222-under3">Эстимейт</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="img222-under41">{{singleLot.estimateFrom}} - {{singleLot.estimateTo}} р</div><div class="img222-under42"></div>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="info" ng-if="singleLot.sellingPrice"><p class="top">Продано за</p> <p class="bottom">{{singleLot.sellingPrice}} Р</p></div>&ndash;&gt;-->
+            <!--</div>-->
+            <!--</div>-->
             <!--<div ng-repeat="a in lotList">-->
-                <!--lottitleid: {{a.titlePicId}}<br>-->
-                <!--lotpictudeid: {{a.lot_pictures}}-->
+            <!--lottitleid: {{a.titlePicId}}<br>-->
+            <!--lotpictudeid: {{a.lot_pictures}}-->
 
-                    <!--<div ng-if="a.titlePicId == b.id">-->
-                        <!--find: {{b}}-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div ng-if="a.titlePicId == b.id">-->
+            <!--find: {{b}}-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
             <div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="singleLot in lotList">
                 <div class="tab">

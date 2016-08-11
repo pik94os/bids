@@ -23,10 +23,6 @@ define(['./module','jquery'],function(controllers,$){
             $scope.contactsShow= false;
         };
 
-        if(+$scope.currentUserInfo.id){
-            $scope.notRegistr = true;
-        }
-
         // получение списка лотов выбранного аукциона
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId
@@ -38,6 +34,9 @@ define(['./module','jquery'],function(controllers,$){
             // $scope.lotList = data.lotList;
             ngSocket.emit('auction/getAuction', {id: +$stateParams.auctionId});
             // console.log('>>>>>>>>>>>'+data);
+            if(+$scope.currentUserInfo.id){
+                $scope.notRegistr = true;
+            }
         });
 
 
