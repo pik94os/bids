@@ -42,6 +42,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     $scope.selectedAuctionInMain.id = $scope.auctionId;
                 }
                 $state.go('room', { auctionId : $scope.selectedAuctionInMain.id } );
+                $('#auctionIn').modal('hide');
             } else {
                 $scope.invalidPassword = true;
             }
