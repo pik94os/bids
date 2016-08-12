@@ -60,6 +60,7 @@ define(['./module','jquery'],function(controllers,$){
         var lastVolumeValue = 100;
 // swfobject params
         var pparams = {};
+        console.log(getMediaProviders());
         pparams.bgcolor = "696969";
         pparams.wmode = "opaque";
 
