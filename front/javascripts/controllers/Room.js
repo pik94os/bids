@@ -1195,7 +1195,7 @@ define(['./module','jquery'],function(controllers,$){
     }
 
     function supports_video() {
-        return !!document.createElement('video').canPlayType;
+        return (!!document.createElement('video').canPlayType) && !!(navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia);
     }
 
     function supports_flash() {
