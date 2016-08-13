@@ -180,7 +180,6 @@ define(['./module','jquery'],function(controllers,$){
                 var date;
                 date = new Date(data.auction.date);
                 $scope.auctionTime = data.auction.start;
-                console.log($scope.auctionTime);
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 if(data.auction.isClose) {
                     $scope.countdown = 3;
@@ -571,7 +570,7 @@ define(['./module','jquery'],function(controllers,$){
             $scope.$apply();
         });
 
-        /*$scope.timer = {};
+        $scope.timer = {};
         $scope.timer.days  = Math.floor( razn / 1000 / 60 / 60 /24 );// вычисляем дни
         razn -= $scope.timer.days*1000*60*60*24;
         $scope.timer.ch  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
@@ -601,7 +600,7 @@ define(['./module','jquery'],function(controllers,$){
                 if(+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0){
                     $scope.stopFight();
                 }
-            }, 1000);*/
+            }, 1000);
 
             $scope.stopFight = function() {
                 if (angular.isDefined(stop)) {
