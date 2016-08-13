@@ -699,7 +699,13 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         $scope.initPlayer = function (){
+            if($('#flashVideoWrapper')[0]==undefined || $('#videoCanvas')[0]==undefined || $('#remoteVideo')[0]==undefined){
+                setTimeout($scope.initPlayer,100);
+                console.log('reinitPlayer');
+                return false;
+            }
             if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f==undefined && $scope.f)) {
+                console.log('closePlayer');
                 return false
             }
             f = $scope.f = Flashphoner.getInstance();
@@ -764,7 +770,7 @@ define(['./module','jquery'],function(controllers,$){
 
                 $scope.initPlayer();
             }
-        },2000);
+        },100);
 
 
         /**
@@ -918,7 +924,7 @@ define(['./module','jquery'],function(controllers,$){
                 $("#playButton").show();
                 $("#waiting").hide();
             } else if (event.status == ConnectionStatus.Disconnected && reinit) {
-                setTimeout(initPlayer,2000);
+                setTimeout($scope.initPlayer,2000);
             }
         }
 
