@@ -35,7 +35,7 @@
 							<!--<div class="header-top-right-heart" ui-sref="auction({open:3})"></div>-->
 							<div class="header-top-right-avatar" ng-click="goToPageHeader()">
 								<div class="avatar-hover">
-									<div class="button-radius" ng-click="logout()" ng-show="currentUserInfo.id">Выйти</div>
+									<div class="button-radius" ng-click="logout($event)" ng-show="currentUserInfo.id">Выйти</div>
 									<div class="paddindRight10px" ng-show="currentUserInfo.id">
 											<!--{{currentUserInfo.patronymic}}--> {{currentUserInfo.firstName}} {{currentUserInfo.lastName}}
 									</div>
