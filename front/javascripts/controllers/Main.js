@@ -134,7 +134,8 @@ define(['./module', 'jquery'], function (controllers, $) {
                 window.location.reload();
             })
         };
-        $scope.logout = function () {
+        $scope.logout = function (e) {
+            e.stopPropagation();
             $http.get('/api/users/logout', {}, {}).then(function (result) {
                 window.location.reload();
             })
@@ -370,8 +371,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.goToPageHeader = function () {
             if ($scope.currentUserInfo.roleId === 5) {
                 $state.go('page-leading');
-            }
-            if ($scope.currentUserInfo.roleId === 2) {
+            }else if ($scope.currentUserInfo.roleId === 2) {
                 $state.go('admin');
             } else {
                 $state.go('lk');
