@@ -68,7 +68,8 @@ module.exports = function(io,passportSocketIo) {
             //video
             {event:'video/newVideo', access:0, comment: "обновление информации о трансляции"},
             // email
-            {event:'mailer', access:0, comment: "отправка мейла"}
+            {event:'mailer', access:0, comment: "отправка мейла"},
+            {event:'checkPassword', access:0, comment: "проверка пароля"}
         ];
 
         //цикл проходит по всем элементам массива возвращая нужное событие

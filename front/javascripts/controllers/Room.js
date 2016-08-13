@@ -20,6 +20,12 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_number = data.auction.number;
                 $scope.auction_name = data.auction.name;
                 $scope.auction_id = data.auction.id;
+                $scope.isUserRegistred = data.auction.users.find(function (item) {
+                    return item.id == $scope.currentUserInfo.id;
+                });
+                if(!$scope.isUserRegistred) {
+                    $state.go('front-page');
+                }
             });
         ngSocket.on('lotSelected', function (data) {
             $scope.lot_number = data.lot.number;
@@ -737,7 +743,7 @@ define(['./module','jquery'],function(controllers,$){
                 initVideoRTC(url);
             }else if(supports_flash()){
                 $scope.updateBrowser = true;
-                initFlashRTMP(url)
+                initFlashRTMP(url);
             }else{
                 $scope.updateBrowser = true;
                 initCanvasPlayer(url);

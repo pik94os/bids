@@ -21,14 +21,32 @@ define(['./module', 'jquery'], function (controllers, $) {
             date: null
         };
 
+        $scope.auctionInfo = {};
+
         $scope.regist = function (auctionId, auctionDate) {
-            $scope.hideRegButton = true;
-            if (+$scope.currentUserInfo.id) {
-                ngSocket.emit('userAuction', {auctionId: +auctionId});
-                $scope.selectedAuctionInMain.date = auctionDate;
-                $scope.selectedAuctionInMain.id = auctionId;
-            }
+            $scope.auctionId = auctionId;
+            $scope.auctionDate = auctionDate;
+            var temp = {
+                userId : $scope.currentUserInfo.id,
+                password : $scope.auctionInfo.password
+            };
+            ngSocket.emit('checkPassword', temp);
         };
+
+        ngSocket.on('passwordChecked', function (data) {
+            if (!data.err) {
+                $scope.hideRegButton = true;
+                if (+$scope.currentUserInfo.id) {
+                    ngSocket.emit('userAuction', {auctionId: +$scope.auctionId});
+                    $scope.selectedAuctionInMain.date = $scope.auctionDate;
+                    $scope.selectedAuctionInMain.id = $scope.auctionId;
+                }
+                $state.go('room', { auctionId : $scope.selectedAuctionInMain.id } );
+                $('#auctionIn').modal('hide');
+            } else {
+                $scope.invalidPassword = true;
+            }
+        });
         ngSocket.on('auctionUserStop', function (data) {
             // $('#regUserAuctionStop').modal('show');
         });

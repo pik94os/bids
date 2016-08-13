@@ -3,20 +3,20 @@
         <!--{{currentUserInfo}}-->
         <!--{{selectedAuctionInMainId}}-->
         <div class="text-info text-center">
-            <div ng-show="currentUserInfo.password != auctionInPassword">
+            <div>
                 <b style="font-size: 20px">Для входа на аукцион введите ваш пароль:</b>
             </div>
-            <div ng-show="currentUserInfo.password == auctionInPassword">
-                <b style="font-size: 20px">Доступ в аукцион открыт:</b>
+            <div ng-show="invalidPassword">
+                <b style="font-size: 20px">Неверный пароль!</b>
             </div>
 <br>
 
-        <input class="custom-input" placeholder="Пароль" type="password" id="auctionInPassword" ng-model="auctionInPassword">
+        <input class="custom-input" placeholder="Пароль" type="password" id="auctionInPassword" ng-model="auctionInfo.password">
     <!--</div>-->
             <!--<b style="font-size: 20px">-->
                 <!--Вы зарегистрованы на аукцион {{selectedAuctionInMain.number}} который состоится <br> {{selectedAuctionInMain.date}}-->
             <!--</b>-->
         </div><br>
-        <div class="auction-button active" ng-show="currentUserInfo.password == auctionInPassword" ng-click="regist(selectedAuctionInMainId,myDate(auction.date));" ui-sref="room({auctionId:selectedAuctionInMainId})">Войти в аукцион</div>
+        <div class="auction-button active"  ng-click="regist(selectedAuctionInMainId,myDate(auction.date));" >Войти в аукцион</div>
     </div>
 </modal>
