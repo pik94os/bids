@@ -18,7 +18,12 @@ define(['./module','jquery'],function(controllers,$){
 
     }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function($scope,$http,$rootScope,$stateParams,ngSocket,FileUploader){
         $scope.currentAuctionId = $stateParams.auctionId;
-        $scope.open = +$stateParams.auctionId?+$stateParams.open:2;
+
+        if($scope.currentUserInfo && $scope.currentUserInfo.roleId !==undefined && $scope.currentUserInfo.roleId == 3) {
+            $scope.open = +$stateParams.auctionId?+$stateParams.open:2;
+        }else{
+            $scope.open = 1;
+        }
         $scope.contactsShow= false;
         $scope.showContacts = function () {
             $scope.contactsShow= true;
@@ -41,9 +46,10 @@ define(['./module','jquery'],function(controllers,$){
             if(+$scope.currentUserInfo.id){
                 $scope.notRegistr = true;
             }
-            if($scope.currentUserInfo.role != 3) {
-                $stateParams.open = 1;
+            if($scope.currentUserInfo.roleId != 3) {
                 $scope.open = 1;
+            }else if($stateParams.open != 1){
+                $scope.open = 0;
             }
         });
 

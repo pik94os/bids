@@ -7,9 +7,11 @@ define(['./module', 'jquery'], function (controllers, $) {
         var lotArr = new Array();
         var currentId = 1;
         $scope.open = ($stateParams.lotId) ? 1 : 0;
-        ngSocket.emit('auction/getLot', {
-            lotId: $stateParams.lotId
-        });
+        if($scope.open){
+            ngSocket.emit('auction/getLot', {
+                lotId: $stateParams.lotId
+            });
+        }
 
         // получение списка айдишников лотов
         ngSocket.on('lotList', function (data) {
