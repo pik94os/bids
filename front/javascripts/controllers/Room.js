@@ -730,7 +730,7 @@ define(['./module','jquery'],function(controllers,$){
                 initVideoRTC(url);
             }else if(supports_flash()){
                 $scope.updateBrowser = true;
-                initFlashRTMP(url)
+                initFlashRTMP(url);
             }else{
                 $scope.updateBrowser = true;
                 initCanvasPlayer(url);
