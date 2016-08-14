@@ -17,7 +17,8 @@
             <div class="col-md-3">
                 <div class="row">
                     <div class="col-xs-4 col-md-12">
-                        <div class="auction-button active" ng-show="notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>
+                        <!--<div class="auction-button active" ng-show="notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>-->
+                        <div class="auction-button active" ng-hide="!currentUserInfo.id" data-toggle="modal" data-target="#auctionIn" ng-click="auctionIn(auction.id)">Принять участие</div>
                         <div class="auction-button active" ng-show="!notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#loginModal">Регистрация</div>
                     </div>
                     <!--div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div-->
@@ -127,13 +128,13 @@
             <!--</div>-->
             <!--</div>-->
             <!--</div>-->
-            <div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="singleLot in lotList">
+            <div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="singleLot in lotList" ng-show="singleLot.isArchive==false">
                 <div class="tab">
                     <div class="over">
                         <div class="view" ui-sref="lot({open:singleLot.sellingPrice?2:1, lotId:singleLot.id})" onclick="document.body.scrollTop = document.documentElement.scrollTop = 0;"></div>
                         <!--<div class="tofav"></div>-->
                         <div class="edit" ui-sref="lot({open:singleLot.sellingPrice?2:1, lotId:singleLot.id})"></div>
-                        <div class="delete"></div>
+                        <div class="delete" ng-click="deleteLot(singleLot.id)"></div>
                     </div>
 
                     <div class="img222" ng-class="{'molot':singleLot.isPlayOut}">
