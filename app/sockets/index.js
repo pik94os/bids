@@ -59,6 +59,7 @@ module.exports = function(io,passportSocketIo) {
             {event:'auction/createLotPicture', access:0, comment: "добавление картинок вручную"},
             // лоты
             {event:'auction/updateLot', access:0, comment: "обновление лотов"},
+            {event:'auction/deleteLot', access:0, comment: "удаление лота"},
             {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"},
             // биды
             {event:'auction/getListBids', access:0, comment: "запуск разыгрываемого первого лота"},

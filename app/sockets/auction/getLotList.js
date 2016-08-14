@@ -56,7 +56,7 @@ module.exports = function(socket, data) {
                 where: {
                     auctionId: data.auctionId,
                     isCl: false,
-                    isSold: false
+                    isSold: false,
                 }
             }).then((count)=> {
                 if (!count) {

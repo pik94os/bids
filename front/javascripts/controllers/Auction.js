@@ -17,6 +17,15 @@ define(['./module','jquery'],function(controllers,$){
         });
 
     }]).controller('Auction',['$scope','$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function($scope,$http,$rootScope,$stateParams,ngSocket,FileUploader){
+
+        $scope.deleteLot = function (data) {
+            ngSocket.emit('auction/deleteLot', {
+                lotId: data,
+                isArchive: true
+            });
+            location.reload()
+        };
+
         $scope.currentAuctionId = $stateParams.auctionId;
 
         if($scope.currentUserInfo && $scope.currentUserInfo.roleId !==undefined && $scope.currentUserInfo.roleId == 3) {
