@@ -126,7 +126,9 @@
 
                 <div class="room-chat">
                     <div ng-repeat="chatMessage in chat.messages">
-                        <div class="black">
+                        <div class="black" ng-class="{'redNumber': chatMessage.user.roleId === 5}">
+                            <b ng-if="currentUserInfo.role === 5">{{chatMessage.user.firstName}} {{chatMessage.user.lastName}}</b>
+                            <b ng-if="currentUserInfo.role !== 5"> №{{chatMessage.user.auction_users[0].number}}</b>
                             <!--{{chatMessage.user.patronymic}}-->
                             : {{chatMessage.message}}
                             <!--&gt; <div class="black">все</div>-->
