@@ -151,8 +151,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         ngSocket.on('lotCreated', function (data) {
-            console.log('>>>>>>>>>>>>>>>')
-            console.log(data)
+            // console.log('>>>>>>>>>>>>>>>')
+            // console.log(data)
             if (data.lotExist) {
                 $scope.lotExist = data.lotExist;
                 // alert('Лот с номером ' + data.lotExist + ' уже существует');
@@ -162,6 +162,15 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.newLotInfo = data;
                 singleLotPicUploader.uploadAll();
                 topLotPicUploader.uploadAll();
+                $scope.newLotCreated = true;
+            }
+            if ($scope.newLotCreated && $scope.afterSaveLotAction == 'saveAndCreateNew') {
+                delete $scope.newLotCreated;
+                location.reload();
+            }
+            if ($scope.newLotCreated && $scope.afterSaveLotAction == 'saveAndGoBack') {
+                delete $scope.newLotCreated;
+                $state.go('lk', {});
             }
         });
 

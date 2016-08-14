@@ -23,7 +23,7 @@ define(['./module','jquery'],function(controllers,$){
                 lotId: data,
                 isArchive: true
             });
-            location.reload()
+            location.reload();
         };
 
         $scope.currentAuctionId = $stateParams.auctionId;
