@@ -22,31 +22,20 @@ define(['./module','jquery'],function(controllers,$){
                 }
             };
             $scope.auctions.forEach(function(auction,index){
-                var date = new Date(auction.date);
-                var razn = +date - +curDate;
-                if ( razn > 86400000 ) {
-                    $scope.ch[index]  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
-                    $scope.min[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 )) / 1000 / 60);// вычисляем минуты
-                    $scope.sec[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 ) - ( $scope.min[index] * 1000 * 60 )) / 1000 );// вычисляем секунды
-                    stop[index] = $interval(function() {
-                        if(+$scope.ch[index] >= 0 && +$scope.min[index] >= 0 && +$scope.sec[index] >= 0) {
-                            if(+$scope.sec[index] == 0 && $scope.min[index] > 0) {
-                                $scope.min[index] -= 1;
-                                $scope.sec[index] = 59;
-                            }
-                            if(+$scope.min[index] == 0 && $scope.ch[index] > 0) {
-                                $scope.ch[index] -= 1;
-                                $scope.min[index] = 59;
-                            }
-                            if(+$scope.sec[index]>0){
-                                $scope.sec[index] -= 1;
-                            }
-                        }
-                        if(+$scope.ch[index] <= 0 && +$scope.min[index] <= 0 && +$scope.sec[index] <= 0){
-                            $scope.stopFight(index);
-                        }
+                      stop[index] = $interval(function() {
+                          var date = new Date(auction.date);
+                          var razn = +date - new Date();
+                          if(razn >= 0) {
+                              $scope.ch[index]  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
+                              $scope.min[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 )) / 1000 / 60);// вычисляем минуты
+                              $scope.sec[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 ) - ( $scope.min[index] * 1000 * 60 )) / 1000 );// вычисляем секунды
+                              if(+$scope.ch[index] <= 0 && +$scope.min[index] <= 0 && +$scope.sec[index] <= 0){
+                                  $interval.cancel(stop[index]);
+                                  stop[index] = null;
+                                  ngSocket.emit('auction/list', {public: true});
+                              }
+                          }
                     }, 1000);
-                }
             });
         });
 
@@ -56,37 +45,6 @@ define(['./module','jquery'],function(controllers,$){
                 stop[index] = null;
             }
         };
-        // $scope.ch = 23;
-        // $scope.min = 59;
-        // $scope.sec = 59;
-        // var stop = $interval(function() {
-        //     if(+$scope.ch >= 0 && +$scope.min >= 0 && +$scope.sec >= 0) {
-        //         if(+$scope.sec == 0 && $scope.min > 0) {
-        //             $scope.min -= 1;
-        //             $scope.sec = 59;
-        //         }
-        //         if(+$scope.min == 0 && $scope.ch > 0) {
-        //             $scope.ch -= 1;
-        //             $scope.min = 59;
-        //         }
-        //         if(+$scope.sec>0){
-        //             $scope.sec -= 1;
-        //         }
-        //     }
-        //     if(+$scope.ch <= 0 && +$scope.min <= 0 && +$scope.sec <= 0){
-        //         $scope.stopFight();
-        //     }
-        // }, 1000);
-        //
-        // $scope.stopFight = function() {
-        //     if (angular.isDefined(stop)) {
-        //         $interval.cancel(stop);
-        //         stop = undefined;
-        //     }
-        // };
-        // $scope.$on('$destroy', function() {
-        //     $scope.stopFight();
-        // });
 
         $scope.countdown = $stateParams.countdown;
         $scope.popup = false;
