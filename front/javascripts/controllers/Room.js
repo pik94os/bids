@@ -246,7 +246,7 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
                 //$scope.auction_params.progress_bar_class = {'width': 'calc('+$scope.auction_params.lots_isPlayOutedPercent+'% - 210px)'};
-                
+                timerAuction();
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
                 if ($scope.auction_params.lots[currentId] !== undefined) {
@@ -362,7 +362,6 @@ define(['./module','jquery'],function(controllers,$){
             });
 
             ngSocket.on('lotSelected', function (data) {
-                timerAuction();
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = data.lot.sellingPrice ? calcStep(data.lot.sellingPrice) : data.lot.estimateFrom;
                 $scope.bidPrice = data.lot.estimateFrom;
