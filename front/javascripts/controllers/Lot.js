@@ -21,6 +21,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             }).indexOf($scope.lotId);
         });
 
+
         ngSocket.on('lotSelected', function (data) {
             console.log(data);
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
