@@ -23,6 +23,26 @@ define(['./module','jquery'],function(controllers,$){
             $rootScope.selectedAuctionInMainId = data;
         };
 
+        ngSocket.emit('user/getUserAuction', {
+            userId: $scope.currentUserInfo.id
+        });
+        ngSocket.on('catchUserAuction', function (data) {
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>');
+            console.log(data);
+            $scope.userAuction = data.userAuction;
+        });
+
+        $scope.checkUserReg = function (auctionId) {
+            if ($scope.userAuction) {
+                var result = $scope.userAuction.find(function (item) {
+                    return (item.userId == $scope.currentUserInfo.id) && (item.auctionId == auctionId)
+                });
+                return result;
+            } else {
+                return false;
+            }
+        };
+
         ngSocket.emit('auction/list',{'public':true});
         ngSocket.on('auctionList',function (data) {
             if(data.err){
@@ -58,14 +78,7 @@ define(['./module','jquery'],function(controllers,$){
         //     console.log('>>>>>>>>>>>>>>>>>'+id)
         // };
 
-        // ngSocket.emit('user/getUserAuction', {
-        //     userId: $scope.currentUserInfo.id
-        // });
-        // ngSocket.on('catchUserAuction', function (data) {
-        //     // console.log('>>>>>>>>>>>>>>>>>>>>>>>');
-        //     // console.log(data);
-        //     $scope.userAuction = data.userAuction;
-        // });
+
 
     }])
 });

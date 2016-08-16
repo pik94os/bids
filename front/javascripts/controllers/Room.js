@@ -141,10 +141,12 @@ define(['./module','jquery'],function(controllers,$){
         $interval(function () {
             console.log('>>>>>>>>>>>>>>>>>>')
             console.log($scope.current_lot)
-            if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
+            if ($scope.current_lot.lot_pictures) {
+                if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
                     $scope.current_lot.currentPic += 1;
-            if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
+                if ($scope.current_lot.currentPic == $scope.current_lot.lot_pictures.length)
                     $scope.current_lot.currentPic = $scope.current_lot.currentPicReserve
+            }
         }, 5000);
 
         /*$scope.lastPhotos = function () {
