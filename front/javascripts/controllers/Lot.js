@@ -162,7 +162,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.newLotSaved = true;
                 $scope.newLotInfo = data;
                 singleLotPicUploader.uploadAll();
-                // topLotPicUploader.uploadAll();
+                topLotPicUploader.uploadAll();
                 $scope.newLotCreated = true;
             }
             if ($scope.newLotCreated && $scope.afterSaveLotAction == 'saveAndCreateNew') {
