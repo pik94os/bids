@@ -477,6 +477,7 @@ define(['./module','jquery'],function(controllers,$){
 
             // переход на следующий лот
             $scope.goToNextLot = function(){
+                delete $scope.sellingStatistics;
                 ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
                 if (currentId < $scope.auction_params.lots_length - 1)
                     currentId += 1;
@@ -487,9 +488,10 @@ define(['./module','jquery'],function(controllers,$){
 
         // получение статистики
         if (!$scope.sellingStatistics){
+            delete $scope.sellingStatistics;
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         }
-        delete $scope.sellingStatistics;
+
         ngSocket.on('catchSellingStatistics', function (result) {
             if(result.err) {
                 alert(result.message)
