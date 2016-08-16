@@ -139,8 +139,6 @@ define(['./module','jquery'],function(controllers,$){
             
         //init slideshow
         $interval(function () {
-            console.log('>>>>>>>>>>>>>>>>>>')
-            console.log($scope.current_lot)
             if ($scope.current_lot.lot_pictures) {
                 if ($scope.current_lot.lot_pictures.length > $scope.current_lot.currentPic)
                     $scope.current_lot.currentPic += 1;
@@ -312,13 +310,14 @@ define(['./module','jquery'],function(controllers,$){
                 ngSocket.on('auctionRun', function (lot) {
                     $scope.countdown =  2;
                     ngSocket.emit('startAuction', {id: $scope.lotId});
-                    ngSocket.emit('auction/room', {id: $stateParams.auctionId})
+                    ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
                 });
 
 
                 function timerHeaderAuction(date) {
                     $scope.stopTime = $interval(function () {
                         var razn = new Date(srvTime()) - new Date(date);
+                        console.log();
                         $scope.min = Math.floor(razn / 1000 / 60);
                         $scope.sec = Math.floor(razn / 1000) - $scope.min * 60;
                     }, 1000);
@@ -477,6 +476,7 @@ define(['./module','jquery'],function(controllers,$){
 
             // переход на следующий лот
             $scope.goToNextLot = function(){
+                delete $scope.sellingStatistics;
                 ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
                 if (currentId < $scope.auction_params.lots_length - 1)
                     currentId += 1;
@@ -487,9 +487,10 @@ define(['./module','jquery'],function(controllers,$){
 
         // получение статистики
         if (!$scope.sellingStatistics){
+            delete $scope.sellingStatistics;
             ngSocket.emit('auction/getSellingStatistics', {auctionId: +$stateParams.auctionId});
         }
-        delete $scope.sellingStatistics;
+
         ngSocket.on('catchSellingStatistics', function (result) {
             if(result.err) {
                 alert(result.message)
