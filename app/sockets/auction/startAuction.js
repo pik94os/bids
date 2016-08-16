@@ -20,7 +20,7 @@ module.exports = function (socket, data) {
         }).then((auction)=> {
             lot.isPlayOut = true;
             return lot.save().then(()=> {
-                socket.to('auction:' + lot.auctionId).emit('auctionRun');
+                socket.to('auction:' + lot.auctionId).emit('auctionRun', auction);
                 socket.emit('auctionStart', {
                     err: 0,
                     data: lot
