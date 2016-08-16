@@ -51,7 +51,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 lotId: lotArr[currentId].id
             });
         }
-    }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket, FileUploader) {
+    }]).controller('Lot', ['$anchorScroll','$scope', '$http', '$rootScope', '$stateParams', 'ngSocket', 'FileUploader', '$state', function ($anchorScroll,$scope, $http, $rootScope, $stateParams, ngSocket, FileUploader, $state) {
 
         $scope.open = ($stateParams.lotId) ? 1 : 0;
         $scope.tab = $stateParams.tab;
