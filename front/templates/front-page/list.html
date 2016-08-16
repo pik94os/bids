@@ -151,8 +151,10 @@
 
                             <!--</div>-->
                             <!--<div class="auction-button active" ng-hide="!currentUserInfo.id"  ng-click="auctionIn(auction.id)">Войти в аукцион</div>-->
-                            <div class="auction-button active" ng-hide="!currentUserInfo.id" data-toggle="modal" data-target="#auctionIn" ng-click="auctionIn(auction.id)">Войти в аукцион</div>
+                            <div class="auction-button active" ng-hide="!currentUserInfo.id || checkUserReg(auction.id)" data-toggle="modal" data-target="#auctionIn" ng-click="auctionIn(auction.id)">Принять участие</div>
+                            <div class="auction-button active" ng-hide="!currentUserInfo.id || !checkUserReg(auction.id)" ui-sref="room({auctionId:auction.id})">Войти в аукцион</div>
                             <div class="auction-button active" ng-hide="currentUserInfo.id" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#loginModal">Регистрация</div>
+
                         </div>
                         <div class="col-xs-4 col-md-12"><div class="auction-button" ui-sref="auction({open:1,auctionId:auction.id})">Просмотр каталога</div></div>
                         <!--<div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div>-->
