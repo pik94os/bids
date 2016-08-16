@@ -98,7 +98,7 @@ define(['./module','jquery'],function(controllers,$){
 
         ngSocket.on('stopAuction', function () {
             $scope.countdown =  3;
-            $scope.stopTimer();
+            $interval.cancel($scope.stopTime);
         });
 
         ngSocket.on('auctionDate', function () {
@@ -181,6 +181,7 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.on('room',function (data) {
                 // $scope.t = Date.now() - new Date(data.auction.start);
                 $scope.t = new Date(srvTime()) - new Date(data.auction.start);
+                timerHeaderAuction(data.auction.start);
                 var date;
                 date = new Date(data.auction.date);
                 $scope.auctionTime = data.auction.start;
@@ -307,46 +308,22 @@ define(['./module','jquery'],function(controllers,$){
                 // } else {
                 //     $scope.timer.ch = $scope.timer.days = $scope.timer.min = $scope.timer.sec = 0;
                 // }
-                //
-                // ngSocket.on('auctionRun', function (lot) {
-                //     $scope.countdown =  2;
-                //     console.log(lot);
-                //     ngSocket.emit('startAuction', {id: $scope.lotId});
-                //     ngSocket.emit('auction/room', {id: $stateParams.auctionId})
-                // });
-                //
-                // $scope.min = Math.floor($scope.t / 1000 / 60);
-                // $scope.sec = Math.floor($scope.t / 1000) - $scope.min * 60;
-                // if ($scope.sec < 10) {
-                //     $scope.sec = '0' + $scope.sec;
-                // }
-                // $scope.$apply();
-                //
-                // var stopTime = $interval(function () {
-                //     $scope.sec++;
-                //     if($scope.sec == 60) {
-                //         $scope.min ++;
-                //         $scope.sec = 0;
-                //     }
-                // }, 1000);
-                //
-                // $scope.stopTimer = function () {
-                //     if (angular.isDefined(stopTime)) {
-                //         $interval.cancel(stopTime);
-                //         stopTime = undefined;
-                //     }
-                // } ;
-                //
-                // $scope.stopFight = function() {
-                //     if (angular.isDefined(stop)) {
-                //         $interval.cancel(stop);
-                //         stop = undefined;
-                //     }
-                // };
-                // $scope.$on('$destroy', function() {
-                //     $scope.stopFight();
-                //     $scope.stopTimer();
-                // });
+
+                ngSocket.on('auctionRun', function (lot) {
+                    $scope.countdown =  2;
+                    ngSocket.emit('startAuction', {id: $scope.lotId});
+                    ngSocket.emit('auction/room', {id: $stateParams.auctionId})
+                });
+
+
+                function timerHeaderAuction(date) {
+                    $scope.stopTime = $interval(function () {
+                        var razn = new Date(srvTime()) - new Date(date);
+                        $scope.min = Math.floor(razn / 1000 / 60);
+                        $scope.sec = Math.floor(razn / 1000) - $scope.min * 60;
+                    }, 1000);
+
+                }
 
                 // чупачупс с классом I
                 $scope.classOfLotI = false;
