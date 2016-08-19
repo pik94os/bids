@@ -498,7 +498,8 @@ define(['./module','jquery'],function(controllers,$){
             }
             $scope.sellingStatistics = [];
             result.sellingStatistics.forEach(function (i) {
-                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                // i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                // i.createdAt = i.createdAt.getHours();
                 $scope.sellingStatistics.unshift(i);
             });
         });
