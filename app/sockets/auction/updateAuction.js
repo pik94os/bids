@@ -27,8 +27,6 @@ module.exports = function(socket, data) {
                 {
                     where: {id: +data.id}
                 }).then(()=> {
-                    console.log(data.date);
-                    console.log(new Date(data.date));
                 socket.to('auction:' + (+data.id)).emit('auctionDate', {
                     date: data.date
                 });
