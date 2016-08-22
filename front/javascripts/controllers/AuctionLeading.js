@@ -404,7 +404,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.dateStartAuction = function () {
             var date_arr_new = this.dateStart.split('.');
             var time_arr_new = this.timeStart.split(':');
-            $scope.date = date_arr_new[2] + '-' + date_arr_new[1] + '-' + date_arr_new[0] + 'T' + (+time_arr_new[0] - 3) + ':' + time_arr_new[1] + ':00';
+            $scope.date = date_arr_new[2] + '-' + date_arr_new[1] + '-' + date_arr_new[0] + 'T' + (+time_arr_new[0]) + ':' + time_arr_new[1] + ':00';
             ngSocket.emit('auction/updateAuction', {
                 date: $scope.date,
                 id: +$stateParams.auctionId
