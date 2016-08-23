@@ -179,9 +179,8 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.on('room',function (data) {
                 // $scope.t = Date.now() - new Date(data.auction.start);
                 $scope.t = new Date(srvTime()) - new Date(data.auction.start);
-                var date;
-                date = new Date(data.auction.date);
-                console.log();
+                var date = new Date(data.auction.date);
+                console.log(new Date(data.auction.date));
                 $scope.auctionTime = data.auction.start;
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 if(data.auction.isClose) {
@@ -552,10 +551,10 @@ define(['./module','jquery'],function(controllers,$){
 
         });
             function timerAuction(newDate) {
-                if((new Date($scope.auctionDate) - new Date()) > 0 || (new Date(newDate) - new Date()) > 0) {
+                if((newDate - Date.now()) > 0 || (+newDate - Date.now()) > 0) {
                     $scope.stop = $interval(function () {
-                        var date = newDate !== undefined ? new Date(newDate) : new Date($scope.auctionDate);
-                        var razn = +date - new Date();
+                        var date = newDate !== undefined ? +newDate : +$scope.auctionDate;
+                        var razn = +date - Date.now();
                         $scope.timer = {};
                         $scope.timer.days = Math.floor(razn / 1000 / 60 / 60 / 24);// вычисляем дни
                         razn -= $scope.timer.days * 1000 * 60 * 60 * 24;
