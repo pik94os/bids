@@ -32,7 +32,7 @@ module.exports = function(socket, data) {
         ],
         order: '"lots"."number" ASC, "users.auction_user"."number" ASC'
     }).then(function(auction) {
-            getPicturesTitle(auction.lots, function(err, LotPictures){
+        getPicturesTitle(auction.lots, function(err, LotPictures){
                 socket.emit('room', {
                     err: 0,
                     auction: auction,
@@ -45,7 +45,7 @@ module.exports = function(socket, data) {
         socket.emit('room',
             {err: 1, message: err.message}
         );
-    })
+    });
 
     function getPicturesTitle(lots, cb){
         var picIds = lots.map(function(e) { return e.titlePicId });

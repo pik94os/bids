@@ -179,8 +179,8 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.on('room',function (data) {
                 // $scope.t = Date.now() - new Date(data.auction.start);
                 $scope.t = new Date(srvTime()) - new Date(data.auction.start);
-                var date;
-                date = new Date(data.auction.date);
+                var date = new Date(data.auction.date);
+                console.log(new Date(data.auction.date));
                 $scope.auctionTime = data.auction.start;
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 if(data.auction.isClose) {
@@ -208,7 +208,12 @@ define(['./module','jquery'],function(controllers,$){
                     $scope.initPlayer();
                 }
 
-                
+                //находим количество пройденных лотов
+                data.auction.lots.map(function (e) {
+                    if (e.isSold || e.isCl) {
+                        return $scope.auction_params.lots_isPlayOuted.push(e)
+                    }
+                });
                 //таймер
                 //инициализация лотов аукциона
                 $scope.auction_params.lots_length = data.auction.lots.length;
@@ -234,16 +239,12 @@ define(['./module','jquery'],function(controllers,$){
                         }
                     })
                 }
-
-                //находим количество пройденных лотов
-                data.auction.lots.map(function (e) {
-                    if (e.isSold || e.isCl) {
-                        return $scope.auction_params.lots_isPlayOuted.push(e)
-                    }
-                });
+               
                 $scope.auction_params.lots_isPlayOutedLength = $scope.auction_params.lots_isPlayOuted.length;
-                if ($scope.auction_params.lots_length != 0)
+                if ($scope.auction_params.lots_length != 0) {
                     $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
+                    $scope.gradusnic = {'width': $scope.auction_params.lots_isPlayOutedPercent + '%'}
+                }
                 $scope.aa = true;
                 $scope.auctionDate = data.auction.date;
                 //инициализируем прогрес бар
@@ -502,7 +503,8 @@ define(['./module','jquery'],function(controllers,$){
             }
             $scope.sellingStatistics = [];
             result.sellingStatistics.forEach(function (i) {
-                i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                // i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
+                // i.createdAt = i.createdAt.getHours();
                 $scope.sellingStatistics.unshift(i);
             });
         });
@@ -546,12 +548,13 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
 
 
+
         });
             function timerAuction(newDate) {
-                if((new Date($scope.auctionDate) - new Date()) > 0 || (new Date(newDate) - new Date()) > 0) {
+                if((newDate - Date.now()) > 0 || (+newDate - Date.now()) > 0) {
                     $scope.stop = $interval(function () {
-                        var date = newDate !== undefined ? new Date(newDate) : new Date($scope.auctionDate);
-                        var razn = +date - new Date();
+                        var date = newDate !== undefined ? +newDate : +$scope.auctionDate;
+                        var razn = +date - Date.now();
                         $scope.timer = {};
                         $scope.timer.days = Math.floor(razn / 1000 / 60 / 60 / 24);// вычисляем дни
                         razn -= $scope.timer.days * 1000 * 60 * 60 * 24;
@@ -627,10 +630,11 @@ define(['./module','jquery'],function(controllers,$){
                 $scope.auction_params.lots_isPlayOuted.splice($scope.auction_params.lots_isPlayOuted.indexOf(data.oldLot), 1);
             }
             $scope.auction_params.lots_isPlayOutedLength = $scope.auction_params.lots_isPlayOuted.length;
-            if ($scope.auction_params.lots_length != 0)
+            if ($scope.auction_params.lots_length != 0) {
                 $scope.auction_params.lots_isPlayOutedPercent = (($scope.auction_params.lots_isPlayOuted.length / $scope.auction_params.lots_length) * 100).toFixed();
-
-            //Обновить auction_params.lots
+                $scope.gradusnic = {'width': $scope.auction_params.lots_isPlayOutedPercent + '%'};
+            }
+                //Обновить auction_params.lots
             for (var lot in $scope.auction_params.lots) {
                 if ($scope.auction_params.lots[lot].id === data.oldLotId) {
                     if (!(typeof data.oldLot.isCl === "undefined")) {

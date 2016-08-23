@@ -20,9 +20,9 @@ module.exports = function(socket, data) {
                 id: data.auctionId
             }
         }).then(()=> {
-            console.log(new Date(data.date));
+            console.log(data.date);
             return Auction.update({
-                    date: new Date(data.date)
+                    date: data.date
                 },
                 {
                     where: {id: +data.id}

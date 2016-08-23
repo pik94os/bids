@@ -7,8 +7,8 @@ define(['./module','jquery'],function(controllers,$){
             if(data.err) {
                 alert(data.message)
             }
-            var d = (data.data.date.split('T')[0].split('-'));
-            $scope.date = d[2] + '.' + d[1] + '.' + d[0];
+
+            $scope.date = data.data.date;
             $scope.number = data.data.number;
             if($scope.currentUserInfo.role != 3) {
                 $stateParams.open = 1;
@@ -64,7 +64,6 @@ define(['./module','jquery'],function(controllers,$){
 
 
         ngSocket.on('auctionState', function (data) {
-            console.log(data);
             if ($scope.lotList.length) {
                 $scope.lotList.forEach(function (cLot) {
                     if (+cLot.id === +data.lotId) {

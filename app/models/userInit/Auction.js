@@ -11,7 +11,7 @@ var attributes = {
     },
     number: {type: Sequelize.INTEGER},
     webcam: {type: Sequelize.STRING },
-    date: {type: Sequelize.DATE},
+    date: {type: Sequelize.BIGINT},
     start: {type: Sequelize.DATE},
     isArchive: {type: Sequelize.BOOLEAN},
     isClose: {type: Sequelize.DATE}
