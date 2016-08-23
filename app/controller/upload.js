@@ -59,6 +59,7 @@ exports.lotPic = function (req, res, next) {
 
     // при поступление файла
     form.on('part', function(part) {
+        console.log(part);
         //читаем его размер в байтах
         uploadFile.size = part.byteCount;
         //читаем его тип
@@ -79,7 +80,7 @@ exports.lotPic = function (req, res, next) {
         if(supportMimeTypes.indexOf(uploadFile.type) == -1) {
             errors.push('Unsupported mimetype ' + uploadFile.type);
         }
-
+        console.log(errors);
         //если нет ошибок то создаем поток для записи файла
         if(errors.length == 0) {
             var out = fs.createWriteStream(uploadFile.path);

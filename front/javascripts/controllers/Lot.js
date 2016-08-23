@@ -161,18 +161,45 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (data.newLot) {
                 $scope.newLotSaved = true;
                 $scope.newLotInfo = data;
-                singleLotPicUploader.uploadAll();
-                topLotPicUploader.uploadAll();
-                $scope.newLotCreated = true;
-            }
-            if ($scope.newLotCreated && $scope.afterSaveLotAction == 'saveAndCreateNew') {
-                delete $scope.newLotCreated;
-                location.reload();
-            }
-            if ($scope.newLotCreated && $scope.afterSaveLotAction == 'saveAndGoBack') {
-                delete $scope.newLotCreated;
-                $state.go('lk', {});
-            }
+                var pictLoaded = true;
+                var pictAddedSingle = false;
+                var picturesAddedTop = false;
+                    topLotPicUploader.onCompleteAll = function() {
+                                        if (pictLoaded && $scope.afterSaveLotAction == 'saveAndCreateNew') {
+                                            location.reload();
+                                        }
+                                        if (pictLoaded && $scope.afterSaveLotAction == 'saveAndGoBack') {
+                                            $state.go('lk', {});
+                                        };
+                                        pictLoaded = true;
+                                    }
+                    singleLotPicUploader.onCompleteAll = function(){
+                                        if (pictLoaded && $scope.afterSaveLotAction == 'saveAndCreateNew') {
+                                            $state.go('createLot', {'auctionId': $scope.auctionId});
+                                        }
+                                        if (pictLoaded && $scope.afterSaveLotAction == 'saveAndGoBack') {
+                                            $state.go('lk', {});
+                                        };
+                                        pictLoaded = true;
+                                    }
+                    singleLotPicUploader.onAfterAddingAll = function (addedFileItems) {
+                        console.info('onAfterAddingAll', addedFileItems);
+                                    if (picturesAddedTop == true)
+                                        pictLoaded = false;
+                                    pictAddedSingle = true;
+                                    $scope.picturesAdded = true;
+                                    $scope.CSVAddedInBase = false;
+                                    };            
+                    topLotPicUploader.onAfterAddingAll = function (addedFileItems) {
+                        console.info('onAfterAddingAll', addedFileItems);
+                                    if (picturesAddedSingle == true)
+                                        pictLoaded = false;
+                                    picturesAddedTop = true;
+                                    };                                
+                    singleLotPicUploader.uploadAll();
+                    topLotPicUploader.uploadAll();                  
+                
+            }  
         });
 
         // загрузка главной картинки лота на сервер
@@ -182,7 +209,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             url: '/api/upload/lotPic',
             queueLimit: 1,
             // autoUpload: true,
-            removeAfterUpload: true
+            withCredentials: true
+            //removeAfterUpload: true
         });
 
         // CALLBACKS
@@ -206,7 +234,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             url: '/api/upload/lotPic',
             // queueLimit: 1,
             // autoUpload: true,
-            removeAfterUpload: true
+            withCredentials: true
+            //removeAfterUpload: true
         });
 
         // FILTERS
@@ -225,11 +254,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
         singleLotPicUploader.onAfterAddingFile = function (fileItem) {
             console.info('onAfterAddingFile', fileItem);
-        };
-        singleLotPicUploader.onAfterAddingAll = function (addedFileItems) {
-            console.info('onAfterAddingAll', addedFileItems);
-            $scope.picturesAdded = true;
-            $scope.CSVAddedInBase = false;
         };
         singleLotPicUploader.onBeforeUploadItem = function (item) {
             console.info('onBeforeUploadItem', item);
