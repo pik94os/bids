@@ -677,7 +677,13 @@ define(['./module','jquery'],function(controllers,$){
         };
 
         $scope.initPlayer = function (){
+            if($('#flashVideoWrapper')[0]==undefined || $('#videoCanvas')[0]==undefined || $('#remoteVideo')[0]==undefined){
+                setTimeout($scope.initPlayer,100);
+                console.log('reinitPlayer');
+                return false;
+            }
             if(!$scope.videoName || !($scope.videoName.indexOf('video:')+1) || (!$scope.f==undefined && $scope.f)) {
+                console.log('closePlayer');
                 return false
             }
             f = $scope.f = Flashphoner.getInstance();
@@ -742,7 +748,7 @@ define(['./module','jquery'],function(controllers,$){
 
                 $scope.initPlayer();
             }
-        },2000);
+        },100);
 
 
         /**
@@ -779,9 +785,9 @@ define(['./module','jquery'],function(controllers,$){
             // (видеовидео) уменьшаем размер картинки для уменьшения потока
             f.init(configuration);
 
-            document.getElementById('flashVideoWrapper').style.visibility = "hidden";
-            document.getElementById('flashVideoDiv').style.visibility = "hidden";
-            document.getElementById('remoteVideo').style.visibility = "visible";
+            $('#flashVideoWrapper').hide();
+            $('#flashVideoDiv').hide();
+            $('#remoteVideo').show();
             $videoElement = $("#remoteVideo");
 
             f.connect({urlServer: url, appKey: 'defaultApp', width: 0, height: 0});
@@ -896,7 +902,7 @@ define(['./module','jquery'],function(controllers,$){
                 $("#playButton").show();
                 $("#waiting").hide();
             } else if (event.status == ConnectionStatus.Disconnected && reinit) {
-                setTimeout(initPlayer,2000);
+                setTimeout($scope.initPlayer,2000);
             }
         }
 
@@ -1054,35 +1060,6 @@ define(['./module','jquery'],function(controllers,$){
             }
         }
 // Hide unsupported technologies
-        function hideProto() {
-            switch (detectBrowser()) {
-                case "IE":
-                    isIE = true;
-                    $("#proto").find('option').not("option[value='RTMP'],option[value='RTMFP']").remove();
-                    $("#proto option[value='RTMP']").attr('selected','selected');
-                    break;
-                case "Firefox":
-                    $("#proto").find('option').not("option[value='WebRTC'],option[value='RTMP'],option[value='RTMFP']").hide();
-                    $("#proto option[value='WebRTC']").attr('selected','selected');
-                    break;
-                case "Chrome":
-                    break;
-                case "Android":
-                    isMobile = true;
-                    $("#proto").find('option').not("option[value='WebRTC'],option[value='HLS']").hide();
-                    $("#proto option[value='WebRTC']").attr('selected','selected');
-                    break;
-                case "iOS":
-                    isMobile = true;
-                case "Safari":
-                    $("#proto").find('option').not("option[value='WebSocket'],option[value='HLS']").remove();
-                    $("#flashVideoWrapper").remove();
-                    $("#flashVideoDiv").remove();
-                    $("#proto option[value='WebSocket']").attr('selected','selected');
-                    swfobject = undefined;
-                    break;
-            }
-        }
 
         function trace(message) {
             console.log("> " + message);

@@ -213,7 +213,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             url: '/api/upload/lotCSV',
             autoUpload: true,
             removeAfterUpload: true,
-            queueLimit: 1
+            queueLimit: 1,
+            withCredentials: true
         });
 
         // FILTERS for CSV
@@ -307,7 +308,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             url: '/api/upload/lotPic',
             // queueLimit: 1,
             // autoUpload: true,
-            removeAfterUpload: true
+            removeAfterUpload: true,
+            withCredentials: true
         });
 
         // FILTERS

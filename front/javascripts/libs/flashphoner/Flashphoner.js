@@ -215,16 +215,16 @@ Flashphoner.prototype = {
             configuration.pathToSWF = '../../../dependencies/flash/MediaManager.swf';
         }
 
-        if (!configuration.elementIdForSWF && typeof swfobject != 'undefined') {
-            configuration.elementIdForSWF = 'flashVideoDiv';
-            var _body = document.getElementsByTagName('body') [0];
-            var flashVideoDiv = document.createElement('div');
-            flashVideoDiv.style.width = '322px';
-            flashVideoDiv.style.height = '176px';
-            flashVideoDiv.innerHTML = '<div id="' + configuration.elementIdForSWF + '"></div>';
-            _body.appendChild(flashVideoDiv);
-
-        }
+        // if (!configuration.elementIdForSWF && typeof swfobject != 'undefined') {
+        //     configuration.elementIdForSWF = 'flashVideoDiv';
+        //     var _body = document.getElementsByTagName('body') [0];
+        //     var flashVideoDiv = document.createElement('div');
+        //     flashVideoDiv.style.width = '322px';
+        //     flashVideoDiv.style.height = '176px';
+        //     flashVideoDiv.innerHTML = '<div id="' + configuration.elementIdForSWF + '"></div>';
+        //     _body.appendChild(flashVideoDiv);
+        //
+        // }
 
 
         me.configuration = configuration;
