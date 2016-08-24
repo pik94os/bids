@@ -143,6 +143,9 @@ define(['./module', 'jquery'], function (controllers, $) {
         // создание аукциона
         $scope.newAuction = {};
         $scope.createAuction = function () {
+            console.log($scope.newAuction.date);
+            var new_date_arr = $scope.newAuction.date;
+            var date = new Date(new_date_arr[2],new_date_arr[1] - 1,new_date_arr[0],new_date_arr[3],new_date_arr[4]);
             ngSocket.emit('auction/create', {
                 name: $scope.newAuction.nameAuction,
                 number: $scope.newAuction.numberAuction,

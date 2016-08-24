@@ -11,24 +11,28 @@ define(['./module','jquery'],function(controllers,$){
             }
             $scope.auctions = data.auctionList;
             var stop = [];
+            $scope.days = [];
             $scope.ch = [];
             $scope.min = [];
             $scope.sec = [];
-            var curDate = new Date();
             $scope.showProgress = function (date) {
                 // 24 часа - 86400000 милисекунд
-                if(+((new Date(date)) - curDate) > 0 && +(new Date(date)) - curDate < 86400000) {
+                if((+date - Date.now()) > 0 && (+date - Date.now()) < 86400000) {
                     return true;
                 }
             };
+            //TODO: Доделать таймер
+            //console.log((1472392800000 - Date.now()) / 1000 / 60 / 60 / 24);
             $scope.auctions.forEach(function(auction,index){
                       stop[index] = $interval(function() {
-                          var date = new Date(auction.date);
-                          var razn = +date - new Date();
+                          var razn = +auction.date - Date.now();
                           if(razn >= 0) {
+                              $scope.days[index] = Math.floor(razn / 1000 / 60 / 60 / 24);// вычисляем дни
+                              razn -= $scope.days[index] * 1000 * 60 * 60 * 24;
                               $scope.ch[index]  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
                               $scope.min[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 )) / 1000 / 60);// вычисляем минуты
                               $scope.sec[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 ) - ( $scope.min[index] * 1000 * 60 )) / 1000 );// вычисляем секунды
+                              console.log($scope.sec[index],  $scope.min[index],  $scope.ch[index], $scope.days[index]);
                               if(+$scope.ch[index] <= 0 && +$scope.min[index] <= 0 && +$scope.sec[index] <= 0){
                                   $interval.cancel(stop[index]);
                                   stop[index] = null;
