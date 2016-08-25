@@ -39,7 +39,7 @@ module.exports = function(socket, data) {
         let auctionData = {
             name: data.name.trim()+'',
             number: +data.number,
-            date: 'a',
+            date: data.date,
             userId: +data.userId,
             isArchive: false
         };

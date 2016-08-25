@@ -93,11 +93,9 @@ define(['./module','jquery'],function(controllers,$){
             if(data.err) {
                 alert(data.message)
             }
+            console.log(data);
             $scope.auction = JSON.parse(JSON.stringify(data.data));
-            var d = (data.data.date.split('T')[0].split('-'));
-            var t = (data.data.date.split('T')[1].split(':'));
-            $scope.date = d[2] + '.' + d[1] + '.' + d[0];
-            $scope.time = t[0]+ ':' + t[1];
+            $scope.date = data.data.date;
             $scope.number = data.data.number;
         });
 // // импорт лотов из CSV

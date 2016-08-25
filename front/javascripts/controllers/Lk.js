@@ -32,11 +32,11 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         ngSocket.on('auctionCreated', function (result) {
-
             if (result.err) {
                 alert(result.message);
+            } else {
+                $state.go('auction', {auctionId: result.auction.id});
             }
-            $state.go('auction', {auctionId: result.auction.id});
         });
 
         ngSocket.on('auctionEdited', function (result) {
@@ -103,8 +103,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/list', {forLeader: true});
             ngSocket.on('auctionListForLeader', function (result) {
                $scope.auctionListForLeader = JSON.parse(JSON.stringify(result.auctionList));
-                console.log('>>>>>>>>>>>>>>>>>')
-                console.log(result)
                 // result.auctionList.forEach(function (i) {
                 //     console.log('>>>>>>>>>>>>>>>');
                 //     console.log(i);

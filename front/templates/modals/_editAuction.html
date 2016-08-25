@@ -9,25 +9,25 @@
     <br class="hidden-xs"/>
     <div class="row">
         <div class="col-md-7">
-            <div class="row row-1">
+            <div class="row row-1" ng-show="editedAuctionDate">
                 <div class="col-sm-12">Дата проведения</div>
-                <div class="col-sm-4"><input class="custom-input" placeholder="Число" type="text" ng-model="editedAuction.date[0]"></div>
-                <div class="col-sm-4"><input class="custom-input" placeholder="Месяц" type="text" ng-model="editedAuction.date[1]"></div>
-                <div class="col-sm-4"><input class="custom-input" placeholder="Год" type="text" ng-model="editedAuction.date[2]"></div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Число" type="text" ng-model="editedAuctionDate.day"></div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Месяц" type="text" ng-model="editedAuctionDate.month"></div>
+                <div class="col-sm-4"><input class="custom-input" placeholder="Год" type="text" ng-model="editedAuctionDate.year"></div>
             </div>
         </div>
         <div class="col-md-5">
             <div class="row row-1">
                 <div class="col-sm-12">Время проведения</div>
-                <div class="col-sm-6"><input class="custom-input" placeholder="Час" type="text" ng-model="editedAuction.date[3]"></div>
-                <div class="col-sm-6"><input class="custom-input" placeholder="Минуты" type="text" ng-model="editedAuction.date[4]"></div>
+                <div class="col-sm-6"><input class="custom-input" placeholder="Час" type="text" ng-model="editedAuctionDate.hour"></div>
+                <div class="col-sm-6"><input class="custom-input" placeholder="Минуты" type="text" ng-model="editedAuctionDate.minutes"></div>
             </div>
         </div>
     </div>
     <br class="hidden-xs"/>
     <div class="row row-1">
         <div class="col-sm-12">Место проведения</div>
-        <div class="col-sm-12"><input class="custom-input" placeholder="Место проведения" type="text" ng-model="editedAuction.placeAuction"></div>
+        <div class="col-sm-12"><input class="custom-input" placeholder="Место проведения" type="text"></div>
     </div>
     <div class="row">
         <div class="checkbox">
@@ -39,11 +39,6 @@
     <div class="row"  ng-hide="$stateParams.auctionId">
         <!--для модального окна редактирования аукциона выванного на странице просмотра списка аукционов-->
         <div class="col-sm-9"><div class="custom-btn"  data-dismiss="modal" ui-sref="auction" ng-click="editAuction(false, auctionIdForEdit.id)">Сохранить и перейти к наполнению лотов</div></div>
-        <div class="col-sm-3"><div class="custom-btn-default"  data-dismiss="modal">Отмена</div></div>
-    </div>
-    <div class="row" ng-show="$stateParams.auctionId">
-        <!--для модального окна редактирования аукциона выванного по нажатию на шестеренку-->
-        <div class="col-sm-9"><div class="custom-btn"  data-dismiss="modal" ui-sref="auction" ng-click="editAuction(false, $stateParams.auctionId)">Сохранить и перейти к наполнению лотов</div></div>
         <div class="col-sm-3"><div class="custom-btn-default"  data-dismiss="modal">Отмена</div></div>
     </div>
 </modal>

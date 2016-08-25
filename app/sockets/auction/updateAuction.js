@@ -20,7 +20,6 @@ module.exports = function(socket, data) {
                 id: data.auctionId
             }
         }).then(()=> {
-            console.log(data.date);
             return Auction.update({
                     date: data.date
                 },
