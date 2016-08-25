@@ -32,7 +32,6 @@ define(['./module','jquery'],function(controllers,$){
                               $scope.ch[index]  = Math.floor( razn / 1000 / 60 / 60 );// вычисляем часы
                               $scope.min[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 )) / 1000 / 60);// вычисляем минуты
                               $scope.sec[index] = Math.floor((razn - ($scope.ch[index] * 1000 * 60 * 60 ) - ( $scope.min[index] * 1000 * 60 )) / 1000 );// вычисляем секунды
-                              console.log($scope.sec[index],  $scope.min[index],  $scope.ch[index], $scope.days[index]);
                               if(+$scope.ch[index] <= 0 && +$scope.min[index] <= 0 && +$scope.sec[index] <= 0){
                                   $interval.cancel(stop[index]);
                                   stop[index] = null;
