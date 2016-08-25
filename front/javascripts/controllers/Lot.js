@@ -152,8 +152,6 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         ngSocket.on('lotCreated', function (data) {
-            // console.log('>>>>>>>>>>>>>>>')
-            // console.log(data)
             if (data.lotExist) {
                 $scope.lotExist = data.lotExist;
                 // alert('Лот с номером ' + data.lotExist + ' уже существует');
@@ -161,15 +159,19 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (data.newLot) {
                 $scope.newLotSaved = true;
                 $scope.newLotInfo = data;
+                console.log('>>>>>>>>>>>>>>')
+                console.log(data.newLot)
                 var pictLoaded = true;
                 var pictAddedSingle = false;
                 var picturesAddedTop = false;
                     topLotPicUploader.onCompleteAll = function() {
                                         if (pictLoaded && $scope.afterSaveLotAction == 'saveAndCreateNew') {
                                             location.reload();
+                                            alert('Новый лот № '+data.newLot.lot.number+' создан. Фотографии лота загружены в базу');
                                         }
                                         if (pictLoaded && $scope.afterSaveLotAction == 'saveAndGoBack') {
                                             $state.go('lk', {});
+                                            alert('Новый лот № '+data.newLot.lot.number+' создан. Фотографии лота загружены в базу');
                                         };
                                         pictLoaded = true;
                                     }
@@ -227,7 +229,7 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         console.info('lotPicUploader', topLotPicUploader);
 
-        // загрузка глереи картинок лота на сервер
+        // загрузка галереи картинок лота на сервер
         // angular-file-upload
         // https://github.com/nervgh/angular-file-upload/wiki/Module-API#directives
         var singleLotPicUploader = $scope.singleLotPicUploader = new FileUploader({
