@@ -347,6 +347,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
             $scope.soldLot = false;
+            $scope.bids = '';
             ngSocket.emit('auction/updateLot', {
                 lotId: +$scope.lotId,
                 isSold: isSold,

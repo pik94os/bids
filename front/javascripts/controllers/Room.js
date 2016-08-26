@@ -408,7 +408,7 @@ define(['./module','jquery'],function(controllers,$){
                     })
                 }
                 $scope.current_lot.bids = data.bids;
-                $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
+                $scope.estimateToMax = $scope.current_lot.sellingPrice >= $scope.estimateTo ? 1 : 0;
 
                 /* var item = $scope.auction_params.lots.find(function (lot) {
                     return lot.number === $scope.lot_number;
@@ -534,7 +534,8 @@ define(['./module','jquery'],function(controllers,$){
                     }, 3000);
                 }
                 $scope.confirm = data;
-            $scope.estimateToMax = $scope.current_lot.sellingPrice > $scope.estimateTo ? 0 : 1;
+            $scope.estimateToMax = $scope.current_lot.sellingPrice >= $scope.estimateTo ? 1 : 0;
+            console.log($scope.estimateToMax);
         });
 
             var curDate = new Date();
