@@ -15,6 +15,7 @@ module.exports = function(socket, data) {
     if (data.auctionId){where.auctionId = data.auctionId;}
     if (data.userId){where.userId = data.userId;}
     if (data.isSold){where.isSold = data.isSold;}
+    if (data.isCl){where.isCl = data.isCl;}
 
 
     SellingStatistics.findAll({

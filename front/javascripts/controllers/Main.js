@@ -143,10 +143,12 @@ define(['./module', 'jquery'], function (controllers, $) {
         // создание аукциона
         $scope.newAuction = {};
         $scope.createAuction = function () {
+            var new_date_arr = $scope.newAuction.date;
+            var date = +new Date(new_date_arr[2],new_date_arr[1] - 1,new_date_arr[0],new_date_arr[3],new_date_arr[4]);
             ngSocket.emit('auction/create', {
                 name: $scope.newAuction.nameAuction,
                 number: $scope.newAuction.numberAuction,
-                date: $scope.newAuction.date,
+                date: date,
                 userId: $scope.currentUserInfo.id
             });
         };
@@ -154,10 +156,12 @@ define(['./module', 'jquery'], function (controllers, $) {
         // редактирование аукциона
         $scope.newAuction = {};
         $scope.editAuction = function (param, auctionId) {
+            var date_reform = $scope.editedAuctionDate;
+            var date = +new Date(date_reform.year,date_reform.month-1,date_reform.day,date_reform.hour,date_reform.minutes);
             ngSocket.emit('auction/create', {
                 name: $scope.editedAuction.nameAuction,
                 number: $scope.editedAuction.numberAuction,
-                date: $scope.editedAuction.date,
+                date: date,
                 userId: $scope.currentUserInfo.id,
                 editId: auctionId,
                 // editId: +$scope.auctionIdForEdit.id,
@@ -171,25 +175,24 @@ define(['./module', 'jquery'], function (controllers, $) {
             if ($scope.auctionIdForEdit.id){
                 // получение аукциона для модального окна редактирования аукциона
                 ngSocket.emit('auction/getAuction', {id: $scope.auctionIdForEdit.id});
-                $scope.$apply();
             }
         };
         ngSocket.on('catchAuction', function (data) {
             $scope.auctionForEdit = data;
-
+            var date = new Date(+data.data.date);
             if ($scope.auctionForEdit){
                 $scope.editedAuction = {
                     nameAuction: $scope.auctionForEdit.data.name,
-                    numberAuction: $scope.auctionForEdit.data.number,
-                    placeAuction: $scope.auctionForEdit.data.place
+                    numberAuction: $scope.auctionForEdit.data.number
+                    //placeAuction: $scope.auctionForEdit.data.place
                 };
-                $scope.editedAuction.date = [
-                    +$scope.auctionForEdit.data.date.split('T')[0].split('-')[2],
-                    +$scope.auctionForEdit.data.date.split('T')[0].split('-')[1],
-                    +$scope.auctionForEdit.data.date.split('T')[0].split('-')[0],
-                    +$scope.auctionForEdit.data.date.split('T')[1].split(':')[0],
-                    +$scope.auctionForEdit.data.date.split('T')[1].split(':')[1]
-                ];
+                $scope.editedAuctionDate = {
+                    day: +date.getDate(),
+                    month: +date.getMonth() + 1,
+                    year: +date.getFullYear(),
+                    hour: +date.getHours(),
+                    minutes: +date.getMinutes() === 0 ? '00' : +date.getMinutes()
+                };
             }
         });
 
@@ -371,9 +374,7 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         // Проверка роли : от 1до4 и 5-ая роль
         $scope.goToPageHeader = function () {
-            if ($scope.currentUserInfo.roleId === 5) {
-                $state.go('page-leading');
-            }else if ($scope.currentUserInfo.roleId === 2) {
+           if ($scope.currentUserInfo.roleId === 2) {
                 $state.go('admin');
             } else {
                 $state.go('lk');

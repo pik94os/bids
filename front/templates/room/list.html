@@ -108,6 +108,7 @@
                 <div class="input-group room-input-group">
                     <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
                     <input class="form-control room-message-form"
+                           autocomplete="off"
                            type="text"
                            placeholder="СООБЩЕНИЕ"
                            id="write-message2"
@@ -208,6 +209,7 @@
                         <div class="input-group room-input-group">
                             <!--<input type="text" class="form-control room-message-form" placeholder="СООБЩЕНИЕ">-->
                             <input class="form-control room-message-form"
+                                   autocomplete="off"
                                    type="text"
                                    placeholder="СООБЩЕНИЕ"
                                    id="write-message"
@@ -402,7 +404,7 @@
                             <div class="room-price room-price-color do-rate-hided col-sm-6" ng-show="btnHide">СДЕЛАТЬ СТАВКУ</div>
                             <div class="room-price number-of-rate col-sm-6">{{bidPrice | toLocaleString}} Р</div>
                         </div>
-                        <div class="max-rate" ng-click="maxEstimate()" ng-if="estimateToMax">
+                        <div class="max-rate" ng-click="maxEstimate()" ng-hide="estimateToMax">
                             <a>МАКСИМАЛЬНАЯ СТАВКА</a>
                         </div>
                         <!--<span class="state-lot" ng-if="soldLot.lot.number && soldLot.lastBid.user.lastName && soldLot.lastBid.price">-->

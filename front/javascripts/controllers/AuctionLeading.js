@@ -347,6 +347,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.sold = function (isSold, isClean) {
             $scope.cleanLot = false;
             $scope.soldLot = false;
+            $scope.bids = '';
             ngSocket.emit('auction/updateLot', {
                 lotId: +$scope.lotId,
                 isSold: isSold,
@@ -405,9 +406,8 @@ define(['./module', 'jquery'], function (controllers, $) {
             var date_arr_new = this.dateStart.split('.');
             var time_arr_new = this.timeStart.split(':');
             var date = +new Date(date_arr_new[2],date_arr_new[1]-1,date_arr_new[0],time_arr_new[0],time_arr_new[1]);
-            console.log(date);
             ngSocket.emit('auction/updateAuction', {
-                date: date,
+                date: +date,
                 id: +$stateParams.auctionId
             });
             $scope.timeStart = '';

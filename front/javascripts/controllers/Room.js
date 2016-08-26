@@ -179,8 +179,8 @@ define(['./module','jquery'],function(controllers,$){
             ngSocket.on('room',function (data) {
                 // $scope.t = Date.now() - new Date(data.auction.start);
                 $scope.t = new Date(srvTime()) - new Date(data.auction.start);
-                var date = new Date(data.auction.date);
-                console.log(new Date(data.auction.date));
+                var date = data.auction.date;
+                console.log(data.auction.date);
                 $scope.auctionTime = data.auction.start;
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 if(data.auction.isClose) {
@@ -253,6 +253,7 @@ define(['./module','jquery'],function(controllers,$){
                     timerHeaderAuction(data.auction.start);
                 } else if(!data.auction.start){
                     timerAuction(data.auction.date);
+                    console.log(data.auction.date);
                 }
                 //загружаем текущий разыгрываемый лот
                 currentId = $scope.auction_params.lots.map(function(e) { return e.isPlayOut; }).indexOf(true);
@@ -324,6 +325,10 @@ define(['./module','jquery'],function(controllers,$){
                         if(razn) {
                             Number($scope.min = Math.floor((razn / 1000) / 60));
                             Number($scope.sec = Math.floor(razn / 1000) - (+$scope.min * 60));
+                            if($scope.sec < 10) {
+                                $scope.sec = '0' + $scope.sec;
+                                Number($scope.sec)
+                            }
                         }
                         
                     }, 1000);
@@ -385,15 +390,6 @@ define(['./module','jquery'],function(controllers,$){
                     ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId, lotConfirmed: true, userId: data.bids[0].userId});
                 }
 
-                //TODO: странная штука не удалять
-                // else {
-                //
-                //     $scope.bidPrice = +$scope.current_lot.sellingPrice;
-                //     $scope.$apply();
-                //
-                // }
-                //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
-
                 $scope.current_lot.lot_pictures = [];
                 if (data.lotPictures != undefined && data.lotPictures.length){
                     data.lotPictures.forEach(function (pic,incr) {
@@ -407,7 +403,7 @@ define(['./module','jquery'],function(controllers,$){
                     })
                 }
                 $scope.current_lot.bids = data.bids;
-                $scope.estimateToMax = $scope.current_lot.sellingPrice < $scope.estimateTo ? 1 : 0;
+                $scope.estimateToMax = $scope.current_lot.sellingPrice >= $scope.estimateTo ? 1 : 0;
 
                 /* var item = $scope.auction_params.lots.find(function (lot) {
                     return lot.number === $scope.lot_number;
@@ -533,7 +529,8 @@ define(['./module','jquery'],function(controllers,$){
                     }, 3000);
                 }
                 $scope.confirm = data;
-            $scope.estimateToMax = $scope.current_lot.sellingPrice > $scope.estimateTo ? 0 : 1;
+            $scope.estimateToMax = $scope.current_lot.sellingPrice >= $scope.estimateTo ? 1 : 0;
+            console.log($scope.estimateToMax);
         });
 
             var curDate = new Date();
@@ -551,10 +548,9 @@ define(['./module','jquery'],function(controllers,$){
 
         });
             function timerAuction(newDate) {
-                if((newDate - Date.now()) > 0 || (+newDate - Date.now()) > 0) {
+                if((+newDate - Date.now()) > 0) {
                     $scope.stop = $interval(function () {
-                        var date = newDate !== undefined ? +newDate : +$scope.auctionDate;
-                        var razn = +date - Date.now();
+                        var razn = +newDate - Date.now();
                         $scope.timer = {};
                         $scope.timer.days = Math.floor(razn / 1000 / 60 / 60 / 24);// вычисляем дни
                         razn -= $scope.timer.days * 1000 * 60 * 60 * 24;

@@ -31,7 +31,7 @@
                     <div class="page-leading-list-div-div3 row">
 
                         <div ng-hide="showProgress(auction.date)" class="col-xs-12">
-                            {{auction.date | dateTimeFilter}}
+                            {{auction.date | date: "dd.MM.yyyy"}}
                         </div>
 
                         <!--прогресс-бары-->

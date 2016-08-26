@@ -340,15 +340,18 @@
 
 		.img222 {
 			background:{
-				position: top right;
+				//position: top right;
 				repeat: no-repeat;
 			}
 			height: 158px;
-			text-align: left;
-			width: 158px;
+			//text-align: left;
+			width: 100%;
 			img {
 				height: 158px;
-				width: 100%;
+				width: 158px;
+				//vertical-align: middle;
+				text-align: center;
+				//display: table-cell;
 			}
 			&.molot:after {
 				content: url('/images/ICONS_svg/molotok.svg');

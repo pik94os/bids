@@ -39,7 +39,7 @@ module.exports = function(socket, data) {
         let auctionData = {
             name: data.name.trim()+'',
             number: +data.number,
-            date: `${+data.date[2]}-${+data.date[1]}-${+data.date[0]} ${+data.date[3]}:${+data.date[4]}:00.000 +00:00`,
+            date: data.date,
             userId: +data.userId,
             isArchive: false
         };

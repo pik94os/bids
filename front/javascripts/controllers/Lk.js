@@ -32,11 +32,11 @@ define(['./module', 'jquery'], function (controllers, $) {
         };
 
         ngSocket.on('auctionCreated', function (result) {
-
             if (result.err) {
                 alert(result.message);
+            } else {
+                $state.go('auction', {auctionId: result.auction.id});
             }
-            $state.go('auction', {auctionId: result.auction.id});
         });
 
         ngSocket.on('auctionEdited', function (result) {
@@ -71,25 +71,32 @@ define(['./module', 'jquery'], function (controllers, $) {
         ngSocket.on('auctionList', function (data) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
             if ($stateParams.tab === 'historyOfAuctions') {
+                // $scope.sellingStatistics.delete();
+                // if (!sellingStatistics){
                 data.auctionList.forEach(function (i) {
-                    ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id});
+                    ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id, isSold: true});
                 });
-            }
+                // }
             // вывод статистики в личном кабинете аукционного дома
-            if ($stateParams.tab === 'historyOfAuctions' && $scope.currentUserInfo.id) {
-                $scope.sellingStatisticsHouse = [];
+            // if ($stateParams.tab === 'historyOfAuctions' && $scope.currentUserInfo.id) {
+
                 ngSocket.on('catchSellingStatistics', function (result) {
-                    result.sellingStatistics.forEach(function (r) {
-                        // console.log(r)
-                        $scope.sellingStatisticsHouse.push(r);
-                    });
+                    $scope.sellingStatisticsHouse = [];
+
+                        result.sellingStatistics.forEach(function (r) {
+                            // console.log(r)
+                            $scope.sellingStatisticsHouse.push(r);
+                        });
+
+
                 });
+            // }
             }
         });
 
         // вывод статистики в личном кабинете покупателя
         if ($stateParams.tab === 'historyOfAuctionsCustomer' && $scope.currentUserInfo.id) {
-            ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
+            ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id, isSold: true});
             ngSocket.on('catchSellingStatistics', function (result) {
                 $scope.sellingStatistics = [];
                 result.sellingStatistics.forEach(function (i) {
@@ -103,8 +110,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/list', {forLeader: true});
             ngSocket.on('auctionListForLeader', function (result) {
                $scope.auctionListForLeader = JSON.parse(JSON.stringify(result.auctionList));
-                console.log('>>>>>>>>>>>>>>>>>')
-                console.log(result)
                 // result.auctionList.forEach(function (i) {
                 //     console.log('>>>>>>>>>>>>>>>');
                 //     console.log(i);
