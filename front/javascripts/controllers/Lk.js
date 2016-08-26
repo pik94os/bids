@@ -89,7 +89,7 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         // вывод статистики в личном кабинете покупателя
         if ($stateParams.tab === 'historyOfAuctionsCustomer' && $scope.currentUserInfo.id) {
-            ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id});
+            ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id, isSold: true});
             ngSocket.on('catchSellingStatistics', function (result) {
                 $scope.sellingStatistics = [];
                 result.sellingStatistics.forEach(function (i) {
