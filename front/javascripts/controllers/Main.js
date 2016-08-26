@@ -374,9 +374,7 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         // Проверка роли : от 1до4 и 5-ая роль
         $scope.goToPageHeader = function () {
-            if ($scope.currentUserInfo.roleId === 5) {
-                $state.go('page-leading');
-            }else if ($scope.currentUserInfo.roleId === 2) {
+           if ($scope.currentUserInfo.roleId === 2) {
                 $state.go('admin');
             } else {
                 $state.go('lk');

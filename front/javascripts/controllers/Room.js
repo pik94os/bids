@@ -325,6 +325,10 @@ define(['./module','jquery'],function(controllers,$){
                         if(razn) {
                             Number($scope.min = Math.floor((razn / 1000) / 60));
                             Number($scope.sec = Math.floor(razn / 1000) - (+$scope.min * 60));
+                            if($scope.sec < 10) {
+                                $scope.sec = '0' + $scope.sec;
+                                Number($scope.sec)
+                            }
                         }
                         
                     }, 1000);
@@ -385,15 +389,6 @@ define(['./module','jquery'],function(controllers,$){
                     }
                     ngSocket.emit('userAuction', {auctionId: $stateParams.auctionId, lotConfirmed: true, userId: data.bids[0].userId});
                 }
-
-                //TODO: странная штука не удалять
-                // else {
-                //
-                //     $scope.bidPrice = +$scope.current_lot.sellingPrice;
-                //     $scope.$apply();
-                //
-                // }
-                //$scope.current_lot.sellingPrice = data.lot.estimateFrom;
 
                 $scope.current_lot.lot_pictures = [];
                 if (data.lotPictures != undefined && data.lotPictures.length){
