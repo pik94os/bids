@@ -72,7 +72,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
             if ($stateParams.tab === 'historyOfAuctions') {
                 data.auctionList.forEach(function (i) {
-                    ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id});
+                    ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id, isSold: true});
                 });
             }
             // вывод статистики в личном кабинете аукционного дома
