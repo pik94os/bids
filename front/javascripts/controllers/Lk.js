@@ -71,19 +71,26 @@ define(['./module', 'jquery'], function (controllers, $) {
         ngSocket.on('auctionList', function (data) {
             $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
             if ($stateParams.tab === 'historyOfAuctions') {
+                // $scope.sellingStatistics.delete();
+                // if (!sellingStatistics){
                 data.auctionList.forEach(function (i) {
                     ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id, isSold: true});
                 });
-            }
+                // }
             // вывод статистики в личном кабинете аукционного дома
-            if ($stateParams.tab === 'historyOfAuctions' && $scope.currentUserInfo.id) {
-                $scope.sellingStatisticsHouse = [];
+            // if ($stateParams.tab === 'historyOfAuctions' && $scope.currentUserInfo.id) {
+
                 ngSocket.on('catchSellingStatistics', function (result) {
-                    result.sellingStatistics.forEach(function (r) {
-                        // console.log(r)
-                        $scope.sellingStatisticsHouse.push(r);
-                    });
+                    $scope.sellingStatisticsHouse = [];
+
+                        result.sellingStatistics.forEach(function (r) {
+                            // console.log(r)
+                            $scope.sellingStatisticsHouse.push(r);
+                        });
+
+
                 });
+            // }
             }
         });
 
