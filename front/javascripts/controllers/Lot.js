@@ -23,7 +23,6 @@ define(['./module', 'jquery'], function (controllers, $) {
 
 
         ngSocket.on('lotSelected', function (data) {
-            console.log(data);
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
             $scope.lotId = $scope.lot.id;
             $scope.isPlayOut = $scope.lot.isPlayOut;
@@ -76,7 +75,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 titlePicId: $stateParams.titlePicId
             });
         };
-
+        
         // подтверждение бида
         $scope.confirmLot = function () {
             if ($scope.$state.current.name === 'lot') {
@@ -100,8 +99,9 @@ define(['./module', 'jquery'], function (controllers, $) {
                     lotId: $stateParams.lotId
                 });
             }
-
         });
+
+
 
         ngSocket.on('lotConfirmed', function (data) {
             if (data.err == 0) {
@@ -119,6 +119,31 @@ define(['./module', 'jquery'], function (controllers, $) {
             $scope.bidPrice = $scope.sellingPrice + calcStep($scope.sellingPrice);
         });
         ngSocket.on('lotSelected', function (data) {
+            if($stateParams.lotId && $scope.$state.current.name === 'createlot') {
+                $scope.saveEditedLot = true;
+                $scope.newLotDescriptionPrev = data.lot.descriptionPrev;
+                $scope.newLotNumber = data.lot.number;
+                $scope.newLotEstimateFrom = data.lot.estimateFrom;
+                $scope.newLotEstimateTo = data.lot.estimateTo;
+                $scope.newLotYear = data.lot.year;
+                
+                $scope.editLot = function (save) {
+                    if(save) {
+                        $state.go('auction',{auctionId: $stateParams.auctionId})
+                    } else {
+                        $state.go('createlot',{auctionId: $stateParams.auctionId, lotId: $stateParams.lotId});
+                        $scope.editLotSaved = true;
+                    }
+                    ngSocket.emit('auction/editLot', {
+                        id: $stateParams.lotId,
+                        descriptionPrev: $scope.newLotDescriptionPrev,
+                        number: $scope.newLotNumber,
+                        estimateFrom:  $scope.newLotEstimateFrom,
+                        estimateTo: $scope.newLotEstimateTo,
+                        year: $scope.newLotYear
+                    });
+                }
+            }
             $scope.sellingPrice = data.lot.sellingPrice;
             ngSocket.emit('auction/getPictureList', {lotId: data.lot.id});
             $scope.lot = JSON.parse(JSON.stringify(data.lot));
@@ -159,8 +184,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             if (data.newLot) {
                 $scope.newLotSaved = true;
                 $scope.newLotInfo = data;
-                console.log('>>>>>>>>>>>>>>')
-                console.log(data.newLot)
                 var pictLoaded = true;
                 var pictAddedSingle = false;
                 var picturesAddedTop = false;

@@ -6,6 +6,12 @@
 const AuctionUser = require('../models/').AuctionUser;
 const SellingStatistics = require(('../models/')).SellingStatistics;
 module.exports = function (socket, data) {
+    if(data.countUser) {
+        AuctionUser.findAll().then((data)=>{
+            socket.emit('countUserAuction', data);
+        });
+        return false
+    }
     if(!data.auctionId) {
         socket.emit('auctionUser', {
             err: 1,

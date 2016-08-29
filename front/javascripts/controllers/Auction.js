@@ -57,7 +57,7 @@ define(['./module','jquery'],function(controllers,$){
             }
             if($scope.currentUserInfo.roleId != 3) {
                 $scope.open = 1;
-            }else if($stateParams.open != 1){
+            } else if($stateParams.open != 1){
                 $scope.open = 0;
             }
         });

@@ -18,7 +18,6 @@ module.exports = function (socket, data) {
                 err: 0,
                 data: auction
             });
-            //TODO: если что поправить auction на data
             if(data.isPlayOut!==false) {
                 return Lot.findOne({
                     where: {

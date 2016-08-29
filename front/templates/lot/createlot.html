@@ -10,8 +10,8 @@
                 </div>
                 <div class="lot-price">Номер лота: <input class="lot-priceinput" ng-model="newLotNumber"></div>
                 <div class="lot-price">Год лота: <input class="lot-priceinput" ng-model="newLotYear"></div>
-                <div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" ng-model="newLotEstimateFrom"> -
-                    <input class="lot-priceinput" ng-model="newLotEstimateTo"> Руб.
+                <div class="lot-estimate-editable">Эстимэйт: <input class="lot-priceinput" style="text-align: center" ng-model="newLotEstimateFrom"> -
+                    <input class="lot-priceinput" ng-model="newLotEstimateTo" style="text-align: center">
                 </div>
 
                 <!--<div class="lot-price">Цена продажи: <input class="lot-priceinput" ng-model="newLotSellingPrice"></div>-->
@@ -107,16 +107,19 @@
     <!--{{newLotInfo}}-->
     <!--{{addfile}}-->
     <p ng-show="lotExist" class="lot-price">Лот с номером {{lotExist}} уже существует</p>
-    <p ng-show="newLotSaved" class="lot-price">Новый лот <!--с номером {{newLotInfo.lot.number}}-->успешно сохранен в базу </p>
+    <p ng-show="newLotSaved" class="lot-price">Новый лот успешно сохранен в базу </p>
+    <p ng-show="editLotSaved" class="lot-price">Лот успешно сохранен в базу </p>
     <div class="row lot-buttons">
         <!--<div class="col-sm-3">-->
             <!--<div class="custom-btn-sm btn-block custom-btn-red">Удалить</div>-->
         <!--</div>-->
         <div class="col-sm-4">
-            <div class="custom-btn-sm btn-block" ng-click="createNewLot('saveAndGoBack')">Сохранить</div>
+            <div class="custom-btn-sm btn-block" ng-click="createNewLot('saveAndGoBack')" ng-if="!saveEditedLot">Сохранить</div>
+            <div class="custom-btn-sm btn-block" ng-click="editLot(true)" ng-if="saveEditedLot">Сохранить</div>
         </div>
         <div class="col-sm-8">
-            <div class="custom-btn-sm btn-block" ng-click="createNewLot('saveAndCreateNew')" >Сохранить и создать новый</div>
+            <div class="custom-btn-sm btn-block" ng-click="createNewLot('saveAndCreateNew')" ng-if="!saveEditedLot">Сохранить и создать новый</div>
+            <div class="custom-btn-sm btn-block" ng-click="editLot(false)" ng-if="saveEditedLot">Изменить и продолжить</div>
         </div>
     </div>
 </div>

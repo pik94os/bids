@@ -99,7 +99,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id, isSold: true});
             ngSocket.on('catchSellingStatistics', function (result) {
                 $scope.sellingStatistics = [];
-                result.sellingStatistics.forEach(function (i) {
+                result.sellingStatistics.result.forEach(function (i) {
                     $scope.sellingStatistics.unshift(i);
                 });
             });
@@ -116,7 +116,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 //     ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id, isSold: true});
                 //     ngSocket.emit('user/getUserAuction', {auctionId: i.id});
                 // });
-
+                
             });
             $scope.getAuctionSellingStatistics = function (req) {
                 ngSocket.emit('auction/getSellingStatistics', {auctionId: req, isSold: true});
@@ -125,10 +125,14 @@ define(['./module', 'jquery'], function (controllers, $) {
             };
             // ngSocket.on('catchUserAuction', function (result) {$scope.userAuction = result.userAuction;});
             ngSocket.on('catchSellingStatistics', function (result) {
-                $scope.sellingStatistics = [];
-                result.sellingStatistics.forEach(function (i) {
-                    $scope.sellingStatistics.unshift(i);
-                });
+                if(result.err) {
+                    alert(result.message)
+                }
+                $scope.count = result.sellingStatistics.countIsSold;
+                    $scope.sellingStatistics = [];
+                    result.sellingStatistics.result.forEach(function (i) {
+                        $scope.sellingStatistics.unshift(i);
+                    });
             });
         }
     }])
