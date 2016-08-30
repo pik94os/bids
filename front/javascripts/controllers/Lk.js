@@ -109,7 +109,10 @@ define(['./module', 'jquery'], function (controllers, $) {
         if ($stateParams.tab === 'resultsOfAuctionsLeader') {
             ngSocket.emit('auction/list', {forLeader: true});
             ngSocket.on('auctionListForLeader', function (result) {
-               $scope.auctionListForLeader = JSON.parse(JSON.stringify(result.auctionList));
+                $scope.auctionListForLeader = result.auctionList;
+                result.auctionList.forEach(function (item, i) {
+                });
+                console.log($scope.auctionListForLeader);
                 // result.auctionList.forEach(function (i) {
                 //     console.log('>>>>>>>>>>>>>>>');
                 //     console.log(i);
@@ -128,10 +131,9 @@ define(['./module', 'jquery'], function (controllers, $) {
                 if(result.err) {
                     alert(result.message)
                 }
-                $scope.count = result.sellingStatistics.countIsSold;
                     $scope.sellingStatistics = [];
-                    result.sellingStatistics.result.forEach(function (i) {
-                        $scope.sellingStatistics.unshift(i);
+                    result.sellingStatistics.forEach(function (item) {
+                        $scope.sellingStatistics.unshift(item);
                     });
             });
         }

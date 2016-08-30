@@ -180,7 +180,6 @@ define(['./module','jquery'],function(controllers,$){
                 // $scope.t = Date.now() - new Date(data.auction.start);
                 $scope.t = new Date(srvTime()) - new Date(data.auction.start);
                 var date = data.auction.date;
-                console.log(data.auction.date);
                 $scope.auctionTime = data.auction.start;
                 $scope.countdown = (data.auction.start) ? 2 : 1;
                 if(data.auction.isClose) {
@@ -314,7 +313,8 @@ define(['./module','jquery'],function(controllers,$){
 
                 ngSocket.on('auctionRun', function (lot) {
                     $scope.countdown =  2;
-                    ngSocket.emit('startAuction', {id: $scope.lotId});
+                    $interval.cancel($scope.stop);
+                    //ngSocket.emit('startAuction', {id: $scope.lotId});
                     ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
                 });
 
@@ -353,6 +353,7 @@ define(['./module','jquery'],function(controllers,$){
             });
 
             ngSocket.on('lotSelected', function (data) {
+                $scope.lotId = data.lot.id;
                 initLotParams($scope.current_lot, params, data.lot);
                 $scope.current_lot.step = data.lot.sellingPrice ? calcStep(data.lot.sellingPrice) : data.lot.estimateFrom;
                 $scope.bidPrice = data.lot.estimateFrom;
@@ -501,7 +502,7 @@ define(['./module','jquery'],function(controllers,$){
             result.sellingStatistics.forEach(function (i) {
                 // i.createdAt = new Date(i.createdAt).getHours() + ':' + new Date(i.createdAt).getMinutes();
                 // i.createdAt = i.createdAt.getHours();
-                $scope.sellingStatistics.unshift(i);
+                $scope.sellingStatistics.push(i);
             });
         });
         ngSocket.emit('confirmLot', {lotId: $stateParams.auctionId});
@@ -544,8 +545,6 @@ define(['./module','jquery'],function(controllers,$){
             $interval.cancel($scope.stop);
             ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
 
-
-
         });
             function timerAuction(newDate) {
                 if((+newDate - Date.now()) > 0) {
@@ -561,6 +560,10 @@ define(['./module','jquery'],function(controllers,$){
                         $scope.timer.sec = Math.floor(razn / 1000);// вычисляем секунды
                         if (+$scope.timer.days <= 0 && +$scope.timer.ch <= 0 && +$scope.timer.min <= 0 && +$scope.timer.sec <= 0) {
                             $interval.cancel($scope.stop);
+                            $scope.countdown =  2;
+                            ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
+                            ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
+                            ngSocket.emit('auction/getLot', {auctionId: $stateParams.auctionId});
                             console.log('kill');
                         }
                     }, 1000);

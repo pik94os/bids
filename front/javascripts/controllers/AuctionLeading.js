@@ -252,7 +252,9 @@ define(['./module', 'jquery'], function (controllers, $) {
                 auctionId: +$stateParams.auctionId,
                 name: $scope.videoName
             });
-            ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
+            if(!$scope.startAuction) {
+                ngSocket.emit('auction/startAuction', {id: +$scope.lotId});
+            }
             ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
             $scope.fuckStop = false;
         };
@@ -272,6 +274,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
         ngSocket.on('auctionRun', function () {
             $scope.startAuction = true;
+            ngSocket.emit('auction/room', {id: $stateParams.auctionId, userAuction: true});
         });
         ngSocket.emit('auction/getLotList', {
             auctionId: $stateParams.auctionId,

@@ -26,6 +26,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.regist = function (auctionId, auctionDate) {
             $scope.auctionId = auctionId;
             $scope.auctionDate = auctionDate;
+            console.log(auctionId, auctionDate);
             var temp = {
                 userId : $scope.currentUserInfo.id,
                 password : $scope.auctionInfo.password

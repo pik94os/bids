@@ -29,15 +29,10 @@ module.exports = function (socket, data) {
             {model: Auction, attributes: []}
         ]
     }).then(function (result) {
-        SellingStatistics.count({where: {$and: {auctionId: data.auctionId, isSold: true}}}).then((countIsSold)=> {
             socket.emit('catchSellingStatistics', {
                 'err': 0,
-                sellingStatistics: {
-                    result,
-                    countIsSold
-                }
+                sellingStatistics: result
             });
-        })
     }).catch(function (err) {
         socket.emit('catchSellingStatistics',
             {err: 1, message: err.message}

@@ -37,11 +37,12 @@ module.exports = function(socket, data) {
         Auction.findAll({where,
             include: [
                 {model:AuctionUser,attributes:[]},
-                {model:Lot,attributes: []}
+                {model:Lot, attributes: []}
             ],
             attributes:['id','name','isClose',
                 [sequelize.fn('count', sequelize.fn('DISTINCT',sequelize.col('auction_users.userId'))), 'users_count'],
-                [sequelize.fn('count', sequelize.fn('DISTINCT',sequelize.col('lots.id'))), 'lots_count']
+                [sequelize.fn('count', sequelize.fn('DISTINCT',sequelize.col('lots.id'))), 'lots_count'],
+                [sequelize.fn('count', sequelize.fn('DISTINCT', sequelize.col('lots.isSold'))), 'lotsIsSold_count']
                 // ,
                 // [sequelize.fn('sum', sequelize.col('lots.isSold'), 'allLots_count')]
             ],
