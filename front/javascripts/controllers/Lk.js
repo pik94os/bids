@@ -99,7 +99,7 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/getSellingStatistics', {userId: +$scope.currentUserInfo.id, isSold: true});
             ngSocket.on('catchSellingStatistics', function (result) {
                 $scope.sellingStatistics = [];
-                result.sellingStatistics.forEach(function (i) {
+                result.sellingStatistics.result.forEach(function (i) {
                     $scope.sellingStatistics.unshift(i);
                 });
             });
@@ -109,14 +109,17 @@ define(['./module', 'jquery'], function (controllers, $) {
         if ($stateParams.tab === 'resultsOfAuctionsLeader') {
             ngSocket.emit('auction/list', {forLeader: true});
             ngSocket.on('auctionListForLeader', function (result) {
-               $scope.auctionListForLeader = JSON.parse(JSON.stringify(result.auctionList));
+                $scope.auctionListForLeader = result.auctionList;
+                result.auctionList.forEach(function (item, i) {
+                });
+                console.log($scope.auctionListForLeader);
                 // result.auctionList.forEach(function (i) {
                 //     console.log('>>>>>>>>>>>>>>>');
                 //     console.log(i);
                 //     ngSocket.emit('auction/getSellingStatistics', {auctionId: i.id, isSold: true});
                 //     ngSocket.emit('user/getUserAuction', {auctionId: i.id});
                 // });
-
+                
             });
             $scope.getAuctionSellingStatistics = function (req) {
                 ngSocket.emit('auction/getSellingStatistics', {auctionId: req, isSold: true});
@@ -125,10 +128,13 @@ define(['./module', 'jquery'], function (controllers, $) {
             };
             // ngSocket.on('catchUserAuction', function (result) {$scope.userAuction = result.userAuction;});
             ngSocket.on('catchSellingStatistics', function (result) {
-                $scope.sellingStatistics = [];
-                result.sellingStatistics.forEach(function (i) {
-                    $scope.sellingStatistics.unshift(i);
-                });
+                if(result.err) {
+                    alert(result.message)
+                }
+                    $scope.sellingStatistics = [];
+                    result.sellingStatistics.forEach(function (item) {
+                        $scope.sellingStatistics.unshift(item);
+                    });
             });
         }
     }])

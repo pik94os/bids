@@ -61,6 +61,7 @@ module.exports = function(io,passportSocketIo) {
             {event:'auction/updateLot', access:0, comment: "обновление лотов"},
             {event:'auction/deleteLot', access:0, comment: "удаление лота"},
             {event:'auction/startAuction', access:0, comment: "запуск разыгрываемого первого лота"},
+            {event:'auction/editLot', access:0, comment: "редактирование лота"},
             // биды
             {event:'auction/getListBids', access:0, comment: "запуск разыгрываемого первого лота"},
             // чат
