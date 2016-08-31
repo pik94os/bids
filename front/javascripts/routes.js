@@ -78,6 +78,20 @@ define(['./app'], function (app) {
                     }
                 }
             })
+            //Страница редактирования лота вручную
+            .state('editlot', {
+                url: '/editlot?auctionId&lotId',
+                views:{
+                    '': {
+                        templateUrl: "/templates/lot/editlot.html",
+                        controller: 'Lot'
+                    },
+                    'header':{
+                        templateUrl: "/templates/lot/header.html",
+                        controller: 'LotHeader'
+                    }
+                }
+            })
             //Комната торгов
             .state('room', {
                 url: '/room?auctionId&offset',
