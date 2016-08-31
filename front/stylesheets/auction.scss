@@ -322,6 +322,9 @@
 		        font-family: "Century Gothic";
 				font-color: #fff; //#8eaccb;
 				z-index:0;
+			&.isCl {
+				background-color: silver;
+			}
 					
 			.top{
 		        font-family: "Century Gothic";

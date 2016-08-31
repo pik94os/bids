@@ -47,12 +47,12 @@ module.exports = function(socket, data) {
                 // [sequelize.fn('sum', sequelize.col('lots.isSold'), 'allLots_count')]
             ],
             group: ['auction.id']
-        })
-            .then(function(auctionList) {
+        }).then(function(auctionList) {
                 socket.emit('auctionListForLeader', {
                     'err': 0,
                     auctionList: auctionList
                 });
+            console.log(auctionList);
             }).catch(function (err) {
             socket.emit('auctionListForLeader',
                 {err: 1, message: err.message}
