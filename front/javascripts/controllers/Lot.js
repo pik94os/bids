@@ -140,6 +140,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                 $scope.newLotYear = data.lot.year;
 
                 $scope.editLot = function (save) {
+                    $scope.lotToEditId = $stateParams.lotId;
                     if (save) {
                         $state.go('auction', {auctionId: $stateParams.auctionId})
                     } else {
@@ -154,7 +155,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                         estimateTo: $scope.newLotEstimateTo,
                         year: $scope.newLotYear
                     });
-
                 }
             }
             console.log(data);
@@ -176,6 +176,9 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('lotEdited', function (data) {
+            // var lotEdited = true;
+            singleLotPicUploader.uploadAll();
+            topLotPicUploader.uploadAll();
             // alert("asdasdasd");
         });
 
@@ -199,8 +202,8 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.createNewLot = function (t) {
             ngSocket.emit('auction/createLot', {
                 number: $scope.newLotNumber,
-                descriptionPrev: $scope.newLotDescriptionPrev,
-                description: $scope.newLotDescription,
+                descriptionPrev: '<p>' + $scope.newLotDescriptionPrev + '</p>',
+                description: '<p>' + $scope.newLotDescription + '</p>',
                 estimateFrom: $scope.newLotEstimateFrom,
                 estimateTo: $scope.newLotEstimateTo,
                 sellingPrice: $scope.newLotSellingPrice,
@@ -240,8 +243,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     }
                     if (pictLoaded && $scope.afterSaveLotAction == 'saveAndGoBack') {
                         $state.go('lk', {});
-                    }
-                    ;
+                    };
                     pictLoaded = true;
                 }
                 singleLotPicUploader.onAfterAddingAll = function (addedFileItems) {
@@ -260,7 +262,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                 };
                 singleLotPicUploader.uploadAll();
                 topLotPicUploader.uploadAll();
-
             }
         });
 
@@ -279,12 +280,20 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         topLotPicUploader.onSuccessItem = function (fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
-            ngSocket.emit('auction/createLotPicture', {
+            var newTopLotPicture = {
                 topPic: true,
                 originalName: response.uploadFile.path.split('/')[4],
                 fileName: response.uploadFile.path.split('/')[4],
-                lotId: $scope.newLotInfo.newLot.lot.id
-            });
+                // lotId: $scope.newLotInfo.newLot.lot.id
+            };
+            if ($scope.lotToEditId){
+                newTopLotPicture.lotId = $scope.lotToEditId;
+            }
+            if (!$scope.lotToEditId){
+                newTopLotPicture.lotId = $scope.newLotInfo.newLot.lot.id;
+            }
+
+            ngSocket.emit('auction/createLotPicture', newTopLotPicture);
         };
 
         console.info('lotPicUploader', topLotPicUploader);
@@ -333,12 +342,19 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.on('pictureUpdatedReport', function (result) {
                 $scope.successFileUpload = result.pictureRow;
             });
-            ngSocket.emit('auction/createLotPicture', {
+            var newLotPicture = {
                 originalName: response.uploadFile.path.split('/')[4],
                 fileName: response.uploadFile.path.split('/')[4],
                 // fileName: fileItem.uploadFile.path,
-                lotId: $scope.newLotInfo.newLot.lot.id
-            });
+                // lotId: $scope.newLotInfo.newLot.lot.id
+            };
+            if ($scope.lotToEditId){
+                newLotPicture.lotId = $scope.lotToEditId;
+            }
+            if (!$scope.lotToEditId){
+                newLotPicture.lotId = $scope.newLotInfo.newLot.lot.id;
+            }
+            ngSocket.emit('auction/createLotPicture', newLotPicture);
         };
         singleLotPicUploader.onErrorItem = function (fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
