@@ -18,8 +18,8 @@
                 <div class="row">
                     <div class="col-xs-4 col-md-12">
                         <!--<div class="auction-button active" ng-show="notRegistr" ng-click="regist(auction.id,date)">Регистрация</div>-->
-                        <div class="auction-button active" ng-hide="!currentUserInfo.id" data-toggle="modal" data-target="#auctionIn" ng-click="auctionIn(auction.id)">Принять участие</div>
-                        <div class="auction-button active" ng-show="!notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#loginModal">Регистрация</div>
+                        <!--<div class="auction-button active" ng-hide="!currentUserInfo.id" data-toggle="modal" data-target="#auctionIn" ng-click="auctionIn(auction.id)">Принять участие</div>-->
+                        <!--<div class="auction-button active" ng-show="!notRegistr" data-toggle="modal" ng-click="selectedAuctionInMain.setId(auction.id)" data-target="#loginModal">Регистрация</div>-->
                     </div>
                     <!--div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div-->
                     <a class="col-xs-4 col-md-12" href="/images/pdf/abc_auction_{{auction.number}}.pdf" target="_blank"><div class="auction-button">Распечатать каталог</div></a>
@@ -166,7 +166,7 @@
                             {{(singleLot.sellingPrice || singleLot.estimateFrom)|toLocaleString}} Р
                         </p>
                     </div>
-                    <div class="info" ng-if="singleLot.isCl && !singleLot.isSold">
+                    <div class="info isCl" ng-if="singleLot.isCl && !singleLot.isSold">
                         <p class="top">Снят</p>
                     </div>
                     <!--<div class="info" ng-if="singleLot.isCl"><p class="top">лот снят</div>-->

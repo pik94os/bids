@@ -26,14 +26,12 @@ define(['./module', 'jquery'], function (controllers, $) {
         $scope.regist = function (auctionId, auctionDate) {
             $scope.auctionId = auctionId;
             $scope.auctionDate = auctionDate;
-            console.log(auctionId, auctionDate);
             var temp = {
                 userId : $scope.currentUserInfo.id,
                 password : $scope.auctionInfo.password
             };
             ngSocket.emit('checkPassword', temp);
         };
-
         ngSocket.on('passwordChecked', function (data) {
             if (!data.err) {
                 $scope.hideRegButton = true;
@@ -42,7 +40,7 @@ define(['./module', 'jquery'], function (controllers, $) {
                     $scope.selectedAuctionInMain.date = $scope.auctionDate;
                     $scope.selectedAuctionInMain.id = $scope.auctionId;
                 }
-                $state.go('room', { auctionId : $scope.selectedAuctionInMain.id } );
+                $state.go('room', {auctionId : $scope.selectedAuctionInMain.id} );
                 $('#auctionIn').modal('hide');
             } else {
                 $scope.invalidPassword = true;
