@@ -143,12 +143,12 @@
     <div class="col-sm-4">
         <div class="custom-btn-sm btn-block" ng-click="createNewLot('saveAndGoBack')" ng-if="!saveEditedLot">Сохранить
         </div>
-        <div class="custom-btn-sm btn-block" ng-click="editLot(true)" ng-if="saveEditedLot">Сохранить</div>
+        <div class="custom-btn-edited btn-block" ng-click="editLot(true)" ng-if="saveEditedLot">Сохранить</div>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-4">
         <div class="custom-btn-sm btn-block" ng-click="createNewLot('saveAndCreateNew')" ng-if="!saveEditedLot">
             Сохранить и создать новый
         </div>
-        <div class="custom-btn-sm btn-block" ng-click="editLot(false)" ng-if="saveEditedLot">Изменить и продолжить</div>
+        <div class="custom-btn-edited btn-block" ng-click="editLot(false)" ng-if="saveEditedLot">Изменить и продолжить</div>
     </div>
-</div>
+</div><br>
