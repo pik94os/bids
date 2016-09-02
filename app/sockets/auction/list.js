@@ -9,18 +9,14 @@ let sequelize = require('sequelize');
 
 module.exports = function(socket, data) {
 
-
-    let where = {
-        isArchive : false
-    };
+    let where = data.public ? {} : {isArchive : false};
     if(!data.public && !data.forLeader){
         where = {userId: socket.request.user.id, isArchive:false};
     }
 
     if (!data.forLeader){
         Auction.findAll({where,
-            include: Lot,
-            order: [['date', 'DESC']]
+            include: Lot
         }).then(function(auctionList) {
                 socket.emit('auctionList', {
                     'err': 0,
@@ -41,18 +37,27 @@ module.exports = function(socket, data) {
             ],
             attributes:['id','name','isClose',
                 [sequelize.fn('count', sequelize.fn('DISTINCT',sequelize.col('auction_users.userId'))), 'users_count'],
-                [sequelize.fn('count', sequelize.fn('DISTINCT',sequelize.col('lots.id'))), 'lots_count'],
-                [sequelize.fn('count', sequelize.fn('DISTINCT', sequelize.col('lots.isSold'))), 'lotsIsSold_count']
+                [sequelize.fn('count', sequelize.fn('DISTINCT',sequelize.col('lots.id'))), 'lots_count']
                 // ,
                 // [sequelize.fn('sum', sequelize.col('lots.isSold'), 'allLots_count')]
             ],
             group: ['auction.id']
         }).then(function(auctionList) {
+            Auction.findAll({
+                where:  {
+                    isArchive: false
+            },
+                include: [{
+                    model: Lot,
+                    where: {isSold: true}
+                }]
+            }).then((lotsIsSold)=> {
                 socket.emit('auctionListForLeader', {
                     'err': 0,
-                    auctionList: auctionList
+                    auctionList: auctionList,
+                    lotsIsSold: lotsIsSold
                 });
-            console.log(auctionList);
+            })
             }).catch(function (err) {
             socket.emit('auctionListForLeader',
                 {err: 1, message: err.message}

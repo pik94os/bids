@@ -27,8 +27,6 @@ define(['./module','jquery'],function(controllers,$){
             userId: $scope.currentUserInfo.id
         });
         ngSocket.on('catchUserAuction', function (data) {
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>');
-            console.log(data);
             $scope.userAuction = data.userAuction;
         });
 
@@ -42,6 +40,9 @@ define(['./module','jquery'],function(controllers,$){
                 return false;
             }
         };
+            $scope.archiveAuction = function (data) {
+                $scope.archive = data ? 'скрыть' : 'показать'
+            };
 
         ngSocket.emit('auction/list',{'public':true});
         ngSocket.on('auctionList',function (data) {
@@ -51,6 +52,7 @@ define(['./module','jquery'],function(controllers,$){
             if(+$scope.currentUserInfo.id){
                 $scope.notRegistr = true;
             }
+            $scope.archive = 'показать';
             $scope.tempUserInfo=$scope.currentUserInfo;
             $scope.myDate = function (d) {
                 var date = d.split('T')[0].split('-');
@@ -59,7 +61,21 @@ define(['./module','jquery'],function(controllers,$){
                 d = date[2]+'.'+date[1]+'.'+date[0];
                 return d + ' в ' + time;
             };
-            $scope.auctionList = JSON.parse(JSON.stringify(data.auctionList));
+            $scope.auctionList = []; //JSON.parse(JSON.stringify(data.auctionList));
+            $scope.auctionListIsArchive = [];
+            data.auctionList.forEach(function (item,i) {
+                if(!item.isArchive) {
+                    if(Date.now() < item.date && item.date < (Date.now() + 86400000) && !data.start) {
+                        $scope.auctionList.unshift(item);
+                        console.log('step: 2',$scope.auctionList[i]);
+                    } else if(!data.start){
+                        $scope.auctionList.push(item);
+                        console.log('step: 3',$scope.auctionList[i]);
+                    }
+                } else if(item.isArchive) {
+                    $scope.auctionListIsArchive.push(item)
+                }
+            });
         });
         
         $scope.hidedBtns = [];

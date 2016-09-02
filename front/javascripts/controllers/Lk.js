@@ -110,9 +110,15 @@ define(['./module', 'jquery'], function (controllers, $) {
             ngSocket.emit('auction/list', {forLeader: true});
             ngSocket.on('auctionListForLeader', function (result) {
                 $scope.auctionListForLeader = result.auctionList;
-                result.auctionList.forEach(function (item, i) {
+                $scope.countLotsIsSold = [];
+                result.auctionList.forEach(function (item) {
+                    result.lotsIsSold.forEach(function (countItem) {
+                        if(item.id === countItem.id) {
+                            $scope.countLotsIsSold.push(countItem.lots.length)
+                        }
+                    });
+
                 });
-                console.log($scope.auctionListForLeader);
                 // result.auctionList.forEach(function (i) {
                 //     console.log('>>>>>>>>>>>>>>>');
                 //     console.log(i);

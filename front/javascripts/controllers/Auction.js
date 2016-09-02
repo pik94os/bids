@@ -93,7 +93,6 @@ define(['./module','jquery'],function(controllers,$){
             if(data.err) {
                 alert(data.message)
             }
-            console.log(data);
             $scope.auction = JSON.parse(JSON.stringify(data.data));
             $scope.date = data.data.date;
             $scope.number = data.data.number;

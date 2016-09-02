@@ -31,7 +31,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             } else if(data.auction.start === null && !$scope.fuckStop) {
                 $scope.auctionStart = new Date();
                 ngSocket.emit('auction/getListBids', {auctionId: $stateParams.auctionId, lotId: +$scope.lotId});
-                console.log(data.auction.start,'||', $scope.fuckStop,'||',$scope.auctionStart)
             }
             $scope.lots = data.auction.lots;
             $scope.lots.forEach(function (lot) {
@@ -39,7 +38,6 @@ define(['./module', 'jquery'], function (controllers, $) {
                     $scope.closedLots.push(lot.number);
                 }
             });
-            console.log($scope.closedLots);
         });
 
 
@@ -314,6 +312,7 @@ define(['./module', 'jquery'], function (controllers, $) {
 
         });
         function setLotInfo(lot) {
+            $scope.priceNext = lot.sellingPrice !== null ? lot.sellingPrice + calcStep(lot.sellingPrice): lot.estimateFrom;
             $scope.descriptionPrevArr = [];
             $scope.lotList = lot;
             if (lot && lot.descriptionPrev !== undefined) {
@@ -424,6 +423,7 @@ define(['./module', 'jquery'], function (controllers, $) {
         });
 
         ngSocket.on('auctionState', function (data) {
+            $scope.priceNext = data.lot.estimateFrom;
             setLotInfo(data.lot);
             setTimeout(function () {
                 $scope.cleanLot = true;

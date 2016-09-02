@@ -132,7 +132,7 @@
                         <!--<p class="auction-body-header">{{myDate(auction.date)}} | Москва | Online</p>-->
                         <p class="front-body-in-center-p2">Аукцион {{auction.number}}</p>
                         <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
-                        <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
+                        <p class="front-body-in-center-p4">{{auction.name}}</p>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -165,34 +165,34 @@
         </div>
     </div>
 
-    <!--<div class="filter-bottom" onclick="$('.auctions-list').collapse('toggle')">-->
-        <!--<div class="filter-bottom-div">-->
-            <!--<div class="filter-bottom-div-left">Показать архивные</div>-->
-            <!--<div class="filter-bottom-div-right"><img src="images/down-arrow2.png"></div>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div class="filter-bottom" onclick="$('.auctions-list').collapse('toggle')">
+        <div class="filter-bottom-div">
+            <div class="filter-bottom-div-left" ng-click="archiveAuction(archive === 'показать' ? 1 : 0)">{{archive}} архивные</div>
+            <div class="filter-bottom-div-right"><img src="images/down-arrow2.png"></div>
+        </div>
+    </div>
 
     <div class="auctions-list auctions-list-archive collapse">
-        <div class="auction row" ng-repeat="i in [1,2,3,4,5,6,7,8]">
+        <div class="auction row" ng-repeat="auctionArchive in auctionListIsArchive">
             <div>
                 <div class="col-md-9">
                     <div class="auction-img">
                         <img src="images/image-body-in.png">
                     </div>
                     <div class="auction-body">
-                        <p class="auction-body-header">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
-                        <p class="front-body-in-center-p2">Аукцион 2</p>
+                        <p class="auction-body-header">{{auctionArchive.date | date: "dd.MM.yyyy"}} | Москва | Гостинница Украина</p>
+                        <p class="front-body-in-center-p2">Аукцион {{auctionArchive.number}}</p>
                         <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
-                        <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
+                        <p class="front-body-in-center-p4">{{auctionArchive.name}}</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="row">
                         <div class="col-xs-4 col-md-12">
-                            <div class="auction-button active" data-toggle="modal" data-target="#reg-for-the-auction">Регистрация</div>
+                            <!--<div class="auction-button active" data-toggle="modal" data-target="#reg-for-the-auction">Регистрация</div>-->
                         </div>
                         <div class="col-xs-4 col-md-12"><div class="auction-button" ui-sref="auction({open:1})">Просмотр каталога</div></div>
-                        <div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div>
+                        <!--<div class="col-xs-4 col-md-12"><div class="auction-button">Добавить в календарь</div></div>-->
                         <div class="col-xs-4 col-md-12"><div class="auction-button">Распечатать каталог</div></div>
                     </div>
                 </div>
