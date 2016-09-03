@@ -19,10 +19,10 @@
                         <img src="images/image-body-in.png">
                     </div>
                     <div class="auction-body">
-                        <p class="auction-body-header">{{singleAuction.date | date: "dd.MM.yyyy" }} | Москва | Гостинница Украина</p>
+                        <p class="auction-body-header">{{singleAuction.date | date: "dd.MM.yyyy" }} | Москва | Online</p>
                         <p class="front-body-in-center-p2">Аукцион {{singleAuction.number}}</p>
                         <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
-                        <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
+                        <p class="front-body-in-center-p4">{{singleAuction.name}}</p>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -41,23 +41,23 @@
 
     <div class="filter-bottom" onclick="$('.auctions-list').collapse('toggle')">
         <div class="filter-bottom-div">
-            <div class="filter-bottom-div-left">Показать архивные</div>
+            <div class="filter-bottom-div-left" ng-click="archiveAuction(archive === 'показать' ? 1 : 0)">{{archive}} архивные</div>
             <div class="filter-bottom-div-right"><img src="images/down-arrow2.png"></div>
         </div>
     </div>
 
     <div class="auctions-list auctions-list-archive collapse">
-        <div class="auction row" ng-repeat="i in [1,2,3,4,5,6,7,8]">
+        <div class="auction row" ng-repeat="auction in auctionListIsArchive">
             <div class="">
                 <div class="col-md-9">
                     <div class="auction-img">
                         <img src="images/image-body-in.png">
                     </div>
                     <div class="auction-body">
-                        <p class="auction-body-header">19 Февраля 2016 в 19:00 | Москва | Гостинница Украина</p>
-                        <p class="front-body-in-center-p2">Аукцион 2</p>
+                        <p class="auction-body-header">{{auctionListIsArchive.date | date: "dd.MM.yyyy"}} | Москва | Online</p>
+                        <p class="front-body-in-center-p2">Аукцион {{auctionListIsArchive.number}}</p>
                         <p class="front-body-in-center-p3">Антикварный книжный клуб</p>
-                        <p class="front-body-in-center-p4">Редкие и ценные книги, плакаты, открытки</p>
+                        <p class="front-body-in-center-p4">{{auctionListIsArchive.name}}</p>
                     </div>
                 </div>
                 <div class="col-md-3">

@@ -17,7 +17,8 @@ module.exports = function (socket, data) {
             return
         }
         Auction.update({
-            isClose: new Date()
+            isClose: new Date(),
+            isArchive: true
         }, {
             where: {
                 id: data.id

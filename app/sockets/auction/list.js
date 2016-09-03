@@ -16,7 +16,8 @@ module.exports = function(socket, data) {
 
     if (!data.forLeader){
         Auction.findAll({where,
-            include: Lot
+            include: Lot,
+            order: [['date', 'ASC']]
         }).then(function(auctionList) {
                 socket.emit('auctionList', {
                     'err': 0,

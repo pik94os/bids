@@ -49,6 +49,7 @@ define(['./module','jquery'],function(controllers,$){
             if(data.err){
                 alert(data.message);
             }
+            
             if(+$scope.currentUserInfo.id){
                 $scope.notRegistr = true;
             }
@@ -63,16 +64,14 @@ define(['./module','jquery'],function(controllers,$){
             };
             $scope.auctionList = []; //JSON.parse(JSON.stringify(data.auctionList));
             $scope.auctionListIsArchive = [];
-            data.auctionList.forEach(function (item,i) {
-                if(!item.isArchive) {
-                    if(Date.now() < item.date && item.date < (Date.now() + 86400000) && !data.start) {
+            data.auctionList.forEach(function (item) {
+                 if(!item.isArchive) {
+                    if(Date.now() < item.date && item.date < (Date.now() + 86400000)) {
                         $scope.auctionList.unshift(item);
-                        console.log('step: 2',$scope.auctionList[i]);
-                    } else if(!data.start){
+                    } else {
                         $scope.auctionList.push(item);
-                        console.log('step: 3',$scope.auctionList[i]);
                     }
-                } else if(item.isArchive) {
+                } else {
                     $scope.auctionListIsArchive.push(item)
                 }
             });

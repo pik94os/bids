@@ -30,7 +30,6 @@ define(['./module', 'jquery'], function (controllers, $) {
             d = date[2] + '.' + date[1] + '.' + date[0];
             return d + ' в ' + time;
         };
-
         ngSocket.on('auctionCreated', function (result) {
             if (result.err) {
                 alert(result.message);
